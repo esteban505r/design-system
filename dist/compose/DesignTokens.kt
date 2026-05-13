@@ -4,12 +4,12 @@
 
 
 
-package 
+package com.estebanruano.designtokens
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.*
 
-object {
+object DesignTokens {
   val colorNeutral0 = Color(0xffffffff)
   val colorNeutral100 = Color(0xfff3f4f6)
   val colorNeutral1000 = Color(0xff000000)

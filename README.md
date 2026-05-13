@@ -156,7 +156,78 @@ dependencies {
 
 Use the same **`mavenGroupId`**, **`mavenArtifactId`**, and **`package.json` `version`** as in this design-system repo’s **`gradle.properties`** / **`package.json`** (e.g. `com.estebanruano:tokens-android`).
 
-Local Gradle copies `dist/android/*.xml` into `design-tokens-android` on each `preBuild` — run **`pnpm run sync`** before `./gradlew` if `dist/android` is missing.
+**Authenticate for GitHub Packages** (local machine): add to `~/.gradle/gradle.properties` (do not commit):
+
+```properties
+gpr.user=YOUR_GITHUB_USERNAME
+gpr.key=YOUR_PAT_WITH_read:packages
+```
+
+In **CI** for the consuming app, inject the same values (e.g. repository secrets mapped to env vars or `ORG_GRADLE_PROJECT_gpr.*` so Gradle picks them up).
+
+### Using tokens in Android app code
+
+The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only (colors, dimens, font dimens, etc.). After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
+
+**Resource names** match the generated files in this repo under **`dist/android/`** (e.g. `colors.xml`, `dimens.xml`). Typical names look like `color_primary_500`, `color_neutral_500`, `spacing_4`, `radius_md` — always confirm the exact `name="…"` in those files when you add or rename tokens.
+
+**XML layouts**
+
+```xml
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/color_primary_500"
+    android:padding="@dimen/spacing_4" />
+```
+
+**`styles.xml` / Material theme**
+
+```xml
+<style name="Theme.MyApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/color_primary_500</item>
+    <item name="colorOnPrimary">@color/color_neutral_0</item>
+</style>
+```
+
+**Kotlin (Views, no Compose)** — use your **application module** `R` (it includes merged library resources):
+
+```kotlin
+import androidx.core.content.ContextCompat
+import com.yourapp.R
+
+val color = ContextCompat.getColor(context, R.color.color_primary_500)
+view.setBackgroundColor(color)
+
+val paddingPx = resources.getDimensionPixelSize(R.dimen.spacing_4)
+```
+
+**Jetpack Compose**
+
+```kotlin
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import com.yourapp.R
+
+@Composable
+fun BrandSurface() {
+    Surface(color = colorResource(R.color.color_primary_500)) {
+        // …
+    }
+}
+```
+
+`dimensionResource(R.dimen.…)` follows normal Android `dimen` semantics; check the AndroidX Compose docs for your BOM to see how values map to **`Dp`** in composables.
+
+**`R` class / non-transitive R**
+
+With **`android.nonTransitiveRClass=true`**, you still normally use **`com.yourapp.R`** in the **app** module for merged resources from dependencies. The library’s own namespace (`tokensAndroidNamespace` in `gradle.properties`) is mainly for the AAR’s internal `R` / manifest, not something you must import in app code unless you choose to.
+
+**Name clashes**
+
+If your app defines the same resource name (e.g. `color_primary_500`) in `res/values/`, the **app resource overrides** the library. To avoid collisions long-term, add a stable prefix in the token build (e.g. `ds_color_primary_500`) in Style Dictionary / naming convention.
+
+Local Gradle in **this** repo copies `dist/android/*.xml` into `design-tokens-android` on each `preBuild` — run **`pnpm run sync`** before `./gradlew` if `dist/android` is missing.
 
 ## Adding a New Platform
 
