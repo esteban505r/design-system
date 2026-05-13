@@ -1,6 +1,7 @@
 # After a PR is merged to main, publish the Android library to GitHub Packages (Gradle/Maven).
 #
-# Version = package.json "version" (bump it when you need a new release; duplicates fail on GPR).
+# Version = package.json "version". GitHub Packages returns HTTP 409 if that GAV already exists —
+# bump the version and push again; published artifacts are never overwritten.
 
 name: Publish Android library
 
@@ -59,5 +60,6 @@ jobs:
         run: |
           VERSION=$(jq -r .version package.json)
           echo "Publishing design-tokens-android (groupId/artifactId from gradle.properties) version ${VERSION}"
+          echo "If Gradle fails with 409 Conflict, bump \"version\" in package.json — that version is already on GitHub Packages."
           chmod +x gradlew
           ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon

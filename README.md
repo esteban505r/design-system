@@ -134,7 +134,7 @@ This repo can run the full “edit markdown → tokens → PR → Maven” loop 
 **Repo settings you need**
 
 1. **Actions → General → Workflow permissions**: allow **Read and write** so the sync job can push commits and open PRs.
-2. **Publishing**: GitHub Packages uses `GITHUB_TOKEN` from Actions (`packages: write` is set in the publish workflow). Bump **`version` in `package.json`** when you need a new Maven coordinate — republishing the same version is rejected.
+2. **Publishing**: GitHub Packages uses `GITHUB_TOKEN` from Actions (`packages: write` is set in the publish workflow). Bump **`version` in `package.json`** for every new Maven release — **the same version cannot be published twice** (Gradle will fail with **HTTP 409 Conflict** if you try).
 
 **Android apps** add the GitHub Packages Maven URL and dependency (replace `OWNER/REPO`):
 
@@ -150,7 +150,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.estebanruano:tokens-android:1.0.0")
+    implementation("com.estebanruano:tokens-android:1.0.1")
 }
 ```
 
