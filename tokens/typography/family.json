@@ -1,0 +1,18 @@
+{
+  "font": {
+    "family": {
+      "display": {
+        "$value": "Montserrat",
+        "$type": "fontFamily"
+      },
+      "body": {
+        "$value": "Montserrat",
+        "$type": "fontFamily"
+      },
+      "mono": {
+        "$value": "Montserrat",
+        "$type": "fontFamily"
+      }
+    }
+  }
+}

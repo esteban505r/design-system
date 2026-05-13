@@ -1,12 +1,18 @@
 # Design System Tokens
 
-Single source of truth for all design tokens. One `pnpm run build` generates platform-specific outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
+Single source of truth for all design tokens. One `npm run build` generates platform-specific outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
 
 ## Quick Start
 
 ```bash
-pnpm install
-pnpm run build
+npm install
+
+# Full pipeline: markdown → token JSONs → all platform outputs
+npm run sync
+
+# Or run each step separately:
+npm run parse    # markdown → token JSONs only
+npm run build    # token JSONs → platform outputs only
 ```
 
 Outputs land in `build/`:
@@ -28,6 +34,36 @@ build/
 │   └── DesignTokens.kt     # Kotlin object (Compose Color/Dp)
 └── json/
     └── tokens.json         # Flat JSON (debugging / other tools)
+```
+
+## How It Works
+
+The pipeline has two stages:
+
+**Stage 1 — `npm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
+
+**Stage 2 — `npm run build`** runs Style Dictionary, which reads all `tokens/**/*.json` files and generates platform-specific outputs in `build/`.
+
+**`npm run sync`** runs both stages in sequence — this is the single command the design team needs.
+
+### Workflow
+
+```
+design-system-foundations.md    ← Designers edit this (the human-readable source)
+         │
+         ▼  npm run parse
+    tokens/**/*.json            ← DTCG-format JSON (auto-generated)
+         │
+         ▼  npm run build
+    build/                      ← Platform outputs (auto-generated)
+    ├── web/tokens.css
+    ├── web/tokens.js
+    ├── android/colors.xml
+    ├── android/dimens.xml
+    ├── ios/DesignTokens.swift
+    ├── flutter/design_tokens.dart
+    ├── compose/DesignTokens.kt
+    └── json/tokens.json
 ```
 
 ## Token Structure
@@ -82,7 +118,7 @@ claude "Update primary-500 to #8855CC in tokens/color/primary.json, rebuild, com
      }
    }
    ```
-3. Run `pnpm run build` to verify all platforms generate correctly
+3. Run `npm run build` to verify all platforms generate correctly
 4. Commit and push — CI will rebuild and publish
 
 ## Adding a New Platform

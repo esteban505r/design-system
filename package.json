@@ -5,8 +5,10 @@
   "description": "Design system tokens — single source of truth for all platforms",
   "main": "index.js",
   "scripts": {
+    "sync": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
     "build": "node sd.config.mjs",
-    "clean": "rm -rf build/"
+    "parse": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
+    "clean": "rm -rf build/ tokens/"
   },
   "keywords": [],
   "author": "",

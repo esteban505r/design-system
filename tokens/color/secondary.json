@@ -1,16 +1,46 @@
 {
   "color": {
     "secondary": {
-      "00":  { "$value": "#FFFDF5", "$type": "color", "$description": "Lightest tint" },
-      "50":  { "$value": "#FFF8E1", "$type": "color" },
-      "100": { "$value": "#FFECB3", "$type": "color" },
-      "200": { "$value": "#FFE082", "$type": "color" },
-      "300": { "$value": "#FFD54F", "$type": "color" },
-      "400": { "$value": "#FFCA28", "$type": "color" },
-      "500": { "$value": "#FFBD42", "$type": "color", "$description": "Main secondary color" },
-      "600": { "$value": "#FFB300", "$type": "color" },
-      "700": { "$value": "#E79B1D", "$type": "color" },
-      "800": { "$value": "#C28B30", "$type": "color", "$description": "Darkest shade" }
+      "50": {
+        "$value": "#FFF8E1",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FFECB3",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#FFE082",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#FFD54F",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#FFCA28",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#FFBD42",
+        "$type": "color"
+      },
+      "600": {
+        "$value": "#FFB300",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#E79B1D",
+        "$type": "color"
+      },
+      "800": {
+        "$value": "#C28B30",
+        "$type": "color"
+      },
+      "00": {
+        "$value": "#FFFDF5",
+        "$type": "color"
+      }
     }
   }
 }

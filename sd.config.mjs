@@ -6,7 +6,7 @@ import StyleDictionary from 'style-dictionary';
 // This config reads all token JSON files from tokens/ and
 // builds platform-specific outputs into build/.
 //
-// Run:  pnpm run build
+// Run:  npm run build
 // ============================================================
 
 const sd = new StyleDictionary({
