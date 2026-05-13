@@ -1,8 +1,12 @@
 # Dependencies
 node_modules/
 
-# Style Dictionary output (regenerate with pnpm run build)
+# Gradle / Android
+.gradle/
 build/
+
+# Filled by Gradle from dist/android before each build (do not edit by hand)
+design-tokens-android/src/main/res/values/*.xml
 
 # pnpm
 .pnpm-debug.log*

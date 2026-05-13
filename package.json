@@ -8,7 +8,7 @@
     "sync": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
     "build": "node sd.config.mjs",
     "parse": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
-    "clean": "rm -rf build/ tokens/"
+    "clean": "rm -rf dist/ tokens/"
   },
   "keywords": [],
   "author": "",

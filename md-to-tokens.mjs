@@ -231,5 +231,5 @@ function deepMerge(target, source) {
 console.log(`\n✅ ${filesWritten} token file(s) written to ${outputDir}/`);
 console.log(`\nNext steps:`);
 console.log(`  1. Review the generated files`);
-console.log(`  2. Run: npm run build     (to generate platform outputs)`);
+console.log(`  2. Run: pnpm run build     (to generate platform outputs)`);
 console.log(`  3. Commit and push\n`);

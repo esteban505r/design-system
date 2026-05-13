@@ -1,0 +1,65 @@
+# After a PR is merged to main, publish the Android library to GitHub Packages (Gradle/Maven).
+#
+# Version = package.json "version" (bump it when you need a new release; duplicates fail on GPR).
+
+name: Publish Android library
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'design-system-foundations.md'
+      - 'tokens/**'
+      - 'dist/**'
+      - 'sd.config.mjs'
+      - 'md-to-tokens.mjs'
+      - 'design-tokens-android/**'
+      - 'package.json'
+      - 'gradle/**'
+      - 'gradlew'
+      - 'gradlew.bat'
+      - 'settings.gradle.kts'
+      - 'build.gradle.kts'
+      - 'gradle.properties'
+      - '.github/workflows/publish-android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: publish-android-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run sync
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Publish to GitHub Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "Publishing com.yourorg.designsystem:tokens-android:${VERSION}"
+          chmod +x gradlew
+          ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon

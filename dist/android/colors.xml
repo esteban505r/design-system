@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Do not edit directly, this file was auto-generated.
+-->
+<resources>
+  <color name="color_neutral_0">#ffffffff</color>
+  <color name="color_neutral_50">#fff9fafb</color>
+  <color name="color_neutral_100">#fff3f4f6</color>
+  <color name="color_neutral_200">#ffe5e7eb</color>
+  <color name="color_neutral_300">#ffd1d5db</color>
+  <color name="color_neutral_400">#ff9ca3af</color>
+  <color name="color_neutral_500">#ff6b7280</color>
+  <color name="color_neutral_600">#ff4b5563</color>
+  <color name="color_neutral_700">#ff374151</color>
+  <color name="color_neutral_800">#ff1f2937</color>
+  <color name="color_neutral_900">#ff030712</color>
+  <color name="color_neutral_1000">#ff000000</color>
+  <color name="color_primary_50">#ffebe2f8</color>
+  <color name="color_primary_100">#ffd6c4f2</color>
+  <color name="color_primary_200">#ffb896e7</color>
+  <color name="color_primary_300">#ff9d6ed9</color>
+  <color name="color_primary_400">#ff8a5ace</color>
+  <color name="color_primary_500">#ff7d4dbe</color>
+  <color name="color_primary_600">#ff6436ab</color>
+  <color name="color_primary_700">#ff471f86</color>
+  <color name="color_primary_800">#ff2d0f5e</color>
+  <color name="color_primary_00">#fff5f0fc</color>
+  <color name="color_secondary_50">#fffff8e1</color>
+  <color name="color_secondary_100">#ffffecb3</color>
+  <color name="color_secondary_200">#ffffe082</color>
+  <color name="color_secondary_300">#ffffd54f</color>
+  <color name="color_secondary_400">#ffffca28</color>
+  <color name="color_secondary_500">#ffffbd42</color>
+  <color name="color_secondary_600">#ffffb300</color>
+  <color name="color_secondary_700">#ffe79b1d</color>
+  <color name="color_secondary_800">#ffc28b30</color>
+  <color name="color_secondary_00">#fffffdf5</color>
+  <color name="color_semantic_success_light">#ffbbf7d0</color>
+  <color name="color_semantic_success">#ff16a34a</color>
+  <color name="color_semantic_success_dark">#ff15803d</color>
+  <color name="color_semantic_warning_light">#fffef3c7</color>
+  <color name="color_semantic_warning">#ffffb90a</color>
+  <color name="color_semantic_warning_dark">#ffbd750f</color>
+  <color name="color_semantic_error_light">#fffee2e2</color>
+  <color name="color_semantic_error">#ffdc2626</color>
+  <color name="color_semantic_error_dark">#ffb91c1c</color>
+  <color name="color_semantic_info_light">#ffdbeafe</color>
+  <color name="color_semantic_info">#ff2563eb</color>
+  <color name="color_semantic_info_dark">#ff1245d4</color>
+</resources>

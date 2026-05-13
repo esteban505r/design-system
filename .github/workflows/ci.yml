@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Regenerate outputs (must match committed files)
+        run: pnpm run sync
+
+      - name: Fail if generated files drift
+        run: |
+          git add -A
+          if ! git diff --staged --exit-code; then
+            echo "::error::Run \`pnpm run sync\` locally and commit \`tokens/\` and \`dist/\` (or push an update to \`design-system-foundations.md\` and let the sync workflow commit)."
+            git diff --staged
+            exit 1
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Assemble Android library
+        run: chmod +x gradlew && ./gradlew :design-tokens-android:assembleRelease --no-daemon

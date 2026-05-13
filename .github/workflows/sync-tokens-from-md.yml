@@ -1,0 +1,66 @@
+# When someone updates the foundations markdown, regenerate tokens + dist outputs,
+# commit to the same branch, and open a PR into main (if not already open).
+#
+# Requires: Settings → Actions → General → Workflow permissions → Read and write.
+
+name: Sync tokens from markdown
+
+on:
+  push:
+    paths:
+      - 'design-system-foundations.md'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: token-sync-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Regenerate tokens and platform outputs
+        run: pnpm run sync
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes after sync — working tree already up to date."
+            exit 0
+          fi
+          git commit -m "chore(tokens): sync from design-system-foundations.md"
+          git push
+
+      - name: Open pull request (feature branches only)
+        if: github.ref != 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="${GITHUB_REF_NAME}"
+          COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
+          if [ "$COUNT" -eq 0 ]; then
+            gh pr create --base main --head "$BRANCH" \
+              --title "Design tokens: update from foundations markdown" \
+              --body "Auto-generated from \`design-system-foundations.md\`. Review \`tokens/\` and \`dist/\`, then merge. **Bump \`version\` in \`package.json\` when you need a new Maven coordinate** (GitHub Packages rejects duplicate versions)."
+          else
+            echo "Open PR already exists for branch $BRANCH"
+          fi

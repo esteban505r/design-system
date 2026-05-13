@@ -4,9 +4,9 @@ import StyleDictionary from 'style-dictionary';
 // Style Dictionary Config — Design System Tokens
 // ============================================================
 // This config reads all token JSON files from tokens/ and
-// builds platform-specific outputs into build/.
+// builds platform-specific outputs into dist/ (Gradle uses ./build/).
 //
-// Run:  npm run build
+// Run:  pnpm run build
 // ============================================================
 
 const sd = new StyleDictionary({
@@ -16,7 +16,7 @@ const sd = new StyleDictionary({
     // ── Web: CSS Custom Properties ─────────────────────────
     css: {
       transformGroup: 'css',
-      buildPath: 'build/web/',
+      buildPath: 'dist/web/',
       files: [
         {
           destination: 'tokens.css',
@@ -31,7 +31,7 @@ const sd = new StyleDictionary({
     // ── Web: JavaScript / TypeScript module ─────────────────
     js: {
       transformGroup: 'js',
-      buildPath: 'build/web/',
+      buildPath: 'dist/web/',
       files: [
         {
           destination: 'tokens.js',
@@ -43,7 +43,7 @@ const sd = new StyleDictionary({
     // ── Android: XML resources ──────────────────────────────
     android: {
       transformGroup: 'android',
-      buildPath: 'build/android/',
+      buildPath: 'dist/android/',
       files: [
         {
           destination: 'colors.xml',
@@ -66,7 +66,7 @@ const sd = new StyleDictionary({
     // ── iOS: Swift file ─────────────────────────────────────
     ios: {
       transformGroup: 'ios-swift',
-      buildPath: 'build/ios/',
+      buildPath: 'dist/ios/',
       files: [
         {
           destination: 'DesignTokens.swift',
@@ -79,7 +79,7 @@ const sd = new StyleDictionary({
     // ── Flutter: Dart constants ──────────────────────────────
     flutter: {
       transformGroup: 'flutter',
-      buildPath: 'build/flutter/',
+      buildPath: 'dist/flutter/',
       files: [
         {
           destination: 'design_tokens.dart',
@@ -92,7 +92,7 @@ const sd = new StyleDictionary({
     // ── Compose / KMP: Kotlin object ────────────────────────
     compose: {
       transformGroup: 'compose',
-      buildPath: 'build/compose/',
+      buildPath: 'dist/compose/',
       files: [
         {
           destination: 'DesignTokens.kt',
@@ -106,7 +106,7 @@ const sd = new StyleDictionary({
     // ── JSON dump (for debugging / other tools) ─────────────
     json: {
       transformGroup: 'js',
-      buildPath: 'build/json/',
+      buildPath: 'dist/json/',
       files: [
         {
           destination: 'tokens.json',

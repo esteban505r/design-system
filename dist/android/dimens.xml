@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Do not edit directly, this file was auto-generated.
+-->
+<resources>
+  <dimen name="radius_none">0.00dp</dimen>
+  <dimen name="radius_sm">64.00dp</dimen>
+  <dimen name="radius_md">128.00dp</dimen>
+  <dimen name="radius_lg">192.00dp</dimen>
+  <dimen name="radius_xl">256.00dp</dimen>
+  <dimen name="radius_2xl">384.00dp</dimen>
+  <dimen name="radius_full">159984.00dp</dimen>
+  <dimen name="spacing_1">64.00dp</dimen>
+  <dimen name="spacing_2">128.00dp</dimen>
+  <dimen name="spacing_3">192.00dp</dimen>
+  <dimen name="spacing_4">256.00dp</dimen>
+  <dimen name="spacing_5">320.00dp</dimen>
+  <dimen name="spacing_6">384.00dp</dimen>
+  <dimen name="spacing_8">512.00dp</dimen>
+  <dimen name="spacing_10">640.00dp</dimen>
+  <dimen name="spacing_12">768.00dp</dimen>
+  <dimen name="spacing_16">1024.00dp</dimen>
+  <dimen name="spacing_24">1536.00dp</dimen>
+  <dimen name="font_size_hero">1152.00dp</dimen>
+  <dimen name="font_size_h1">640.00dp</dimen>
+  <dimen name="font_size_h2">512.00dp</dimen>
+  <dimen name="font_size_h3">384.00dp</dimen>
+  <dimen name="font_size_h4">320.00dp</dimen>
+  <dimen name="font_size_h5">256.00dp</dimen>
+  <dimen name="font_size_body_lg">256.00dp</dimen>
+  <dimen name="font_size_body_md">224.00dp</dimen>
+  <dimen name="font_size_body_sm">192.00dp</dimen>
+  <dimen name="font_size_label">224.00dp</dimen>
+  <dimen name="font_size_button">224.00dp</dimen>
+  <dimen name="font_size_overline">192.00dp</dimen>
+  <dimen name="font_size_caption_italic">192.00dp</dimen>
+</resources>

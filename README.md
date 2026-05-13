@@ -1,24 +1,24 @@
 # Design System Tokens
 
-Single source of truth for all design tokens. One `npm run build` generates platform-specific outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
+Single source of truth for all design tokens. One `pnpm run build` generates platform-specific outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
 
 ## Quick Start
 
 ```bash
-npm install
+pnpm install
 
 # Full pipeline: markdown → token JSONs → all platform outputs
-npm run sync
+pnpm run sync
 
 # Or run each step separately:
-npm run parse    # markdown → token JSONs only
-npm run build    # token JSONs → platform outputs only
+pnpm run parse    # markdown → token JSONs only
+pnpm run build    # token JSONs → platform outputs only
 ```
 
-Outputs land in `build/`:
+Outputs land in `dist/` (Gradle uses `./build/`, so token outputs use `dist/` to avoid clashes):
 
 ```
-build/
+dist/
 ├── web/
 │   ├── tokens.css          # CSS custom properties
 │   └── tokens.js           # ES6 JavaScript constants
@@ -40,22 +40,22 @@ build/
 
 The pipeline has two stages:
 
-**Stage 1 — `npm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
+**Stage 1 — `pnpm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
 
-**Stage 2 — `npm run build`** runs Style Dictionary, which reads all `tokens/**/*.json` files and generates platform-specific outputs in `build/`.
+**Stage 2 — `pnpm run build`** runs Style Dictionary, which reads all `tokens/**/*.json` files and generates platform-specific outputs in `dist/`.
 
-**`npm run sync`** runs both stages in sequence — this is the single command the design team needs.
+**`pnpm run sync`** runs both stages in sequence — this is the single command the design team needs.
 
 ### Workflow
 
 ```
 design-system-foundations.md    ← Designers edit this (the human-readable source)
          │
-         ▼  npm run parse
+         ▼  pnpm run parse
     tokens/**/*.json            ← DTCG-format JSON (auto-generated)
          │
-         ▼  npm run build
-    build/                      ← Platform outputs (auto-generated)
+         ▼  pnpm run build
+    dist/                       ← Platform outputs (auto-generated; commit with PR)
     ├── web/tokens.css
     ├── web/tokens.js
     ├── android/colors.xml
@@ -118,8 +118,40 @@ claude "Update primary-500 to #8855CC in tokens/color/primary.json, rebuild, com
      }
    }
    ```
-3. Run `npm run build` to verify all platforms generate correctly
-4. Commit and push — CI will rebuild and publish
+3. Run `pnpm run sync` to verify all platforms generate correctly
+4. Commit and push — CI validates; merge to `main` publishes the Android library (see below)
+
+## Automation (GitHub Actions)
+
+This repo can run the full “edit markdown → tokens → PR → Maven” loop on GitHub:
+
+| Workflow | When | What it does |
+|----------|------|----------------|
+| **Sync tokens from markdown** | Push that changes `design-system-foundations.md` | Runs `pnpm run sync`, commits `tokens/` + `dist/` to the same branch, opens a PR into `main` if none exists (skipped on `main` if you only get the commit). |
+| **CI** | Pull requests to `main` | `pnpm run sync` then fails if anything drifts from the commit; builds `:design-tokens-android` with Gradle. |
+| **Publish Android library** | Push to `main` (paths touching tokens, `dist/`, Android module, or Gradle) or manual **Run workflow** | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages** as `com.yourorg.designsystem:tokens-android` at the version in `package.json`. |
+
+**Repo settings you need**
+
+1. **Actions → General → Workflow permissions**: allow **Read and write** so the sync job can push commits and open PRs.
+2. **Publishing**: GitHub Packages uses `GITHUB_TOKEN` from Actions (`packages: write` is set in the publish workflow). Bump **`version` in `package.json`** when you need a new Maven coordinate — republishing the same version is rejected.
+
+**Android apps** add the GitHub Packages Maven URL and dependency (replace `OWNER/REPO`):
+
+```kotlin
+repositories {
+    maven {
+        url = uri("https://maven.pkg.github.com/OWNER/REPO")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+// implementation("com.yourorg.designsystem:tokens-android:1.0.0")
+```
+
+Local Gradle copies `dist/android/*.xml` into `design-tokens-android` on each `preBuild` — run **`pnpm run sync`** before `./gradlew` if `dist/android` is missing.
 
 ## Adding a New Platform
 
