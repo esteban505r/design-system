@@ -98,7 +98,7 @@ const sd = new StyleDictionary({
           destination: 'DesignTokens.kt',
           format: 'compose/object',
           className: 'DesignTokens',
-          packageName: 'com.yourorg.designtokens',
+          packageName: 'com.estebanruano.designtokens',
         },
       ],
     },

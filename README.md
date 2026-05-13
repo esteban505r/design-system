@@ -129,7 +129,7 @@ This repo can run the full “edit markdown → tokens → PR → Maven” loop 
 |----------|------|----------------|
 | **Sync tokens from markdown** | Push that changes `design-system-foundations.md` | Runs `pnpm run sync`, commits `tokens/` + `dist/` to the same branch, opens a PR into `main` if none exists (skipped on `main` if you only get the commit). |
 | **CI** | Pull requests to `main` | `pnpm run sync` then fails if anything drifts from the commit; builds `:design-tokens-android` with Gradle. |
-| **Publish Android library** | Push to `main` (paths touching tokens, `dist/`, Android module, or Gradle) or manual **Run workflow** | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages** as `com.yourorg.designsystem:tokens-android` at the version in `package.json`. |
+| **Publish Android library** | Push to `main` (paths touching tokens, `dist/`, Android module, or Gradle) or manual **Run workflow** | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages**. Maven **groupId**, **artifactId**, and Android **namespace** are set in **`gradle.properties`** (`mavenGroupId`, `mavenArtifactId`, `tokensAndroidNamespace`). Version comes from **`package.json`**. |
 
 **Repo settings you need**
 
@@ -148,8 +148,13 @@ repositories {
         }
     }
 }
-// implementation("com.yourorg.designsystem:tokens-android:1.0.0")
+
+dependencies {
+    implementation("com.estebanruano:tokens-android:1.0.0")
+}
 ```
+
+Use the same **`mavenGroupId`**, **`mavenArtifactId`**, and **`package.json` `version`** as in this design-system repo’s **`gradle.properties`** / **`package.json`** (e.g. `com.estebanruano:tokens-android`).
 
 Local Gradle copies `dist/android/*.xml` into `design-tokens-android` on each `preBuild` — run **`pnpm run sync`** before `./gradlew` if `dist/android` is missing.
 

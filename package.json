@@ -1,5 +1,5 @@
 {
-  "name": "@yourorg/design-tokens",
+  "name": "@estebanruano/design-tokens",
   "version": "1.0.0",
   "packageManager": "pnpm@10.33.4",
   "description": "Design system tokens — single source of truth for all platforms",

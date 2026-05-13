@@ -58,6 +58,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(jq -r .version package.json)
-          echo "Publishing com.yourorg.designsystem:tokens-android:${VERSION}"
+          echo "Publishing design-tokens-android (groupId/artifactId from gradle.properties) version ${VERSION}"
           chmod +x gradlew
           ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon

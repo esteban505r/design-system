@@ -19,12 +19,16 @@ val syncAndroidTokensFromDist = tasks.register<Copy>("syncAndroidTokensFromDist"
     }
 }
 
+val mavenGroupId = (rootProject.findProperty("mavenGroupId") as String?) ?: error("mavenGroupId missing in root gradle.properties")
+val mavenArtifactId = (rootProject.findProperty("mavenArtifactId") as String?) ?: error("mavenArtifactId missing in root gradle.properties")
+val tokensAndroidNamespace = (rootProject.findProperty("tokensAndroidNamespace") as String?) ?: error("tokensAndroidNamespace missing in root gradle.properties")
+
 tasks.named("preBuild") {
     dependsOn(syncAndroidTokensFromDist)
 }
 
 android {
-    namespace = "com.yourorg.design.tokens"
+    namespace = tokensAndroidNamespace
     compileSdk = 34
 
     defaultConfig {
@@ -59,8 +63,8 @@ afterEvaluate {
     publishing {
         publications {
             create<MavenPublication>("release") {
-                groupId = "com.yourorg.designsystem"
-                artifactId = "tokens-android"
+                groupId = mavenGroupId
+                artifactId = mavenArtifactId
                 version = tokensVersion
                 from(components["release"])
             }
