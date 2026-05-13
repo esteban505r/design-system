@@ -1,0 +1,18 @@
+{
+  "name": "@yourorg/design-tokens",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.33.4",
+  "description": "Design system tokens — single source of truth for all platforms",
+  "main": "index.js",
+  "scripts": {
+    "build": "node sd.config.mjs",
+    "clean": "rm -rf build/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "style-dictionary": "^5.4.0"
+  },
+  "type": "module"
+}

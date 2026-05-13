@@ -1,0 +1,9 @@
+{
+  "opacity": {
+    "disabled": { "$value": 0.38, "$type": "number", "$description": "Disabled elements" },
+    "hover":    { "$value": 0.08, "$type": "number", "$description": "Hover overlay" },
+    "pressed":  { "$value": 0.12, "$type": "number", "$description": "Pressed state" },
+    "focus":    { "$value": 0.12, "$type": "number", "$description": "Focus ring" },
+    "scrim":    { "$value": 0.32, "$type": "number", "$description": "Modal backdrop" }
+  }
+}

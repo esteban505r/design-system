@@ -1,0 +1,13 @@
+{
+  "duration": {
+    "instant": { "$value": "100ms", "$type": "duration", "$description": "Micro-interactions" },
+    "fast":    { "$value": "150ms", "$type": "duration", "$description": "Hover states" },
+    "normal":  { "$value": "300ms", "$type": "duration", "$description": "Transitions" },
+    "slow":    { "$value": "500ms", "$type": "duration", "$description": "Page transitions" }
+  },
+  "easing": {
+    "default": { "$value": "cubic-bezier(0.4, 0, 0.2, 1)", "$type": "cubicBezier" },
+    "in":      { "$value": "cubic-bezier(0.4, 0, 1, 1)",    "$type": "cubicBezier" },
+    "out":     { "$value": "cubic-bezier(0, 0, 0.2, 1)",    "$type": "cubicBezier" }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "color": {
+    "primary": {
+      "00":  { "$value": "#F5F0FC", "$type": "color", "$description": "Lightest tint" },
+      "50":  { "$value": "#EBE2F8", "$type": "color" },
+      "100": { "$value": "#D6C4F2", "$type": "color" },
+      "200": { "$value": "#B896E7", "$type": "color" },
+      "300": { "$value": "#9D6ED9", "$type": "color" },
+      "400": { "$value": "#8A5ACE", "$type": "color" },
+      "500": { "$value": "#7D4DBE", "$type": "color", "$description": "Main brand color" },
+      "600": { "$value": "#6436AB", "$type": "color" },
+      "700": { "$value": "#471F86", "$type": "color" },
+      "800": { "$value": "#2D0F5E", "$type": "color", "$description": "Darkest shade" }
+    }
+  }
+}

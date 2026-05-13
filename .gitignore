@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Style Dictionary output (regenerate with pnpm run build)
+build/
+
+# pnpm
+.pnpm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Env (if you add secrets later)
+.env
+.env.*
+!.env.example
