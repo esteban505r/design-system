@@ -70,6 +70,8 @@ design-system-foundations.md    ← Designers edit this (the human-readable sour
 
 Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the `**Version:** x.y.z` line at the top of `design-system-foundations.md`. **`pnpm run parse`** and **`pnpm run sync`** write that value into `package.json`; Gradle uses `package.json` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump `**Version:**` for each release (npm and GitHub Packages reject duplicate versions).
 
+**Further reading:** [General next steps (all platforms)](docs/general-next-steps.md) · [Android + Material 3](docs/android-material3-next-steps.md)
+
 ## Using tokens on the web
 
 Web artifacts are **`dist/web/tokens.css`** (CSS custom properties on `:root`) and **`dist/web/tokens.js`** (named ES module exports, e.g. `ColorPrimary500`). **`dist/json/tokens.json`** is a flat JSON dump for scripts or design tooling.
@@ -301,6 +303,8 @@ gpr.key=YOUR_PAT_WITH_read:packages
 ```
 
 In **CI** for the consuming app, inject the same values (e.g. repository secrets mapped to env vars or `ORG_GRADLE_PROJECT_gpr.*` so Gradle picks them up).
+
+**Material 3 and multi-project structure:** see [docs/android-material3-next-steps.md](docs/android-material3-next-steps.md) for mapping tokens to M3 (Compose + Views), shared theme libraries vs apps, and flavors / multiple products.
 
 ### Using tokens in Android app code
 
