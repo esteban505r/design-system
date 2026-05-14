@@ -1,6 +1,6 @@
 # Design System Foundations
 
-**Version:** 1.0.3  
+**Version:** 1.0.4  
 **Scope:** Web · Mobile (iOS, Android)  
 **Status:** Active
 
