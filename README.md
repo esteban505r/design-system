@@ -238,14 +238,33 @@ flowchart TD
 
 Web publishes use **[npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)** from GitHub Actions (no long-lived **`NPM_TOKEN`**). Requirements from npm: **Node ≥ 22.14**, **npm CLI ≥ 11.5.1** (the workflow upgrades npm before publish).
 
-1. On **[npmjs.com](https://www.npmjs.com/)** → package **`@estebanruano/design-tokens`** → **Settings** → **Trusted publishing** → choose **GitHub Actions**.
-2. Set the publisher to this repo and workflow (values must match **exactly** — npm does not validate until publish):
-   - **Repository:** `esteban505r/design-system` (or your fork’s `owner/name` if you publish from a fork — then update **`package.json` → `repository.url`** to the same GitHub URL, [required by npm](https://docs.npmjs.com/trusted-publishers/)).
-   - **Workflow filename:** `publish-web.yml` (only the file name, including `.yml`).
-3. If the package does not exist yet, create it on npm (scoped package under the **`estebanruano`** org/user you control) or run a **one-time** publish with a classic token; then attach Trusted Publishing and you can [revoke](https://docs.npmjs.com/revoking-access-tokens) that token after a successful OIDC publish.
-4. Optional hardening: after OIDC works, under package **Publishing access**, npm recommends restricting token-based publishes ([docs](https://docs.npmjs.com/trusted-publishers/)).
+##### First publish on npm (bootstrap)
 
-If publish fails with **ENEEDAUTH** / trusted publisher errors, re-check the workflow name, repo name, and that **`repository.url`** in **`package.json`** is exactly `https://github.com/esteban505r/design-system.git` for this upstream repo.
+The public registry has no **`@estebanruano/design-tokens`** until the first successful **`npm publish`**. Do this **before** opening Trusted publishing in the npm UI (that screen needs an existing package). Run as an npm user (or org) that is allowed to publish under the **`@estebanruano`** scope. Use **Node ≥ 18.12** for `pnpm`:
+
+```bash
+cd /path/to/design-system
+nvm use 22                    # or another Node ≥ 18.12 (pnpm); ≥ 22.14 to match CI
+pnpm install --frozen-lockfile
+pnpm run sync
+npm login                     # browser login, or use a granular publish token (see npm docs)
+npm publish --access public   # creates the package; version = package.json (from **Version:** in the MD)
+```
+
+Check with **`npm view @estebanruano/design-tokens version`**. If publish fails with **403**, your npm user does not own the **`estebanruano`** scope — create an npm org or change **`package.json` → `name`** to a scope you control.
+
+##### Connect GitHub Actions (Trusted publishing)
+
+After the package exists on npm:
+
+1. On **[npmjs.com](https://www.npmjs.com/)** → package **`@estebanruano/design-tokens`** → **Settings** → **Trusted publishing** → choose **GitHub Actions**.
+2. Set the publisher so values match **exactly** (npm does not validate until publish):
+   - **Repository:** `esteban505r/design-system` (or your fork’s `owner/name` — then set **`package.json` → `repository.url`** to that repo’s HTTPS URL, [required by npm](https://docs.npmjs.com/trusted-publishers/)).
+   - **Workflow filename:** `publish-web.yml` (filename only, including `.yml`).
+3. Run **Actions → Publish web tokens (npm)** on **`main`** to confirm OIDC works; then you can [revoke](https://docs.npmjs.com/revoking-access-tokens) any bootstrap publish token you no longer need.
+4. Optional hardening: under package **Publishing access**, npm recommends restricting token-based publishes ([docs](https://docs.npmjs.com/trusted-publishers/)).
+
+If **Publish web tokens (npm)** fails with **ENEEDAUTH** or trusted-publisher errors, re-check the workflow filename, repository name, and **`repository.url`** in **`package.json`** (`https://github.com/esteban505r/design-system.git` for this upstream repo).
 
 **Android apps** add the GitHub Packages Maven URL and dependency (replace `OWNER/REPO`):
 
@@ -261,7 +280,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.estebanruano:tokens-android:1.0.1")
+    implementation("com.estebanruano:tokens-android:1.0.2")
 }
 ```
 
