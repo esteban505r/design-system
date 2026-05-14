@@ -58,7 +58,7 @@ jobs:
           if [ "$COUNT" -eq 0 ]; then
             gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from foundations markdown" \
-              --body "Auto-generated from \`design-system-foundations.md\`. Review \`tokens/\` and \`dist/\`, then merge. **Bump \`version\` in \`package.json\` when you need a new Maven coordinate** (GitHub Packages rejects duplicate versions)."
+              --body "Auto-generated from \`design-system-foundations.md\`. Review \`tokens/\`, \`dist/\`, and \`package.json\` (version is synced from **Version:** in the markdown). Merge when ready. For a new Maven/npm release, bump **Version:** in the foundations doc (GitHub Packages and npm reject duplicate versions)."
           else
             echo "Open PR already exists for branch $BRANCH"
           fi

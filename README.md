@@ -40,7 +40,7 @@ dist/
 
 The pipeline has two stages:
 
-**Stage 1 — `pnpm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
+**Stage 1 — `pnpm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, copies the `**Version:**` semver into `package.json`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
 
 **Stage 2 — `pnpm run build`** runs Style Dictionary, which reads all `tokens/**/*.json` files and generates platform-specific outputs in `dist/`.
 
@@ -65,6 +65,60 @@ design-system-foundations.md    ← Designers edit this (the human-readable sour
     ├── compose/DesignTokens.kt
     └── json/tokens.json
 ```
+
+### Versioning (releases)
+
+Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the `**Version:** x.y.z` line at the top of `design-system-foundations.md`. **`pnpm run parse`** and **`pnpm run sync`** write that value into `package.json`; Gradle uses `package.json` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump `**Version:**` for each release (npm and GitHub Packages reject duplicate versions).
+
+## Using tokens on the web
+
+Web artifacts are **`dist/web/tokens.css`** (CSS custom properties on `:root`) and **`dist/web/tokens.js`** (named ES module exports, e.g. `ColorPrimary500`). **`dist/json/tokens.json`** is a flat JSON dump for scripts or design tooling.
+
+### In this monorepo / locally
+
+Point your app at the folder (or run `pnpm run sync` after token edits):
+
+```bash
+pnpm add "design-tokens@file:../design-system"
+# or: npm install file:../path/to/design-system
+```
+
+Then import CSS once (global variables) and/or use JS constants:
+
+```ts
+import '@estebanruano/design-tokens/css';
+import { ColorPrimary500, Spacing4 } from '@estebanruano/design-tokens';
+```
+
+```css
+/* Bundlers that resolve package exports */
+@import '@estebanruano/design-tokens/css';
+
+.my-button {
+  background: var(--color-primary-500);
+  padding: var(--spacing-4);
+}
+```
+
+### Published npm package (recommended for apps)
+
+The package name is **`@estebanruano/design-tokens`**. The published version is the `**Version:**` line in `design-system-foundations.md` (copied into `package.json` when you run **`pnpm run sync`** before **Publish web tokens (npm)**). Install from the public npm registry:
+
+```bash
+pnpm add @estebanruano/design-tokens
+# or: npm install @estebanruano/design-tokens
+```
+
+Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … } from '@estebanruano/design-tokens'`** paths; **`@estebanruano/design-tokens/json`** resolves to the flat **`tokens.json`** if you need it in Node or build scripts.
+
+### Fetching without a package manager (CDN)
+
+After a version is on [npm](https://www.npmjs.com/), CDNs mirror tarballs, for example:
+
+- `https://cdn.jsdelivr.net/npm/@estebanruano/design-tokens@x.y.z/dist/web/tokens.css`
+- `https://cdn.jsdelivr.net/npm/@estebanruano/design-tokens@x.y.z/dist/web/tokens.js` (ES module; use `type="module"` in a script tag only if your page setup supports it)
+
+Pin the version in the URL for reproducible builds. For production SPAs, prefer installing the package so your bundler fingerprints assets and you stay on supported import semantics.
 
 ## Token Structure
 
@@ -93,7 +147,7 @@ tokens/
 
 ### For engineers (Claude Code)
 ```bash
-claude "Update primary-500 to #8855CC in tokens/color/primary.json, rebuild, commit and push"
+claude "Update primary-500 to #EA580C in tokens/color/primary.json, rebuild, commit and push"
 ```
 
 ### For designers (GitHub Web UI)
@@ -112,29 +166,86 @@ claude "Update primary-500 to #8855CC in tokens/color/primary.json, rebuild, com
    ```json
    {
      "token-name": {
-       "$value": "#FF0000",
+       "$value": "#F97316",
        "$type": "color",
        "$description": "Optional description"
      }
    }
    ```
 3. Run `pnpm run sync` to verify all platforms generate correctly
-4. Commit and push — CI validates; merge to `main` publishes the Android library (see below)
+4. Commit and push — CI validates; merge to `main`, then run **Publish Android library** and/or **Publish web tokens (npm)** manually when you want a Maven or npm release (see below)
 
 ## Automation (GitHub Actions)
 
-This repo can run the full “edit markdown → tokens → PR → Maven” loop on GitHub:
+This repo can run the full “edit markdown → tokens → PR → registries” loop on GitHub:
 
 | Workflow | When | What it does |
 |----------|------|----------------|
-| **Sync tokens from markdown** | Push that changes `design-system-foundations.md` | Runs `pnpm run sync`, commits `tokens/` + `dist/` to the same branch, opens a PR into `main` if none exists (skipped on `main` if you only get the commit). |
+| **Sync tokens from markdown** | Push that changes `design-system-foundations.md` | Runs `pnpm run sync`, commits `tokens/`, `dist/`, and `package.json` (when changed) to the same branch, then opens a PR into `main` if the branch is not `main` and no open PR exists. On `main`, it pushes the sync commit directly. |
 | **CI** | Pull requests to `main` | `pnpm run sync` then fails if anything drifts from the commit; builds `:design-tokens-android` with Gradle. |
-| **Publish Android library** | Push to `main` (paths touching tokens, `dist/`, Android module, or Gradle) or manual **Run workflow** | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages**. Maven **groupId**, **artifactId**, and Android **namespace** are set in **`gradle.properties`** (`mavenGroupId`, `mavenArtifactId`, `tokensAndroidNamespace`). Version comes from **`package.json`**. |
+| **Publish Android library** | Manual only: Actions → workflow → **Run workflow** (typically from `main`) | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages**. Maven **groupId**, **artifactId**, and Android **namespace** are set in **`gradle.properties`**. **Version** = `**Version:**` in `design-system-foundations.md` (via `package.json` after sync; override with `-PtokensVersion` / `TOKENS_VERSION` if needed). |
+| **Publish web tokens (npm)** | Manual only: Actions → workflow → **Run workflow** (typically from `main`) | `pnpm run sync`, then **`npm publish`** (npm ≥ 11.5.1) to **registry.npmjs.org** using **[Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)** (OIDC). Requires **`id-token: write`** in the workflow (already set) and a one-time **Trusted Publisher** config on npm for workflow file **`publish-web.yml`**. **Version** comes from the foundations markdown (see **Versioning** above). |
+
+### Deployment workflow
+
+Deployments are **manual** for Android (Maven) and web (npm). Nothing publishes automatically when you merge to `main`. Use this sequence when you want consumers to pick up a new release.
+
+**Workflow files** (under `.github/workflows/`):
+
+| File | Role |
+|------|------|
+| `sync-tokens-from-md.yml` | Regenerates artifacts after markdown edits (automatic on push). |
+| `ci.yml` | Validates PRs: regenerated tree must match the commit. |
+| `publish-android.yml` | Publishes the Android AAR to **GitHub Packages** (Maven). |
+| `publish-web.yml` | Publishes **`@estebanruano/design-tokens`** to **npm** via **OIDC** ([Trusted publishing](https://docs.npmjs.com/trusted-publishers/)). |
+
+**Recommended release path**
+
+1. **Change tokens or version** in `design-system-foundations.md` (including `**Version:**` when you intend a new Maven/npm release — see **Versioning (releases)** above).
+2. **Push** your branch. **Sync tokens from markdown** runs: it executes `pnpm run sync`, commits generated files, and either **opens a PR to `main`** (feature branches) or **pushes to `main`** (if you edited on `main` directly).
+3. **Review and merge** the PR when CI is green (or confirm the direct push on `main` if you used that path).
+4. **Publish** — only after `main` contains the version and artifacts you want live:
+   - **Android:** GitHub → **Actions** → **Publish Android library** → **Run workflow**, select **`main`** (or a release branch if you use one). Uses `GITHUB_TOKEN`; no extra secret.
+   - **Web:** GitHub → **Actions** → **Publish web tokens (npm)** → **Run workflow**, select **`main`**. Uses **OIDC trusted publishing** (no `NPM_TOKEN`); complete the [one-time npm setup](#npm-trusted-publishing-setup) below.
+
+Both publish workflows run **`pnpm run sync`** first, so the published bits always match the checked-out commit (including `**Version:**` → `package.json`). The npm job then runs **`npm publish`** so the npm CLI can use OIDC (see [Trusted publishing](https://docs.npmjs.com/trusted-publishers/)).
+
+**If publish fails with 409 / duplicate version**
+
+The Maven or npm coordinate for that version already exists. Bump `**Version:**` in the foundations doc, merge a sync commit, then run the publish workflow again.
+
+```mermaid
+flowchart TD
+  A[Edit design-system-foundations.md] --> B[Push]
+  B --> C[Sync tokens from markdown]
+  C --> D{Branch is main?}
+  D -->|No| E[Bot commits + opens PR to main]
+  D -->|Yes| F[Bot commits to main]
+  E --> G[Merge PR after CI]
+  F --> H[main up to date]
+  G --> H
+  H --> I[Run publish workflows from main when ready]
+  I --> J[Publish Android library → GitHub Packages Maven]
+  I --> K[Publish web tokens npm → registry.npmjs.org]
+```
 
 **Repo settings you need**
 
 1. **Actions → General → Workflow permissions**: allow **Read and write** so the sync job can push commits and open PRs.
-2. **Publishing**: GitHub Packages uses `GITHUB_TOKEN` from Actions (`packages: write` is set in the publish workflow). Bump **`version` in `package.json`** for every new Maven release — **the same version cannot be published twice** (Gradle will fail with **HTTP 409 Conflict** if you try).
+2. **Android publishing**: GitHub Packages Maven uses `GITHUB_TOKEN` from Actions (`packages: write` on the Android publish workflow). Bump `**Version:**` in `design-system-foundations.md` for every new Maven release — **the same version cannot be published twice** (Gradle will fail with **HTTP 409 Conflict** if you try).
+
+#### npm: Trusted publishing setup
+
+Web publishes use **[npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)** from GitHub Actions (no long-lived **`NPM_TOKEN`**). Requirements from npm: **Node ≥ 22.14**, **npm CLI ≥ 11.5.1** (the workflow upgrades npm before publish).
+
+1. On **[npmjs.com](https://www.npmjs.com/)** → package **`@estebanruano/design-tokens`** → **Settings** → **Trusted publishing** → choose **GitHub Actions**.
+2. Set the publisher to this repo and workflow (values must match **exactly** — npm does not validate until publish):
+   - **Repository:** `esteban505r/design-system` (or your fork’s `owner/name` if you publish from a fork — then update **`package.json` → `repository.url`** to the same GitHub URL, [required by npm](https://docs.npmjs.com/trusted-publishers/)).
+   - **Workflow filename:** `publish-web.yml` (only the file name, including `.yml`).
+3. If the package does not exist yet, create it on npm (scoped package under the **`estebanruano`** org/user you control) or run a **one-time** publish with a classic token; then attach Trusted Publishing and you can [revoke](https://docs.npmjs.com/revoking-access-tokens) that token after a successful OIDC publish.
+4. Optional hardening: after OIDC works, under package **Publishing access**, npm recommends restricting token-based publishes ([docs](https://docs.npmjs.com/trusted-publishers/)).
+
+If publish fails with **ENEEDAUTH** / trusted publisher errors, re-check the workflow name, repo name, and that **`repository.url`** in **`package.json`** is exactly `https://github.com/esteban505r/design-system.git` for this upstream repo.
 
 **Android apps** add the GitHub Packages Maven URL and dependency (replace `OWNER/REPO`):
 
@@ -154,7 +265,7 @@ dependencies {
 }
 ```
 
-Use the same **`mavenGroupId`**, **`mavenArtifactId`**, and **`package.json` `version`** as in this design-system repo’s **`gradle.properties`** / **`package.json`** (e.g. `com.estebanruano:tokens-android`).
+Use the same **`mavenGroupId`**, **`mavenArtifactId`**, and release version (`**Version:**` / `package.json`) as in this design-system repo’s **`gradle.properties`** / **`design-system-foundations.md`** (e.g. `com.estebanruano:tokens-android`).
 
 **Authenticate for GitHub Packages** (local machine): add to `~/.gradle/gradle.properties` (do not commit):
 
@@ -233,7 +344,9 @@ Local Gradle in **this** repo copies `dist/android/*.xml` into `design-tokens-an
 
 Edit `sd.config.mjs` and add a new platform entry. See [Style Dictionary docs](https://styledictionary.com) for available formats and transform groups.
 
-## Versioning
+## Semver guidelines (token changes)
+
+When you bump `**Version:**` in the foundations doc for a release, align the bump with the kind of token change (same ideas as [semver](https://semver.org/)):
 
 - **Major** (2.0.0): Breaking change — token renamed or removed
 - **Minor** (1.1.0): New tokens added

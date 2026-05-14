@@ -9,6 +9,7 @@
 // Usage:
 //   node md-to-tokens.mjs <input.md> [--out tokens/]
 //
+// Also syncs **Version:** from the markdown into package.json (npm + Gradle publish).
 // The script extracts JSON code blocks from the markdown,
 // infers token types, converts to DTCG format ($value/$type),
 // and writes each category to its own file.
@@ -16,6 +17,42 @@
 
 import fs from 'fs';
 import path from 'path';
+
+/** Semver from `**Version:** x.y.z` near the top of the foundations doc (required). */
+function extractDesignSystemVersion(markdown, sourceLabel) {
+  const m = markdown.match(/\*\*Version:\*\*\s*(.+)/);
+  if (!m) {
+    console.error(
+      `❌ Missing **Version:** semver in ${sourceLabel}. Add a line like: **Version:** 1.2.3`,
+    );
+    process.exit(1);
+  }
+  const v = m[1].trim();
+  if (!/^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$/.test(v)) {
+    console.error(
+      `❌ Invalid **Version:** "${v}" in ${sourceLabel} (expected semver, e.g. 1.2.3 or 2.0.0-rc.1)`,
+    );
+    process.exit(1);
+  }
+  return v;
+}
+
+/** Keep package.json in sync so npm publish + Gradle consumers use the same release as the MD. */
+function syncPackageJsonVersion(version) {
+  const pkgPath = path.resolve(process.cwd(), 'package.json');
+  if (!fs.existsSync(pkgPath)) {
+    console.warn('⚠️  No package.json in cwd — skipping version sync');
+    return;
+  }
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+  if (pkg.version === version) {
+    console.log(`📦 package.json version ${version} (already in sync)\n`);
+    return;
+  }
+  pkg.version = version;
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+  console.log(`📦 package.json → version ${version} (from foundations markdown)\n`);
+}
 
 // ── CLI args ────────────────────────────────────────────────
 const args = process.argv.slice(2);
@@ -29,6 +66,10 @@ if (!fs.existsSync(inputFile)) {
 }
 
 const md = fs.readFileSync(inputFile, 'utf-8');
+
+// ── Release version (single source of truth for npm + Android) ──
+const designSystemVersion = extractDesignSystemVersion(md, inputFile);
+syncPackageJsonVersion(designSystemVersion);
 
 // ── Extract JSON code blocks ────────────────────────────────
 const jsonBlocks = [];
@@ -232,4 +273,4 @@ console.log(`\n✅ ${filesWritten} token file(s) written to ${outputDir}/`);
 console.log(`\nNext steps:`);
 console.log(`  1. Review the generated files`);
 console.log(`  2. Run: pnpm run build     (to generate platform outputs)`);
-console.log(`  3. Commit and push\n`);
+console.log(`  3. Commit package.json (if version changed), tokens/, dist/, and push\n`);

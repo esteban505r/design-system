@@ -3,7 +3,26 @@
   "version": "1.0.1",
   "packageManager": "pnpm@10.33.4",
   "description": "Design system tokens — single source of truth for all platforms",
-  "main": "index.js",
+  "type": "module",
+  "files": [
+    "dist/web",
+    "dist/json"
+  ],
+  "exports": {
+    ".": "./dist/web/tokens.js",
+    "./css": "./dist/web/tokens.css",
+    "./json": "./dist/json/tokens.json"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esteban505r/design-system.git"
+  },
   "scripts": {
     "sync": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
     "build": "node sd.config.mjs",
@@ -15,6 +34,5 @@
   "license": "ISC",
   "dependencies": {
     "style-dictionary": "^5.4.0"
-  },
-  "type": "module"
+  }
 }

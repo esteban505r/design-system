@@ -1,28 +1,13 @@
-# After a PR is merged to main, publish the Android library to GitHub Packages (Gradle/Maven).
+# Manual publish: Actions → Publish Android library → Run workflow (choose branch, usually `main`).
+# Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# Version = package.json "version". GitHub Packages returns HTTP 409 if that GAV already exists —
-# bump the version and push again; published artifacts are never overwritten.
+# Version = **Version:** in design-system-foundations.md (copied into package.json by `pnpm run sync`).
+# GitHub Packages returns HTTP 409 if that GAV already exists —
+# bump the version in the markdown, merge, run sync, then run this workflow again.
 
 name: Publish Android library
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'design-system-foundations.md'
-      - 'tokens/**'
-      - 'dist/**'
-      - 'sd.config.mjs'
-      - 'md-to-tokens.mjs'
-      - 'design-tokens-android/**'
-      - 'package.json'
-      - 'gradle/**'
-      - 'gradlew'
-      - 'gradlew.bat'
-      - 'settings.gradle.kts'
-      - 'build.gradle.kts'
-      - 'gradle.properties'
-      - '.github/workflows/publish-android.yml'
   workflow_dispatch:
 
 permissions:
@@ -60,6 +45,6 @@ jobs:
         run: |
           VERSION=$(jq -r .version package.json)
           echo "Publishing design-tokens-android (groupId/artifactId from gradle.properties) version ${VERSION}"
-          echo "If Gradle fails with 409 Conflict, bump \"version\" in package.json — that version is already on GitHub Packages."
+          echo "If Gradle fails with 409 Conflict, bump **Version:** in design-system-foundations.md — that version is already on GitHub Packages."
           chmod +x gradlew
           ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon

@@ -1,6 +1,19 @@
-plugins {
+import groovy.json.JsonSlurper
+import java.io.File
     id("com.android.library")
     id("maven-publish")
+}
+
+@Suppress("UNCHECKED_CAST")
+fun readRootPackageJsonVersion(projectDir: java.io.File): String? {
+    val f = File(projectDir, "package.json")
+    if (!f.exists()) return null
+    return try {
+        val map = JsonSlurper().parse(f) as Map<*, *>
+        map["version"] as? String
+    } catch (_: Throwable) {
+        null
+    }
 }
 
 val syncAndroidTokensFromDist = tasks.register<Copy>("syncAndroidTokensFromDist") {
@@ -57,6 +70,7 @@ android {
 val tokensVersion: String =
     (project.findProperty("tokensVersion") as String?)
         ?: System.getenv("TOKENS_VERSION")
+        ?: readRootPackageJsonVersion(rootProject.projectDir)
         ?: "0.0.0-SNAPSHOT"
 
 afterEvaluate {
