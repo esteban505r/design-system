@@ -21,18 +21,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/esteban505r/design-system.git"
+    "url": "git+https://github.com/esteban505r/design-system.git"
   },
+  "homepage": "https://github.com/esteban505r/design-system#readme",
+  "bugs": {
+    "url": "https://github.com/esteban505r/design-system/issues"
+  },
+  "engines": {
+    "node": ">=18.12.0"
+  },
+  "keywords": [
+    "design-tokens",
+    "design-system",
+    "css-variables",
+    "style-dictionary"
+  ],
   "scripts": {
     "sync": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
     "build": "node sd.config.mjs",
     "parse": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
     "clean": "rm -rf dist/ tokens/"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "style-dictionary": "^5.4.0"
   }
 }

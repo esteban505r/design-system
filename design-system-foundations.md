@@ -1,6 +1,6 @@
 # Design System Foundations
 
-**Version:** 1.0.2
+**Version:** 1.0.3  
 **Scope:** Web · Mobile (iOS, Android)  
 **Status:** Active
 
@@ -27,47 +27,47 @@ Four token groups: Primary, Secondary, Neutral, and Semantic. Reference tokens b
 
 | Token | Value |
 |---|---|
-| `primary-00` | `#FFF8F3` |
-| `primary-50` | `#FFEDD5` |
-| `primary-100` | `#FED7AA` |
-| `primary-200` | `#FDBA74` |
-| `primary-300` | `#FB923C` |
-| `primary-400` | `#F97316` |
-| `primary-500` | `#EA580C` |
-| `primary-600` | `#C2410C` |
-| `primary-700` | `#9A3412` |
-| `primary-800` | `#7C2D12` |
+| `primary-00` | `#FAFAFA` |
+| `primary-50` | `#F4F4F5` |
+| `primary-100` | `#E4E4E7` |
+| `primary-200` | `#D4D4D8` |
+| `primary-300` | `#A1A1AA` |
+| `primary-400` | `#71717A` |
+| `primary-500` | `#52525B` |
+| `primary-600` | `#3F3F46` |
+| `primary-700` | `#27272A` |
+| `primary-800` | `#18181B` |
 
 ### 1.2 Secondary
 
 | Token | Value |
 |---|---|
-| `secondary-00` | `#FFFBEB` |
-| `secondary-50` | `#FEF3C7` |
-| `secondary-100` | `#FDE68A` |
-| `secondary-200` | `#FCD34D` |
-| `secondary-300` | `#FBBF24` |
-| `secondary-400` | `#F59E0B` |
-| `secondary-500` | `#D97706` |
-| `secondary-600` | `#B45309` |
-| `secondary-700` | `#92400E` |
-| `secondary-800` | `#78350F` |
+| `secondary-00` | `#F8FAFC` |
+| `secondary-50` | `#F1F5F9` |
+| `secondary-100` | `#E2E8F0` |
+| `secondary-200` | `#CBD5E1` |
+| `secondary-300` | `#94A3B8` |
+| `secondary-400` | `#64748B` |
+| `secondary-500` | `#475569` |
+| `secondary-600` | `#334155` |
+| `secondary-700` | `#1E293B` |
+| `secondary-800` | `#0F172A` |
 
 ### 1.3 Neutral / Gray
 
 | Token | Value |
 |---|---|
-| `neutral-0` | `#FFFAF7` |
-| `neutral-50` | `#F7EFEA` |
-| `neutral-100` | `#EADFD5` |
-| `neutral-200` | `#D9C8BB` |
-| `neutral-300` | `#BEA89A` |
-| `neutral-400` | `#948272` |
-| `neutral-500` | `#6F5E52` |
-| `neutral-600` | `#51443C` |
-| `neutral-700` | `#3A302A` |
-| `neutral-800` | `#241E1A` |
-| `neutral-900` | `#0F0D0B` |
+| `neutral-0` | `#FFFFFF` |
+| `neutral-50` | `#FAFAFA` |
+| `neutral-100` | `#F5F5F5` |
+| `neutral-200` | `#E5E5E5` |
+| `neutral-300` | `#D4D4D4` |
+| `neutral-400` | `#A3A3A3` |
+| `neutral-500` | `#737373` |
+| `neutral-600` | `#525252` |
+| `neutral-700` | `#404040` |
+| `neutral-800` | `#262626` |
+| `neutral-900` | `#171717` |
 | `neutral-1000` | `#000000` |
 
 ### 1.4 Semantic
@@ -76,74 +76,74 @@ Use these tokens exclusively for feedback states (alerts, toasts, badges, form v
 
 | Token | Value | Usage |
 |---|---|---|
-| `success-light` | `#FCE7D4` | Background, subtle highlight |
-| `success` | `#C45C26` | Icon, text, border |
-| `success-dark` | `#7A3A18` | Hover / pressed state |
-| `warning-light` | `#FEF9C3` | Background, subtle highlight |
-| `warning` | `#F59E0B` | Icon, text, border |
-| `warning-dark` | `#B45309` | Hover / pressed state |
-| `error-light` | `#FFDAD6` | Background, subtle highlight |
-| `error` | `#D84315` | Icon, text, border |
-| `error-dark` | `#8B2500` | Hover / pressed state |
-| `info-light` | `#FFF4E6` | Background, subtle highlight |
-| `info` | `#FF8F00` | Icon, text, border |
-| `info-dark` | `#E65100` | Hover / pressed state |
+| `success-light` | `#F5F5F5` | Background, subtle highlight |
+| `success` | `#404040` | Icon, text, border |
+| `success-dark` | `#171717` | Hover / pressed state |
+| `warning-light` | `#E5E5E5` | Background, subtle highlight |
+| `warning` | `#525252` | Icon, text, border |
+| `warning-dark` | `#262626` | Hover / pressed state |
+| `error-light` | `#E7E7E7` | Background, subtle highlight |
+| `error` | `#1A1A1A` | Icon, text, border |
+| `error-dark` | `#0A0A0A` | Hover / pressed state |
+| `info-light` | `#EDEDED` | Background, subtle highlight |
+| `info` | `#363636` | Icon, text, border |
+| `info-dark` | `#141414` | Hover / pressed state |
 
 ### 1.5 Implementation
 
 ```css
 :root {
-  /* Primary — orange */
-  --color-primary-00:  #FFF8F3;
-  --color-primary-50:  #FFEDD5;
-  --color-primary-100: #FED7AA;
-  --color-primary-200: #FDBA74;
-  --color-primary-300: #FB923C;
-  --color-primary-400: #F97316;
-  --color-primary-500: #EA580C;
-  --color-primary-600: #C2410C;
-  --color-primary-700: #9A3412;
-  --color-primary-800: #7C2D12;
+  /* Primary — zinc / neutral black */
+  --color-primary-00:  #FAFAFA;
+  --color-primary-50:  #F4F4F5;
+  --color-primary-100: #E4E4E7;
+  --color-primary-200: #D4D4D8;
+  --color-primary-300: #A1A1AA;
+  --color-primary-400: #71717A;
+  --color-primary-500: #52525B;
+  --color-primary-600: #3F3F46;
+  --color-primary-700: #27272A;
+  --color-primary-800: #18181B;
 
-  /* Secondary — amber */
-  --color-secondary-00:  #FFFBEB;
-  --color-secondary-50:  #FEF3C7;
-  --color-secondary-100: #FDE68A;
-  --color-secondary-200: #FCD34D;
-  --color-secondary-300: #FBBF24;
-  --color-secondary-400: #F59E0B;
-  --color-secondary-500: #D97706;
-  --color-secondary-600: #B45309;
-  --color-secondary-700: #92400E;
-  --color-secondary-800: #78350F;
+  /* Secondary — slate gray */
+  --color-secondary-00:  #F8FAFC;
+  --color-secondary-50:  #F1F5F9;
+  --color-secondary-100: #E2E8F0;
+  --color-secondary-200: #CBD5E1;
+  --color-secondary-300: #94A3B8;
+  --color-secondary-400: #64748B;
+  --color-secondary-500: #475569;
+  --color-secondary-600: #334155;
+  --color-secondary-700: #1E293B;
+  --color-secondary-800: #0F172A;
 
-  /* Neutral — warm peach / stone */
-  --color-neutral-0:    #FFFAF7;
-  --color-neutral-50:   #F7EFEA;
-  --color-neutral-100:  #EADFD5;
-  --color-neutral-200:  #D9C8BB;
-  --color-neutral-300:  #BEA89A;
-  --color-neutral-400:  #948272;
-  --color-neutral-500:  #6F5E52;
-  --color-neutral-600:  #51443C;
-  --color-neutral-700:  #3A302A;
-  --color-neutral-800:  #241E1A;
-  --color-neutral-900:  #0F0D0B;
+  /* Neutral — white to black */
+  --color-neutral-0:    #FFFFFF;
+  --color-neutral-50:   #FAFAFA;
+  --color-neutral-100:  #F5F5F5;
+  --color-neutral-200:  #E5E5E5;
+  --color-neutral-300:  #D4D4D4;
+  --color-neutral-400:  #A3A3A3;
+  --color-neutral-500:  #737373;
+  --color-neutral-600:  #525252;
+  --color-neutral-700:  #404040;
+  --color-neutral-800:  #262626;
+  --color-neutral-900:  #171717;
   --color-neutral-1000: #000000;
 
-  /* Semantic */
-  --color-success-light: #FCE7D4;
-  --color-success:       #C45C26;
-  --color-success-dark:  #7A3A18;
-  --color-warning-light: #FEF9C3;
-  --color-warning:       #F59E0B;
-  --color-warning-dark:  #B45309;
-  --color-error-light:   #FFDAD6;
-  --color-error:         #D84315;
-  --color-error-dark:    #8B2500;
-  --color-info-light:    #FFF4E6;
-  --color-info:          #FF8F00;
-  --color-info-dark:     #E65100;
+  /* Semantic — grayscale feedback */
+  --color-success-light: #F5F5F5;
+  --color-success:       #404040;
+  --color-success-dark:  #171717;
+  --color-warning-light: #E5E5E5;
+  --color-warning:       #525252;
+  --color-warning-dark:  #262626;
+  --color-error-light:   #E7E7E7;
+  --color-error:         #1A1A1A;
+  --color-error-dark:    #0A0A0A;
+  --color-info-light:    #EDEDED;
+  --color-info:          #363636;
+  --color-info-dark:     #141414;
 }
 ```
 
@@ -151,56 +151,56 @@ Use these tokens exclusively for feedback states (alerts, toasts, badges, form v
 {
   "color": {
     "primary": {
-      "00":  { "value": "#FFF8F3" },
-      "50":  { "value": "#FFEDD5" },
-      "100": { "value": "#FED7AA" },
-      "200": { "value": "#FDBA74" },
-      "300": { "value": "#FB923C" },
-      "400": { "value": "#F97316" },
-      "500": { "value": "#EA580C" },
-      "600": { "value": "#C2410C" },
-      "700": { "value": "#9A3412" },
-      "800": { "value": "#7C2D12" }
+      "00":  { "value": "#FAFAFA" },
+      "50":  { "value": "#F4F4F5" },
+      "100": { "value": "#E4E4E7" },
+      "200": { "value": "#D4D4D8" },
+      "300": { "value": "#A1A1AA" },
+      "400": { "value": "#71717A" },
+      "500": { "value": "#52525B" },
+      "600": { "value": "#3F3F46" },
+      "700": { "value": "#27272A" },
+      "800": { "value": "#18181B" }
     },
     "secondary": {
-      "00":  { "value": "#FFFBEB" },
-      "50":  { "value": "#FEF3C7" },
-      "100": { "value": "#FDE68A" },
-      "200": { "value": "#FCD34D" },
-      "300": { "value": "#FBBF24" },
-      "400": { "value": "#F59E0B" },
-      "500": { "value": "#D97706" },
-      "600": { "value": "#B45309" },
-      "700": { "value": "#92400E" },
-      "800": { "value": "#78350F" }
+      "00":  { "value": "#F8FAFC" },
+      "50":  { "value": "#F1F5F9" },
+      "100": { "value": "#E2E8F0" },
+      "200": { "value": "#CBD5E1" },
+      "300": { "value": "#94A3B8" },
+      "400": { "value": "#64748B" },
+      "500": { "value": "#475569" },
+      "600": { "value": "#334155" },
+      "700": { "value": "#1E293B" },
+      "800": { "value": "#0F172A" }
     },
     "neutral": {
-      "0":    { "value": "#FFFAF7" },
-      "50":   { "value": "#F7EFEA" },
-      "100":  { "value": "#EADFD5" },
-      "200":  { "value": "#D9C8BB" },
-      "300":  { "value": "#BEA89A" },
-      "400":  { "value": "#948272" },
-      "500":  { "value": "#6F5E52" },
-      "600":  { "value": "#51443C" },
-      "700":  { "value": "#3A302A" },
-      "800":  { "value": "#241E1A" },
-      "900":  { "value": "#0F0D0B" },
+      "0":    { "value": "#FFFFFF" },
+      "50":   { "value": "#FAFAFA" },
+      "100":  { "value": "#F5F5F5" },
+      "200":  { "value": "#E5E5E5" },
+      "300":  { "value": "#D4D4D4" },
+      "400":  { "value": "#A3A3A3" },
+      "500":  { "value": "#737373" },
+      "600":  { "value": "#525252" },
+      "700":  { "value": "#404040" },
+      "800":  { "value": "#262626" },
+      "900":  { "value": "#171717" },
       "1000": { "value": "#000000" }
     },
     "semantic": {
-      "success-light": { "value": "#FCE7D4" },
-      "success":       { "value": "#C45C26" },
-      "success-dark":  { "value": "#7A3A18" },
-      "warning-light": { "value": "#FEF9C3" },
-      "warning":       { "value": "#F59E0B" },
-      "warning-dark":  { "value": "#B45309" },
-      "error-light":   { "value": "#FFDAD6" },
-      "error":         { "value": "#D84315" },
-      "error-dark":    { "value": "#8B2500" },
-      "info-light":    { "value": "#FFF4E6" },
-      "info":          { "value": "#FF8F00" },
-      "info-dark":     { "value": "#E65100" }
+      "success-light": { "value": "#F5F5F5" },
+      "success":       { "value": "#404040" },
+      "success-dark":  { "value": "#171717" },
+      "warning-light": { "value": "#E5E5E5" },
+      "warning":       { "value": "#525252" },
+      "warning-dark":  { "value": "#262626" },
+      "error-light":   { "value": "#E7E7E7" },
+      "error":         { "value": "#1A1A1A" },
+      "error-dark":    { "value": "#0A0A0A" },
+      "info-light":    { "value": "#EDEDED" },
+      "info":          { "value": "#363636" },
+      "info-dark":     { "value": "#141414" }
     }
   }
 }

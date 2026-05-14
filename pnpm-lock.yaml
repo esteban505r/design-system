@@ -7,7 +7,7 @@ settings:
 importers:
 
   .:
-    dependencies:
+    devDependencies:
       style-dictionary:
         specifier: ^5.4.0
         version: 5.4.0(tslib@2.8.1)

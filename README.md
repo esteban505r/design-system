@@ -111,6 +111,13 @@ pnpm add @estebanruano/design-tokens
 
 Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … } from '@estebanruano/design-tokens'`** paths; **`@estebanruano/design-tokens/json`** resolves to the flat **`tokens.json`** if you need it in Node or build scripts.
 
+#### npm release checklist (maintainers)
+
+1. Bump **`**Version:**`** in **`design-system-foundations.md`** (and merge so **`main`** has the release).
+2. Run **`pnpm run sync`** locally or rely on CI / **Sync tokens from markdown** so **`package.json`**, **`tokens/`**, and **`dist/`** match the doc; commit any changes.
+3. **First time only:** bootstrap the package with **`npm publish --access public`** from a machine logged into npm (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**), then configure **Trusted publishing** on npm for workflow **`publish-web.yml`**.
+4. **Ongoing:** GitHub → **Actions** → **Publish web tokens (npm)** → **Run workflow** on **`main`** (OIDC; no **`NPM_TOKEN`**).
+
 ### Fetching without a package manager (CDN)
 
 After a version is on [npm](https://www.npmjs.com/), CDNs mirror tarballs, for example:
@@ -251,7 +258,7 @@ npm login                     # browser login, or use a granular publish token (
 npm publish --access public   # creates the package; version = package.json (from **Version:** in the MD)
 ```
 
-Check with **`npm view @estebanruano/design-tokens version`**. If publish fails with **403**, your npm user does not own the **`estebanruano`** scope — create an npm org or change **`package.json` → `name`** to a scope you control.
+Check with **`npm view @estebanruano/design-tokens version`**. If publish fails with **403**, your npm user does not own the **`estebanruano`** scope — create an npm org or change **`package.json` → `name`** to a scope you control. If you see **404 Scope not found**, the **`@estebanruano`** scope does not exist on npm yet: create an organization named **`estebanruano`** at [npmjs.com/org/create](https://www.npmjs.com/org/create) (and add your user), **or** rename the package to a scope you already have (for example **`@<your-npm-username>/design-tokens`**) and update imports in apps + Trusted publishing after the first publish.
 
 ##### Connect GitHub Actions (Trusted publishing)
 
