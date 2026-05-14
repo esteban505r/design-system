@@ -1,8 +1,10 @@
-import groovy.json.JsonSlurper
-import java.io.File
+plugins {
     id("com.android.library")
     id("maven-publish")
 }
+
+import groovy.json.JsonSlurper
+import java.io.File
 
 @Suppress("UNCHECKED_CAST")
 fun readRootPackageJsonVersion(projectDir: java.io.File): String? {
