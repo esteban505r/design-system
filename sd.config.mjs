@@ -15,8 +15,23 @@ import StyleDictionary from 'style-dictionary';
 
 /** @param {unknown} value */
 function parsePx(value) {
-  const m = String(value).match(/^([\d.]+)px$/);
+  const s = String(value).trim();
+  const m = s.match(/^([\d.]+)(?:px|dp|sp)?$/i);
   return m ? Number.parseFloat(m[1]) : Number.NaN;
+}
+
+/**
+ * @param {unknown} value
+ * @param {'dp' | 'sp'} unit
+ */
+function toAndroidDimen(value, unit) {
+  const n = parsePx(value);
+  if (!Number.isNaN(n)) return `${n}${unit}`;
+  const s = String(value).trim();
+  if (/^\d+(\.\d+)?(dp|sp)$/i.test(s)) return s.toLowerCase();
+  const num = s.match(/^([\d.]+)/);
+  if (num) return `${num[1]}${unit}`;
+  return s;
 }
 
 const ANDROID_XML_HEADER = `<?xml version="1.0" encoding="UTF-8"?>
@@ -42,11 +57,9 @@ const sd = new StyleDictionary({
         type: 'value',
         filter: (token) => token.$type === 'dimension' || token.$type === 'fontSize',
         transform: (token) => {
-          const n = parsePx(token.$value);
-          if (Number.isNaN(n)) return token.$value;
           const unit =
             token.$type === 'fontSize' || token.path?.[0] === 'font' ? 'sp' : 'dp';
-          return `${n}${unit}`;
+          return toAndroidDimen(token.$value, unit);
         },
       },
       'duration/msInteger': {

@@ -125,14 +125,16 @@ const normalizedCollection = normalizeCollectionForFigmaJson(
   /** @type {Record<string, { $value: unknown, $type?: string }>} */ (collection),
 );
 
+const canonicalName = collectionName.includes('Mode') ? collectionName : 'Global/Mode 1';
+
 const figmaDocument = {
-  [collectionName]: normalizedCollection,
+  [canonicalName]: normalizedCollection,
   $themes: Array.isArray(figmaSource.$themes) ? figmaSource.$themes : [],
   $metadata: {
     ...(typeof figmaSource.$metadata === 'object' && figmaSource.$metadata
       ? figmaSource.$metadata
       : {}),
-    tokenSetOrder: [collectionName],
+    tokenSetOrder: [canonicalName],
   },
 };
 

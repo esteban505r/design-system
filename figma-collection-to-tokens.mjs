@@ -3,6 +3,31 @@
 import fs from 'fs';
 import path from 'path';
 import { FIGMA_TO_TOKEN_PATH, figmaTokenToDtcg } from './token-name-map.mjs';
+
+const DEFAULT_COLLECTION = 'Global/Mode 1';
+
+/**
+ * Unwrap mistaken double nesting (`Global/Mode 1/Global/Mode 1`) from bad round-trips.
+ * @param {Record<string, unknown>} collection
+ * @param {string} collectionName
+ */
+function unwrapNestedCollection(collection, collectionName) {
+  const keys = Object.keys(collection).filter((k) => !k.startsWith('$'));
+  if (
+    keys.length === 1 &&
+    typeof collection[keys[0]] === 'object' &&
+    collection[keys[0]] !== null &&
+    Object.keys(/** @type {Record<string, unknown>} */ (collection[keys[0]])).some(
+      (k) => FIGMA_TO_TOKEN_PATH[k],
+    )
+  ) {
+    return {
+      collectionName: keys[0],
+      collection: /** @type {Record<string, unknown>} */ (collection[keys[0]]),
+    };
+  }
+  return { collectionName, collection };
+}
 import { setTokenAtPath, writeTokensFromTree } from './token-writer.mjs';
 
 /**
@@ -41,7 +66,19 @@ export function resolveFigmaCollection(source, options = {}) {
     );
   }
 
-  return { collectionName, collection, metadata: source.$metadata };
+  const unwrapped = unwrapNestedCollection(
+    /** @type {Record<string, unknown>} */ (collection),
+    collectionName,
+  );
+  if (!unwrapped.collectionName.includes('Mode')) {
+    unwrapped.collectionName = DEFAULT_COLLECTION;
+  }
+
+  return {
+    collectionName: unwrapped.collectionName,
+    collection: unwrapped.collection,
+    metadata: source.$metadata,
+  };
 }
 
 /**

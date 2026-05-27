@@ -2,9 +2,9 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-export const ColorBrandPrimary = "#f18963";
-export const ColorBrandPrimaryHover = "#e5a846";
-export const ColorBrandPrimaryLight = "#fcd79d";
+export const ColorBrandPrimary = "#6366f1";
+export const ColorBrandPrimaryHover = "#4f46e5";
+export const ColorBrandPrimaryLight = "#818cf8";
 export const ColorBrandPrimaryTint15 = "#6366f126";
 export const ColorBrandPrimaryTint20 = "#6366f133";
 export const ColorEisenhowerUrgencyModerate = "#f59e0b";
@@ -13,12 +13,13 @@ export const ColorEisenhowerImportanceLow = "#6b7280";
 export const ColorEisenhowerImportanceMedium = "#8b5cf6";
 export const ColorEisenhowerUrgencyNot = "#6b7280";
 export const ColorEisenhowerUrgencyUrgent = "#ef4444";
-export const ColorGradientAuthGradientColor1 = "#f18963";
-export const ColorGradientAuthGradientColor2 = "#a72d23";
-export const ColorSemanticSuccess = "#22c55e";
-export const ColorSemanticWarning = "#f59e0b";
-export const ColorSemanticInfo = "#3b82f6";
+export const ColorGradientAuth =
+  "linear-gradient(to bottom right, #4338CA, #6B21A8)";
+export const ColorGradientAuthGradientColor1 = "#4338ca";
+export const ColorGradientAuthGradientColor2 = "#6b21a8";
+export const ColorSemanticDanger = "#ef4444";
 export const ColorSemanticDangerHover = "#dc2626";
+export const ColorSemanticInfo = "#3b82f6";
 export const ColorSemanticInfoHover = "#2563eb";
 export const ColorSemanticSuccessHover = "#16a34a";
 export const ColorSemanticWarningHover = "#d97706";

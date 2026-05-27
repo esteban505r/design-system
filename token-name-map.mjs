@@ -119,6 +119,14 @@ export function tokenPathToFigmaName(tokenPath) {
   return tokenPath.join('-');
 }
 
+/** @param {unknown} value @param {string} unit */
+function withUnit(value, unit) {
+  const s = String(value).trim();
+  const m = s.match(/^([\d.]+)(?:px|dp|sp|ms)?$/i);
+  if (!m) return s;
+  return `${m[1]}${unit}`;
+}
+
 /**
  * @param {string} figmaName
  * @param {{ $value: unknown, $type?: string }} figmaToken
@@ -153,7 +161,7 @@ export function figmaTokenToDtcg(figmaName, figmaToken) {
   }
 
   if (figmaName.startsWith('transition-')) {
-    return { $value: `${$value}ms`, $type: 'duration' };
+    return { $value: withUnit($value, 'ms'), $type: 'duration' };
   }
 
   if (figmaName.startsWith('shadow-')) {
@@ -165,11 +173,11 @@ export function figmaTokenToDtcg(figmaName, figmaToken) {
   }
 
   if (figmaName.startsWith('type-')) {
-    return { $value: `${$value}px`, $type: 'fontSize' };
+    return { $value: withUnit($value, 'px'), $type: 'fontSize' };
   }
 
   if (figmaName.startsWith('spacing-') || figmaName.startsWith('radius-')) {
-    return { $value: `${$value}px`, $type: 'dimension' };
+    return { $value: withUnit($value, 'px'), $type: 'dimension' };
   }
 
   return { $value, $type: $type || 'string' };

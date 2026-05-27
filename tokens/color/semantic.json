@@ -17,6 +17,10 @@
         "$value": "#DC2626",
         "$type": "color"
       },
+      "info": {
+        "$value": "#3B82F6",
+        "$type": "color"
+      },
       "info-hover": {
         "$value": "#2563EB",
         "$type": "color"

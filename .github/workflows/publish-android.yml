@@ -57,6 +57,10 @@ jobs:
             echo "::error::dist/android/dimens.xml has no font_size_h1 (typography tokens missing)"
             exit 1
           }
+          if grep -E '<(dimen|item)[^>]*>[^<]*pxpx' dist/android/dimens.xml; then
+            echo "::error::Invalid Android dimen (e.g. 28pxpx) — fix figmaTokenToDtcg / sync and republish"
+            exit 1
+          fi
           echo "dist/android resource counts:"
           grep -c 'name="' dist/android/*.xml
 
