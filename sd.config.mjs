@@ -22,7 +22,7 @@ const sd = new StyleDictionary({
           destination: 'tokens.css',
           format: 'css/variables',
           options: {
-            outputReferences: true,  // keeps references like var(--color-primary-500)
+            outputReferences: true,  // keeps references like var(--color-brand-primary)
           },
         },
       ],
@@ -53,7 +53,9 @@ const sd = new StyleDictionary({
         {
           destination: 'dimens.xml',
           format: 'android/dimens',
-          filter: (token) => token.$type === 'dimension',
+          filter: (token) =>
+            token.$type === 'dimension' ||
+            (token.$type === 'number' && token.path?.[0] === 'z-index'),
         },
         {
           destination: 'font_dimens.xml',

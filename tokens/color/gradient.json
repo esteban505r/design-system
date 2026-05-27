@@ -1,0 +1,10 @@
+{
+  "color": {
+    "gradient": {
+      "auth": {
+        "$value": "linear-gradient(to bottom right, #4338CA, #6B21A8)",
+        "$type": "gradient"
+      }
+    }
+  }
+}

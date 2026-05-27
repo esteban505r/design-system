@@ -1,69 +1,64 @@
 # Design System Tokens
 
-Single source of truth for all design tokens. One `pnpm run build` generates platform-specific outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
+Single source of truth for all design tokens. `pnpm run sync` generates repo token JSON, a Figma import file, and platform outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
 
 ## Quick Start
 
 ```bash
 pnpm install
 
-# Full pipeline: markdown → token JSONs → all platform outputs
+# Full pipeline: markdown → tokens/ → Figma JSON + platform dist/
 pnpm run sync
 
 # Or run each step separately:
-pnpm run parse    # markdown → token JSONs only
-pnpm run build    # token JSONs → platform outputs only
+pnpm run parse    # ① markdown → tokens/ (repos)
+pnpm run figma    # ② tokens/ → dist/figma/tokens.json (Figma / Tokens Studio)
+pnpm run build    # ③ tokens/ → dist/web, android, ios, … (code platforms)
 ```
 
-Outputs land in `dist/` (Gradle uses `./build/`, so token outputs use `dist/` to avoid clashes):
+**`tokens/`** is the machine-readable source for engineering repos. **`dist/figma/tokens.json`** is a single flat file for Figma Variables import (Tokens Studio format). **`dist/`** holds web, Android, iOS, Flutter, and Compose outputs.
 
 ```
+tokens/                       ← ① from markdown (commit in repo)
+├── color/
+├── typography/
+└── …
+
 dist/
+├── figma/
+│   └── tokens.json           ← ② Figma Variables (flat names + com.figma.* extensions)
 ├── web/
-│   ├── tokens.css          # CSS custom properties
-│   └── tokens.js           # ES6 JavaScript constants
+│   ├── tokens.css
+│   └── tokens.js
 ├── android/
-│   ├── colors.xml          # Android color resources
-│   ├── dimens.xml          # Android dimension resources
-│   └── font_dimens.xml     # Android font dimensions
 ├── ios/
-│   └── DesignTokens.swift  # Swift constants (UIColor)
 ├── flutter/
-│   └── design_tokens.dart  # Dart constants (Color)
 ├── compose/
-│   └── DesignTokens.kt     # Kotlin object (Compose Color/Dp)
 └── json/
-    └── tokens.json         # Flat JSON (debugging / other tools)
 ```
 
 ## How It Works
 
-The pipeline has two stages:
+**Stage 1 — `pnpm run parse`** (`md-to-tokens.mjs`) reads `design-system-foundations.md`, syncs `**Version:**` into `package.json`, extracts JSON blocks, converts to DTCG (`$value` / `$type`), and writes `tokens/**/*.json`.
 
-**Stage 1 — `pnpm run parse`** runs `md-to-tokens.mjs`, which reads `design-system-foundations.md`, copies the `**Version:**` semver into `package.json`, extracts every JSON code block, converts to DTCG format (`$value` / `$type`), and writes each token category to its own file under `tokens/`.
+**Stage 2 — `pnpm run figma`** (`tokens-to-figma.mjs`) reads `tokens/` and writes `dist/figma/tokens.json` — flat names like `primary-color`, `spacing-md`, `type-h1`, with Figma import extensions. Auth gradients are split into `auth-gradient-color-1` / `auth-gradient-color-2` for solid variables.
 
-**Stage 2 — `pnpm run build`** runs Style Dictionary, which reads all `tokens/**/*.json` files and generates platform-specific outputs in `dist/`.
+**Stage 3 — `pnpm run build`** (Style Dictionary) reads `tokens/` and generates `dist/web`, `dist/android`, `dist/ios`, etc.
 
-**`pnpm run sync`** runs both stages in sequence — this is the single command the design team needs.
+**`pnpm run sync`** runs all three stages — the single command after editing foundations.
 
 ### Workflow
 
 ```
-design-system-foundations.md    ← Designers edit this (the human-readable source)
+design-system-foundations.md    ← Designers edit this (human-readable source)
          │
          ▼  pnpm run parse
-    tokens/**/*.json            ← DTCG-format JSON (auto-generated)
+    tokens/**/*.json            ← Repo token JSON (engineering)
          │
-         ▼  pnpm run build
-    dist/                       ← Platform outputs (auto-generated; commit with PR)
-    ├── web/tokens.css
-    ├── web/tokens.js
-    ├── android/colors.xml
-    ├── android/dimens.xml
-    ├── ios/DesignTokens.swift
-    ├── flutter/design_tokens.dart
-    ├── compose/DesignTokens.kt
-    └── json/tokens.json
+         ├──────────────────────────────┐
+         ▼  pnpm run figma              ▼  pnpm run build
+dist/figma/tokens.json            dist/web, android, ios, …
+(Figma / Tokens Studio)           (app codebases)
 ```
 
 ### Versioning (releases)
@@ -74,7 +69,11 @@ Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (
 
 ## Using tokens on the web
 
-Web artifacts are **`dist/web/tokens.css`** (CSS custom properties on `:root`) and **`dist/web/tokens.js`** (named ES module exports, e.g. `ColorPrimary500`). **`dist/json/tokens.json`** is a flat JSON dump for scripts or design tooling.
+Web artifacts are **`dist/web/tokens.css`** (CSS custom properties on `:root`) and **`dist/web/tokens.js`** (named ES module exports). **`dist/figma/tokens.json`** is for Figma Variables / Tokens Studio import. **`dist/json/tokens.json`** is a flat Style Dictionary dump for scripts.
+
+### Figma
+
+After `pnpm run figma` or `pnpm run sync`, import **`dist/figma/tokens.json`** in [Tokens Studio for Figma](https://tokens.studio/) (or your Variables sync plugin). Token names match Oter CSS variables (`primary-color`, `text-primary`, `type-h1`, …). Override the collection name with `FIGMA_COLLECTION="My Set"` if needed.
 
 ### In this monorepo / locally
 
@@ -97,7 +96,7 @@ import { ColorPrimary500, Spacing4 } from '@estebanruano/design-tokens';
 @import '@estebanruano/design-tokens/css';
 
 .my-button {
-  background: var(--color-primary-500);
+  background: var(--color-brand-primary);
   padding: var(--spacing-4);
 }
 ```
@@ -134,29 +133,34 @@ Pin the version in the URL for reproducible builds. For production SPAs, prefer 
 ```
 tokens/
 ├── color/
-│   ├── primary.json        # Brand primary scale (00–800)
-│   ├── secondary.json      # Brand secondary scale (00–800)
-│   ├── neutral.json        # Gray scale (0–1000)
-│   └── semantic.json       # Success, warning, error, info
+│   ├── brand.json          # Indigo brand (primary, hover, tints)
+│   ├── surface.json        # Slate surfaces + borders
+│   ├── text.json           # Text ramp
+│   ├── semantic.json       # Success, warning, danger, info
+│   ├── eisenhower.json     # Tasks matrix accents
+│   └── gradient.json       # Auth hero gradient
 ├── typography/
-│   └── scale.json          # Font families, weights, sizes, line heights
+│   ├── family.json         # Geist, Geist Mono, Lexend
+│   ├── weight.json
+│   └── scale.json          # Semantic type scale (h1–mono)
 ├── spacing/
-│   └── spacing.json        # 4px base unit scale (0–40)
+│   └── spacing.json        # xs → xxl (4px base)
 ├── radius/
-│   └── radius.json         # Border radii (none–full)
+│   └── radius.json         # sm → full
 ├── shadow/
-│   └── shadow.json         # Elevation levels (sm–xl)
+│   └── shadow.json         # sm → xl
 ├── motion/
-│   └── motion.json         # Duration + easing curves
-└── opacity/
-    └── opacity.json        # Disabled, hover, pressed, focus, scrim
+│   ├── duration.json
+│   └── easing.json
+└── z-index/
+    └── z-index.json        # Stacking ladder
 ```
 
 ## How to Update Tokens
 
 ### For engineers (Claude Code)
 ```bash
-claude "Update primary-500 to #EA580C in tokens/color/primary.json, rebuild, commit and push"
+claude "Update color.brand.primary to #4F46E5 in design-system-foundations.md, run pnpm run sync, commit and push"
 ```
 
 ### For designers (GitHub Web UI)

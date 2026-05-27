@@ -16,6 +16,10 @@
       "bold": {
         "$value": 700,
         "$type": "fontWeight"
+      },
+      "extrabold": {
+        "$value": 800,
+        "$type": "fontWeight"
       }
     }
   }

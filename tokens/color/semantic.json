@@ -1,52 +1,36 @@
 {
   "color": {
     "semantic": {
-      "success-light": {
-        "$value": "#D1FAE5",
-        "$type": "color"
-      },
       "success": {
-        "$value": "#059669",
+        "$value": "#22C55E",
         "$type": "color"
       },
-      "success-dark": {
-        "$value": "#064E3B",
-        "$type": "color"
-      },
-      "warning-light": {
-        "$value": "#FEF9C3",
+      "success-hover": {
+        "$value": "#16A34A",
         "$type": "color"
       },
       "warning": {
-        "$value": "#CA8A04",
+        "$value": "#F59E0B",
         "$type": "color"
       },
-      "warning-dark": {
-        "$value": "#713F12",
+      "warning-hover": {
+        "$value": "#D97706",
         "$type": "color"
       },
-      "error-light": {
-        "$value": "#FEE2E2",
+      "danger": {
+        "$value": "#EF4444",
         "$type": "color"
       },
-      "error": {
+      "danger-hover": {
         "$value": "#DC2626",
         "$type": "color"
       },
-      "error-dark": {
-        "$value": "#7F1D1D",
-        "$type": "color"
-      },
-      "info-light": {
-        "$value": "#CCFBF1",
-        "$type": "color"
-      },
       "info": {
-        "$value": "#0D9488",
+        "$value": "#3B82F6",
         "$type": "color"
       },
-      "info-dark": {
-        "$value": "#134E4A",
+      "info-hover": {
+        "$value": "#2563EB",
         "$type": "color"
       }
     }

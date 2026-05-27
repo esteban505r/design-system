@@ -1,0 +1,26 @@
+{
+  "color": {
+    "brand": {
+      "primary": {
+        "$value": "#6366F1",
+        "$type": "color"
+      },
+      "primary-hover": {
+        "$value": "#4F46E5",
+        "$type": "color"
+      },
+      "primary-light": {
+        "$value": "#818CF8",
+        "$type": "color"
+      },
+      "primary-tint-15": {
+        "$value": "rgba(99,102,241,0.15)",
+        "$type": "color"
+      },
+      "primary-tint-20": {
+        "$value": "rgba(99,102,241,0.20)",
+        "$type": "color"
+      }
+    }
+  }
+}

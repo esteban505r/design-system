@@ -1,16 +1,20 @@
 {
   "font": {
     "family": {
-      "display": {
-        "$value": "Montserrat",
-        "$type": "fontFamily"
-      },
-      "body": {
-        "$value": "Montserrat",
+      "sans": {
+        "$value": "Geist",
         "$type": "fontFamily"
       },
       "mono": {
-        "$value": "Montserrat",
+        "$value": "Geist Mono",
+        "$type": "fontFamily"
+      },
+      "mobile": {
+        "$value": "Lexend",
+        "$type": "fontFamily"
+      },
+      "brand": {
+        "$value": "Geist",
         "$type": "fontFamily"
       }
     }

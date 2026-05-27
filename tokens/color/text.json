@@ -1,0 +1,18 @@
+{
+  "color": {
+    "text": {
+      "primary": {
+        "$value": "#F8FAFC",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#94A3B8",
+        "$type": "color"
+      },
+      "tertiary": {
+        "$value": "#64748B",
+        "$type": "color"
+      }
+    }
+  }
+}

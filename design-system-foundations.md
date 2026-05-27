@@ -1,10 +1,11 @@
-# Design System Foundations
+# Oter — Design System Foundations
 
-**Version:** 1.0.4  
-**Scope:** Web · Mobile (iOS, Android)  
+**Version:** 1.0.4
+**Scope:** Web · Desktop · Mobile (iOS, Android, Compose)
 **Status:** Active
+**Source of truth:** [`ds/colors_and_type.css`](./ds/colors_and_type.css)
 
-> Use design tokens instead of hardcoded values. All tokens in this document are the single source of truth. Do not invent, alias, or override values locally — this breaks cross-platform consistency.
+> Oter is a life-management platform spanning finance, tasks, habits, nutrition, workouts, and study. The product ships **dark-first** on an indigo-on-slate palette, with a light theme that inverts surfaces while preserving the brand hue. Use design tokens instead of hardcoded values. All tokens in this document are the single source of truth — do not invent, alias, or override them locally.
 
 ---
 
@@ -15,192 +16,193 @@
 3. [Spacing Scale](#3-spacing-scale)
 4. [Radius Scale](#4-radius-scale)
 5. [Elevation / Shadows](#5-elevation--shadows)
-6. [General Guidelines](#6-general-guidelines)
+6. [Motion](#6-motion)
+7. [Z-Index Ladder](#7-z-index-ladder)
+8. [General Guidelines](#8-general-guidelines)
 
 ---
 
 ## 1. Color System
 
-Four token groups: Primary, Secondary, Neutral, and Semantic. Reference tokens by name in all code — never use raw hex values.
+Five token groups: **Brand** (indigo), **Surfaces** (slate), **Text**, **Semantic**, and the **Eisenhower** accents used by the tasks UI. Reference tokens by name in all code — never use raw hex values. Both themes share token names; the value flips when `.light-theme` is set on `<html>`.
 
-### 1.1 Primary
+### 1.1 Brand / Primary — Indigo
 
-| Token | Value |
-|---|---|
-| `primary-00` | `#ECFDF5` |
-| `primary-50` | `#D1FAE5` |
-| `primary-100` | `#A7F3D0` |
-| `primary-200` | `#6EE7B7` |
-| `primary-300` | `#34D399` |
-| `primary-400` | `#10B981` |
-| `primary-500` | `#059669` |
-| `primary-600` | `#047857` |
-| `primary-700` | `#065F46` |
-| `primary-800` | `#064E3B` |
+| Token | Dark theme | Light theme | Usage |
+|---|---|---|---|
+| `primary-color` | `#6366F1` (indigo-500) | `#4F46E5` (indigo-600) | Buttons, focus rings, active states |
+| `primary-hover` | `#4F46E5` (indigo-600) | `#3730A3` (indigo-800) | Hover state for primary actions |
+| `primary-light` | `#818CF8` (indigo-400) | `#6366F1` (indigo-500) | Active nav text, accent type |
+| `primary-tint-15` | `rgba(99, 102, 241, 0.15)` | — | Pill backgrounds, selected hover |
+| `primary-tint-20` | `rgba(99, 102, 241, 0.20)` | — | Selected nav item background |
 
-### 1.2 Secondary
+### 1.2 Surfaces — Slate
 
-| Token | Value |
-|---|---|
-| `secondary-00` | `#F0FDFA` |
-| `secondary-50` | `#CCFBF1` |
-| `secondary-100` | `#99F6E4` |
-| `secondary-200` | `#5EEAD4` |
-| `secondary-300` | `#2DD4BF` |
-| `secondary-400` | `#14B8A6` |
-| `secondary-500` | `#0D9488` |
-| `secondary-600` | `#0F766E` |
-| `secondary-700` | `#115E59` |
-| `secondary-800` | `#134E4A` |
+| Token | Dark theme | Light theme | Usage |
+|---|---|---|---|
+| `background-color` | `#0F172A` (slate-900) | `#F8FAFC` (slate-50) | App canvas, base background |
+| `surface-color` | `#1E293B` (slate-800) | `#FFFFFF` | Cards, navbar, sidebar |
+| `surface-hover` | `#334155` (slate-700) | `#F1F5F9` (slate-100) | Hover state on surface |
+| `border-color` | `#334155` (slate-700) | `#E2E8F0` (slate-200) | Dividers, default borders |
+| `border-light` | `#475569` (slate-600) | `#CBD5E1` (slate-300) | Hover divider, emphasized border |
 
-### 1.3 Neutral / Gray
+### 1.3 Text — Slate ramp
 
-| Token | Value |
-|---|---|
-| `neutral-0` | `#FFFFFF` |
-| `neutral-50` | `#F7FAF8` |
-| `neutral-100` | `#EDF2EF` |
-| `neutral-200` | `#D8E3DC` |
-| `neutral-300` | `#B8C9BF` |
-| `neutral-400` | `#8A9E90` |
-| `neutral-500` | `#5F7566` |
-| `neutral-600` | `#47594C` |
-| `neutral-700` | `#344038` |
-| `neutral-800` | `#212922` |
-| `neutral-900` | `#121714` |
-| `neutral-1000` | `#000000` |
+| Token | Dark theme | Light theme | Usage |
+|---|---|---|---|
+| `text-primary` | `#F8FAFC` (slate-50) | `#0F172A` (slate-900) | Headings, body copy |
+| `text-secondary` | `#94A3B8` (slate-400) | `#64748B` (slate-500) | Subtext, helper copy |
+| `text-tertiary` | `#64748B` (slate-500) | `#94A3B8` (slate-400) | Captions, disabled labels |
 
-### 1.4 Semantic
+### 1.4 Semantic — Status
 
-Use these tokens exclusively for feedback states (alerts, toasts, badges, form validation). Do not use primary or secondary tokens for semantic purposes.
+Use these tokens exclusively for feedback states (alerts, toasts, badges, form validation, overdue items, transaction direction). Do not use brand tokens for semantic purposes.
 
-| Token | Value | Usage |
+| Token | Dark / Light | Usage |
 |---|---|---|
-| `success-light` | `#D1FAE5` | Background, subtle highlight |
-| `success` | `#059669` | Icon, text, border |
-| `success-dark` | `#064E3B` | Hover / pressed state |
-| `warning-light` | `#FEF9C3` | Background, subtle highlight |
-| `warning` | `#CA8A04` | Icon, text, border |
-| `warning-dark` | `#713F12` | Hover / pressed state |
-| `error-light` | `#FEE2E2` | Background, subtle highlight |
-| `error` | `#DC2626` | Icon, text, border |
-| `error-dark` | `#7F1D1D` | Hover / pressed state |
-| `info-light` | `#CCFBF1` | Background, subtle highlight |
-| `info` | `#0D9488` | Icon, text, border |
-| `info-dark` | `#134E4A` | Hover / pressed state |
+| `success-color` | `#22C55E` / `#16A34A` | Completed tasks, income transactions |
+| `success-hover` | `#16A34A` / `#15803D` | Hover / pressed state |
+| `warning-color` | `#F59E0B` / `#D97706` | Reschedule, caution, streak flame |
+| `warning-hover` | `#D97706` / `#B45309` | Hover / pressed state |
+| `danger-color` | `#EF4444` / `#DC2626` | Destructive actions, overdue, expense |
+| `danger-hover` | `#DC2626` / `#B91C1C` | Hover / pressed state |
+| `info-color` | `#3B82F6` / `#2563EB` | Neutral information |
+| `info-hover` | `#2563EB` / `#1D4ED8` | Hover / pressed state |
 
-### 1.5 Implementation
+### 1.5 Eisenhower — Urgency × Importance
+
+Reserved for the tasks matrix board. Do not repurpose for general semantic states.
+
+| Token | Value |
+|---|---|
+| `urgency-urgent` | `#EF4444` |
+| `urgency-moderate` | `#F59E0B` |
+| `urgency-not` | `#6B7280` |
+| `importance-high` | `#3B82F6` |
+| `importance-medium` | `#8B5CF6` |
+| `importance-low` | `#6B7280` |
+
+### 1.6 Auth Gradient
+
+A single gradient token, used only on login / register hero backgrounds.
+
+| Token | Value |
+|---|---|
+| `auth-gradient` | `linear-gradient(to bottom right, #4338CA, #6B21A8)` (indigo-700 → purple-800) |
+
+### 1.7 Implementation
 
 ```css
-:root {
-  /* Primary — emerald */
-  --color-primary-00:  #ECFDF5;
-  --color-primary-50:  #D1FAE5;
-  --color-primary-100: #A7F3D0;
-  --color-primary-200: #6EE7B7;
-  --color-primary-300: #34D399;
-  --color-primary-400: #10B981;
-  --color-primary-500: #059669;
-  --color-primary-600: #047857;
-  --color-primary-700: #065F46;
-  --color-primary-800: #064E3B;
+:root,
+.dark-theme {
+  /* Brand / primary — indigo */
+  --primary-color:    #6366f1;
+  --primary-hover:    #4f46e5;
+  --primary-light:    #818cf8;
+  --primary-tint-15:  rgba(99, 102, 241, 0.15);
+  --primary-tint-20:  rgba(99, 102, 241, 0.20);
 
-  /* Secondary — teal */
-  --color-secondary-00:  #F0FDFA;
-  --color-secondary-50:  #CCFBF1;
-  --color-secondary-100: #99F6E4;
-  --color-secondary-200: #5EEAD4;
-  --color-secondary-300: #2DD4BF;
-  --color-secondary-400: #14B8A6;
-  --color-secondary-500: #0D9488;
-  --color-secondary-600: #0F766E;
-  --color-secondary-700: #115E59;
-  --color-secondary-800: #134E4A;
+  /* Surfaces — slate */
+  --background-color: #0f172a;
+  --surface-color:    #1e293b;
+  --surface-hover:    #334155;
 
-  /* Neutral — sage gray */
-  --color-neutral-0:    #FFFFFF;
-  --color-neutral-50:   #F7FAF8;
-  --color-neutral-100:  #EDF2EF;
-  --color-neutral-200:  #D8E3DC;
-  --color-neutral-300:  #B8C9BF;
-  --color-neutral-400:  #8A9E90;
-  --color-neutral-500:  #5F7566;
-  --color-neutral-600:  #47594C;
-  --color-neutral-700:  #344038;
-  --color-neutral-800:  #212922;
-  --color-neutral-900:  #121714;
-  --color-neutral-1000: #000000;
+  /* Text */
+  --text-primary:     #f8fafc;
+  --text-secondary:   #94a3b8;
+  --text-tertiary:    #64748b;
+
+  /* Borders */
+  --border-color:     #334155;
+  --border-light:     #475569;
 
   /* Semantic */
-  --color-success-light: #D1FAE5;
-  --color-success:       #059669;
-  --color-success-dark:  #064E3B;
-  --color-warning-light: #FEF9C3;
-  --color-warning:       #CA8A04;
-  --color-warning-dark:  #713F12;
-  --color-error-light:   #FEE2E2;
-  --color-error:         #DC2626;
-  --color-error-dark:    #7F1D1D;
-  --color-info-light:    #CCFBF1;
-  --color-info:          #0D9488;
-  --color-info-dark:     #134E4A;
+  --danger-color:     #ef4444;
+  --danger-hover:     #dc2626;
+  --success-color:    #22c55e;
+  --success-hover:    #16a34a;
+  --warning-color:    #f59e0b;
+  --warning-hover:    #d97706;
+  --info-color:       #3b82f6;
+  --info-hover:       #2563eb;
+
+  /* Auth gradient */
+  --auth-gradient: linear-gradient(to bottom right, #4338ca, #6b21a8);
+
+  /* Eisenhower */
+  --urgency-urgent:    #ef4444;
+  --urgency-moderate:  #f59e0b;
+  --urgency-not:       #6b7280;
+  --importance-high:   #3b82f6;
+  --importance-medium: #8b5cf6;
+  --importance-low:    #6b7280;
+}
+
+.light-theme {
+  --primary-color:    #4f46e5;
+  --primary-hover:    #3730a3;
+  --primary-light:    #6366f1;
+  --background-color: #f8fafc;
+  --surface-color:    #ffffff;
+  --surface-hover:    #f1f5f9;
+  --text-primary:     #0f172a;
+  --text-secondary:   #64748b;
+  --text-tertiary:    #94a3b8;
+  --border-color:     #e2e8f0;
+  --border-light:     #cbd5e1;
+  --danger-color:     #dc2626;
+  --danger-hover:     #b91c1c;
+  --success-color:    #16a34a;
+  --success-hover:    #15803d;
+  --warning-color:    #d97706;
+  --warning-hover:    #b45309;
+  --info-color:       #2563eb;
+  --info-hover:       #1d4ed8;
 }
 ```
 
 ```json
 {
   "color": {
-    "primary": {
-      "00":  { "value": "#ECFDF5" },
-      "50":  { "value": "#D1FAE5" },
-      "100": { "value": "#A7F3D0" },
-      "200": { "value": "#6EE7B7" },
-      "300": { "value": "#34D399" },
-      "400": { "value": "#10B981" },
-      "500": { "value": "#059669" },
-      "600": { "value": "#047857" },
-      "700": { "value": "#065F46" },
-      "800": { "value": "#064E3B" }
+    "brand": {
+      "primary":       { "value": "#6366F1" },
+      "primary-hover": { "value": "#4F46E5" },
+      "primary-light": { "value": "#818CF8" },
+      "primary-tint-15": { "value": "rgba(99,102,241,0.15)" },
+      "primary-tint-20": { "value": "rgba(99,102,241,0.20)" }
     },
-    "secondary": {
-      "00":  { "value": "#F0FDFA" },
-      "50":  { "value": "#CCFBF1" },
-      "100": { "value": "#99F6E4" },
-      "200": { "value": "#5EEAD4" },
-      "300": { "value": "#2DD4BF" },
-      "400": { "value": "#14B8A6" },
-      "500": { "value": "#0D9488" },
-      "600": { "value": "#0F766E" },
-      "700": { "value": "#115E59" },
-      "800": { "value": "#134E4A" }
+    "surface": {
+      "background":    { "value": "#0F172A" },
+      "surface":       { "value": "#1E293B" },
+      "surface-hover": { "value": "#334155" },
+      "border":        { "value": "#334155" },
+      "border-light":  { "value": "#475569" }
     },
-    "neutral": {
-      "0":    { "value": "#FFFFFF" },
-      "50":   { "value": "#F7FAF8" },
-      "100":  { "value": "#EDF2EF" },
-      "200":  { "value": "#D8E3DC" },
-      "300":  { "value": "#B8C9BF" },
-      "400":  { "value": "#8A9E90" },
-      "500":  { "value": "#5F7566" },
-      "600":  { "value": "#47594C" },
-      "700":  { "value": "#344038" },
-      "800":  { "value": "#212922" },
-      "900":  { "value": "#121714" },
-      "1000": { "value": "#000000" }
+    "text": {
+      "primary":   { "value": "#F8FAFC" },
+      "secondary": { "value": "#94A3B8" },
+      "tertiary":  { "value": "#64748B" }
     },
     "semantic": {
-      "success-light": { "value": "#D1FAE5" },
-      "success":       { "value": "#059669" },
-      "success-dark":  { "value": "#064E3B" },
-      "warning-light": { "value": "#FEF9C3" },
-      "warning":       { "value": "#CA8A04" },
-      "warning-dark":  { "value": "#713F12" },
-      "error-light":   { "value": "#FEE2E2" },
-      "error":         { "value": "#DC2626" },
-      "error-dark":    { "value": "#7F1D1D" },
-      "info-light":    { "value": "#CCFBF1" },
-      "info":          { "value": "#0D9488" },
-      "info-dark":     { "value": "#134E4A" }
+      "success":       { "value": "#22C55E" },
+      "success-hover": { "value": "#16A34A" },
+      "warning":       { "value": "#F59E0B" },
+      "warning-hover": { "value": "#D97706" },
+      "danger":        { "value": "#EF4444" },
+      "danger-hover":  { "value": "#DC2626" },
+      "info":          { "value": "#3B82F6" },
+      "info-hover":    { "value": "#2563EB" }
+    },
+    "eisenhower": {
+      "urgency-urgent":    { "value": "#EF4444" },
+      "urgency-moderate":  { "value": "#F59E0B" },
+      "urgency-not":       { "value": "#6B7280" },
+      "importance-high":   { "value": "#3B82F6" },
+      "importance-medium": { "value": "#8B5CF6" },
+      "importance-low":    { "value": "#6B7280" }
+    },
+    "gradient": {
+      "auth": { "value": "linear-gradient(to bottom right, #4338CA, #6B21A8)" }
     }
   }
 }
@@ -210,17 +212,18 @@ Use these tokens exclusively for feedback states (alerts, toasts, badges, form v
 
 ## 2. Typography System
 
-All text uses a single font family across display, body, and mono roles. Sizes and weights are tokenized — do not hardcode either.
-
-> ⚠️ `font-mono` is currently set to `Montserrat`, which is not a monospace typeface. This token should be updated to a dedicated monospace font before production use.
+Oter uses **three** typefaces, each scoped to a clear role: **Geist** on the web, **Geist Mono** for tabular numerics and code, and **Lexend** on mobile (Android / iOS / Compose). Reach for the semantic `--type-*` shorthand whenever possible — it bakes in weight, size, and line-height together.
 
 ### 2.1 Font Families
 
-| Token | Value |
-|---|---|
-| `font-display` | `Montserrat` |
-| `font-body` | `Montserrat` |
-| `font-mono` | `Montserrat` |
+| Token | Value | Role |
+|---|---|---|
+| `font-sans` | `"Geist", "Inter", system-ui, …` | Web + desktop UI |
+| `font-mono` | `"Geist Mono", ui-monospace, Menlo, …` | Tabular numerics, code, tokens |
+| `font-mobile` | `"Lexend", system-ui, …` | Android / iOS / Compose |
+| `font-brand` | `var(--font-sans)` | Wordmark — paired with the otter mascot |
+
+> Lexend ships with the full **100 → 900** weight ramp from local TTFs in `ds/fonts/`. The web stack relies on Google Fonts for Geist + Geist Mono.
 
 ### 2.2 Font Weights
 
@@ -230,67 +233,66 @@ All text uses a single font family across display, body, and mono roles. Sizes a
 | `font-medium` | `500` |
 | `font-semibold` | `600` |
 | `font-bold` | `700` |
+| `font-extrabold` | `800` |
 
 ### 2.3 Type Scale
 
-All sizes are in `px`. Line-height values are not yet defined — do not hardcode defaults.
+All sizes are in `px`. The scale is **semantic** — favor `var(--type-h2)` over hand-rolling a font shorthand.
 
 #### Display & Headings
 
-| Token | Size | Weight |
-|---|---|---|
-| `hero` | `72px` | `700` |
-| `h1` | `40px` | `700` |
-| `h2` | `32px` | `700` |
-| `h3` | `24px` | `600` |
-| `h4` | `20px` | `600` |
-| `h5` | `16px` | `600` |
+| Token | Size | Line-height | Weight | Letter-spacing |
+|---|---|---|---|---|
+| `type-h1` | `28px` | `33.6` (1.2) | `700` | `-0.01em` |
+| `type-h2` | `24px` | `30` (1.25) | `700` | `-0.005em` |
+| `type-h3` | `20px` | `26` (1.3) | `700` | — |
+| `type-h4` | `18px` | `24.3` (1.35) | `700` | — |
+| `type-h5` | `16px` | `22.4` (1.4) | `700` | — |
+| `type-h6` | `14px` | `19.6` (1.4) | `700` | — |
 
 #### Body & UI Text
 
-| Token | Size | Weight | Style |
+| Token | Size | Line-height | Weight |
 |---|---|---|---|
-| `body-lg` | `16px` | `400` | — |
-| `body-md` | `14px` | `400` | — |
-| `body-sm` | `12px` | `400` | — |
-| `label` | `14px` | `500` | — |
-| `button` | `14px` | `600` | — |
-| `overline` | `12px` | `700` | — |
-| `caption-italic` | `12px` | `400` | italic |
+| `type-body` | `16px` | `24` (1.5) | `400` |
+| `type-body-sm` | `14px` | `21` (1.5) | `400` |
+| `type-caption` | `12px` | `16.8` (1.4) | `400` |
+| `type-button` | `16px` | `16` (1.0) | `600` |
+| `type-mono` | `14px` | `21` (1.5) | `400` |
 
-> ⚠️ Line-height values are not yet defined. Do not use arbitrary line-height values until tokens are officially added to this document.
+#### Wordmark
+
+| Token | Size | Weight | Letter-spacing |
+|---|---|---|---|
+| `brand-wordmark` | `20px` | `700` | `-0.01em` |
+
+#### Utilities
+
+- `.tabular` → `font-variant-numeric: tabular-nums;` — required on all time, balance, and counter displays.
+- `.pill` → status-pill component (12px / 500 / `primary-tint-15` background).
 
 ### 2.4 Implementation
 
 ```css
 :root {
-  /* Font families */
-  --font-display: 'Montserrat', sans-serif;
-  --font-body:    'Montserrat', sans-serif;
-  --font-mono:    'Montserrat', monospace; /* ⚠️ Pending monospace replacement */
+  /* Families */
+  --font-sans:   "Geist", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono:   "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-mobile: "Lexend", system-ui, -apple-system, sans-serif;
+  --font-brand:  var(--font-sans);
 
-  /* Font weights */
-  --font-weight-regular:  400;
-  --font-weight-medium:   500;
-  --font-weight-semibold: 600;
-  --font-weight-bold:     700;
-
-  /* Display & Headings */
-  --font-size-hero: 72px;
-  --font-size-h1:   40px;
-  --font-size-h2:   32px;
-  --font-size-h3:   24px;
-  --font-size-h4:   20px;
-  --font-size-h5:   16px;
-
-  /* Body & UI */
-  --font-size-body-lg:        16px;
-  --font-size-body-md:        14px;
-  --font-size-body-sm:        12px;
-  --font-size-label:          14px;
-  --font-size-button:         14px;
-  --font-size-overline:       12px;
-  --font-size-caption-italic: 12px;
+  /* Semantic scale */
+  --type-h1:      700 28px/1.2  var(--font-sans);
+  --type-h2:      700 24px/1.25 var(--font-sans);
+  --type-h3:      700 20px/1.3  var(--font-sans);
+  --type-h4:      700 18px/1.35 var(--font-sans);
+  --type-h5:      700 16px/1.4  var(--font-sans);
+  --type-h6:      700 14px/1.4  var(--font-sans);
+  --type-body:    400 16px/1.5  var(--font-sans);
+  --type-body-sm: 400 14px/1.5  var(--font-sans);
+  --type-caption: 400 12px/1.4  var(--font-sans);
+  --type-button:  600 16px/1    var(--font-sans);
+  --type-mono:    400 14px/1.5  var(--font-mono);
 }
 ```
 
@@ -298,30 +300,30 @@ All sizes are in `px`. Line-height values are not yet defined — do not hardcod
 {
   "font": {
     "family": {
-      "display": { "value": "Montserrat" },
-      "body":    { "value": "Montserrat" },
-      "mono":    { "value": "Montserrat" }
+      "sans":   { "value": "Geist" },
+      "mono":   { "value": "Geist Mono" },
+      "mobile": { "value": "Lexend" },
+      "brand":  { "value": "Geist" }
     },
     "weight": {
-      "regular":  { "value": 400 },
-      "medium":   { "value": 500 },
-      "semibold": { "value": 600 },
-      "bold":     { "value": 700 }
+      "regular":    { "value": 400 },
+      "medium":     { "value": 500 },
+      "semibold":   { "value": 600 },
+      "bold":       { "value": 700 },
+      "extrabold":  { "value": 800 }
     },
     "size": {
-      "hero":           { "value": "72px", "weight": 700 },
-      "h1":             { "value": "40px", "weight": 700 },
-      "h2":             { "value": "32px", "weight": 700 },
-      "h3":             { "value": "24px", "weight": 600 },
-      "h4":             { "value": "20px", "weight": 600 },
-      "h5":             { "value": "16px", "weight": 600 },
-      "body-lg":        { "value": "16px", "weight": 400 },
-      "body-md":        { "value": "14px", "weight": 400 },
-      "body-sm":        { "value": "12px", "weight": 400 },
-      "label":          { "value": "14px", "weight": 500 },
-      "button":         { "value": "14px", "weight": 600 },
-      "overline":       { "value": "12px", "weight": 700 },
-      "caption-italic": { "value": "12px", "weight": 400, "style": "italic" }
+      "h1":      { "value": "28px", "lineHeight": 1.2,  "weight": 700, "letterSpacing": "-0.01em" },
+      "h2":      { "value": "24px", "lineHeight": 1.25, "weight": 700, "letterSpacing": "-0.005em" },
+      "h3":      { "value": "20px", "lineHeight": 1.3,  "weight": 700 },
+      "h4":      { "value": "18px", "lineHeight": 1.35, "weight": 700 },
+      "h5":      { "value": "16px", "lineHeight": 1.4,  "weight": 700 },
+      "h6":      { "value": "14px", "lineHeight": 1.4,  "weight": 700 },
+      "body":    { "value": "16px", "lineHeight": 1.5,  "weight": 400 },
+      "body-sm": { "value": "14px", "lineHeight": 1.5,  "weight": 400 },
+      "caption": { "value": "12px", "lineHeight": 1.4,  "weight": 400 },
+      "button":  { "value": "16px", "lineHeight": 1.0,  "weight": 600 },
+      "mono":    { "value": "14px", "lineHeight": 1.5,  "weight": 400, "family": "mono" }
     }
   }
 }
@@ -331,54 +333,39 @@ All sizes are in `px`. Line-height values are not yet defined — do not hardcod
 
 ## 3. Spacing Scale
 
-Base unit is `4px`. All tokens are multiples of this base. Use these for padding, margin, gap, and layout sizing — never hardcode numeric values.
+Base unit is `4px`. Mirrors the Compose `Dimensions.kt` ramp (4 / 8 / 16 / 32 / 64). Use these for padding, margin, and **`gap`** in flex/grid (the Oter codebase prefers `gap` over per-element margins). Never hardcode numeric values.
 
-| Token | Value |
-|---|---|
-| `spacing-1` | `4px` |
-| `spacing-2` | `8px` |
-| `spacing-3` | `12px` |
-| `spacing-4` | `16px` |
-| `spacing-5` | `20px` |
-| `spacing-6` | `24px` |
-| `spacing-8` | `32px` |
-| `spacing-10` | `40px` |
-| `spacing-12` | `48px` |
-| `spacing-16` | `64px` |
-| `spacing-24` | `96px` |
+| Token | rem | px |
+|---|---|---|
+| `spacing-xs` | `0.25rem` | `4px` |
+| `spacing-sm` | `0.5rem` | `8px` |
+| `spacing-md` | `1rem` | `16px` |
+| `spacing-lg` | `1.5rem` | `24px` |
+| `spacing-xl` | `2rem` | `32px` |
+| `spacing-xxl` | `4rem` | `64px` |
 
 ### Implementation
 
 ```css
 :root {
-  --spacing-1:  4px;
-  --spacing-2:  8px;
-  --spacing-3:  12px;
-  --spacing-4:  16px;
-  --spacing-5:  20px;
-  --spacing-6:  24px;
-  --spacing-8:  32px;
-  --spacing-10: 40px;
-  --spacing-12: 48px;
-  --spacing-16: 64px;
-  --spacing-24: 96px;
+  --spacing-xs:  0.25rem; /*  4px */
+  --spacing-sm:  0.5rem;  /*  8px */
+  --spacing-md:  1rem;    /* 16px */
+  --spacing-lg:  1.5rem;  /* 24px */
+  --spacing-xl:  2rem;    /* 32px */
+  --spacing-xxl: 4rem;    /* 64px */
 }
 ```
 
 ```json
 {
   "spacing": {
-    "1":  { "value": "4px" },
-    "2":  { "value": "8px" },
-    "3":  { "value": "12px" },
-    "4":  { "value": "16px" },
-    "5":  { "value": "20px" },
-    "6":  { "value": "24px" },
-    "8":  { "value": "32px" },
-    "10": { "value": "40px" },
-    "12": { "value": "48px" },
-    "16": { "value": "64px" },
-    "24": { "value": "96px" }
+    "xs":  { "value": "4px" },
+    "sm":  { "value": "8px" },
+    "md":  { "value": "16px" },
+    "lg":  { "value": "24px" },
+    "xl":  { "value": "32px" },
+    "xxl": { "value": "64px" }
   }
 }
 ```
@@ -387,28 +374,24 @@ Base unit is `4px`. All tokens are multiples of this base. Use these for padding
 
 ## 4. Radius Scale
 
-Use these tokens for `border-radius` on all UI elements. Do not apply arbitrary radius values outside this scale.
+Use these tokens for `border-radius` on all UI elements. Cards and modals lean generous; pills and avatars use the `full` value.
 
 | Token | Value | Usage |
 |---|---|---|
-| `radius-none` | `0px` | Sharp corners, dividers |
-| `radius-sm` | `4px` | Inputs, tags, small chips |
-| `radius-md` | `8px` | Buttons, compact cards |
-| `radius-lg` | `12px` | Cards, panels |
-| `radius-xl` | `16px` | Modals, sheets |
-| `radius-2xl` | `24px` | Large containers |
+| `radius-sm` | `6px` | Compact chips, small badges |
+| `radius-md` | `8px` | Default button / input |
+| `radius-lg` | `12px` | Cards, modals |
+| `radius-xl` | `16px` | Dashboard surface, large containers |
 | `radius-full` | `9999px` | Pills, avatars, toggles |
 
 ### Implementation
 
 ```css
 :root {
-  --radius-none: 0px;
-  --radius-sm:   4px;
+  --radius-sm:   6px;
   --radius-md:   8px;
   --radius-lg:   12px;
   --radius-xl:   16px;
-  --radius-2xl:  24px;
   --radius-full: 9999px;
 }
 ```
@@ -416,12 +399,10 @@ Use these tokens for `border-radius` on all UI elements. Do not apply arbitrary 
 ```json
 {
   "radius": {
-    "none": { "value": "0px" },
-    "sm":   { "value": "4px" },
+    "sm":   { "value": "6px" },
     "md":   { "value": "8px" },
     "lg":   { "value": "12px" },
     "xl":   { "value": "16px" },
-    "2xl":  { "value": "24px" },
     "full": { "value": "9999px" }
   }
 }
@@ -431,50 +412,135 @@ Use these tokens for `border-radius` on all UI elements. Do not apply arbitrary 
 
 ## 5. Elevation / Shadows
 
-Elevation tokens define depth using `box-shadow`. Apply them based on a component's conceptual layer — do not mix levels arbitrarily.
+Cards in Oter **lean on borders first, shadow second** — shadows stay soft and layered, never stark. The dark theme reads well without them; on light theme they take more of the work.
 
 | Token | Value | Usage |
 |---|---|---|
-| `elevation-hairline` | `0px 1px 2px rgba(0,0,0,0.05)` | Subtle separation, sticky headers |
-| `elevation-card` | `0px 2px 8px rgba(0,0,0,0.08)` | Cards, list items |
-| `elevation-popover` | `0px 4px 16px rgba(0,0,0,0.10)` | Dropdowns, tooltips, popovers |
-| `elevation-modal` | `0px 8px 32px rgba(0,0,0,0.12)` | Modals, drawers, dialogs |
+| `shadow-sm` | `0 1px 2px 0 rgb(0 0 0 / 0.05)` | Hairline separation, sticky headers |
+| `shadow-md` | `0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)` | Cards, list items |
+| `shadow-lg` | `0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)` | Dropdowns, tooltips, popovers |
+| `shadow-xl` | `0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)` | Modals, drawers, dialogs |
 
 ### Implementation
 
 ```css
 :root {
-  --elevation-hairline: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  --elevation-card:     0px 2px 8px rgba(0, 0, 0, 0.08);
-  --elevation-popover:  0px 4px 16px rgba(0, 0, 0, 0.10);
-  --elevation-modal:    0px 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 ```
 
 ```json
 {
-  "elevation": {
-    "hairline": { "value": "0px 1px 2px rgba(0,0,0,0.05)" },
-    "card":     { "value": "0px 2px 8px rgba(0,0,0,0.08)" },
-    "popover":  { "value": "0px 4px 16px rgba(0,0,0,0.10)" },
-    "modal":    { "value": "0px 8px 32px rgba(0,0,0,0.12)" }
+  "shadow": {
+    "sm": { "value": "0 1px 2px 0 rgba(0,0,0,0.05)" },
+    "md": { "value": "0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10)" },
+    "lg": { "value": "0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10)" },
+    "xl": { "value": "0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.10)" }
   }
 }
 ```
 
-> **Mobile note:** React Native does not support `box-shadow` directly. Use `shadow*` props (iOS) or the `elevation` prop (Android). Maintain a platform-specific mapping layer in your token pipeline rather than hardcoding platform values in components.
+> **Mobile note:** React Native and Compose do not support `box-shadow` directly. Use `shadow*` props (iOS), the `elevation` prop / `Modifier.shadow` (Android / Compose). Map shadow tokens at the pipeline level rather than hardcoding platform values in components.
 
 ---
 
-## 6. General Guidelines
+## 6. Motion
 
-- **Always use tokens.** Never hardcode hex values, font sizes, spacing numbers, radius values, or shadow strings in component code.
-- **Token naming is final.** Do not rename, shorten, or alias tokens locally — this breaks cross-platform consistency.
+A single curve — `cubic-bezier(.4, 0, .2, 1)` — at three durations. **Never bouncy.** Motion expresses confidence, not personality.
+
+| Token | Duration | Curve | Usage |
+|---|---|---|---|
+| `transition-fast` | `150ms` | `cubic-bezier(.4, 0, .2, 1)` | Hover, focus, micro-feedback |
+| `transition-base` | `200ms` | `cubic-bezier(.4, 0, .2, 1)` | Default UI transitions |
+| `transition-slow` | `300ms` | `cubic-bezier(.4, 0, .2, 1)` | Modal open, page enter |
+
+### Implementation
+
+```css
+:root {
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+```
+
+```json
+{
+  "motion": {
+    "easing": { "standard": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" } },
+    "duration": {
+      "fast": { "value": "150ms" },
+      "base": { "value": "200ms" },
+      "slow": { "value": "300ms" }
+    }
+  }
+}
+```
+
+---
+
+## 7. Z-Index Ladder
+
+An explicit, evenly-spaced ladder. **Never use ad-hoc numbers in product code** — pick the token whose role matches the surface you're stacking.
+
+| Token | Value | Usage |
+|---|---|---|
+| `z-base` | `0` | Default flow |
+| `z-dropdown` | `1000` | Menus, comboboxes |
+| `z-sticky` | `1020` | Sticky headers, sub-nav |
+| `z-fixed` | `1030` | Fixed top bar, floating CTA |
+| `z-modal-backdrop` | `1040` | Scrim behind modal |
+| `z-modal` | `1050` | Modal panel |
+| `z-toast` | `1060` | Transient notifications |
+| `z-tooltip` | `1070` | Tooltips — always on top |
+
+### Implementation
+
+```css
+:root {
+  --z-base:           0;
+  --z-dropdown:    1000;
+  --z-sticky:      1020;
+  --z-fixed:       1030;
+  --z-modal-backdrop: 1040;
+  --z-modal:       1050;
+  --z-toast:       1060;
+  --z-tooltip:     1070;
+}
+```
+
+```json
+{
+  "z-index": {
+    "base":           { "value": 0 },
+    "dropdown":       { "value": 1000 },
+    "sticky":         { "value": 1020 },
+    "fixed":          { "value": 1030 },
+    "modal-backdrop": { "value": 1040 },
+    "modal":          { "value": 1050 },
+    "toast":          { "value": 1060 },
+    "tooltip":        { "value": 1070 }
+  }
+}
+```
+
+---
+
+## 8. General Guidelines
+
+- **Always use tokens.** Never hardcode hex values, font sizes, spacing numbers, radius values, shadow strings, durations, or z-index integers in component code.
+- **Dark-first.** Build and review components on the dark theme first; verify the light theme inversion second. Both themes share token names — only the values flip.
+- **Prefer semantic shortcuts.** Reach for `var(--type-h2)` over hand-rolled font shorthands; reach for `var(--transition-base)` over raw durations.
+- **`gap` over margin.** Lay out flex/grid rows with `gap: var(--spacing-*)` rather than margins on individual children — this keeps the Oter codebase resilient under direct-manipulation edits.
+- **Tabular numerics are non-negotiable.** Anything that displays a time, balance, count, or duration must use `.tabular` (`font-variant-numeric: tabular-nums`).
+- **Token naming is final.** Do not rename, shorten, or alias tokens locally — this breaks cross-platform consistency between web (CSS custom properties), Compose (`Theme.kt`), and the React Native / iOS exports.
 - **Missing values = pending, not optional.** If a token isn't defined in this document, wait for it to be officially added rather than improvising a value.
-- **All values are in `px`.** Conversion to `rem`, `sp`, or `pt` should happen at the token pipeline level, not in component code.
-- **Cross-platform scope.** These tokens apply to web (CSS custom properties), React Native, native iOS, and Android via a Style Dictionary export pipeline.
-- **Token tooling.** This document is the source of truth until a formal token pipeline (e.g. Style Dictionary, Tokens Studio) is in place. All JSON structures follow Style Dictionary's standard format and are ready for direct use.
+- **All values are in `px` (or `rem` where noted).** Conversion to `sp` / `pt` / `dp` happens at the token pipeline level, not in component code.
+- **Cross-platform scope.** These tokens apply to web (CSS custom properties), React Native, native iOS, and Android via a Style Dictionary export pipeline. The JSON blocks above follow Style Dictionary's standard format and are ready for direct use.
 
 ---
 
-*Last updated: May 2026 · Design Systems team*
+*Last updated: May 2026 · Oter Design Systems team*
