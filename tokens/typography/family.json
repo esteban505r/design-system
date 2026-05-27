@@ -1,19 +1,19 @@
 {
   "font": {
     "family": {
-      "sans": {
+      "brand": {
         "$value": "Geist",
-        "$type": "fontFamily"
-      },
-      "mono": {
-        "$value": "Geist Mono",
         "$type": "fontFamily"
       },
       "mobile": {
         "$value": "Lexend",
         "$type": "fontFamily"
       },
-      "brand": {
+      "mono": {
+        "$value": "Geist Mono",
+        "$type": "fontFamily"
+      },
+      "sans": {
         "$value": "Geist",
         "$type": "fontFamily"
       }
