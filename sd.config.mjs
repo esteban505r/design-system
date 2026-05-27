@@ -125,17 +125,13 @@ const sd = new StyleDictionary({
           filter: (token) => token.$type === 'color',
         },
         {
+          // All <dimen> resources in one file (Android merges any values/*.xml).
+          // Font sizes use sp; spacing/radius use dp. Reference as R.dimen.font_size_h1.
           destination: 'dimens.xml',
           format: 'android/dimens',
           filter: (token) =>
-            token.$type === 'dimension' && token.path?.[0] !== 'font',
-        },
-        {
-          destination: 'font_dimens.xml',
-          format: 'android/fontDimens',
-          filter: (token) =>
-            token.path?.[0] === 'font' &&
-            (token.$type === 'fontSize' || token.$type === 'dimension'),
+            token.$type === 'fontSize' ||
+            (token.$type === 'dimension' && token.path?.[0] !== 'font'),
         },
         {
           destination: 'integers.xml',

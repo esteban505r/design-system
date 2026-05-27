@@ -253,7 +253,20 @@ In **CI** for the consuming app, inject the same values (e.g. repository secrets
 
 The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only (colors, dimens, font dimens, etc.). After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
 
-**Resource names** match the generated files in **`dist/android/`**: `colors.xml`, `dimens.xml`, `font_dimens.xml`, `integers.xml` (z-index, font weights, motion duration ms), and `strings.xml` (font families, shadows, easing, gradients). Names use snake_case (e.g. `color_brand_primary`, `spacing_md`, `z_index_modal`) — confirm the exact `name="…"` when you add or rename tokens.
+**Resource names** match the generated files in **`dist/android/`**: `colors.xml`, `dimens.xml` (spacing, radius, **and font sizes in `sp`**), `integers.xml`, `strings.xml`. There is no `R.font_dimens` type — font sizes are normal **`R.dimen`** entries (e.g. `R.dimen.font_size_h1`, `@dimen/font_size_h1` in XML).
+
+**Font sizes in Compose:** `dimensionResource()` returns `Dp`, but `Text.fontSize` needs `TextUnit` (`sp`). Use:
+
+```kotlin
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
+
+Text(
+    fontSize = with(LocalDensity.current) {
+        dimensionResource(R.dimen.font_size_h1).toSp()
+    },
+)
+```
 
 **XML layouts**
 
@@ -261,8 +274,9 @@ The **`tokens-android`** artifact is a normal **`com.android.library`**: it ship
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textColor="@color/color_primary_500"
-    android:padding="@dimen/spacing_4" />
+    android:textColor="@color/color_brand_primary"
+    android:textSize="@dimen/font_size_body"
+    android:padding="@dimen/spacing_md" />
 ```
 
 **`styles.xml` / Material theme**
