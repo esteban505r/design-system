@@ -1,13 +1,15 @@
 # Oter — Design System Foundations
 
+> **Branch `figma-ssot`:** edit **[`figma/tokens.json`](figma/tokens.json)** (Tokens Studio export) as the single source of truth. Run `pnpm run sync` after changes. This file is **documentation only** on that branch (`pnpm run parse:md` is for markdown-driven migration).
+
 **Version:** 1.0.5
 **Scope:** Web · Desktop · Mobile (iOS, Android, Compose)
-**Status:** Active
-**Source of truth:** [`ds/colors_and_type.css`](./ds/colors_and_type.css)
+**Status:** Reference (see `figma/tokens.json` on `figma-ssot`)
+**Source of truth (figma-ssot branch):** [`figma/tokens.json`](figma/tokens.json)
 
-> Oter is a life-management platform spanning finance, tasks, habits, nutrition, workouts, and study. The product ships **dark-first** on an indigo-on-slate palette, with a light theme that inverts surfaces while preserving the brand hue. Use design tokens instead of hardcoded values. All tokens in this document are the single source of truth — do not invent, alias, or override them locally.
+> Oter is a life-management platform spanning finance, tasks, habits, nutrition, workouts, and study. The product ships **dark-first** on an indigo-on-slate palette, with a light theme that inverts surfaces while preserving the brand hue. Use design tokens instead of hardcoded values.
 >
-> **Pipeline:** after editing this file, push to GitHub (or run `pnpm run sync` locally). That regenerates `tokens/`, `dist/figma/tokens.json` (Figma), and platform outputs. See [docs/workflow-and-production.md](docs/workflow-and-production.md) for production setup and releases.
+> **Production pipeline on `figma-ssot`:** [docs/figma-ssot.md](docs/figma-ssot.md)
 
 ---
 

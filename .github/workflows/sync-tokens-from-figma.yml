@@ -1,25 +1,22 @@
-# When someone updates the foundations markdown, regenerate tokens + dist outputs,
-# commit to the same branch, and open a PR into main (if not already open).
+# When figma/tokens.json (SSOT) changes, regenerate tokens/ + dist/ and open a PR.
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
 #   - Allow GitHub Actions to create and approve pull requests (for gh pr create)
 
-name: Sync tokens from markdown
+name: Sync tokens from Figma JSON
 
 on:
   push:
-    branches-ignore:
-      - figma-ssot
     paths:
-      - 'design-system-foundations.md'
+      - 'figma/tokens.json'
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: token-sync-${{ github.ref }}
+  group: token-sync-figma-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -49,7 +46,7 @@ jobs:
             echo "No changes after sync — working tree already up to date."
             exit 0
           fi
-          git commit -m "chore(tokens): sync from design-system-foundations.md"
+          git commit -m "chore(tokens): sync from figma/tokens.json"
           git push
 
       - name: Open pull request (feature branches only)
@@ -62,10 +59,12 @@ jobs:
           COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
           if [ "$COUNT" -eq 0 ]; then
             if ! gh pr create --base main --head "$BRANCH" \
-              --title "Design tokens: update from foundations markdown" \
-              --body "Auto-generated from \`design-system-foundations.md\` via \`pnpm run sync\`. Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [workflow-and-production.md](docs/workflow-and-production.md)."; then
-              echo "::warning::Could not open a PR — enable 'Allow GitHub Actions to create and approve pull requests' in repo Settings → Actions."
-              echo "Open a PR manually from ${BRANCH} → main (sync commit was pushed)."
+              --title "Design tokens: update from figma/tokens.json" \
+              --body "Auto-generated from \`figma/tokens.json\` (single source of truth). Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [docs/figma-ssot.md](docs/figma-ssot.md)."; then
+              echo "::warning::Could not open a PR (GitHub blocked createPullRequest)."
+              echo "Enable: Settings → Actions → General → Workflow permissions →"
+              echo "  'Allow GitHub Actions to create and approve pull requests'"
+              echo "Or open a PR manually from branch ${BRANCH} → main (sync commit was pushed)."
               exit 0
             fi
           else

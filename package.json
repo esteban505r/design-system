@@ -5,6 +5,7 @@
   "description": "Design system tokens — single source of truth for all platforms",
   "type": "module",
   "files": [
+    "figma/tokens.json",
     "dist/web",
     "dist/json",
     "dist/figma"
@@ -13,7 +14,7 @@
     ".": "./dist/web/tokens.js",
     "./css": "./dist/web/tokens.css",
     "./json": "./dist/json/tokens.json",
-    "./figma": "./dist/figma/tokens.json"
+    "./figma": "./figma/tokens.json"
   },
   "sideEffects": [
     "**/*.css"
@@ -39,10 +40,11 @@
     "style-dictionary"
   ],
   "scripts": {
-    "sync": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node tokens-to-figma.mjs && node sd.config.mjs",
+    "sync": "node figma-to-tokens.mjs && node sd.config.mjs",
     "build": "node sd.config.mjs",
-    "figma": "node tokens-to-figma.mjs",
-    "parse": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
+    "parse": "node figma-to-tokens.mjs",
+    "parse:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
+    "figma:verify": "node tokens-to-figma.mjs",
     "clean": "rm -rf dist/ tokens/"
   },
   "author": "",
