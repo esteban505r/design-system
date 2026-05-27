@@ -3,47 +3,94 @@
     "size": {
       "h1": {
         "$value": "28px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.2,
+          "letterSpacing": "-0.01em"
+        }
       },
       "h2": {
         "$value": "24px",
-        "$type": "fontSize"
-      },
-      "body": {
-        "$value": "16px",
-        "$type": "fontSize"
-      },
-      "body-sm": {
-        "$value": "14px",
-        "$type": "fontSize"
-      },
-      "button": {
-        "$value": "16px",
-        "$type": "fontSize"
-      },
-      "caption": {
-        "$value": "12px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.25,
+          "letterSpacing": "-0.005em"
+        }
       },
       "h3": {
         "$value": "20px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.3
+        }
       },
       "h4": {
         "$value": "18px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.35
+        }
       },
       "h5": {
         "$value": "16px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.4
+        }
       },
       "h6": {
         "$value": "14px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 700,
+          "lineHeight": 1.4
+        }
+      },
+      "body": {
+        "$value": "16px",
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 400,
+          "lineHeight": 1.5
+        }
+      },
+      "body-sm": {
+        "$value": "14px",
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 400,
+          "lineHeight": 1.5
+        }
+      },
+      "caption": {
+        "$value": "12px",
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 400,
+          "lineHeight": 1.4
+        }
+      },
+      "button": {
+        "$value": "16px",
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 600,
+          "lineHeight": 1
+        }
       },
       "mono": {
         "$value": "14px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$extensions": {
+          "weight": 400,
+          "lineHeight": 1.5,
+          "family": "mono"
+        }
       }
     }
   }

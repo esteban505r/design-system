@@ -12,9 +12,9 @@ import 'dart:ui';
 class {
     ._();
 
-    static const colorBrandPrimary = Color(0xFFF18963);
-    static const colorBrandPrimaryHover = Color(0xFFE5A846);
-    static const colorBrandPrimaryLight = Color(0xFFFCD79D);
+    static const colorBrandPrimary = Color(0xFF6366F1);
+    static const colorBrandPrimaryHover = Color(0xFF4F46E5);
+    static const colorBrandPrimaryLight = Color(0xFF818CF8);
     static const colorBrandPrimaryTint15 = Color(0x266366F1);
     static const colorBrandPrimaryTint20 = Color(0x336366F1);
     static const colorEisenhowerImportanceHigh = Color(0xFF3B82F6);
@@ -23,8 +23,9 @@ class {
     static const colorEisenhowerUrgencyModerate = Color(0xFFF59E0B);
     static const colorEisenhowerUrgencyNot = Color(0xFF6B7280);
     static const colorEisenhowerUrgencyUrgent = Color(0xFFEF4444);
-    static const colorGradientAuthGradientColor1 = Color(0xFFF18963);
-    static const colorGradientAuthGradientColor2 = Color(0xFFA72D23);
+    static const colorGradientAuth = linear-gradient(to bottom right, #4338CA, #6B21A8);
+    static const colorGradientAuthGradientColor1 = Color(0xFF4338CA);
+    static const colorGradientAuthGradientColor2 = Color(0xFF6B21A8);
     static const colorSemanticDanger = Color(0xFFEF4444);
     static const colorSemanticDangerHover = Color(0xFFDC2626);
     static const colorSemanticInfo = Color(0xFF3B82F6);
@@ -33,10 +34,10 @@ class {
     static const colorSemanticSuccessHover = Color(0xFF16A34A);
     static const colorSemanticWarning = Color(0xFFF59E0B);
     static const colorSemanticWarningHover = Color(0xFFD97706);
-    static const colorSurfaceBackground = Color(0xFF2A1C0F);
+    static const colorSurfaceBackground = Color(0xFF0F172A);
     static const colorSurfaceBorder = Color(0xFF334155);
     static const colorSurfaceBorderLight = Color(0xFF475569);
-    static const colorSurfaceSurface = Color(0xFF3B301E);
+    static const colorSurfaceSurface = Color(0xFF1E293B);
     static const colorSurfaceSurfaceHover = Color(0xFF334155);
     static const colorTextPrimary = Color(0xFFF8FAFC);
     static const colorTextSecondary = Color(0xFF94A3B8);

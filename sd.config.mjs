@@ -72,11 +72,13 @@ const sd = new StyleDictionary({
       // One dimens.xml matches Android docs and R.dimen.* for everything.
       'android/dimens-all': async ({ dictionary }) => {
         const lines = dictionary.allTokens
-          .filter(
-            (t) =>
-              t.$type === 'fontSize' ||
-              (t.$type === 'dimension' && t.path?.[0] !== 'font'),
-          )
+          .filter((t) => {
+            if (t.$type === 'fontSize') return true;
+            if (t.$type !== 'dimension') return false;
+            // Typography sizes (font.size.*) must use sp in dimens.xml
+            if (t.path?.[0] === 'font' && t.path?.[1] === 'size') return true;
+            return t.path?.[0] !== 'font';
+          })
           .map((t) => `  <dimen name="${t.name}">${t.$value}</dimen>`);
         return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
       },

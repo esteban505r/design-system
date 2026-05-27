@@ -8,20 +8,20 @@
       "$value": 1000,
       "$type": "number"
     },
-    "fixed": {
-      "$value": 1030,
+    "sticky": {
+      "$value": 1020,
       "$type": "number"
     },
-    "modal": {
-      "$value": 1050,
+    "fixed": {
+      "$value": 1030,
       "$type": "number"
     },
     "modal-backdrop": {
       "$value": 1040,
       "$type": "number"
     },
-    "sticky": {
-      "$value": 1020,
+    "modal": {
+      "$value": 1050,
       "$type": "number"
     },
     "toast": {

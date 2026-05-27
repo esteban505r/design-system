@@ -111,7 +111,9 @@ function inferType(key, value) {
 }
 
 // ── Convert a legacy SD object to DTCG format ───────────────
-function toDTCG(obj, parentKey = '') {
+/** @param {Record<string, unknown>} obj */
+/** @param {{ category?: string, subKey?: string }} [ctx] */
+function toDTCG(obj, ctx = {}) {
   const result = {};
 
   for (const [key, val] of Object.entries(obj)) {
@@ -123,7 +125,10 @@ function toDTCG(obj, parentKey = '') {
         '$value': val.value,
       };
 
-      const type = inferType(key, val.value);
+      const type =
+        ctx.category === 'font' && ctx.subKey === 'size'
+          ? 'fontSize'
+          : inferType(key, val.value);
       if (type) dtcgToken['$type'] = type;
 
       const extensions = {};
@@ -145,7 +150,7 @@ function toDTCG(obj, parentKey = '') {
     }
     // Nested group
     else if (typeof val === 'object') {
-      result[key] = toDTCG(val, key);
+      result[key] = toDTCG(val, ctx);
     }
     // Raw value (shouldn't happen in well-formed input, but handle gracefully)
     else {
@@ -233,7 +238,7 @@ for (const [category, data] of Object.entries(merged)) {
 
   if (!mapping) {
     const filePath = path.join(outputDir, `${category}/${category}.json`);
-    writeTokenFile(filePath, { [category]: toDTCG(data) });
+    writeTokenFile(filePath, { [category]: toDTCG(data, { category }) });
     continue;
   }
 
@@ -246,13 +251,14 @@ for (const [category, data] of Object.entries(merged)) {
         wrapper[category] = {};
         wrapper[category][subKey] = toDTCG(
           typeof subData === 'object' ? subData : { value: subData },
+          { category, subKey },
         );
         writeTokenFile(filePath, wrapper);
       }
     }
   } else {
     const filePath = path.join(outputDir, mapping.file);
-    writeTokenFile(filePath, { [category]: toDTCG(data) });
+    writeTokenFile(filePath, { [category]: toDTCG(data, { category }) });
   }
 }
 
