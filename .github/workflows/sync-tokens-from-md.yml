@@ -1,7 +1,9 @@
 # When someone updates the foundations markdown, regenerate tokens + dist outputs,
 # commit to the same branch, and open a PR into main (if not already open).
 #
-# Requires: Settings → Actions → General → Workflow permissions → Read and write.
+# Requires: Settings → Actions → General → Workflow permissions:
+#   - Read and write
+#   - Allow GitHub Actions to create and approve pull requests (for gh pr create)
 
 name: Sync tokens from markdown
 
@@ -52,15 +54,20 @@ jobs:
 
       - name: Open pull request (feature branches only)
         if: github.ref != 'refs/heads/main'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${GITHUB_REF_NAME}"
           COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
           if [ "$COUNT" -eq 0 ]; then
-            gh pr create --base main --head "$BRANCH" \
+            if ! gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from foundations markdown" \
-              --body "Auto-generated from \`design-system-foundations.md\` via \`pnpm run sync\` (parse → figma → build). Review \`tokens/\`, \`dist/\` (including \`dist/figma/tokens.json\`), and \`package.json\`. See [workflow-and-production.md](docs/workflow-and-production.md). For Maven/npm, bump **Version:** in the foundations doc before publish (duplicate versions are rejected)."
+              --body "Auto-generated from \`design-system-foundations.md\` via \`pnpm run sync\`. Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [workflow-and-production.md](docs/workflow-and-production.md)."; then
+              echo "::warning::Could not open a PR — enable 'Allow GitHub Actions to create and approve pull requests' in repo Settings → Actions."
+              echo "Open a PR manually from ${BRANCH} → main (sync commit was pushed)."
+              exit 0
+            fi
           else
             echo "Open PR already exists for branch $BRANCH"
           fi

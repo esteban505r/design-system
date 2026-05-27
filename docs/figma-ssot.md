@@ -91,8 +91,15 @@ Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under 
 
 ### Repo settings
 
-- **Actions → Workflow permissions:** Read and write (bot commits).
-- **Branch protection:** require CI on PRs that change generated files.
+1. **Settings → Actions → General → Workflow permissions**
+   - **Read and write permissions** (so the bot can commit and push).
+   - Check **Allow GitHub Actions to create and approve pull requests** — required for `gh pr create`. If this is off, you get:
+     `GitHub Actions is not permitted to create or approve pull requests (createPullRequest)`.
+     The sync commit still lands on your branch; open the PR to `main` yourself.
+
+2. **Branch protection:** require CI on PRs that change generated files.
+
+**Org-owned repos:** the same options may be locked at **Organization → Settings → Actions → General**. An org admin must allow PR creation for workflows, or you open PRs manually.
 
 ### Release path
 
@@ -138,6 +145,7 @@ To merge `figma-ssot` into `main`, decide which SSOT wins, then adjust `package.
 
 | Issue | Fix |
 |-------|-----|
+| `createPullRequest` not permitted | Repo **Settings → Actions → General** → enable **Allow GitHub Actions to create and approve pull requests** (org admins may need to allow this org-wide). Sync still pushed — open PR to `main` manually. |
 | CI drift | Run `pnpm run sync`, commit `tokens/` + `dist/` |
 | Unmapped Figma token warning | Add entry to `FIGMA_TO_TOKEN_PATH` in `token-name-map.mjs` |
 | Wrong collection name | Set `FIGMA_COLLECTION="Your Set"` when running `figma-to-tokens.mjs` |

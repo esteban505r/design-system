@@ -30,7 +30,7 @@ Official references:
 
 ## 2. Mapping design tokens → Material 3 color roles
 
-Your tokens use names like `color_primary_500`, `color_semantic_error`, `color_neutral_0`. M3 uses **semantic roles** (e.g. `colorPrimary`, `colorOnPrimary`, `colorError`, `colorSurface`, `colorOnSurface`).
+Your tokens use names like `color_primary_500`, `color_semantic_danger`, `color_neutral_0`. M3 uses **semantic roles** (e.g. `colorPrimary`, `colorOnPrimary`, `colorError`, `colorSurface`, `colorOnSurface`).
 
 ### 2.1 Recommended approach
 
@@ -44,7 +44,7 @@ Example **conceptual** mapping (adjust to your real token names after `pnpm run 
 |------------------------------------------|----------------------|
 | Primary / onPrimary | `primary-*` (e.g. 500 / 0 or neutral on primary) |
 | Secondary / onSecondary | `secondary-*` |
-| Error / onError | `semantic_error` + `neutral_0` or dedicated on-error |
+| Error / onError | `semantic_danger` + `neutral_0` or dedicated on-error |
 | Surface / onSurface | `neutral_0`–`neutral_100` / `neutral_900` |
 | Outline | `neutral_400` or `primary-700` |
 | Tertiary (if used) | spare ramp or same as secondary with different weights |

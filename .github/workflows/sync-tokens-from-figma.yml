@@ -1,6 +1,8 @@
 # When figma/tokens.json (SSOT) changes, regenerate tokens/ + dist/ and open a PR.
 #
-# Requires: Settings → Actions → General → Workflow permissions → Read and write.
+# Requires: Settings → Actions → General → Workflow permissions:
+#   - Read and write
+#   - Allow GitHub Actions to create and approve pull requests (for gh pr create)
 
 name: Sync tokens from Figma JSON
 
@@ -49,15 +51,22 @@ jobs:
 
       - name: Open pull request (feature branches only)
         if: github.ref != 'refs/heads/main'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH="${GITHUB_REF_NAME}"
           COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
           if [ "$COUNT" -eq 0 ]; then
-            gh pr create --base main --head "$BRANCH" \
+            if ! gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from figma/tokens.json" \
-              --body "Auto-generated from \`figma/tokens.json\` (single source of truth). Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [docs/figma-ssot.md](docs/figma-ssot.md)."
+              --body "Auto-generated from \`figma/tokens.json\` (single source of truth). Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [docs/figma-ssot.md](docs/figma-ssot.md)."; then
+              echo "::warning::Could not open a PR (GitHub blocked createPullRequest)."
+              echo "Enable: Settings → Actions → General → Workflow permissions →"
+              echo "  'Allow GitHub Actions to create and approve pull requests'"
+              echo "Or open a PR manually from branch ${BRANCH} → main (sync commit was pushed)."
+              exit 0
+            fi
           else
             echo "Open PR already exists for branch $BRANCH"
           fi
