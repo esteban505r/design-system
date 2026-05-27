@@ -41,7 +41,7 @@
   ],
   "scripts": {
     "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
-    "sync:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node tokens-to-figma.mjs --out figma/tokens.json && node sd.config.mjs",
+    "sync:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
     "sync": "pnpm run sync:figma",
     "build": "node sd.config.mjs",
     "parse": "node figma-to-tokens.mjs",

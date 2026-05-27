@@ -93,7 +93,7 @@ Configure once per org/repo:
 
 | Script | What it runs | Output |
 |--------|----------------|--------|
-| `pnpm run parse` | `md-to-tokens.mjs` | `tokens/`, updates `package.json` version from markdown |
+| `pnpm run parse` | `md-to-tokens.mjs` | `tokens/`, `figma/tokens.json` (Figma format), `package.json` version |
 | `pnpm run figma` | `tokens-to-figma.mjs` | `dist/figma/tokens.json` |
 | `pnpm run build` | `sd.config.mjs` (Style Dictionary) | `dist/web`, `dist/android`, `dist/ios`, … |
 | `pnpm run sync:md` | parse (md) → figma export → build | All of the above |
@@ -169,7 +169,7 @@ Configure once per org/repo:
 
 **Adding a token (correct path)**
 
-1. Add the token to the appropriate **JSON block** in `design-system-foundations.md` (and the markdown tables).
+1. Add the token to the **`figma-tokens`** JSON block in `design-system-foundations.md` (same flat names as Figma) and update the tables for documentation.
 2. Run `pnpm run sync:md`.
 3. Verify `dist/figma/tokens.json` and platform outputs include the new name.
 4. PR + merge.
@@ -285,7 +285,7 @@ import figmaTokens from '@estebanruano/design-tokens/figma' assert { type: 'json
 
 **Naming:** Figma variables use flat names (`primary-color`, `text-primary`) to match Oter CSS custom properties, not nested paths like `color.brand.primary`.
 
-**Light / dark:** the foundations doc documents both themes in CSS; the generated Figma file currently reflects the **dark-default JSON block** in the markdown. If you need separate Figma modes per theme, extend the markdown JSON blocks and `tokens-to-figma.mjs` in a follow-up.
+**Light / dark:** the foundations doc documents both themes in CSS; the **`figma-tokens`** block reflects the default theme values. Separate Figma modes per theme would require multiple collections in the JSON export.
 
 ### 6.3 Custom collection name
 

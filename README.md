@@ -27,7 +27,7 @@ pnpm run sync:md
 | Command | Source | Generates |
 |---------|--------|-----------|
 | **`pnpm run sync:figma`** | `figma/tokens.json` | `tokens/`, `dist/**`, `package.json` ← `$metadata.version` |
-| **`pnpm run sync:md`** | `design-system-foundations.md` | `tokens/`, `figma/tokens.json`, `dist/**`, `package.json` ← `**Version:**` |
+| **`pnpm run sync:md`** | `design-system-foundations.md` (`figma-tokens` JSON block) | `tokens/`, `figma/tokens.json`, `dist/**`, `package.json` ← `**Version:**` |
 
 `pnpm run sync` is an alias for **`sync:figma`** on the current branch.
 
