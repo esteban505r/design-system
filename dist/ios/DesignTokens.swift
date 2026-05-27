@@ -22,7 +22,6 @@ public class {
     public static let colorEisenhowerUrgencyUrgent = UIColor(red: 0.937, green: 0.267, blue: 0.267, alpha: 1)
     public static let colorGradientAuthGradientColor1 = UIColor(red: 0.945, green: 0.537, blue: 0.388, alpha: 1)
     public static let colorGradientAuthGradientColor2 = UIColor(red: 0.655, green: 0.176, blue: 0.137, alpha: 1)
-    public static let colorSemanticDanger = UIColor(red: 0.937, green: 0.267, blue: 0.267, alpha: 1)
     public static let colorSemanticDangerHover = UIColor(red: 0.863, green: 0.149, blue: 0.149, alpha: 1)
     public static let colorSemanticInfo = UIColor(red: 0.231, green: 0.510, blue: 0.965, alpha: 1)
     public static let colorSemanticInfoHover = UIColor(red: 0.145, green: 0.388, blue: 0.922, alpha: 1)

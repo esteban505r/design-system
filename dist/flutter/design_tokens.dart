@@ -25,7 +25,6 @@ class {
     static const colorEisenhowerUrgencyUrgent = Color(0xFFEF4444);
     static const colorGradientAuthGradientColor1 = Color(0xFFF18963);
     static const colorGradientAuthGradientColor2 = Color(0xFFA72D23);
-    static const colorSemanticDanger = Color(0xFFEF4444);
     static const colorSemanticDangerHover = Color(0xFFDC2626);
     static const colorSemanticInfo = Color(0xFF3B82F6);
     static const colorSemanticInfoHover = Color(0xFF2563EB);
