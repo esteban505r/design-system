@@ -103,7 +103,7 @@ Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under 
 
 ### Release path
 
-1. Bump `$metadata.version` in `figma/tokens.json`.
+1. Bump version via **Publish** workflow input, or set `$metadata.version` in `figma/tokens.json` (and `**Version:**` in the foundations doc).
 2. Merge sync PR to `main` (or push on `figma-ssot` and merge branch when ready).
 3. Run **Publish web tokens (npm)** and/or **Publish Android library** from `main`.
 4. Import/sync Figma file in design tools if needed (SSOT already lives in git).

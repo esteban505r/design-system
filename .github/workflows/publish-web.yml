@@ -3,12 +3,16 @@
 # No NPM_TOKEN — configure the package on npmjs.com (see README).
 #
 # Requires: npm CLI ≥ 11.5.1, Node ≥ 22.14.0 (https://docs.npmjs.com/trusted-publishers/).
-# Version from package.json after sync (from figma $metadata.version or markdown **Version:**).
 
 name: Publish web tokens (npm)
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (semver) — updates foundations MD and figma/tokens.json'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -37,6 +41,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Set release version in source files
+        run: node set-release-version.mjs --version "${{ inputs.version }}"
+
       - name: Sync tokens before publish
         run: |
           if [ "${GITHUB_REF_NAME}" = "figma-ssot" ]; then
@@ -45,8 +52,15 @@ jobs:
             pnpm run sync:md
           fi
 
-      - name: Publish to npm (OIDC trusted publishing)
+      - name: Verify package.json version
         run: |
-          VERSION=$(jq -r .version package.json)
-          echo "Publishing @estebanruano/design-tokens@${VERSION} (OIDC; ensure Trusted Publisher on npm matches workflow publish-web.yml)"
-          npm publish --access public
+          EXPECTED="${{ inputs.version }}"
+          ACTUAL=$(jq -r .version package.json)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error::package.json version is $ACTUAL but expected $EXPECTED after sync"
+            exit 1
+          fi
+          echo "Publishing @estebanruano/design-tokens@${ACTUAL}"
+
+      - name: Publish to npm (OIDC trusted publishing)
+        run: npm publish --access public

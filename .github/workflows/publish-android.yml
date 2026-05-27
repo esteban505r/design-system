@@ -1,14 +1,17 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose branch, usually `main`).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# Version from package.json after sync (from figma $metadata.version or markdown **Version:**).
-# GitHub Packages returns HTTP 409 if that GAV already exists —
-# bump the version in the markdown, merge, run sync, then run this workflow again.
+# GitHub Packages returns HTTP 409 if that GAV already exists — use a new version input.
 
 name: Publish Android library
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (semver) — updates foundations MD and figma/tokens.json'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -33,6 +36,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Set release version in source files
+        run: node set-release-version.mjs --version "${{ inputs.version }}"
+
       - name: Sync tokens before publish
         run: |
           if [ "${GITHUB_REF_NAME}" = "figma-ssot" ]; then
@@ -50,8 +56,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          EXPECTED="${{ inputs.version }}"
           VERSION=$(jq -r .version package.json)
-          echo "Publishing design-tokens-android (groupId/artifactId from gradle.properties) version ${VERSION}"
-          echo "If Gradle fails with 409 Conflict, bump **Version:** in design-system-foundations.md — that version is already on GitHub Packages."
+          if [ "$VERSION" != "$EXPECTED" ]; then
+            echo "::error::package.json version is $VERSION but expected $EXPECTED after sync"
+            exit 1
+          fi
+          echo "Publishing design-tokens-android version ${VERSION}"
           chmod +x gradlew
           ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon

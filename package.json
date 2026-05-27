@@ -48,6 +48,7 @@
     "parse:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
     "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
     "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
+    "version:set": "node set-release-version.mjs",
     "clean": "rm -rf dist/ tokens/"
   },
   "author": "",

@@ -68,6 +68,18 @@ const sd = new StyleDictionary({
       ],
     },
     formats: {
+      // Built-in android/dimens skips fontSize; android/fontDimens only has fontSize.
+      // One dimens.xml matches Android docs and R.dimen.* for everything.
+      'android/dimens-all': async ({ dictionary }) => {
+        const lines = dictionary.allTokens
+          .filter(
+            (t) =>
+              t.$type === 'fontSize' ||
+              (t.$type === 'dimension' && t.path?.[0] !== 'font'),
+          )
+          .map((t) => `  <dimen name="${t.name}">${t.$value}</dimen>`);
+        return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
+      },
       'android/integers-all': async ({ dictionary }) => {
         const lines = dictionary.allTokens
           .filter((t) => ['number', 'fontWeight', 'duration'].includes(t.$type))
@@ -125,13 +137,8 @@ const sd = new StyleDictionary({
           filter: (token) => token.$type === 'color',
         },
         {
-          // All <dimen> resources in one file (Android merges any values/*.xml).
-          // Font sizes use sp; spacing/radius use dp. Reference as R.dimen.font_size_h1.
           destination: 'dimens.xml',
-          format: 'android/dimens',
-          filter: (token) =>
-            token.$type === 'fontSize' ||
-            (token.$type === 'dimension' && token.path?.[0] !== 'font'),
+          format: 'android/dimens-all',
         },
         {
           destination: 'integers.xml',

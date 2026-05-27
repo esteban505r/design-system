@@ -198,8 +198,8 @@ See [§ 8](#8-release-checklist-production).
 | `sync-tokens-from-md.yml` | Sync tokens from markdown | **Manual only** (`workflow_dispatch`) | `pnpm run sync:md` |
 | `sync-tokens-from-figma.yml` | Sync tokens from Figma JSON | Push / manual on `figma/tokens.json` | `pnpm run sync:figma` |
 | `ci.yml` | CI | PR to `main` | `sync:figma` if head is `figma-ssot`, else `sync:md` |
-| `publish-web.yml` | Publish web tokens (npm) | Manual | branch-based sync + `npm publish` |
-| `publish-android.yml` | Publish Android library | Manual | branch-based sync + Gradle publish |
+| `publish-web.yml` | Publish web tokens (npm) | Manual (`version` input) | set version in MD + Figma JSON → sync → `npm publish` |
+| `publish-android.yml` | Publish Android library | Manual (`version` input) | set version in MD + Figma JSON → sync → Gradle publish |
 
 ### 5.1 Markdown sync (manual — no push trigger)
 
@@ -235,7 +235,11 @@ If CI fails with “run sync locally”, run `pnpm run sync:md` (or `sync:figma`
 
 ### 5.3 Publish workflows
 
-Both publish jobs run **`sync:figma`** or **`sync:md`** first (by branch) so the published tarball/AAR matches the commit’s source of truth (including version).
+Both publish workflows require a **`version`** input (semver) when you click **Run workflow**. They:
+
+1. Run **`set-release-version.mjs`** → `**Version:**` in `design-system-foundations.md` and `$metadata.version` in `figma/tokens.json`
+2. Run **`sync:figma`** (on `figma-ssot`) or **`sync:md`** (other branches) → `package.json` + `tokens/` + `dist/`
+3. Verify `package.json` matches the input version, then publish
 
 **npm (`publish-web.yml`)**
 
@@ -247,8 +251,10 @@ Both publish jobs run **`sync:figma`** or **`sync:md`** first (by branch) so the
 **Android (`publish-android.yml`)**
 
 - Publishes `design-tokens-android` to **GitHub Packages** Maven
-- Version from `package.json` after sync (override with `-PtokensVersion` / `TOKENS_VERSION` if needed)
-- **409 Conflict** = version already published → bump `**Version:**`** and sync again
+- Uses the workflow **version** input (via sync → `package.json` → `-PtokensVersion`)
+- **409 Conflict** = version already published → run again with a higher **version** input
+
+**Note:** Version bumps in Actions apply only on the runner unless you commit them separately. To persist the version on the branch, run `pnpm run version:set` locally, sync, and commit before or after publish.
 
 ---
 

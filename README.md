@@ -98,10 +98,10 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 
 #### npm release checklist (maintainers)
 
-1. Bump **`**Version:**`** in **`design-system-foundations.md`** (and merge so **`main`** has the release).
-2. Run **`pnpm run sync:md`** locally (or trigger **Sync tokens from markdown** manually in Actions) so **`package.json`**, **`tokens/`**, and **`dist/`** match the doc; commit any changes.
-3. **First time only:** bootstrap the package with **`npm publish --access public`** from a machine logged into npm (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**), then configure **Trusted publishing** on npm for workflow **`publish-web.yml`**.
-4. **Ongoing:** GitHub → **Actions** → **Publish web tokens (npm)** → **Run workflow** on **`main`** (OIDC; no **`NPM_TOKEN`**).
+1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**).
+2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`design-system-foundations.md`** and **`figma/tokens.json`**, then syncs and publishes.
+3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
+4. **Locally:** `pnpm run version:set -- --version 1.0.10` then `pnpm run sync:md` and commit if you want the version bump on the branch before running Actions.
 
 ### Fetching without a package manager (CDN)
 
