@@ -4,26 +4,15 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <dimen name="radius_full">159984.00dp</dimen>
-  <dimen name="radius_lg">192.00dp</dimen>
-  <dimen name="radius_md">128.00dp</dimen>
-  <dimen name="radius_sm">96.00dp</dimen>
-  <dimen name="radius_xl">256.00dp</dimen>
-  <dimen name="spacing_lg">384.00dp</dimen>
-  <dimen name="spacing_md">256.00dp</dimen>
-  <dimen name="spacing_sm">128.00dp</dimen>
-  <dimen name="spacing_xl">512.00dp</dimen>
-  <dimen name="spacing_xs">64.00dp</dimen>
-  <dimen name="spacing_xxl">1024.00dp</dimen>
-  <dimen name="font_size_body">256.00dp</dimen>
-  <dimen name="font_size_body_sm">224.00dp</dimen>
-  <dimen name="font_size_button">256.00dp</dimen>
-  <dimen name="font_size_caption">192.00dp</dimen>
-  <dimen name="font_size_h1">448.00dp</dimen>
-  <dimen name="font_size_h2">384.00dp</dimen>
-  <dimen name="font_size_h3">320.00dp</dimen>
-  <dimen name="font_size_h4">288.00dp</dimen>
-  <dimen name="font_size_h5">256.00dp</dimen>
-  <dimen name="font_size_h6">224.00dp</dimen>
-  <dimen name="font_size_mono">224.00dp</dimen>
+  <dimen name="radius_full">9999dp</dimen>
+  <dimen name="radius_lg">12dp</dimen>
+  <dimen name="radius_md">8dp</dimen>
+  <dimen name="radius_sm">6dp</dimen>
+  <dimen name="radius_xl">16dp</dimen>
+  <dimen name="spacing_lg">24dp</dimen>
+  <dimen name="spacing_md">16dp</dimen>
+  <dimen name="spacing_sm">8dp</dimen>
+  <dimen name="spacing_xl">32dp</dimen>
+  <dimen name="spacing_xs">4dp</dimen>
+  <dimen name="spacing_xxl">64dp</dimen>
 </resources>

@@ -1,6 +1,13 @@
 # Workflow & production guide
 
-This document describes **how the Oter design token pipeline works end to end**: local development, GitHub automation, Figma sync, and publishing to npm and Maven in production.
+This document describes **how the Oter design token pipeline works end to end** when **`design-system-foundations.md`** is the source of truth. For the Figma JSON path (`figma/tokens.json`), see **[figma-ssot.md](figma-ssot.md)**.
+
+There are **two full-generation commands** (do not run both on the same change unless you intend to reconcile sources):
+
+| Command | Source | GitHub workflow |
+|---------|--------|-----------------|
+| `pnpm run sync:md` | `design-system-foundations.md` | **Sync tokens from markdown** (manual only) |
+| `pnpm run sync:figma` | `figma/tokens.json` | **Sync tokens from Figma JSON** |
 
 **Related docs**
 
@@ -38,7 +45,7 @@ dist/figma/tokens.json          dist/web, android, ios, …
 | Platform dist | `dist/web`, `dist/android`, … | Web, Android, iOS, Flutter, Compose apps |
 | Version | `**Version:**` in markdown → `package.json` | npm, Maven, release notes |
 
-**Production rule:** never treat `tokens/` or `dist/` as the source of truth for values that exist in the markdown. Edit the foundations doc, run `pnpm run sync`, commit the generated tree, merge, then publish registries when consumers need a new version.
+**Production rule:** never treat `tokens/` or `dist/` as the source of truth for values that exist in the markdown. Edit the foundations doc, run `pnpm run sync:md`, commit the generated tree, merge, then publish registries when consumers need a new version.
 
 ---
 
@@ -57,7 +64,7 @@ dist/figma/tokens.json          dist/web, android, ios, …
 cd /path/to/design-system
 corepack enable          # optional: use the pnpm version pinned in package.json
 pnpm install --frozen-lockfile
-pnpm run sync            # verify the pipeline runs
+pnpm run sync:md         # verify the markdown pipeline runs
 ```
 
 CI uses **Node 20** for sync/CI and **Node 22.14** for npm publish (trusted publishing requirement).
@@ -89,7 +96,8 @@ Configure once per org/repo:
 | `pnpm run parse` | `md-to-tokens.mjs` | `tokens/`, updates `package.json` version from markdown |
 | `pnpm run figma` | `tokens-to-figma.mjs` | `dist/figma/tokens.json` |
 | `pnpm run build` | `sd.config.mjs` (Style Dictionary) | `dist/web`, `dist/android`, `dist/ios`, … |
-| `pnpm run sync` | parse → figma → build | All of the above |
+| `pnpm run sync:md` | parse (md) → figma export → build | All of the above |
+| `pnpm run sync:figma` | figma → tokens → build | See [figma-ssot.md](figma-ssot.md) |
 | `pnpm run clean` | removes `tokens/` and `dist/` | Use before a full regen from scratch |
 
 ### 3.1 Stage 1 — Markdown → `tokens/`
@@ -141,8 +149,8 @@ Configure once per org/repo:
    - Update tables and the `json` blocks in **§ Implementation** sections so they stay in sync.
    - For a **registry release**, bump `**Version:**`** at the top (semver).
 2. Push the branch.
-3. **Sync tokens from markdown** runs automatically (see [§ 5](#5-github-actions-in-production)).
-4. Review the bot PR (or the sync commit on `main`): check `tokens/` and `dist/figma/tokens.json` diffs.
+3. Run **`pnpm run sync:md`** locally and commit `tokens/`, `figma/tokens.json`, `dist/`, and `package.json` — or trigger **Sync tokens from markdown** manually in Actions (see [§ 5](#5-github-actions-in-production)).
+4. Review generated diffs in your PR.
 5. **Figma:** after merge, import or sync `dist/figma/tokens.json` in Tokens Studio (see [§ 6](#6-figma--tokens-studio-in-production)).
 6. Ask engineering to **publish** npm/Maven only when product apps should pin a new version.
 
@@ -153,7 +161,7 @@ Configure once per org/repo:
 **Goal:** ship consistent generated artifacts and green CI.
 
 1. Pull latest `main`.
-2. After any foundations change: `pnpm run sync`.
+2. After any foundations change: `pnpm run sync:md`.
 3. Commit **`tokens/`**, **`dist/`**, and **`package.json`** when they change.
 4. Open PR → wait for **CI** (regenerates and fails on drift).
 5. Merge to `main`.
@@ -162,7 +170,7 @@ Configure once per org/repo:
 **Adding a token (correct path)**
 
 1. Add the token to the appropriate **JSON block** in `design-system-foundations.md` (and the markdown tables).
-2. Run `pnpm run sync`.
+2. Run `pnpm run sync:md`.
 3. Verify `dist/figma/tokens.json` and platform outputs include the new name.
 4. PR + merge.
 
@@ -187,32 +195,31 @@ See [§ 8](#8-release-checklist-production).
 
 | Workflow file | Name in UI | Trigger | Purpose |
 |---------------|------------|---------|---------|
-| `sync-tokens-from-md.yml` | Sync tokens from markdown | Push to `design-system-foundations.md` | `pnpm run sync`, commit, push; open PR from feature branches |
-| `ci.yml` | CI | PR to `main` | `pnpm run sync`, fail if diff; assemble Android library |
-| `publish-web.yml` | Publish web tokens (npm) | Manual (`workflow_dispatch`) | sync + `npm publish` (OIDC) |
-| `publish-android.yml` | Publish Android library | Manual (`workflow_dispatch`) | sync + Gradle publish to GitHub Packages |
+| `sync-tokens-from-md.yml` | Sync tokens from markdown | **Manual only** (`workflow_dispatch`) | `pnpm run sync:md` |
+| `sync-tokens-from-figma.yml` | Sync tokens from Figma JSON | Push / manual on `figma/tokens.json` | `pnpm run sync:figma` |
+| `ci.yml` | CI | PR to `main` | `sync:figma` if head is `figma-ssot`, else `sync:md` |
+| `publish-web.yml` | Publish web tokens (npm) | Manual | branch-based sync + `npm publish` |
+| `publish-android.yml` | Publish Android library | Manual | branch-based sync + Gradle publish |
 
-### 5.1 Automatic sync on markdown push
+### 5.1 Markdown sync (manual — no push trigger)
+
+The markdown workflow does **not** run on `push` (unlike the Figma workflow). That avoids circular or duplicate runs when generated files are committed in the same change set or when a bot push would otherwise re-enter the pipeline.
+
+**Typical flow:** edit `design-system-foundations.md` → run `pnpm run sync:md` locally → commit outputs in the same PR → **CI** validates drift on the PR.
+
+**Optional:** in GitHub → **Actions** → **Sync tokens from markdown** → **Run workflow** (pick branch). The bot commits generated files and may open a PR on feature branches.
 
 ```mermaid
 flowchart TD
-  A[Push design-system-foundations.md] --> B[sync-tokens-from-md.yml]
-  B --> C[pnpm run sync]
-  C --> D{Changes?}
-  D -->|No| E[Exit]
-  D -->|Yes| F[Bot commit chore tokens sync]
-  F --> G{Branch = main?}
-  G -->|No| H[Open PR to main]
-  G -->|Yes| I[Push directly to main]
-  H --> J[Human review + CI]
-  J --> K[Merge]
-  I --> L[main has tokens + dist]
-  K --> L
+  A[Edit design-system-foundations.md] --> B{How to generate?}
+  B -->|Local| C[pnpm run sync:md + commit in PR]
+  B -->|CI bot| D[Actions: Sync tokens from markdown]
+  C --> E[Open PR]
+  D --> F[Bot commit + optional PR]
+  E --> G[CI sync:md + drift check]
+  F --> G
+  G --> H[Merge to main]
 ```
-
-**Feature branch:** you edit markdown → push → bot adds a second commit with generated files → bot opens **one** PR if none exists.
-
-**`main`:** push to markdown on `main` → bot commits generated files directly (use branch protection to require human review via PR instead if you prefer).
 
 ### 5.2 CI on pull requests
 
@@ -220,15 +227,15 @@ On every PR to `main`:
 
 1. Checkout
 2. `pnpm install --frozen-lockfile`
-3. `pnpm run sync`
+3. `pnpm run sync:md` (or `sync:figma` on `figma-ssot`)
 4. `git diff` must be empty (staged vs commit)
 5. `./gradlew :design-tokens-android:assembleRelease`
 
-If CI fails with “run sync locally”, run `pnpm run sync` on your branch and commit `tokens/`, `dist/`, and `package.json`.
+If CI fails with “run sync locally”, run `pnpm run sync:md` (or `sync:figma` on `figma-ssot`) and commit `tokens/`, `dist/`, `figma/tokens.json` (if applicable), and `package.json`.
 
 ### 5.3 Publish workflows
 
-Both publish jobs run **`pnpm run sync` first** so the published tarball/AAR always matches the commit’s foundations (including version).
+Both publish jobs run **`sync:figma`** or **`sync:md`** first (by branch) so the published tarball/AAR matches the commit’s source of truth (including version).
 
 **npm (`publish-web.yml`)**
 
@@ -249,7 +256,7 @@ Both publish jobs run **`pnpm run sync` first** so the published tarball/AAR alw
 
 ### 6.1 File to import
 
-After `pnpm run sync` (or download from `main` / npm):
+After `pnpm run sync:md` (or download from `main` / npm):
 
 **`dist/figma/tokens.json`**
 
@@ -336,7 +343,7 @@ Vendor or copy from `dist/ios`, `dist/flutter`, `dist/compose` at a tagged relea
 pnpm add "file:../design-system"
 ```
 
-Run `pnpm run sync` in the design-system repo before consuming apps build.
+Run `pnpm run sync:md` (or `sync:figma` on `figma-ssot`) in the design-system repo before consuming apps build.
 
 ---
 
@@ -346,7 +353,7 @@ Use this when shipping a version consumers will install.
 
 - [ ] **Token changes** merged to `main` via PR with green CI
 - [ ] **`**Version:**`** bumped in `design-system-foundations.md` (semver: major = breaking rename/removal, minor = new tokens, patch = value-only)
-- [ ] `pnpm run sync` on `main` (or trust publish workflow to sync)
+- [ ] `sync:md` or `sync:figma` on `main` (or trust publish workflow to sync)
 - [ ] `package.json` version matches markdown
 - [ ] **Figma:** design ops imported `dist/figma/tokens.json` for this version (if visual parity required)
 - [ ] **Publish web tokens (npm)** from `main` → verify on [npmjs.com](https://www.npmjs.com/package/@estebanruano/design-tokens)
@@ -375,12 +382,12 @@ All platforms should reference the **same semver** for a given release unless yo
 
 | Symptom | Likely cause | Fix |
 |---------|----------------|-----|
-| CI fails: “run sync locally” | `tokens/` or `dist/` out of date | `pnpm run sync`, commit results |
+| CI fails: “run sync locally” | `tokens/` or `dist/` out of date | `pnpm run sync:md` or `sync:figma`, commit results |
 | `pnpm` errors on Node 16 | Engine too old | Use Node ≥ 18.12 (CI uses 20) |
 | Style Dictionary fails on Node 16 | `style-dictionary` v5 needs newer Node | Use Node 18+ locally |
 | npm publish ENEEDAUTH | Trusted Publisher mismatch | Match repo + `publish-web.yml` on npm; check `repository.url` in `package.json` |
 | Maven 409 | Version already published | Bump `**Version:**` in markdown |
-| Figma import missing tokens | Forgot `pnpm run figma` or old commit | Run full `pnpm run sync`; import latest `dist/figma/tokens.json` |
+| Figma import missing tokens | Forgot export step or old commit | Run full `pnpm run sync:md`; import latest `dist/figma/tokens.json` |
 | Stale colors in apps | Consumers not bumped | Pin new npm/Maven version in apps |
 | Bot did not open PR | Already an open PR for branch | Push again after merging, or run sync locally |
 | Sync bot cannot push | Workflow permissions | Enable read/write for Actions |
@@ -391,10 +398,10 @@ All platforms should reference the **same semver** for a given release unless yo
 
 | Environment | Node | Command | Commits generated files? |
 |-------------|------|---------|---------------------------|
-| Local dev | ≥ 18.12 | `pnpm run sync` | You commit manually |
-| CI / PR | 20 | `pnpm run sync` | Fails if drift |
-| Sync workflow | 20 | `pnpm run sync` | Bot commits + pushes |
-| npm publish | 22.14 | `pnpm run sync` + `npm publish` | Uses commit on `main` |
+| Local dev | ≥ 18.12 | `sync:md` or `sync:figma` | You commit manually |
+| CI / PR | 20 | branch-based sync | Fails if drift |
+| Sync workflows | 20 | `sync:md` or `sync:figma` | Bot commits + pushes |
+| npm publish | 22.14 | branch-based sync + `npm publish` | Uses commit on `main` |
 
 ---
 
@@ -408,4 +415,4 @@ This keeps production releases deliberate and traceable to a semver on `main`.
 
 ---
 
-*Last updated: May 2026 · aligns with pipeline: `parse` → `figma` → `build` / `pnpm run sync`*
+*Last updated: May 2026 · markdown path: `sync:md` · Figma path: `sync:figma` (see [figma-ssot.md](figma-ssot.md))*

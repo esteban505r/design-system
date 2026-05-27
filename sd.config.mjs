@@ -8,8 +8,41 @@ import StyleDictionary from 'style-dictionary';
 //
 // Run:  pnpm run build
 // ============================================================
+//
+// Android: do NOT use the built-in `android` transformGroup — its
+// size/remToDp treats numeric values as rem and multiplies by 16
+// (4px in Figma → 64dp). We use 1:1 px → dp/sp instead.
+
+/** @param {unknown} value */
+function parsePx(value) {
+  const m = String(value).match(/^([\d.]+)px$/);
+  return m ? Number.parseFloat(m[1]) : Number.NaN;
+}
 
 const sd = new StyleDictionary({
+  hooks: {
+    transforms: {
+      'size/pxToAndroidUnit': {
+        type: 'value',
+        filter: (token) => token.$type === 'dimension' || token.$type === 'fontSize',
+        transform: (token) => {
+          const n = parsePx(token.$value);
+          if (Number.isNaN(n)) return token.$value;
+          const unit =
+            token.$type === 'fontSize' || token.path?.[0] === 'font' ? 'sp' : 'dp';
+          return `${n}${unit}`;
+        },
+      },
+    },
+    transformGroups: {
+      'android/px': [
+        'attribute/cti',
+        'name/snake',
+        'color/hex8android',
+        'size/pxToAndroidUnit',
+      ],
+    },
+  },
   source: ['tokens/**/*.json'],
   platforms: {
 
@@ -42,7 +75,7 @@ const sd = new StyleDictionary({
 
     // ── Android: XML resources ──────────────────────────────
     android: {
-      transformGroup: 'android',
+      transformGroup: 'android/px',
       buildPath: 'dist/android/',
       files: [
         {
@@ -54,13 +87,14 @@ const sd = new StyleDictionary({
           destination: 'dimens.xml',
           format: 'android/dimens',
           filter: (token) =>
-            token.$type === 'dimension' ||
-            (token.$type === 'number' && token.path?.[0] === 'z-index'),
+            token.$type === 'dimension' && token.path?.[0] !== 'font',
         },
         {
           destination: 'font_dimens.xml',
           format: 'android/fontDimens',
-          filter: (token) => token.path?.[0] === 'font' && token.$type === 'dimension',
+          filter: (token) =>
+            token.path?.[0] === 'font' &&
+            (token.$type === 'fontSize' || token.$type === 'dimension'),
         },
       ],
     },

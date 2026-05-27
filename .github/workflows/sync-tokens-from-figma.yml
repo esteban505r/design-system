@@ -1,8 +1,11 @@
-# When figma/tokens.json (SSOT) changes, regenerate tokens/ + dist/ and open a PR.
+# Regenerate tokens/ + dist/ when figma/tokens.json changes (Figma SSOT path).
+#
+# Pipeline: pnpm run sync:figma
+#   figma/tokens.json → tokens/**/*.json → dist/** (platform outputs)
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
-#   - Allow GitHub Actions to create and approve pull requests (for gh pr create)
+#   - Allow GitHub Actions to create and approve pull requests (optional, for gh pr create)
 
 name: Sync tokens from Figma JSON
 
@@ -10,6 +13,7 @@ on:
   push:
     paths:
       - 'figma/tokens.json'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -34,8 +38,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Regenerate tokens and platform outputs
-        run: pnpm run sync
+      - name: Generate all outputs from figma/tokens.json
+        run: pnpm run sync:figma
 
       - name: Commit generated files
         run: |
@@ -43,7 +47,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --staged --quiet; then
-            echo "No changes after sync — working tree already up to date."
+            echo "No changes after sync:figma — working tree already up to date."
             exit 0
           fi
           git commit -m "chore(tokens): sync from figma/tokens.json"
@@ -60,7 +64,15 @@ jobs:
           if [ "$COUNT" -eq 0 ]; then
             if ! gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from figma/tokens.json" \
-              --body "Auto-generated from \`figma/tokens.json\` (single source of truth). Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [docs/figma-ssot.md](docs/figma-ssot.md)."; then
+              --body "$(cat <<'EOF'
+Auto-generated with `pnpm run sync:figma`:
+
+- **Source:** `figma/tokens.json`
+- **Outputs:** `tokens/`, `dist/` (web, Android, iOS, Flutter, Compose, Figma copy), `package.json` (version from `$metadata.version`)
+
+See [docs/figma-ssot.md](docs/figma-ssot.md).
+EOF
+)"; then
               echo "::warning::Could not open a PR (GitHub blocked createPullRequest)."
               echo "Enable: Settings → Actions → General → Workflow permissions →"
               echo "  'Allow GitHub Actions to create and approve pull requests'"

@@ -120,17 +120,43 @@ for (const name of sortedNames) {
   orderedCollection[name] = collection[name];
 }
 
+/** @type {Record<string, unknown>} */
+const metadata = {
+  tokenSetOrder: ['global', collectionName],
+};
+
+const pkgPath = path.resolve('package.json');
+if (fs.existsSync(pkgPath)) {
+  try {
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+    if (pkg.version) metadata.version = pkg.version;
+  } catch {
+    /* ignore */
+  }
+}
+
 const output = {
   [collectionName]: orderedCollection,
   $themes: [],
-  $metadata: {
-    tokenSetOrder: ['global', collectionName],
-  },
+  $metadata: metadata,
 };
 
 const outPath = path.resolve(outputFile);
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, JSON.stringify(output, null, 2) + '\n');
 
-console.log(`✅ Generated ${sortedNames.length} tokens → ${path.relative(process.cwd(), outPath)}`);
-console.log('   Compare with figma/tokens.json if verifying SSOT parity.\n');
+const relative = path.relative(process.cwd(), outPath);
+console.log(`✅ Generated ${sortedNames.length} tokens → ${relative}`);
+
+const ssotPath = path.resolve('figma/tokens.json');
+if (outPath === ssotPath) {
+  const distCopy = path.resolve('dist/figma/tokens.json');
+  fs.mkdirSync(path.dirname(distCopy), { recursive: true });
+  fs.copyFileSync(outPath, distCopy);
+  console.log(`   Copied to ${path.relative(process.cwd(), distCopy)}`);
+}
+
+if (outPath !== ssotPath) {
+  console.log('   Compare with figma/tokens.json if verifying SSOT parity.');
+}
+console.log('');

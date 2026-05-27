@@ -164,11 +164,11 @@ export function figmaTokenToDtcg(figmaName, figmaToken) {
     return { $value: String($value), $type: 'cubicBezier' };
   }
 
-  if (
-    figmaName.startsWith('spacing-') ||
-    figmaName.startsWith('type-') ||
-    figmaName.startsWith('radius-')
-  ) {
+  if (figmaName.startsWith('type-')) {
+    return { $value: `${$value}px`, $type: 'fontSize' };
+  }
+
+  if (figmaName.startsWith('spacing-') || figmaName.startsWith('radius-')) {
     return { $value: `${$value}px`, $type: 'dimension' };
   }
 

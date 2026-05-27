@@ -3,47 +3,47 @@
     "size": {
       "body": {
         "$value": "16px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "body-sm": {
         "$value": "14px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "button": {
         "$value": "16px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "caption": {
         "$value": "12px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h1": {
         "$value": "28px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h2": {
         "$value": "24px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h3": {
         "$value": "20px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h4": {
         "$value": "18px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h5": {
         "$value": "16px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "h6": {
         "$value": "14px",
-        "$type": "dimension"
+        "$type": "fontSize"
       },
       "mono": {
         "$value": "14px",
-        "$type": "dimension"
+        "$type": "fontSize"
       }
     }
   }

@@ -1,15 +1,13 @@
 # Design System Tokens
 
-Single source of truth for all design tokens. `pnpm run sync` generates repo token JSON, a Figma import file, and platform outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
+Single source of truth for all design tokens — authored either in **`figma/tokens.json`** or **`design-system-foundations.md`**, then generated into `tokens/` and platform `dist/` outputs.
 
 ## Documentation
 
-> **On branch `figma-ssot`:** SSOT is **[`figma/tokens.json`](figma/tokens.json)** — see **[Figma SSOT guide](docs/figma-ssot.md)**. Use `pnpm run sync` (`parse` → `build`).
-
 | Guide | Audience |
 |-------|----------|
-| **[Figma SSOT (`figma-ssot` branch)](docs/figma-ssot.md)** | Figma-first pipeline, CI, production |
-| **[Workflow & production](docs/workflow-and-production.md)** | Markdown SSOT on `main` — GitHub Actions, releases |
+| **[Figma SSOT (`figma-ssot` branch)](docs/figma-ssot.md)** | Figma JSON as source — `pnpm run sync:figma` |
+| **[Workflow & production](docs/workflow-and-production.md)** | Markdown as source — `pnpm run sync:md`, releases |
 | [General next steps](docs/general-next-steps.md) | Platform leads — adopting tokens across web, mobile, Flutter |
 | [Android + Material 3](docs/android-material3-next-steps.md) | Android / Compose — theme mapping |
 | [design-system-foundations.md](design-system-foundations.md) | Designers — token values and naming (source of truth) |
@@ -19,57 +17,32 @@ Single source of truth for all design tokens. `pnpm run sync` generates repo tok
 ```bash
 pnpm install
 
-# Full pipeline (figma-ssot branch): figma/tokens.json → tokens/ → platform dist/
-pnpm run sync
+# From Figma JSON (figma-ssot branch / Tokens Studio export):
+pnpm run sync:figma
 
-# Or run each step separately:
-pnpm run parse    # ① figma/tokens.json → tokens/
-pnpm run build    # ② tokens/ → dist/web, android, ios, …
+# From foundations markdown (main-style workflow):
+pnpm run sync:md
 ```
 
-**`figma/tokens.json`** is the single source of truth (Tokens Studio export). **`tokens/`** feeds Style Dictionary. **`dist/`** holds web, Android, iOS, Flutter, and Compose outputs (and a copy of the Figma file under `dist/figma/`).
+| Command | Source | Generates |
+|---------|--------|-----------|
+| **`pnpm run sync:figma`** | `figma/tokens.json` | `tokens/`, `dist/**`, `package.json` ← `$metadata.version` |
+| **`pnpm run sync:md`** | `design-system-foundations.md` | `tokens/`, `figma/tokens.json`, `dist/**`, `package.json` ← `**Version:**` |
+
+`pnpm run sync` is an alias for **`sync:figma`** on the current branch.
+
+### Pipelines
+
+**Figma → everything**
 
 ```
-tokens/                       ← ① from markdown (commit in repo)
-├── color/
-├── typography/
-└── …
-
-dist/
-├── figma/
-│   └── tokens.json           ← ② Figma Variables (flat names + com.figma.* extensions)
-├── web/
-│   ├── tokens.css
-│   └── tokens.js
-├── android/
-├── ios/
-├── flutter/
-├── compose/
-└── json/
+figma/tokens.json  →  pnpm run sync:figma  →  tokens/ + dist/
 ```
 
-## How It Works
-
-**Stage 1 — `pnpm run parse`** (`md-to-tokens.mjs`) reads `design-system-foundations.md`, syncs `**Version:**` into `package.json`, extracts JSON blocks, converts to DTCG (`$value` / `$type`), and writes `tokens/**/*.json`.
-
-**Stage 2 — `pnpm run figma`** (`tokens-to-figma.mjs`) reads `tokens/` and writes `dist/figma/tokens.json` — flat names like `primary-color`, `spacing-md`, `type-h1`, with Figma import extensions. Auth gradients are split into `auth-gradient-color-1` / `auth-gradient-color-2` for solid variables.
-
-**Stage 3 — `pnpm run build`** (Style Dictionary) reads `tokens/` and generates `dist/web`, `dist/android`, `dist/ios`, etc.
-
-**`pnpm run sync`** runs all three stages — the single command after editing foundations.
-
-### Workflow
+**Markdown → everything**
 
 ```
-design-system-foundations.md    ← Designers edit this (human-readable source)
-         │
-         ▼  pnpm run parse
-    tokens/**/*.json            ← Repo token JSON (engineering)
-         │
-         ├──────────────────────────────┐
-         ▼  pnpm run figma              ▼  pnpm run build
-dist/figma/tokens.json            dist/web, android, ios, …
-(Figma / Tokens Studio)           (app codebases)
+design-system-foundations.md  →  pnpm run sync:md  →  tokens/ + figma/tokens.json + dist/
 ```
 
 ### Versioning (releases)
@@ -126,7 +99,7 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 #### npm release checklist (maintainers)
 
 1. Bump **`**Version:**`** in **`design-system-foundations.md`** (and merge so **`main`** has the release).
-2. Run **`pnpm run sync`** locally or rely on CI / **Sync tokens from markdown** so **`package.json`**, **`tokens/`**, and **`dist/`** match the doc; commit any changes.
+2. Run **`pnpm run sync:md`** locally (or trigger **Sync tokens from markdown** manually in Actions) so **`package.json`**, **`tokens/`**, and **`dist/`** match the doc; commit any changes.
 3. **First time only:** bootstrap the package with **`npm publish --access public`** from a machine logged into npm (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**), then configure **Trusted publishing** on npm for workflow **`publish-web.yml`**.
 4. **Ongoing:** GitHub → **Actions** → **Publish web tokens (npm)** → **Run workflow** on **`main`** (OIDC; no **`NPM_TOKEN`**).
 
@@ -205,10 +178,11 @@ Full setup, branch flows, Figma in prod, release checklists, and troubleshooting
 
 | Workflow | When | What it does |
 |----------|------|----------------|
-| **Sync tokens from markdown** | Push to `design-system-foundations.md` | `pnpm run sync` → commit `tokens/`, `dist/`, `package.json` → PR to `main` (feature branches) or push to `main` |
-| **CI** | PR to `main` | `pnpm run sync` → fail on drift → assemble Android library |
-| **Publish web tokens (npm)** | Manual on `main` | sync + `npm publish` (OIDC trusted publishing) |
-| **Publish Android library** | Manual on `main` | sync + Gradle publish to GitHub Packages |
+| **Sync tokens from Figma JSON** | Push to `figma/tokens.json` (or manual) | `pnpm run sync:figma` → commit `tokens/`, `dist/`, `package.json` |
+| **Sync tokens from markdown** | Manual only (Actions → Run workflow) | `pnpm run sync:md` → commit `tokens/`, `figma/tokens.json`, `dist/`, `package.json` |
+| **CI** | PR to `main` | `sync:figma` on `figma-ssot` branch PRs, else `sync:md` → fail on drift → assemble Android |
+| **Publish web tokens (npm)** | Manual | `sync:figma` or `sync:md` by branch → `npm publish` |
+| **Publish Android library** | Manual | `sync:figma` or `sync:md` by branch → Gradle publish |
 
 Merging to `main` does **not** publish npm or Maven — run publish workflows when consumers need a new version.
 
