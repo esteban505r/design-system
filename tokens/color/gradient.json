@@ -2,11 +2,11 @@
   "color": {
     "gradient": {
       "auth-gradient-color-1": {
-        "$value": "#F18963",
+        "$value": "#4338CA",
         "$type": "color"
       },
       "auth-gradient-color-2": {
-        "$value": "#A72D23",
+        "$value": "#6B21A8",
         "$type": "color"
       }
     }

@@ -2,11 +2,11 @@
   "color": {
     "surface": {
       "background": {
-        "$value": "#2A1C0F",
+        "$value": "#0F172A",
         "$type": "color"
       },
       "surface": {
-        "$value": "#3B301E",
+        "$value": "#1E293B",
         "$type": "color"
       },
       "border": {
