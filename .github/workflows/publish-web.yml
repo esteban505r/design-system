@@ -53,6 +53,8 @@ jobs:
         run: node set-release-version.mjs --version "${{ inputs.version }}"
 
       - name: Sync tokens before publish
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
         run: |
           case "${{ inputs.source }}" in
             figma) pnpm run sync:figma ;;
@@ -63,6 +65,9 @@ jobs:
               ;;
           esac
           echo "Synced from source: ${{ inputs.source }}"
+
+      - name: Ensure release version after sync
+        run: node set-release-version.mjs --version "${{ inputs.version }}"
 
       - name: Verify package.json version
         run: |

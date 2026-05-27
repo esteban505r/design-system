@@ -23,8 +23,14 @@ if (!fs.existsSync(inputFile)) {
 
 const source = JSON.parse(fs.readFileSync(inputFile, 'utf-8'));
 
-const version = source.$metadata?.version;
-if (typeof version === 'string') syncPackageJsonVersion(version);
+// Publish workflows set RELEASE_VERSION before sync; do not overwrite with stale Figma $metadata.
+const releaseVersion = process.env.RELEASE_VERSION?.trim();
+if (releaseVersion) {
+  syncPackageJsonVersion(releaseVersion);
+} else {
+  const version = source.$metadata?.version;
+  if (typeof version === 'string') syncPackageJsonVersion(version);
+}
 
 const { filesWritten } = writeTokensFromFigmaSource(source, outputDir, {
   label: inputFile,

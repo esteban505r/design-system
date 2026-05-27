@@ -5,6 +5,9 @@
 // Writes a semver into design-system-foundations.md and package.json
 // before publish/sync. Does not modify figma/tokens.json $metadata.
 //
+// Publish workflows set RELEASE_VERSION on sync so sync:figma does not
+// overwrite package.json with stale figma $metadata.version.
+//
 // Usage:
 //   node set-release-version.mjs --version 1.0.10
 //   node set-release-version.mjs --version 1.0.10 --md path/to.md
