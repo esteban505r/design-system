@@ -238,7 +238,7 @@ If CI fails with “run sync locally”, run `pnpm run sync:md` (or `sync:figma`
 Both publish workflows require a **`version`** input (semver) when you click **Run workflow**. They:
 
 1. Run **`set-release-version.mjs`** → `**Version:**` in `design-system-foundations.md` and `package.json` (does not change `figma/tokens.json` `$metadata`)
-2. Run **`sync:figma`** or **`sync:md`** per the workflow **`source`** input (default **`md`**) → `package.json` + `tokens/` + `dist/`
+2. Run **`sync:figma`** or **`sync:md`** per the workflow **`source`** input (default **`figma`**) → `package.json` + `tokens/` + `dist/`
 3. Verify `package.json` matches the input version, then publish
 
 **npm (`publish-web.yml`)**

@@ -87,7 +87,7 @@ Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under 
 | **Sync tokens from Figma JSON** | Push to `figma/tokens.json` or manual | `pnpm run sync:figma`, commit, PR to `main` |
 | **Sync tokens from markdown** | Manual only (`workflow_dispatch`) | `pnpm run sync:md` |
 | **CI** | PR to `main` | `sync:figma` when head branch is `figma-ssot`, else `sync:md` |
-| **Publish web / Android** | Manual | `source` input: `figma` or `md` (default `md`) before publish |
+| **Publish web / Android** | Manual | `source` input: `figma` (default) or `md` before publish |
 
 ### Repo settings
 

@@ -17,10 +17,10 @@ on:
         description: 'Token source for sync before publish'
         required: true
         type: choice
-        default: md
+        default: figma
         options:
-          - md
           - figma
+          - md
 
 permissions:
   contents: read
