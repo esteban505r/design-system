@@ -61,17 +61,18 @@ jobs:
           BRANCH="${GITHUB_REF_NAME}"
           COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
           if [ "$COUNT" -eq 0 ]; then
+            PR_BODY_FILE="$(mktemp)"
+            {
+              echo 'Auto-generated with `pnpm run sync:md`:'
+              echo ''
+              echo '- **Source:** `design-system-foundations.md` (`**Version:**` → `package.json`)'
+              echo '- **Outputs:** `tokens/`, `figma/tokens.json`, `dist/` (all platforms)'
+              echo ''
+              echo 'See [docs/workflow-and-production.md](docs/workflow-and-production.md).'
+            } > "$PR_BODY_FILE"
             if ! gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from foundations markdown" \
-              --body "$(cat <<'EOF'
-Auto-generated with `pnpm run sync:md`:
-
-- **Source:** `design-system-foundations.md` (`**Version:**` → `package.json`)
-- **Outputs:** `tokens/`, `figma/tokens.json`, `dist/` (all platforms)
-
-See [docs/workflow-and-production.md](docs/workflow-and-production.md).
-EOF
-)"; then
+              --body-file "$PR_BODY_FILE"; then
               echo "::warning::Could not open a PR — enable 'Allow GitHub Actions to create and approve pull requests' in repo Settings → Actions."
               echo "Or open a PR manually from ${BRANCH} → main (sync commit was pushed)."
               exit 0
