@@ -2,7 +2,7 @@
 
 > **Branch `figma-ssot`:** edit **[`figma/tokens.json`](figma/tokens.json)** (Tokens Studio export) as the single source of truth. Run `pnpm run sync:figma` after changes. This file is **documentation only** on that branch (`pnpm run sync:md` is for markdown-driven migration).
 
-**Version:** 1.0.6
+**Version:** 1.0.7
 **Scope:** Web · Desktop · Mobile (iOS, Android, Compose)
 **Status:** Reference (see `figma/tokens.json` on `figma-ssot`)
 **Source of truth (figma-ssot branch):** [`figma/tokens.json`](figma/tokens.json)
