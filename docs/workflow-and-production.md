@@ -198,8 +198,8 @@ See [§ 8](#8-release-checklist-production).
 | `sync-tokens-from-md.yml` | Sync tokens from markdown | **Manual only** (`workflow_dispatch`) | `pnpm run sync:md` |
 | `sync-tokens-from-figma.yml` | Sync tokens from Figma JSON | Push / manual on `figma/tokens.json` | `pnpm run sync:figma` |
 | `ci.yml` | CI | PR to `main` | `sync:figma` if head is `figma-ssot`, else `sync:md` |
-| `publish-web.yml` | Publish web tokens (npm) | Manual (`version` input) | set version in MD + Figma JSON → sync → `npm publish` |
-| `publish-android.yml` | Publish Android library | Manual (`version` input) | set version in MD + Figma JSON → sync → Gradle publish |
+| `publish-web.yml` | Publish web tokens (npm) | Manual (`version`, `source`) | set version → `sync:figma` or `sync:md` → `npm publish` |
+| `publish-android.yml` | Publish Android library | Manual (`version`, `source`) | set version → `sync:figma` or `sync:md` → Gradle publish |
 
 ### 5.1 Markdown sync (manual — no push trigger)
 
@@ -238,7 +238,7 @@ If CI fails with “run sync locally”, run `pnpm run sync:md` (or `sync:figma`
 Both publish workflows require a **`version`** input (semver) when you click **Run workflow**. They:
 
 1. Run **`set-release-version.mjs`** → `**Version:**` in `design-system-foundations.md` and `package.json` (does not change `figma/tokens.json` `$metadata`)
-2. Run **`sync:figma`** (on `figma-ssot`) or **`sync:md`** (other branches) → `package.json` + `tokens/` + `dist/`
+2. Run **`sync:figma`** or **`sync:md`** per the workflow **`source`** input (default **`md`**) → `package.json` + `tokens/` + `dist/`
 3. Verify `package.json` matches the input version, then publish
 
 **npm (`publish-web.yml`)**
@@ -407,7 +407,7 @@ All platforms should reference the **same semver** for a given release unless yo
 | Local dev | ≥ 18.12 | `sync:md` or `sync:figma` | You commit manually |
 | CI / PR | 20 | branch-based sync | Fails if drift |
 | Sync workflows | 20 | `sync:md` or `sync:figma` | Bot commits + pushes |
-| npm publish | 22.14 | branch-based sync + `npm publish` | Uses commit on `main` |
+| npm publish | 22.14 | `source` input + `npm publish` | Uses commit on selected branch |
 
 ---
 

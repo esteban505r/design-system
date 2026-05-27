@@ -98,7 +98,7 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 
 #### npm release checklist (maintainers)
 
-1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**).
+1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**). Choose **source**: **`md`** (foundations markdown) or **`figma`** (`figma/tokens.json`); default is **`md`**.
 2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`**Version:**`** in **`design-system-foundations.md`** (not `figma/tokens.json` metadata), then syncs and publishes.
 3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
 4. **Locally:** `pnpm run version:set -- --version 1.0.10` then `pnpm run sync:md` and commit if you want the version bump on the branch before running Actions.
@@ -181,8 +181,8 @@ Full setup, branch flows, Figma in prod, release checklists, and troubleshooting
 | **Sync tokens from Figma JSON** | Push to `figma/tokens.json` (or manual) | `pnpm run sync:figma` → commit `tokens/`, `dist/`, `package.json` |
 | **Sync tokens from markdown** | Manual only (Actions → Run workflow) | `pnpm run sync:md` → commit `tokens/`, `figma/tokens.json`, `dist/`, `package.json` |
 | **CI** | PR to `main` | `sync:figma` on `figma-ssot` branch PRs, else `sync:md` → fail on drift → assemble Android |
-| **Publish web tokens (npm)** | Manual | `sync:figma` or `sync:md` by branch → `npm publish` |
-| **Publish Android library** | Manual | `sync:figma` or `sync:md` by branch → Gradle publish |
+| **Publish web tokens (npm)** | Manual | `source` input → `sync:figma` or `sync:md` → `npm publish` |
+| **Publish Android library** | Manual | `source` input → `sync:figma` or `sync:md` → Gradle publish |
 
 Merging to `main` does **not** publish npm or Maven — run publish workflows when consumers need a new version.
 

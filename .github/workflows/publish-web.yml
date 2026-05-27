@@ -13,6 +13,14 @@ on:
         description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
         required: true
         type: string
+      source:
+        description: 'Token source for sync before publish'
+        required: true
+        type: choice
+        default: md
+        options:
+          - md
+          - figma
 
 permissions:
   contents: read
@@ -46,11 +54,15 @@ jobs:
 
       - name: Sync tokens before publish
         run: |
-          if [ "${GITHUB_REF_NAME}" = "figma-ssot" ]; then
-            pnpm run sync:figma
-          else
-            pnpm run sync:md
-          fi
+          case "${{ inputs.source }}" in
+            figma) pnpm run sync:figma ;;
+            md) pnpm run sync:md ;;
+            *)
+              echo "::error::Unknown source: ${{ inputs.source }} (expected figma or md)"
+              exit 1
+              ;;
+          esac
+          echo "Synced from source: ${{ inputs.source }}"
 
       - name: Verify package.json version
         run: |
