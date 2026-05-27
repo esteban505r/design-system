@@ -99,7 +99,7 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 #### npm release checklist (maintainers)
 
 1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**).
-2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`design-system-foundations.md`** and **`figma/tokens.json`**, then syncs and publishes.
+2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`**Version:**`** in **`design-system-foundations.md`** (not `figma/tokens.json` metadata), then syncs and publishes.
 3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
 4. **Locally:** `pnpm run version:set -- --version 1.0.10` then `pnpm run sync:md` and commit if you want the version bump on the branch before running Actions.
 

@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (semver) — updates foundations MD and figma/tokens.json'
+        description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
         required: true
         type: string
 

@@ -2,11 +2,12 @@
 // ============================================================
 // set-release-version.mjs
 // ============================================================
-// Writes a semver into release source files before publish/sync.
+// Writes a semver into design-system-foundations.md and package.json
+// before publish/sync. Does not modify figma/tokens.json $metadata.
 //
 // Usage:
 //   node set-release-version.mjs --version 1.0.10
-//   node set-release-version.mjs --version 1.0.10 --md path/to.md --figma figma/tokens.json
+//   node set-release-version.mjs --version 1.0.10 --md path/to.md
 // ============================================================
 
 import fs from 'fs';
@@ -42,35 +43,27 @@ function setMarkdownVersion(filePath, version) {
   console.log(`📝 ${path.relative(process.cwd(), resolved)} → **Version:** ${version}`);
 }
 
-/**
- * @param {string} filePath
- * @param {string} version
- */
-function setFigmaMetadataVersion(filePath, version) {
-  const resolved = path.resolve(filePath);
-  if (!fs.existsSync(resolved)) {
-    console.warn(`⚠️  Skip figma JSON (not found): ${filePath}`);
+/** @param {string} version */
+function setPackageJsonVersion(version) {
+  const pkgPath = path.resolve('package.json');
+  if (!fs.existsSync(pkgPath)) {
+    console.warn('⚠️  Skip package.json (not found)');
     return;
   }
-  const data = JSON.parse(fs.readFileSync(resolved, 'utf-8'));
-  if (!data.$metadata || typeof data.$metadata !== 'object') {
-    data.$metadata = {};
-  }
-  data.$metadata.version = version;
-  fs.writeFileSync(resolved, JSON.stringify(data, null, 2) + '\n');
-  console.log(`📝 ${path.relative(process.cwd(), resolved)} → $metadata.version ${version}`);
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+  pkg.version = version;
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+  console.log(`📦 package.json → version ${version}`);
 }
 
 const args = process.argv.slice(2);
 const versionFlag = args.indexOf('--version');
 const mdFlag = args.indexOf('--md');
-const figmaFlag = args.indexOf('--figma');
 
 const version =
   versionFlag >= 0 ? args[versionFlag + 1] : process.env.RELEASE_VERSION;
 const mdFile =
   mdFlag >= 0 ? args[mdFlag + 1] : 'design-system-foundations.md';
-const figmaFile = figmaFlag >= 0 ? args[figmaFlag + 1] : 'figma/tokens.json';
 
 if (!version) {
   console.error('Usage: node set-release-version.mjs --version <semver>');
@@ -81,5 +74,5 @@ assertSemver(version.trim());
 const normalized = version.trim();
 
 setMarkdownVersion(mdFile, normalized);
-setFigmaMetadataVersion(figmaFile, normalized);
+setPackageJsonVersion(normalized);
 console.log('');
