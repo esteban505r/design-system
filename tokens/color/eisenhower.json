@@ -1,10 +1,6 @@
 {
   "color": {
     "eisenhower": {
-      "urgency-moderate": {
-        "$value": "#F59E0B",
-        "$type": "color"
-      },
       "importance-high": {
         "$value": "#3B82F6",
         "$type": "color"
@@ -15,6 +11,10 @@
       },
       "importance-medium": {
         "$value": "#8B5CF6",
+        "$type": "color"
+      },
+      "urgency-moderate": {
+        "$value": "#F59E0B",
         "$type": "color"
       },
       "urgency-not": {

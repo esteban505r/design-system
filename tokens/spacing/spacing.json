@@ -1,23 +1,23 @@
 {
   "spacing": {
-    "xs": {
-      "$value": "4px",
-      "$type": "dimension"
-    },
-    "sm": {
-      "$value": "8px",
+    "lg": {
+      "$value": "24px",
       "$type": "dimension"
     },
     "md": {
       "$value": "16px",
       "$type": "dimension"
     },
-    "lg": {
-      "$value": "24px",
+    "sm": {
+      "$value": "8px",
       "$type": "dimension"
     },
     "xl": {
       "$value": "32px",
+      "$type": "dimension"
+    },
+    "xs": {
+      "$value": "4px",
       "$type": "dimension"
     },
     "xxl": {
