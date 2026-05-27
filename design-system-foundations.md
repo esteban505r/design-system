@@ -1,6 +1,6 @@
 # Oter — Design System Foundations
 
-**Version:** 1.0.4
+**Version:** 1.0.5
 **Scope:** Web · Desktop · Mobile (iOS, Android, Compose)
 **Status:** Active
 **Source of truth:** [`ds/colors_and_type.css`](./ds/colors_and_type.css)
