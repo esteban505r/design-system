@@ -1,6 +1,6 @@
 # Oter — Design System Foundations
 
-> **Branch `figma-ssot`:** edit **[`figma/tokens.json`](figma/tokens.json)** (Tokens Studio export) as the single source of truth. Run `pnpm run sync:figma` after changes. This file is **documentation only** on that branch (`pnpm run sync:md` is for markdown-driven migration).
+> **Branch `figma-ssot`:** edit **[`figma/tokens.json`](figma/tokens.json)** as the single source of truth → `pnpm run sync:figma`. On **`main`**, edit the **`figma-tokens`** JSON block below (same format) → `pnpm run sync:md`.
 
 **Version:** 1.0.9
 **Scope:** Web · Desktop · Mobile (iOS, Android, Compose)
@@ -10,6 +10,796 @@
 > Oter is a life-management platform spanning finance, tasks, habits, nutrition, workouts, and study. The product ships **dark-first** on an indigo-on-slate palette, with a light theme that inverts surfaces while preserving the brand hue. Use design tokens instead of hardcoded values.
 >
 > **Production pipeline on `figma-ssot`:** [docs/figma-ssot.md](docs/figma-ssot.md)
+
+
+## Token definitions (Figma / Tokens Studio format)
+
+Machine-readable source for `pnpm run sync:md`. Use the **same flat names and `$value` / `$type` shape** as [`figma/tokens.json`](figma/tokens.json) (Tokens Studio export). Tables and CSS blocks below are documentation only — **edit this block** (or `figma/tokens.json` on `figma-ssot`) to change token values.
+
+```json figma-tokens
+{
+  "Global/Mode 1": {
+    "auth-gradient": {
+      "$value": "linear-gradient(to bottom right, #4338CA, #6B21A8)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "auth-gradient-color-1": {
+      "$value": "#4338ca",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "auth-gradient-color-2": {
+      "$value": "#6b21a8",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "background-color": {
+      "$value": "#0f172a",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "border-color": {
+      "$value": "#334155",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "border-light": {
+      "$value": "#475569",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "danger-color": {
+      "$value": "#ef4444",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "danger-hover": {
+      "$value": "#dc2626",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "easing-standard": {
+      "$value": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-bold": {
+      "$value": 700,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-brand": {
+      "$value": "Geist",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-extrabold": {
+      "$value": 800,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-medium": {
+      "$value": 500,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-mobile": {
+      "$value": "Lexend",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-mono": {
+      "$value": "Geist Mono",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-regular": {
+      "$value": 400,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-sans": {
+      "$value": "Geist",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "font-semibold": {
+      "$value": 600,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "importance-high": {
+      "$value": "#3b82f6",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "importance-low": {
+      "$value": "#6b7280",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "importance-medium": {
+      "$value": "#8b5cf6",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "info-color": {
+      "$value": "#3b82f6",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "info-hover": {
+      "$value": "#2563eb",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "primary-color": {
+      "$value": "#6366f1",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "primary-hover": {
+      "$value": "#4f46e5",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "primary-light": {
+      "$value": "#818cf8",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "primary-tint-15": {
+      "$value": "rgba(99,102,241,0.15)",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "primary-tint-20": {
+      "$value": "rgba(99,102,241,0.20)",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "radius-full": {
+      "$value": 9999,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "radius-lg": {
+      "$value": 12,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "radius-md": {
+      "$value": 8,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "radius-sm": {
+      "$value": 6,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "radius-xl": {
+      "$value": 16,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "shadow-lg": {
+      "$value": "0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "shadow-md": {
+      "$value": "0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "shadow-sm": {
+      "$value": "0 1px 2px 0 rgba(0,0,0,0.05)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "shadow-xl": {
+      "$value": "0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.10)",
+      "$type": "string",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-lg": {
+      "$value": 24,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-md": {
+      "$value": 16,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-sm": {
+      "$value": 8,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-xl": {
+      "$value": 32,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-xs": {
+      "$value": 4,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "spacing-xxl": {
+      "$value": 64,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "success-color": {
+      "$value": "#22c55e",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "success-hover": {
+      "$value": "#16a34a",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "surface-color": {
+      "$value": "#1e293b",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "surface-hover": {
+      "$value": "#334155",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "text-primary": {
+      "$value": "#f8fafc",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "text-secondary": {
+      "$value": "#94a3b8",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "text-tertiary": {
+      "$value": "#64748b",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "transition-base": {
+      "$value": 200,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "transition-fast": {
+      "$value": 150,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "transition-slow": {
+      "$value": 300,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-body": {
+      "$value": "16px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-body-sm": {
+      "$value": "14px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-button": {
+      "$value": "16px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-caption": {
+      "$value": "12px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h1": {
+      "$value": "28px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h2": {
+      "$value": "24px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h3": {
+      "$value": "20px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h4": {
+      "$value": "18px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h5": {
+      "$value": "16px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-h6": {
+      "$value": "14px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "type-mono": {
+      "$value": "14px",
+      "$type": "fontSize",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "urgency-moderate": {
+      "$value": "#f59e0b",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "urgency-not": {
+      "$value": "#6b7280",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "urgency-urgent": {
+      "$value": "#ef4444",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "warning-color": {
+      "$value": "#f59e0b",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "warning-hover": {
+      "$value": "#d97706",
+      "$type": "color",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-base": {
+      "$value": 0,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-dropdown": {
+      "$value": 1000,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-fixed": {
+      "$value": 1030,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-modal": {
+      "$value": 1050,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-modal-backdrop": {
+      "$value": 1040,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-sticky": {
+      "$value": 1020,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-toast": {
+      "$value": 1060,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    },
+    "z-tooltip": {
+      "$value": 1070,
+      "$type": "number",
+      "$extensions": {
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.hiddenFromPublishing": false
+      }
+    }
+  },
+  "$themes": [],
+  "$metadata": {
+    "tokenSetOrder": [
+      "global",
+      "Global/Mode 1"
+    ],
+    "version": "1.0.9"
+  }
+}
+```
 
 ---
 
@@ -169,54 +959,6 @@ Used only on login / register hero backgrounds. Use the **gradient** shorthand i
 }
 ```
 
-```json
-{
-  "color": {
-    "brand": {
-      "primary":       { "value": "#6366F1" },
-      "primary-hover": { "value": "#4F46E5" },
-      "primary-light": { "value": "#818CF8" },
-      "primary-tint-15": { "value": "rgba(99,102,241,0.15)" },
-      "primary-tint-20": { "value": "rgba(99,102,241,0.20)" }
-    },
-    "surface": {
-      "background":    { "value": "#0F172A" },
-      "surface":       { "value": "#1E293B" },
-      "surface-hover": { "value": "#334155" },
-      "border":        { "value": "#334155" },
-      "border-light":  { "value": "#475569" }
-    },
-    "text": {
-      "primary":   { "value": "#F8FAFC" },
-      "secondary": { "value": "#94A3B8" },
-      "tertiary":  { "value": "#64748B" }
-    },
-    "semantic": {
-      "success":       { "value": "#22C55E" },
-      "success-hover": { "value": "#16A34A" },
-      "warning":       { "value": "#F59E0B" },
-      "warning-hover": { "value": "#D97706" },
-      "danger":        { "value": "#EF4444" },
-      "danger-hover":  { "value": "#DC2626" },
-      "info":          { "value": "#3B82F6" },
-      "info-hover":    { "value": "#2563EB" }
-    },
-    "eisenhower": {
-      "urgency-urgent":    { "value": "#EF4444" },
-      "urgency-moderate":  { "value": "#F59E0B" },
-      "urgency-not":       { "value": "#6B7280" },
-      "importance-high":   { "value": "#3B82F6" },
-      "importance-medium": { "value": "#8B5CF6" },
-      "importance-low":    { "value": "#6B7280" }
-    },
-    "gradient": {
-      "auth": { "value": "linear-gradient(to bottom right, #4338CA, #6B21A8)" },
-      "auth-gradient-color-1": { "value": "#4338CA" },
-      "auth-gradient-color-2": { "value": "#6B21A8" }
-    }
-  }
-}
-```
 
 ---
 
@@ -306,38 +1048,6 @@ All sizes are in `px`. The scale is **semantic** — favor `var(--type-h2)` over
 }
 ```
 
-```json
-{
-  "font": {
-    "family": {
-      "sans":   { "value": "Geist" },
-      "mono":   { "value": "Geist Mono" },
-      "mobile": { "value": "Lexend" },
-      "brand":  { "value": "Geist" }
-    },
-    "weight": {
-      "regular":    { "value": 400 },
-      "medium":     { "value": 500 },
-      "semibold":   { "value": 600 },
-      "bold":       { "value": 700 },
-      "extrabold":  { "value": 800 }
-    },
-    "size": {
-      "h1":      { "value": "28px", "lineHeight": 1.2,  "weight": 700, "letterSpacing": "-0.01em" },
-      "h2":      { "value": "24px", "lineHeight": 1.25, "weight": 700, "letterSpacing": "-0.005em" },
-      "h3":      { "value": "20px", "lineHeight": 1.3,  "weight": 700 },
-      "h4":      { "value": "18px", "lineHeight": 1.35, "weight": 700 },
-      "h5":      { "value": "16px", "lineHeight": 1.4,  "weight": 700 },
-      "h6":      { "value": "14px", "lineHeight": 1.4,  "weight": 700 },
-      "body":    { "value": "16px", "lineHeight": 1.5,  "weight": 400 },
-      "body-sm": { "value": "14px", "lineHeight": 1.5,  "weight": 400 },
-      "caption": { "value": "12px", "lineHeight": 1.4,  "weight": 400 },
-      "button":  { "value": "16px", "lineHeight": 1.0,  "weight": 600 },
-      "mono":    { "value": "14px", "lineHeight": 1.5,  "weight": 400, "family": "mono" }
-    }
-  }
-}
-```
 
 ---
 
@@ -367,18 +1077,6 @@ Base unit is `4px`. Mirrors the Compose `Dimensions.kt` ramp (4 / 8 / 16 / 32 / 
 }
 ```
 
-```json
-{
-  "spacing": {
-    "xs":  { "value": "4px" },
-    "sm":  { "value": "8px" },
-    "md":  { "value": "16px" },
-    "lg":  { "value": "24px" },
-    "xl":  { "value": "32px" },
-    "xxl": { "value": "64px" }
-  }
-}
-```
 
 ---
 
@@ -406,17 +1104,6 @@ Use these tokens for `border-radius` on all UI elements. Cards and modals lean g
 }
 ```
 
-```json
-{
-  "radius": {
-    "sm":   { "value": "6px" },
-    "md":   { "value": "8px" },
-    "lg":   { "value": "12px" },
-    "xl":   { "value": "16px" },
-    "full": { "value": "9999px" }
-  }
-}
-```
 
 ---
 
@@ -442,16 +1129,6 @@ Cards in Oter **lean on borders first, shadow second** — shadows stay soft and
 }
 ```
 
-```json
-{
-  "shadow": {
-    "sm": { "value": "0 1px 2px 0 rgba(0,0,0,0.05)" },
-    "md": { "value": "0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10)" },
-    "lg": { "value": "0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10)" },
-    "xl": { "value": "0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.10)" }
-  }
-}
-```
 
 > **Mobile note:** React Native and Compose do not support `box-shadow` directly. Use `shadow*` props (iOS), the `elevation` prop / `Modifier.shadow` (Android / Compose). Map shadow tokens at the pipeline level rather than hardcoding platform values in components.
 
@@ -477,18 +1154,6 @@ A single curve — `cubic-bezier(.4, 0, .2, 1)` — at three durations. **Never 
 }
 ```
 
-```json
-{
-  "motion": {
-    "easing": { "standard": { "value": "cubic-bezier(0.4, 0, 0.2, 1)" } },
-    "duration": {
-      "fast": { "value": "150ms" },
-      "base": { "value": "200ms" },
-      "slow": { "value": "300ms" }
-    }
-  }
-}
-```
 
 ---
 
@@ -522,20 +1187,6 @@ An explicit, evenly-spaced ladder. **Never use ad-hoc numbers in product code** 
 }
 ```
 
-```json
-{
-  "z-index": {
-    "base":           { "value": 0 },
-    "dropdown":       { "value": 1000 },
-    "sticky":         { "value": 1020 },
-    "fixed":          { "value": 1030 },
-    "modal-backdrop": { "value": 1040 },
-    "modal":          { "value": 1050 },
-    "toast":          { "value": 1060 },
-    "tooltip":        { "value": 1070 }
-  }
-}
-```
 
 ---
 
@@ -549,7 +1200,7 @@ An explicit, evenly-spaced ladder. **Never use ad-hoc numbers in product code** 
 - **Token naming is final.** Do not rename, shorten, or alias tokens locally — this breaks cross-platform consistency between web (CSS custom properties), Compose (`Theme.kt`), and the React Native / iOS exports.
 - **Missing values = pending, not optional.** If a token isn't defined in this document, wait for it to be officially added rather than improvising a value.
 - **All values are in `px` (or `rem` where noted).** Conversion to `sp` / `pt` / `dp` happens at the token pipeline level, not in component code.
-- **Cross-platform scope.** These tokens apply to web (CSS custom properties), React Native, native iOS, and Android via a Style Dictionary export pipeline. The JSON blocks above follow Style Dictionary's standard format and are ready for direct use.
+- **Cross-platform scope.** These tokens apply to web (CSS custom properties), React Native, native iOS, and Android via a Style Dictionary export pipeline. Token values are defined in the **figma-tokens** JSON block above (Figma / Tokens Studio format).
 
 ---
 
