@@ -15,6 +15,8 @@
   <color name="color_eisenhower_importance_high">#ff3b82f6</color>
   <color name="color_eisenhower_importance_medium">#ff8b5cf6</color>
   <color name="color_eisenhower_importance_low">#ff6b7280</color>
+  <color name="color_gradient_auth_gradient_color_1">#ff4338ca</color>
+  <color name="color_gradient_auth_gradient_color_2">#ff6b21a8</color>
   <color name="color_semantic_success">#ff22c55e</color>
   <color name="color_semantic_success_hover">#ff16a34a</color>
   <color name="color_semantic_warning">#fff59e0b</color>

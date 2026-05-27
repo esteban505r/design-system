@@ -2,6 +2,15 @@
 
 Single source of truth for all design tokens. `pnpm run sync` generates repo token JSON, a Figma import file, and platform outputs for Web, Android, iOS, Flutter, and Compose Multiplatform.
 
+## Documentation
+
+| Guide | Audience |
+|-------|----------|
+| **[Workflow & production](docs/workflow-and-production.md)** | Everyone — pipeline, GitHub Actions, Figma, npm/Maven releases, troubleshooting |
+| [General next steps](docs/general-next-steps.md) | Platform leads — adopting tokens across web, mobile, Flutter |
+| [Android + Material 3](docs/android-material3-next-steps.md) | Android / Compose — theme mapping |
+| [design-system-foundations.md](design-system-foundations.md) | Designers — token values and naming (source of truth) |
+
 ## Quick Start
 
 ```bash
@@ -65,7 +74,7 @@ dist/figma/tokens.json            dist/web, android, ios, …
 
 Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the `**Version:** x.y.z` line at the top of `design-system-foundations.md`. **`pnpm run parse`** and **`pnpm run sync`** write that value into `package.json`; Gradle uses `package.json` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump `**Version:**` for each release (npm and GitHub Packages reject duplicate versions).
 
-**Further reading:** [General next steps (all platforms)](docs/general-next-steps.md) · [Android + Material 3](docs/android-material3-next-steps.md)
+**Further reading:** [Workflow & production](docs/workflow-and-production.md) · [General next steps](docs/general-next-steps.md) · [Android + Material 3](docs/android-material3-next-steps.md)
 
 ## Using tokens on the web
 
@@ -190,62 +199,16 @@ claude "Update color.brand.primary to #4F46E5 in design-system-foundations.md, r
 
 ## Automation (GitHub Actions)
 
-This repo can run the full “edit markdown → tokens → PR → registries” loop on GitHub:
+Full setup, branch flows, Figma in prod, release checklists, and troubleshooting: **[docs/workflow-and-production.md](docs/workflow-and-production.md)**.
 
 | Workflow | When | What it does |
 |----------|------|----------------|
-| **Sync tokens from markdown** | Push that changes `design-system-foundations.md` | Runs `pnpm run sync`, commits `tokens/`, `dist/`, and `package.json` (when changed) to the same branch, then opens a PR into `main` if the branch is not `main` and no open PR exists. On `main`, it pushes the sync commit directly. |
-| **CI** | Pull requests to `main` | `pnpm run sync` then fails if anything drifts from the commit; builds `:design-tokens-android` with Gradle. |
-| **Publish Android library** | Manual only: Actions → workflow → **Run workflow** (typically from `main`) | `pnpm run sync`, then `./gradlew :design-tokens-android:publish` to **GitHub Packages**. Maven **groupId**, **artifactId**, and Android **namespace** are set in **`gradle.properties`**. **Version** = `**Version:**` in `design-system-foundations.md` (via `package.json` after sync; override with `-PtokensVersion` / `TOKENS_VERSION` if needed). |
-| **Publish web tokens (npm)** | Manual only: Actions → workflow → **Run workflow** (typically from `main`) | `pnpm run sync`, then **`npm publish`** (npm ≥ 11.5.1) to **registry.npmjs.org** using **[Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)** (OIDC). Requires **`id-token: write`** in the workflow (already set) and a one-time **Trusted Publisher** config on npm for workflow file **`publish-web.yml`**. **Version** comes from the foundations markdown (see **Versioning** above). |
+| **Sync tokens from markdown** | Push to `design-system-foundations.md` | `pnpm run sync` → commit `tokens/`, `dist/`, `package.json` → PR to `main` (feature branches) or push to `main` |
+| **CI** | PR to `main` | `pnpm run sync` → fail on drift → assemble Android library |
+| **Publish web tokens (npm)** | Manual on `main` | sync + `npm publish` (OIDC trusted publishing) |
+| **Publish Android library** | Manual on `main` | sync + Gradle publish to GitHub Packages |
 
-### Deployment workflow
-
-Deployments are **manual** for Android (Maven) and web (npm). Nothing publishes automatically when you merge to `main`. Use this sequence when you want consumers to pick up a new release.
-
-**Workflow files** (under `.github/workflows/`):
-
-| File | Role |
-|------|------|
-| `sync-tokens-from-md.yml` | Regenerates artifacts after markdown edits (automatic on push). |
-| `ci.yml` | Validates PRs: regenerated tree must match the commit. |
-| `publish-android.yml` | Publishes the Android AAR to **GitHub Packages** (Maven). |
-| `publish-web.yml` | Publishes **`@estebanruano/design-tokens`** to **npm** via **OIDC** ([Trusted publishing](https://docs.npmjs.com/trusted-publishers/)). |
-
-**Recommended release path**
-
-1. **Change tokens or version** in `design-system-foundations.md` (including `**Version:**` when you intend a new Maven/npm release — see **Versioning (releases)** above).
-2. **Push** your branch. **Sync tokens from markdown** runs: it executes `pnpm run sync`, commits generated files, and either **opens a PR to `main`** (feature branches) or **pushes to `main`** (if you edited on `main` directly).
-3. **Review and merge** the PR when CI is green (or confirm the direct push on `main` if you used that path).
-4. **Publish** — only after `main` contains the version and artifacts you want live:
-   - **Android:** GitHub → **Actions** → **Publish Android library** → **Run workflow**, select **`main`** (or a release branch if you use one). Uses `GITHUB_TOKEN`; no extra secret.
-   - **Web:** GitHub → **Actions** → **Publish web tokens (npm)** → **Run workflow**, select **`main`**. Uses **OIDC trusted publishing** (no `NPM_TOKEN`); complete the [one-time npm setup](#npm-trusted-publishing-setup) below.
-
-Both publish workflows run **`pnpm run sync`** first, so the published bits always match the checked-out commit (including `**Version:**` → `package.json`). The npm job then runs **`npm publish`** so the npm CLI can use OIDC (see [Trusted publishing](https://docs.npmjs.com/trusted-publishers/)).
-
-**If publish fails with 409 / duplicate version**
-
-The Maven or npm coordinate for that version already exists. Bump `**Version:**` in the foundations doc, merge a sync commit, then run the publish workflow again.
-
-```mermaid
-flowchart TD
-  A[Edit design-system-foundations.md] --> B[Push]
-  B --> C[Sync tokens from markdown]
-  C --> D{Branch is main?}
-  D -->|No| E[Bot commits + opens PR to main]
-  D -->|Yes| F[Bot commits to main]
-  E --> G[Merge PR after CI]
-  F --> H[main up to date]
-  G --> H
-  H --> I[Run publish workflows from main when ready]
-  I --> J[Publish Android library → GitHub Packages Maven]
-  I --> K[Publish web tokens npm → registry.npmjs.org]
-```
-
-**Repo settings you need**
-
-1. **Actions → General → Workflow permissions**: allow **Read and write** so the sync job can push commits and open PRs.
-2. **Android publishing**: GitHub Packages Maven uses `GITHUB_TOKEN` from Actions (`packages: write` on the Android publish workflow). Bump `**Version:**` in `design-system-foundations.md` for every new Maven release — **the same version cannot be published twice** (Gradle will fail with **HTTP 409 Conflict** if you try).
+Merging to `main` does **not** publish npm or Maven — run publish workflows when consumers need a new version.
 
 #### npm: Trusted publishing setup
 

@@ -98,6 +98,10 @@ function pathToFigmaName(tokenPath) {
   if (category === 'color' && (group === 'brand' || group === 'surface' || group === 'semantic')) {
     return leaf;
   }
+  if (category === 'color' && group === 'gradient') {
+    if (leaf === 'auth') return 'auth-gradient';
+    return leaf;
+  }
   if (category === 'color' && group === 'eisenhower') {
     return leaf;
   }
@@ -130,12 +134,6 @@ function pathToFigmaName(tokenPath) {
   }
 
   return tokenPath.join('-');
-}
-
-/** @param {string} value */
-function parseGradientStops(value) {
-  const matches = value.match(/#[0-9A-Fa-f]{3,8}/g);
-  return matches ?? [];
 }
 
 /**
@@ -203,15 +201,10 @@ function addToken(tokenPath, token, target) {
   const rawValue = token.$value;
   const $type = /** @type {string | undefined} */ (token.$type);
 
-  // Auth gradient → two solid colors for Figma variables
+  // Full gradient string (stop colors are separate tokens in tokens/color/gradient.json)
   if (tokenPath.join('|') === 'color|gradient|auth' && $type === 'gradient') {
-    const stops = parseGradientStops(String(rawValue));
-    if (stops[0]) {
-      target['auth-gradient-color-1'] = buildFigmaToken(stops[0], 'color');
-    }
-    if (stops[1]) {
-      target['auth-gradient-color-2'] = buildFigmaToken(stops[1], 'color');
-    }
+    const figmaToken = buildFigmaToken(rawValue, 'string');
+    if (figmaToken) target['auth-gradient'] = figmaToken;
     return;
   }
 

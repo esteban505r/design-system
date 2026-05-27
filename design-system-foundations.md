@@ -6,6 +6,8 @@
 **Source of truth:** [`ds/colors_and_type.css`](./ds/colors_and_type.css)
 
 > Oter is a life-management platform spanning finance, tasks, habits, nutrition, workouts, and study. The product ships **dark-first** on an indigo-on-slate palette, with a light theme that inverts surfaces while preserving the brand hue. Use design tokens instead of hardcoded values. All tokens in this document are the single source of truth — do not invent, alias, or override them locally.
+>
+> **Pipeline:** after editing this file, push to GitHub (or run `pnpm run sync` locally). That regenerates `tokens/`, `dist/figma/tokens.json` (Figma), and platform outputs. See [docs/workflow-and-production.md](docs/workflow-and-production.md) for production setup and releases.
 
 ---
 
@@ -84,11 +86,13 @@ Reserved for the tasks matrix board. Do not repurpose for general semantic state
 
 ### 1.6 Auth Gradient
 
-A single gradient token, used only on login / register hero backgrounds.
+Used only on login / register hero backgrounds. Use the **gradient** shorthand in CSS; use the two **color** stops where platforms need solid variables (Figma, Android `@color/`, etc.).
 
 | Token | Value |
 |---|---|
 | `auth-gradient` | `linear-gradient(to bottom right, #4338CA, #6B21A8)` (indigo-700 → purple-800) |
+| `auth-gradient-color-1` | `#4338CA` (indigo-700) |
+| `auth-gradient-color-2` | `#6B21A8` (purple-800) |
 
 ### 1.7 Implementation
 
@@ -128,6 +132,8 @@ A single gradient token, used only on login / register hero backgrounds.
 
   /* Auth gradient */
   --auth-gradient: linear-gradient(to bottom right, #4338ca, #6b21a8);
+  --auth-gradient-color-1: #4338ca;
+  --auth-gradient-color-2: #6b21a8;
 
   /* Eisenhower */
   --urgency-urgent:    #ef4444;
@@ -202,7 +208,9 @@ A single gradient token, used only on login / register hero backgrounds.
       "importance-low":    { "value": "#6B7280" }
     },
     "gradient": {
-      "auth": { "value": "linear-gradient(to bottom right, #4338CA, #6B21A8)" }
+      "auth": { "value": "linear-gradient(to bottom right, #4338CA, #6B21A8)" },
+      "auth-gradient-color-1": { "value": "#4338CA" },
+      "auth-gradient-color-2": { "value": "#6B21A8" }
     }
   }
 }

@@ -1,6 +1,6 @@
 # General next steps (all platforms)
 
-This document is the **cross-platform roadmap** for adopting and operating this repository. It complements platform-specific guides (for example [Android + Material 3](android-material3-next-steps.md)).
+This document is the **cross-platform roadmap** for adopting tokens in product codebases. For **pipeline setup, GitHub Actions, Figma, and production releases**, start with **[workflow-and-production.md](workflow-and-production.md)**.
 
 ---
 
@@ -27,7 +27,7 @@ This document is the **cross-platform roadmap** for adopting and operating this 
    - **Web:** GitHub Actions → **Publish web tokens (npm)** (Trusted Publishing; see main README).
    - **Android Maven:** **Publish Android library** (GitHub Packages).
 
-See the main **README** for workflow names, secrets, and deployment order.
+See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Actions, publish workflows, and release checklists.
 
 ---
 
@@ -49,7 +49,7 @@ See the main **README** for workflow names, secrets, and deployment order.
 
 **Integration:**
 
-- Import **CSS** once for **`:root`** variables (`var(--color-primary-500)`, …).
+- Import **CSS** once for **`:root`** variables (`var(--color-brand-primary)`, …).
 - Use **JS** exports when you need typed constants in TypeScript or build scripts.
 - **Design system vs product UI:** this repo ships **tokens only**, not React/Vue components. Your product (or a separate internal package) owns component primitives; tokens feed **CSS variables**, **Tailwind theme extension**, or **CSS-in-JS** theme objects built from the same values.
 
@@ -102,11 +102,19 @@ See the main **README** for workflow names, secrets, and deployment order.
 
 ---
 
-### 4.6 JSON and tooling
+### 4.6 Figma
 
-**Artifact:** `dist/json/tokens.json` (flat JSON).
+**Artifact:** `dist/figma/tokens.json` (Tokens Studio / Figma Variables import).
 
-**Use cases:** Figma plugins, CI checks, documentation generators, one-off scripts.
+**Use cases:** design library variables, design–dev parity with CSS names (`primary-color`, `type-h1`, …).
+
+**Next steps:** import after each token release on `main`; see [workflow-and-production.md § 6](workflow-and-production.md#6-figma--tokens-studio-in-production).
+
+### 4.7 JSON and tooling
+
+**Artifact:** `dist/json/tokens.json` (flat Style Dictionary dump).
+
+**Use cases:** CI checks, documentation generators, one-off scripts — not the Figma format (use `dist/figma/tokens.json` for that).
 
 **Next steps:** avoid treating JSON as the **authoring** source; generate it from this repo in CI when other tools need it.
 

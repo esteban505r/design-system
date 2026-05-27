@@ -22,6 +22,8 @@ object DesignTokens {
   val colorEisenhowerUrgencyNot = Color(0xff6b7280)
   val colorEisenhowerUrgencyUrgent = Color(0xffef4444)
   val colorGradientAuth = linear-gradient(to bottom right, #4338CA, #6B21A8)
+  val colorGradientAuthGradientColor1 = Color(0xff4338ca)
+  val colorGradientAuthGradientColor2 = Color(0xff6b21a8)
   val colorSemanticDanger = Color(0xffef4444)
   val colorSemanticDangerHover = Color(0xffdc2626)
   val colorSemanticInfo = Color(0xff3b82f6)

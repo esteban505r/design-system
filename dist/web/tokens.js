@@ -15,6 +15,8 @@ export const ColorEisenhowerImportanceMedium = "#8b5cf6";
 export const ColorEisenhowerImportanceLow = "#6b7280";
 export const ColorGradientAuth =
   "linear-gradient(to bottom right, #4338CA, #6B21A8)";
+export const ColorGradientAuthGradientColor1 = "#4338ca";
+export const ColorGradientAuthGradientColor2 = "#6b21a8";
 export const ColorSemanticSuccess = "#22c55e";
 export const ColorSemanticSuccessHover = "#16a34a";
 export const ColorSemanticWarning = "#f59e0b";
