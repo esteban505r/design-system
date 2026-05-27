@@ -2,7 +2,11 @@
   "color": {
     "surface": {
       "background": {
-        "$value": "#0F172A",
+        "$value": "#2A1C0F",
+        "$type": "color"
+      },
+      "surface": {
+        "$value": "#3B301E",
         "$type": "color"
       },
       "border": {
@@ -11,10 +15,6 @@
       },
       "border-light": {
         "$value": "#475569",
-        "$type": "color"
-      },
-      "surface": {
-        "$value": "#1E293B",
         "$type": "color"
       },
       "surface-hover": {
