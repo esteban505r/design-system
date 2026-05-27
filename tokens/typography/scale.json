@@ -1,48 +1,48 @@
 {
   "font": {
     "size": {
-      "body": {
-        "$value": "16pxpx",
-        "$type": "fontSize"
-      },
-      "body-sm": {
-        "$value": "14pxpx",
-        "$type": "fontSize"
-      },
-      "button": {
-        "$value": "16pxpx",
-        "$type": "fontSize"
-      },
-      "caption": {
-        "$value": "12pxpx",
-        "$type": "fontSize"
-      },
       "h1": {
-        "$value": "28pxpx",
+        "$value": "28px",
         "$type": "fontSize"
       },
       "h2": {
-        "$value": "24pxpx",
+        "$value": "24px",
+        "$type": "fontSize"
+      },
+      "body": {
+        "$value": "16px",
+        "$type": "fontSize"
+      },
+      "body-sm": {
+        "$value": "14px",
+        "$type": "fontSize"
+      },
+      "button": {
+        "$value": "16px",
+        "$type": "fontSize"
+      },
+      "caption": {
+        "$value": "12px",
         "$type": "fontSize"
       },
       "h3": {
-        "$value": "20pxpx",
+        "$value": "20px",
         "$type": "fontSize"
       },
       "h4": {
-        "$value": "18pxpx",
+        "$value": "18px",
         "$type": "fontSize"
       },
       "h5": {
-        "$value": "16pxpx",
+        "$value": "16px",
         "$type": "fontSize"
       },
       "h6": {
-        "$value": "14pxpx",
+        "$value": "14px",
         "$type": "fontSize"
       },
       "mono": {
-        "$value": "14pxpx",
+        "$value": "14px",
         "$type": "fontSize"
       }
     }
