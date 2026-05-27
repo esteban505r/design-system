@@ -47,6 +47,19 @@ jobs:
             pnpm run sync:md
           fi
 
+      - name: Verify Android dist before Gradle
+        run: |
+          set -e
+          for f in colors.xml dimens.xml integers.xml strings.xml; do
+            test -f "dist/android/$f" || { echo "::error::Missing dist/android/$f — sync failed?"; exit 1; }
+          done
+          grep -q 'name="font_size_h1"' dist/android/dimens.xml || {
+            echo "::error::dist/android/dimens.xml has no font_size_h1 (typography tokens missing)"
+            exit 1
+          }
+          echo "dist/android resource counts:"
+          grep -c 'name="' dist/android/*.xml
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'

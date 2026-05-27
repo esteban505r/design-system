@@ -251,7 +251,9 @@ In **CI** for the consuming app, inject the same values (e.g. repository secrets
 
 ### Using tokens in Android app code
 
-The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only (colors, dimens, font dimens, etc.). After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
+The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only. After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
+
+**Local repo vs published AAR:** this repo keeps **four** files under `dist/android/` (`colors.xml`, `dimens.xml`, `integers.xml`, `strings.xml`). Android Studio often shows them as **one combined `<resources>` block** when you inspect the library dependency — that is normal. If colors or `font_size_*` differ from your local `dist/android/`, the app is almost certainly on an **older Maven version**; bump the dependency and re-run **Publish Android library** with a new version after `pnpm run sync`.
 
 **Resource names** match the generated files in **`dist/android/`**: `colors.xml`, `dimens.xml` (spacing, radius, **and font sizes in `sp`**), `integers.xml`, `strings.xml`. There is no `R.font_dimens` type — font sizes are normal **`R.dimen`** entries (e.g. `R.dimen.font_size_h1`, `@dimen/font_size_h1` in XML).
 
