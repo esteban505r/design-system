@@ -4,5 +4,15 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-
+  <dimen name="font_size_body">16sp</dimen>
+  <dimen name="font_size_body_sm">14sp</dimen>
+  <dimen name="font_size_button">16sp</dimen>
+  <dimen name="font_size_caption">12sp</dimen>
+  <dimen name="font_size_h1">28sp</dimen>
+  <dimen name="font_size_h2">24sp</dimen>
+  <dimen name="font_size_h3">20sp</dimen>
+  <dimen name="font_size_h4">18sp</dimen>
+  <dimen name="font_size_h5">16sp</dimen>
+  <dimen name="font_size_h6">14sp</dimen>
+  <dimen name="font_size_mono">14sp</dimen>
 </resources>

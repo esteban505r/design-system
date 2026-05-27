@@ -1,7 +1,7 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose branch, usually `main`).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# Version = **Version:** in design-system-foundations.md (copied into package.json by `pnpm run sync`).
+# Version from package.json after sync (from figma $metadata.version or markdown **Version:**).
 # GitHub Packages returns HTTP 409 if that GAV already exists —
 # bump the version in the markdown, merge, run sync, then run this workflow again.
 
@@ -32,7 +32,14 @@ jobs:
           cache: 'pnpm'
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run sync
+
+      - name: Sync tokens before publish
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "figma-ssot" ]; then
+            pnpm run sync:figma
+          else
+            pnpm run sync:md
+          fi
 
       - uses: actions/setup-java@v4
         with:

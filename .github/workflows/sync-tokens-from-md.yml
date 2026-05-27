@@ -1,25 +1,25 @@
-# When someone updates the foundations markdown, regenerate tokens + dist outputs,
-# commit to the same branch, and open a PR into main (if not already open).
+# Regenerate tokens/ + dist/ from design-system-foundations.md (markdown SSOT path).
+# Manual only (workflow_dispatch) — no push trigger, to avoid circular runs when the
+# bot commits generated files or when foundations and outputs land in the same push.
+#
+# Pipeline: pnpm run sync:md
+#   design-system-foundations.md → tokens/**/*.json → figma/tokens.json → dist/**
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
-#   - Allow GitHub Actions to create and approve pull requests (for gh pr create)
+#   - Allow GitHub Actions to create and approve pull requests (optional, for gh pr create)
 
 name: Sync tokens from markdown
 
 on:
-  push:
-    branches-ignore:
-      - figma-ssot
-    paths:
-      - 'design-system-foundations.md'
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: token-sync-${{ github.ref }}
+  group: token-sync-md-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -37,8 +37,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Regenerate tokens and platform outputs
-        run: pnpm run sync
+      - name: Generate all outputs from design-system-foundations.md
+        run: pnpm run sync:md
 
       - name: Commit generated files
         run: |
@@ -46,7 +46,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --staged --quiet; then
-            echo "No changes after sync — working tree already up to date."
+            echo "No changes after sync:md — working tree already up to date."
             exit 0
           fi
           git commit -m "chore(tokens): sync from design-system-foundations.md"
@@ -63,9 +63,17 @@ jobs:
           if [ "$COUNT" -eq 0 ]; then
             if ! gh pr create --base main --head "$BRANCH" \
               --title "Design tokens: update from foundations markdown" \
-              --body "Auto-generated from \`design-system-foundations.md\` via \`pnpm run sync\`. Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [workflow-and-production.md](docs/workflow-and-production.md)."; then
+              --body "$(cat <<'EOF'
+Auto-generated with `pnpm run sync:md`:
+
+- **Source:** `design-system-foundations.md` (`**Version:**` → `package.json`)
+- **Outputs:** `tokens/`, `figma/tokens.json`, `dist/` (all platforms)
+
+See [docs/workflow-and-production.md](docs/workflow-and-production.md).
+EOF
+)"; then
               echo "::warning::Could not open a PR — enable 'Allow GitHub Actions to create and approve pull requests' in repo Settings → Actions."
-              echo "Open a PR manually from ${BRANCH} → main (sync commit was pushed)."
+              echo "Or open a PR manually from ${BRANCH} → main (sync commit was pushed)."
               exit 0
             fi
           else

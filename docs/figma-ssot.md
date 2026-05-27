@@ -20,15 +20,15 @@ figma/tokens.json          ← SSOT (commit this file)
         └── dist/figma/tokens.json   ← copy of SSOT (for npm export path)
 ```
 
-**One command:** `pnpm run sync` = `parse` + `build`.
+**One command:** `pnpm run sync:figma` = `parse` + `build`.
 
 | Script | Purpose |
 |--------|---------|
+| `pnpm run sync:figma` | Full pipeline from `figma/tokens.json` |
 | `pnpm run parse` | `figma/tokens.json` → `tokens/` + copy to `dist/figma/` |
 | `pnpm run build` | `tokens/` → platform `dist/` |
-| `pnpm run sync` | Both |
-| `pnpm run parse:md` | **Legacy** — markdown → `tokens/` (migration only) |
-| `pnpm run figma:verify` | Generate `dist/figma/tokens.generated.json` from `tokens/` to diff against SSOT |
+| `pnpm run sync:md` | **Other path** — from `design-system-foundations.md` (see [workflow-and-production.md](workflow-and-production.md)) |
+| `pnpm run figma:verify` | Diff `tokens/` export vs SSOT (`dist/figma/tokens.generated.json`) |
 
 ---
 
@@ -40,13 +40,13 @@ figma/tokens.json          ← SSOT (commit this file)
 2. **Export** or sync to `figma/tokens.json` in this repo (Plugins → export JSON, or your Tokens Studio git sync).
 3. Set **`$metadata.version`** in `figma/tokens.json` when cutting a release (semver, e.g. `"1.0.6"`).
 4. Commit and push `figma/tokens.json`.
-5. **Sync tokens from Figma JSON** (GitHub Action) runs `pnpm run sync` and opens/updates a PR with `tokens/` + `dist/`.
+5. **Sync tokens from Figma JSON** (GitHub Action) runs `pnpm run sync:figma` and opens/updates a PR with `tokens/` + `dist/`.
 
 ### Engineers (local)
 
 ```bash
 # Edit figma/tokens.json (or pull from design)
-pnpm run sync
+pnpm run sync:figma
 git add figma/tokens.json tokens/ dist/ package.json
 git commit -m "chore(tokens): update from Figma SSOT"
 ```
@@ -84,10 +84,10 @@ Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under 
 
 | Workflow | Trigger | Action |
 |----------|---------|--------|
-| **Sync tokens from Figma JSON** | Push to `figma/tokens.json` | `pnpm run sync`, commit, PR to `main` |
-| **CI** | PR to `main` | `pnpm run sync`, fail on drift, build Android AAR |
-| **Sync tokens from markdown** | Disabled on `figma-ssot` (`branches-ignore`) |
-| **Publish web / Android** | Manual on `main` | Same as main branch — run after merge |
+| **Sync tokens from Figma JSON** | Push to `figma/tokens.json` or manual | `pnpm run sync:figma`, commit, PR to `main` |
+| **Sync tokens from markdown** | Manual only (`workflow_dispatch`) | `pnpm run sync:md` |
+| **CI** | PR to `main` | `sync:figma` when head branch is `figma-ssot`, else `sync:md` |
+| **Publish web / Android** | Manual | branch-based sync before publish |
 
 ### Repo settings
 
@@ -146,7 +146,7 @@ To merge `figma-ssot` into `main`, decide which SSOT wins, then adjust `package.
 | Issue | Fix |
 |-------|-----|
 | `createPullRequest` not permitted | Repo **Settings → Actions → General** → enable **Allow GitHub Actions to create and approve pull requests** (org admins may need to allow this org-wide). Sync still pushed — open PR to `main` manually. |
-| CI drift | Run `pnpm run sync`, commit `tokens/` + `dist/` |
+| CI drift | Run `pnpm run sync:figma`, commit `tokens/` + `dist/` |
 | Unmapped Figma token warning | Add entry to `FIGMA_TO_TOKEN_PATH` in `token-name-map.mjs` |
 | Wrong collection name | Set `FIGMA_COLLECTION="Your Set"` when running `figma-to-tokens.mjs` |
 | Verify parity | `pnpm run figma:verify` then `diff figma/tokens.json dist/figma/tokens.generated.json` |

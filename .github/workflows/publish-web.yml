@@ -3,7 +3,7 @@
 # No NPM_TOKEN — configure the package on npmjs.com (see README).
 #
 # Requires: npm CLI ≥ 11.5.1, Node ≥ 22.14.0 (https://docs.npmjs.com/trusted-publishers/).
-# Version = **Version:** in design-system-foundations.md (synced to package.json by `pnpm run sync`).
+# Version from package.json after sync (from figma $metadata.version or markdown **Version:**).
 
 name: Publish web tokens (npm)
 
@@ -36,7 +36,14 @@ jobs:
         run: npm install -g "npm@^11.5.1"
 
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run sync
+
+      - name: Sync tokens before publish
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "figma-ssot" ]; then
+            pnpm run sync:figma
+          else
+            pnpm run sync:md
+          fi
 
       - name: Publish to npm (OIDC trusted publishing)
         run: |
