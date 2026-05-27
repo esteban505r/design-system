@@ -4,9 +4,12 @@ Single source of truth for all design tokens. `pnpm run sync` generates repo tok
 
 ## Documentation
 
+> **On branch `figma-ssot`:** SSOT is **[`figma/tokens.json`](figma/tokens.json)** — see **[Figma SSOT guide](docs/figma-ssot.md)**. Use `pnpm run sync` (`parse` → `build`).
+
 | Guide | Audience |
 |-------|----------|
-| **[Workflow & production](docs/workflow-and-production.md)** | Everyone — pipeline, GitHub Actions, Figma, npm/Maven releases, troubleshooting |
+| **[Figma SSOT (`figma-ssot` branch)](docs/figma-ssot.md)** | Figma-first pipeline, CI, production |
+| **[Workflow & production](docs/workflow-and-production.md)** | Markdown SSOT on `main` — GitHub Actions, releases |
 | [General next steps](docs/general-next-steps.md) | Platform leads — adopting tokens across web, mobile, Flutter |
 | [Android + Material 3](docs/android-material3-next-steps.md) | Android / Compose — theme mapping |
 | [design-system-foundations.md](design-system-foundations.md) | Designers — token values and naming (source of truth) |
@@ -16,16 +19,15 @@ Single source of truth for all design tokens. `pnpm run sync` generates repo tok
 ```bash
 pnpm install
 
-# Full pipeline: markdown → tokens/ → Figma JSON + platform dist/
+# Full pipeline (figma-ssot branch): figma/tokens.json → tokens/ → platform dist/
 pnpm run sync
 
 # Or run each step separately:
-pnpm run parse    # ① markdown → tokens/ (repos)
-pnpm run figma    # ② tokens/ → dist/figma/tokens.json (Figma / Tokens Studio)
-pnpm run build    # ③ tokens/ → dist/web, android, ios, … (code platforms)
+pnpm run parse    # ① figma/tokens.json → tokens/
+pnpm run build    # ② tokens/ → dist/web, android, ios, …
 ```
 
-**`tokens/`** is the machine-readable source for engineering repos. **`dist/figma/tokens.json`** is a single flat file for Figma Variables import (Tokens Studio format). **`dist/`** holds web, Android, iOS, Flutter, and Compose outputs.
+**`figma/tokens.json`** is the single source of truth (Tokens Studio export). **`tokens/`** feeds Style Dictionary. **`dist/`** holds web, Android, iOS, Flutter, and Compose outputs (and a copy of the Figma file under `dist/figma/`).
 
 ```
 tokens/                       ← ① from markdown (commit in repo)

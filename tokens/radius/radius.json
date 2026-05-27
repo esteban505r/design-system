@@ -1,23 +1,23 @@
 {
   "radius": {
-    "sm": {
-      "$value": "6px",
-      "$type": "dimension"
-    },
-    "md": {
-      "$value": "8px",
+    "full": {
+      "$value": "9999px",
       "$type": "dimension"
     },
     "lg": {
       "$value": "12px",
       "$type": "dimension"
     },
-    "xl": {
-      "$value": "16px",
+    "md": {
+      "$value": "8px",
       "$type": "dimension"
     },
-    "full": {
-      "$value": "9999px",
+    "sm": {
+      "$value": "6px",
+      "$type": "dimension"
+    },
+    "xl": {
+      "$value": "16px",
       "$type": "dimension"
     }
   }

@@ -1,23 +1,20 @@
-# When someone updates the foundations markdown, regenerate tokens + dist outputs,
-# commit to the same branch, and open a PR into main (if not already open).
+# When figma/tokens.json (SSOT) changes, regenerate tokens/ + dist/ and open a PR.
 #
 # Requires: Settings → Actions → General → Workflow permissions → Read and write.
 
-name: Sync tokens from markdown
+name: Sync tokens from Figma JSON
 
 on:
   push:
-    branches-ignore:
-      - figma-ssot
     paths:
-      - 'design-system-foundations.md'
+      - 'figma/tokens.json'
 
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: token-sync-${{ github.ref }}
+  group: token-sync-figma-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -47,7 +44,7 @@ jobs:
             echo "No changes after sync — working tree already up to date."
             exit 0
           fi
-          git commit -m "chore(tokens): sync from design-system-foundations.md"
+          git commit -m "chore(tokens): sync from figma/tokens.json"
           git push
 
       - name: Open pull request (feature branches only)
@@ -59,8 +56,8 @@ jobs:
           COUNT=$(gh pr list -H "$BRANCH" --state open --json number --jq 'length')
           if [ "$COUNT" -eq 0 ]; then
             gh pr create --base main --head "$BRANCH" \
-              --title "Design tokens: update from foundations markdown" \
-              --body "Auto-generated from \`design-system-foundations.md\` via \`pnpm run sync\` (parse → figma → build). Review \`tokens/\`, \`dist/\` (including \`dist/figma/tokens.json\`), and \`package.json\`. See [workflow-and-production.md](docs/workflow-and-production.md). For Maven/npm, bump **Version:** in the foundations doc before publish (duplicate versions are rejected)."
+              --title "Design tokens: update from figma/tokens.json" \
+              --body "Auto-generated from \`figma/tokens.json\` (single source of truth). Review \`tokens/\`, \`dist/\`, and \`package.json\`. See [docs/figma-ssot.md](docs/figma-ssot.md)."
           else
             echo "Open PR already exists for branch $BRANCH"
           fi

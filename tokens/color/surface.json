@@ -5,20 +5,20 @@
         "$value": "#0F172A",
         "$type": "color"
       },
-      "surface": {
-        "$value": "#1E293B",
-        "$type": "color"
-      },
-      "surface-hover": {
-        "$value": "#334155",
-        "$type": "color"
-      },
       "border": {
         "$value": "#334155",
         "$type": "color"
       },
       "border-light": {
         "$value": "#475569",
+        "$type": "color"
+      },
+      "surface": {
+        "$value": "#1E293B",
+        "$type": "color"
+      },
+      "surface-hover": {
+        "$value": "#334155",
         "$type": "color"
       }
     }
