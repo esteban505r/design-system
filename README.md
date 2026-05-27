@@ -253,7 +253,7 @@ In **CI** for the consuming app, inject the same values (e.g. repository secrets
 
 The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only (colors, dimens, font dimens, etc.). After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
 
-**Resource names** match the generated files in this repo under **`dist/android/`** (e.g. `colors.xml`, `dimens.xml`). Typical names look like `color_primary_500`, `color_neutral_500`, `spacing_4`, `radius_md` — always confirm the exact `name="…"` in those files when you add or rename tokens.
+**Resource names** match the generated files in **`dist/android/`**: `colors.xml`, `dimens.xml`, `font_dimens.xml`, `integers.xml` (z-index, font weights, motion duration ms), and `strings.xml` (font families, shadows, easing, gradients). Names use snake_case (e.g. `color_brand_primary`, `spacing_md`, `z_index_modal`) — confirm the exact `name="…"` when you add or rename tokens.
 
 **XML layouts**
 

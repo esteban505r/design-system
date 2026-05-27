@@ -131,7 +131,7 @@ Configure once per org/repo:
 |----------|------|
 | Web CSS | `dist/web/tokens.css` |
 | Web JS | `dist/web/tokens.js` |
-| Android XML | `dist/android/colors.xml`, `dimens.xml`, `font_dimens.xml` |
+| Android XML | `dist/android/colors.xml`, `dimens.xml`, `font_dimens.xml`, `integers.xml`, `strings.xml` |
 | iOS | `dist/ios/DesignTokens.swift` |
 | Flutter | `dist/flutter/design_tokens.dart` |
 | Compose | `dist/compose/DesignTokens.kt` |

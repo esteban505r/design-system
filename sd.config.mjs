@@ -19,6 +19,22 @@ function parsePx(value) {
   return m ? Number.parseFloat(m[1]) : Number.NaN;
 }
 
+const ANDROID_XML_HEADER = `<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Do not edit directly, this file was auto-generated.
+-->
+`;
+
+/** @param {string} value */
+function escAndroidString(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '\\"');
+}
+
 const sd = new StyleDictionary({
   hooks: {
     transforms: {
@@ -33,6 +49,14 @@ const sd = new StyleDictionary({
           return `${n}${unit}`;
         },
       },
+      'duration/msInteger': {
+        type: 'value',
+        filter: (token) => token.$type === 'duration',
+        transform: (token) => {
+          const m = String(token.$value).match(/^(\d+)ms$/);
+          return m ? Number(m[1]) : token.$value;
+        },
+      },
     },
     transformGroups: {
       'android/px': [
@@ -40,7 +64,24 @@ const sd = new StyleDictionary({
         'name/snake',
         'color/hex8android',
         'size/pxToAndroidUnit',
+        'duration/msInteger',
       ],
+    },
+    formats: {
+      'android/integers-all': async ({ dictionary }) => {
+        const lines = dictionary.allTokens
+          .filter((t) => ['number', 'fontWeight', 'duration'].includes(t.$type))
+          .map((t) => `  <integer name="${t.name}">${t.$value}</integer>`);
+        return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
+      },
+      'android/strings-all': async ({ dictionary }) => {
+        const lines = dictionary.allTokens
+          .filter((t) =>
+            ['fontFamily', 'shadow', 'cubicBezier', 'gradient'].includes(t.$type),
+          )
+          .map((t) => `  <string name="${t.name}">${escAndroidString(t.$value)}</string>`);
+        return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
+      },
     },
   },
   source: ['tokens/**/*.json'],
@@ -95,6 +136,14 @@ const sd = new StyleDictionary({
           filter: (token) =>
             token.path?.[0] === 'font' &&
             (token.$type === 'fontSize' || token.$type === 'dimension'),
+        },
+        {
+          destination: 'integers.xml',
+          format: 'android/integers-all',
+        },
+        {
+          destination: 'strings.xml',
+          format: 'android/strings-all',
         },
       ],
     },
