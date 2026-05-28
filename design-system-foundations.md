@@ -2,7 +2,7 @@
 
 > Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on a pink-on-plum palette, with a light theme that inverts surfaces while preserving the brand hue.
 
-**Version:** 1.0.9 · **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
+**Version:** 1.0.21 · **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
 
 ---
 
