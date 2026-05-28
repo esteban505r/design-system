@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 
-// Reads design-system-foundations.md → tokens/ (same pipeline as figma/tokens.json).
+// Reads design-system-foundations.md → tokens/ (+ optional figma/tokens.json export).
 //
-// The markdown file must include a ```json figma-tokens block in Tokens Studio /
-// Figma Variables export shape (flat names: primary-color, type-h1, spacing-md, …).
+// Requires a ```json design-tokens block (Tokens Studio / DTCG shape) in the markdown.
+// Does not read figma/tokens.json. Use sync:figma for that path.
 //
-// Usage: node md-to-tokens.mjs [design-system-foundations.md] [--out tokens]
+// Usage:
+//   node md-to-tokens.mjs [design-system-foundations.md] [--out tokens]
+//   node md-to-tokens.mjs --figma-out figma/tokens.json   # also write Figma JSON file
 
 import fs from 'fs';
 import path from 'path';
@@ -21,9 +23,13 @@ const FIGMA_EXTENSIONS = {
   'com.figma.hiddenFromPublishing': false,
 };
 
-/** Semver from `**Version:** x.y.z` */
+const SEMVER_RE = /^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$/;
+
+const DESIGN_TOKEN_FENCE_TAGS = ['design-tokens', 'figma-tokens'];
+
+/** Semver from `**Version:** x.y.z` (rest of line may hold Scope, Status, etc.) */
 function extractDesignSystemVersion(markdown, sourceLabel) {
-  const m = markdown.match(/\*\*Version:\*\*\s*(.+)/);
+  const m = markdown.match(/\*\*Version:\*\*\s*(\d+\.\d+\.\d+(?:-[a-zA-Z0-9.]+)?)/);
   if (!m) {
     console.error(
       `❌ Missing **Version:** semver in ${sourceLabel}. Add a line like: **Version:** 1.2.3`,
@@ -31,7 +37,7 @@ function extractDesignSystemVersion(markdown, sourceLabel) {
     process.exit(1);
   }
   const v = m[1].trim();
-  if (!/^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$/.test(v)) {
+  if (!SEMVER_RE.test(v)) {
     console.error(`❌ Invalid **Version:** "${v}" in ${sourceLabel}`);
     process.exit(1);
   }
@@ -41,17 +47,19 @@ function extractDesignSystemVersion(markdown, sourceLabel) {
 /**
  * @param {Record<string, unknown>} obj
  */
-function isFigmaFlatCollection(obj) {
+function isFlatTokenCollection(obj) {
   return Object.keys(obj).some((k) => k.includes('-') && !k.startsWith('$'));
 }
 
 /**
  * @param {string} md
  */
-function extractFigmaTokensSource(md) {
-  const tagged = md.match(/```json\s+figma-tokens\s*\n([\s\S]*?)```/);
-  if (tagged) {
-    return JSON.parse(tagged[1]);
+function extractDesignTokensSource(md) {
+  for (const tag of DESIGN_TOKEN_FENCE_TAGS) {
+    const tagged = md.match(new RegExp('```json\\s+' + tag + '\\s*\\n([\\s\\S]*?)```'));
+    if (tagged) {
+      return JSON.parse(tagged[1]);
+    }
   }
 
   const jsonRegex = /```json\s*\n([\s\S]*?)```/g;
@@ -59,7 +67,7 @@ function extractFigmaTokensSource(md) {
   while ((match = jsonRegex.exec(md)) !== null) {
     try {
       const parsed = JSON.parse(match[1]);
-      if (isFigmaFlatCollection(parsed)) {
+      if (isFlatTokenCollection(parsed)) {
         return {
           'Global/Mode 1': parsed,
           $themes: [],
@@ -67,7 +75,7 @@ function extractFigmaTokensSource(md) {
         };
       }
       const setKey = Object.keys(parsed).find((k) => !k.startsWith('$'));
-      if (setKey && typeof parsed[setKey] === 'object' && isFigmaFlatCollection(
+      if (setKey && typeof parsed[setKey] === 'object' && isFlatTokenCollection(
         /** @type {Record<string, unknown>} */ (parsed[setKey]),
       )) {
         return parsed;
@@ -78,13 +86,18 @@ function extractFigmaTokensSource(md) {
   }
 
   console.error(
-    '❌ No Figma-format token block found. Add a ```json figma-tokens section matching figma/tokens.json (Tokens Studio export).',
+    `❌ No design-tokens JSON block in markdown.\n` +
+      `   Add a fenced block to ${process.argv.find((a) => a.endsWith('.md')) || 'design-system-foundations.md'}:\n\n` +
+      '   ```json design-tokens\n' +
+      '   { "Global/Mode 1": { "primary-color": { "$value": "#EC4899", "$type": "color" }, ... } }\n' +
+      '   ```\n\n' +
+      '   sync:md only reads this file — not figma/tokens.json. Use sync:figma for the Figma JSON path.',
   );
   process.exit(1);
 }
 
 /** Strip $extensions for markdown-authored tokens (optional parity with export). */
-function normalizeCollectionForFigmaJson(collection) {
+function normalizeCollectionForExport(collection) {
   /** @type {Record<string, unknown>} */
   const out = {};
   for (const [name, token] of Object.entries(collection)) {
@@ -104,8 +117,9 @@ const inputFile = args.find((a) => !a.startsWith('--')) || 'design-system-founda
 const outFlag = args.indexOf('--out');
 const outputDir = outFlag !== -1 ? args[outFlag + 1] : 'tokens';
 const figmaOutFlag = args.indexOf('--figma-out');
+const writeFigmaOut = figmaOutFlag !== -1;
 const figmaOut =
-  figmaOutFlag !== -1 ? args[figmaOutFlag + 1] : 'figma/tokens.json';
+  writeFigmaOut && figmaOutFlag !== -1 ? args[figmaOutFlag + 1] : 'figma/tokens.json';
 
 if (!fs.existsSync(inputFile)) {
   console.error(`❌ File not found: ${inputFile}`);
@@ -116,32 +130,34 @@ const md = fs.readFileSync(inputFile, 'utf-8');
 const designSystemVersion = extractDesignSystemVersion(md, inputFile);
 syncPackageJsonVersion(designSystemVersion);
 
-console.log(`📄 ${inputFile} (Figma Tokens Studio format)\n`);
+console.log(`📄 ${inputFile} (design-tokens JSON block)\n`);
 
-const figmaSource = extractFigmaTokensSource(md);
-const { collectionName, collection } = resolveFigmaCollection(figmaSource);
+const tokenSource = extractDesignTokensSource(md);
+const { collectionName, collection } = resolveFigmaCollection(tokenSource);
 
-const normalizedCollection = normalizeCollectionForFigmaJson(
+const normalizedCollection = normalizeCollectionForExport(
   /** @type {Record<string, { $value: unknown, $type?: string }>} */ (collection),
 );
 
 const canonicalName = collectionName.includes('Mode') ? collectionName : 'Global/Mode 1';
 
-const figmaDocument = {
+const tokenDocument = {
   [canonicalName]: normalizedCollection,
-  $themes: Array.isArray(figmaSource.$themes) ? figmaSource.$themes : [],
+  $themes: Array.isArray(tokenSource.$themes) ? tokenSource.$themes : [],
   $metadata: {
-    ...(typeof figmaSource.$metadata === 'object' && figmaSource.$metadata
-      ? figmaSource.$metadata
+    ...(typeof tokenSource.$metadata === 'object' && tokenSource.$metadata
+      ? tokenSource.$metadata
       : {}),
     tokenSetOrder: [canonicalName],
   },
 };
 
-writeFigmaTokensJson(figmaDocument, figmaOut);
-console.log(`  ✔ ${path.relative(process.cwd(), path.resolve(figmaOut))}`);
+if (writeFigmaOut) {
+  writeFigmaTokensJson(tokenDocument, figmaOut);
+  console.log(`  ✔ ${path.relative(process.cwd(), path.resolve(figmaOut))}`);
+}
 
-const { filesWritten } = writeTokensFromFigmaSource(figmaDocument, outputDir, {
+const { filesWritten } = writeTokensFromFigmaSource(tokenDocument, outputDir, {
   label: `${inputFile} → ${collectionName}`,
 });
 
