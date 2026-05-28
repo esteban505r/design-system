@@ -5,6 +5,7 @@ export const FIGMA_TO_TOKEN_PATH = {
   'primary-color': ['color', 'brand', 'primary'],
   'primary-hover': ['color', 'brand', 'primary-hover'],
   'primary-light': ['color', 'brand', 'primary-light'],
+  'primary-tint': ['color', 'brand', 'primary-tint'],
   'primary-tint-15': ['color', 'brand', 'primary-tint-15'],
   'primary-tint-20': ['color', 'brand', 'primary-tint-20'],
   'background-color': ['color', 'surface', 'background'],

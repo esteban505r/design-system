@@ -12,6 +12,7 @@ public class {
     public static let colorBrandPrimary = UIColor(red: 0.976, green: 0.451, blue: 0.086, alpha: 1)
     public static let colorBrandPrimaryHover = UIColor(red: 0.310, green: 0.275, blue: 0.898, alpha: 1)
     public static let colorBrandPrimaryLight = UIColor(red: 0.506, green: 0.549, blue: 0.973, alpha: 1)
+    public static let colorBrandPrimaryTint = UIColor(red: 0.204, green: 0.235, blue: 0.459, alpha: 1)
     public static let colorBrandPrimaryTint15 = UIColor(red: 0.388, green: 0.400, blue: 0.945, alpha: 0.14901960784313725)
     public static let colorBrandPrimaryTint20 = UIColor(red: 0.388, green: 0.400, blue: 0.945, alpha: 0.2)
     public static let colorEisenhowerImportanceHigh = UIColor(red: 0.231, green: 0.510, blue: 0.965, alpha: 1)
@@ -62,7 +63,7 @@ public class {
     public static let motionDurationBase = 200ms
     public static let motionDurationFast = 150ms
     public static let motionDurationSlow = 300ms
-    public static let motionEasingStandard = cubic-bezier(0.4, 0, 0.2, 1)
+    public static let motionEasingStandard = cubic-bezier(.4, 0, .2, 1)
     public static let radiusFull = CGFloat(159984.00)
     public static let radiusLg = CGFloat(192.00)
     public static let radiusMd = CGFloat(128.00)

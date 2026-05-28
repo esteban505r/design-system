@@ -7,6 +7,7 @@
   <color name="color_brand_primary">#fff97316</color>
   <color name="color_brand_primary_hover">#ff4f46e5</color>
   <color name="color_brand_primary_light">#ff818cf8</color>
+  <color name="color_brand_primary_tint">#ff343c75</color>
   <color name="color_brand_primary_tint_15">#266366f1</color>
   <color name="color_brand_primary_tint_20">#336366f1</color>
   <color name="color_eisenhower_importance_high">#ff3b82f6</color>

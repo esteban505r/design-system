@@ -37,17 +37,65 @@ Screens are React + Babel prototypes; shared scaffolds (`design-canvas.jsx`, `io
 
 ## Design tokens
 
-### Color — five token groups
+### Color
 
-| Group | Tokens | Notes |
-|---|---|---|
-| **Brand (orange)** | `primary-color` `#F97316`, `primary-hover`, `primary-light`, `primary-tint-15/20` | Buttons, focus rings, active states |
-| **Surfaces (umber)** | `background-color` `#1A0F08`, `surface-color`, `surface-hover`, `border-color`, `border-light` | Canvas, cards, dividers |
-| **Text** | `text-primary` `#FFF7ED`, `text-secondary`, `text-tertiary` | Warm amber ramp |
-| **Semantic** | `success` · `warning` · `danger` · `info` (each with `-hover`) | Feedback states only — never brand tokens |
-| **Eisenhower** | `urgency-*` × `importance-*` | Reserved for the tasks matrix |
+Every color token and its current value (from `tokens.json` · `Global/Mode 1`).
 
-Both themes share token names — values flip when `.light-theme` is set on `<html>`. The **auth gradient** (`--auth-gradient: linear-gradient(to bottom right, #C2410C, #7C2D12)`) is reserved for login / register heroes.
+**Brand / primary**
+
+| Token | Value |
+|---|---|
+| `primary-color` | `#F97316` |
+| `primary-hover` | `#4F46E5` |
+| `primary-light` | `#818CF8` |
+| `primary-tint` | `#343C75` |
+| `primary-tint-15` | `#6366F126` |
+| `primary-tint-20` | `#6366F133` |
+
+**Surfaces & borders**
+
+| Token | Value |
+|---|---|
+| `background-color` | `#1A0F08` |
+| `surface-color` | `#1E293B` |
+| `surface-hover` | `#334155` |
+| `border-color` | `#334155` |
+| `border-light` | `#475569` |
+
+**Text**
+
+| Token | Value |
+|---|---|
+| `text-primary` | `#FFF7ED` |
+| `text-secondary` | `#94A3B8` |
+| `text-tertiary` | `#64748B` |
+
+**Semantic** — feedback states only; never brand tokens.
+
+| Token | Value | Token | Value |
+|---|---|---|---|
+| `success-color` | `#22C55E` | `success-hover` | `#16A34A` |
+| `warning-color` | `#F59E0B` | `warning-hover` | `#D97706` |
+| `danger-color` | `#EF4444` | `danger-hover` | `#DC2626` |
+| `info-color` | `#3B82F6` | `info-hover` | `#2563EB` |
+
+**Eisenhower** — urgency × importance; reserved for the tasks matrix.
+
+| Token | Value | Token | Value |
+|---|---|---|---|
+| `urgency-urgent` | `#EF4444` | `importance-high` | `#3B82F6` |
+| `urgency-moderate` | `#F59E0B` | `importance-medium` | `#8B5CF6` |
+| `urgency-not` | `#6B7280` | `importance-low` | `#6B7280` |
+
+**Auth gradient** — reserved for login / register heroes.
+
+| Token | Value |
+|---|---|
+| `auth-gradient` | `linear-gradient(to bottom right, #C2410C, #7C2D12)` |
+| `auth-gradient-color-1` | `#4338CA` |
+| `auth-gradient-color-2` | `#6B21A8` |
+
+Both themes share token names — values flip when `.light-theme` is set on `<html>`.
 
 ### Typography — three typefaces
 

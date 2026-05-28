@@ -15,6 +15,7 @@ class {
     static const colorBrandPrimary = Color(0xFFF97316);
     static const colorBrandPrimaryHover = Color(0xFF4F46E5);
     static const colorBrandPrimaryLight = Color(0xFF818CF8);
+    static const colorBrandPrimaryTint = Color(0xFF343C75);
     static const colorBrandPrimaryTint15 = Color(0x266366F1);
     static const colorBrandPrimaryTint20 = Color(0x336366F1);
     static const colorEisenhowerImportanceHigh = Color(0xFF3B82F6);
@@ -65,7 +66,7 @@ class {
     static const motionDurationBase = 200ms;
     static const motionDurationFast = 150ms;
     static const motionDurationSlow = 300ms;
-    static const motionEasingStandard = cubic-bezier(0.4, 0, 0.2, 1);
+    static const motionEasingStandard = cubic-bezier(.4, 0, .2, 1);
     static const radiusFull = 159984.00;
     static const radiusLg = 192.00;
     static const radiusMd = 128.00;

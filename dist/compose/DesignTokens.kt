@@ -13,6 +13,7 @@ object DesignTokens {
   val colorBrandPrimary = Color(0xfff97316)
   val colorBrandPrimaryHover = Color(0xff4f46e5)
   val colorBrandPrimaryLight = Color(0xff818cf8)
+  val colorBrandPrimaryTint = Color(0xff343c75)
   val colorBrandPrimaryTint15 = Color(0x266366f1)
   val colorBrandPrimaryTint20 = Color(0x336366f1)
   val colorEisenhowerImportanceHigh = Color(0xff3b82f6)
@@ -63,7 +64,7 @@ object DesignTokens {
   val motionDurationBase = 200ms
   val motionDurationFast = 150ms
   val motionDurationSlow = 300ms
-  val motionEasingStandard = cubic-bezier(0.4, 0, 0.2, 1)
+  val motionEasingStandard = cubic-bezier(.4, 0, .2, 1)
   val radiusFull = 159984.00.dp
   val radiusLg = 192.00.dp
   val radiusMd = 128.00.dp
