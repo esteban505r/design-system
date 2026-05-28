@@ -6,23 +6,23 @@
         "$type": "color"
       },
       "primary-hover": {
-        "$value": "#4F46E5",
+        "$value": "#EA580C",
         "$type": "color"
       },
       "primary-light": {
-        "$value": "#818CF8",
+        "$value": "#FB923C",
         "$type": "color"
       },
       "primary-tint": {
-        "$value": "#343C75",
+        "$value": "#9A3412",
         "$type": "color"
       },
       "primary-tint-15": {
-        "$value": "#6366F126",
+        "$value": "#F9731626",
         "$type": "color"
       },
       "primary-tint-20": {
-        "$value": "#6366F133",
+        "$value": "#F9731633",
         "$type": "color"
       }
     }

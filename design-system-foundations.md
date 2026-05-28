@@ -46,54 +46,54 @@ Every color token and its current value (from `tokens.json` · `Global/Mode 1`).
 | Token | Value |
 |---|---|
 | `primary-color` | `#F97316` |
-| `primary-hover` | `#4F46E5` |
-| `primary-light` | `#818CF8` |
-| `primary-tint` | `#343C75` |
-| `primary-tint-15` | `#6366F126` |
-| `primary-tint-20` | `#6366F133` |
+| `primary-hover` | `#EA580C` |
+| `primary-light` | `#FB923C` |
+| `primary-tint` | `#9A3412` |
+| `primary-tint-15` | `#F9731626` |
+| `primary-tint-20` | `#F9731633` |
 
 **Surfaces & borders**
 
 | Token | Value |
 |---|---|
-| `background-color` | `#1A0F08` |
-| `surface-color` | `#1E293B` |
-| `surface-hover` | `#334155` |
-| `border-color` | `#334155` |
-| `border-light` | `#475569` |
+| `background-color` | `#1A0A08` |
+| `surface-color` | `#2A1408` |
+| `surface-hover` | `#3D1F0C` |
+| `border-color` | `#4D2810` |
+| `border-light` | `#6B3A18` |
 
 **Text**
 
 | Token | Value |
 |---|---|
-| `text-primary` | `#FFF7ED` |
-| `text-secondary` | `#94A3B8` |
-| `text-tertiary` | `#64748B` |
+| `text-primary` | `#FFEDD5` |
+| `text-secondary` | `#FDBA74` |
+| `text-tertiary` | `#C2410C` |
 
 **Semantic** — feedback states only; never brand tokens.
 
 | Token | Value | Token | Value |
 |---|---|---|---|
-| `success-color` | `#22C55E` | `success-hover` | `#16A34A` |
-| `warning-color` | `#F59E0B` | `warning-hover` | `#D97706` |
-| `danger-color` | `#EF4444` | `danger-hover` | `#DC2626` |
-| `info-color` | `#3B82F6` | `info-hover` | `#2563EB` |
+| `success-color` | `#FB923C` | `success-hover` | `#F97316` |
+| `warning-color` | `#FDBA74` | `warning-hover` | `#FB923C` |
+| `danger-color` | `#EA580C` | `danger-hover` | `#C2410C` |
+| `info-color` | `#F97316` | `info-hover` | `#EA580C` |
 
 **Eisenhower** — urgency × importance; reserved for the tasks matrix.
 
 | Token | Value | Token | Value |
 |---|---|---|---|
-| `urgency-urgent` | `#EF4444` | `importance-high` | `#3B82F6` |
-| `urgency-moderate` | `#F59E0B` | `importance-medium` | `#8B5CF6` |
-| `urgency-not` | `#6B7280` | `importance-low` | `#6B7280` |
+| `urgency-urgent` | `#EA580C` | `importance-high` | `#FB923C` |
+| `urgency-moderate` | `#F97316` | `importance-medium` | `#FDBA74` |
+| `urgency-not` | `#9A3412` | `importance-low` | `#7C2D12` |
 
 **Auth gradient** — reserved for login / register heroes.
 
 | Token | Value |
 |---|---|
-| `auth-gradient` | `linear-gradient(to bottom right, #C2410C, #7C2D12)` |
-| `auth-gradient-color-1` | `#4338CA` |
-| `auth-gradient-color-2` | `#6B21A8` |
+| `auth-gradient` | `linear-gradient(to bottom right, #EA580C, #7C2D12)` |
+| `auth-gradient-color-1` | `#C2410C` |
+| `auth-gradient-color-2` | `#9A3412` |
 
 Both themes share token names — values flip when `.light-theme` is set on `<html>`.
 
