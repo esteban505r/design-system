@@ -1,9 +1,8 @@
 # Oter — Design System & Product Screens
 
-> Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on a pink-on-plum palette, with a light theme that inverts surfaces while preserving the brand hue.
+> Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on an orange-on-umber palette, with a light theme that inverts surfaces while preserving the brand hue.
 
-**Version:** 1.0.25  
-**Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
+**Version:** 1.0.9 · **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
 
 ---
 
@@ -42,13 +41,13 @@ Screens are React + Babel prototypes; shared scaffolds (`design-canvas.jsx`, `io
 
 | Group | Tokens | Notes |
 |---|---|---|
-| **Brand (pink)** | `primary-color` `#EC4899`, `primary-hover`, `primary-light`, `primary-tint-15/20` | Buttons, focus rings, active states |
-| **Surfaces (plum)** | `background-color` `#1A0A13`, `surface-color`, `surface-hover`, `border-color`, `border-light` | Canvas, cards, dividers |
-| **Text** | `text-primary` `#FDF2F8`, `text-secondary`, `text-tertiary` | Warm rose ramp |
+| **Brand (orange)** | `primary-color` `#F97316`, `primary-hover`, `primary-light`, `primary-tint-15/20` | Buttons, focus rings, active states |
+| **Surfaces (umber)** | `background-color` `#1A0F08`, `surface-color`, `surface-hover`, `border-color`, `border-light` | Canvas, cards, dividers |
+| **Text** | `text-primary` `#FFF7ED`, `text-secondary`, `text-tertiary` | Warm amber ramp |
 | **Semantic** | `success` · `warning` · `danger` · `info` (each with `-hover`) | Feedback states only — never brand tokens |
 | **Eisenhower** | `urgency-*` × `importance-*` | Reserved for the tasks matrix |
 
-Both themes share token names — values flip when `.light-theme` is set on `<html>`. The **auth gradient** (`--auth-gradient: linear-gradient(to bottom right, #BE185D, #86198F)`) is reserved for login / register heroes.
+Both themes share token names — values flip when `.light-theme` is set on `<html>`. The **auth gradient** (`--auth-gradient: linear-gradient(to bottom right, #C2410C, #7C2D12)`) is reserved for login / register heroes.
 
 ### Typography — three typefaces
 
@@ -82,15 +81,7 @@ Prefer the semantic `--type-*` shorthand (`var(--type-h2)`, `var(--type-body)`, 
 
 ## Token source of truth
 
-| Path | Role |
-|------|------|
-| **`design-system-foundations.md`** (this file) | Version (`**Version:**`), naming, conventions, human-readable tables |
-| **`design-tokens.json`** | Machine-readable token values (Tokens Studio format) — edit for `pnpm run sync:md` |
-| **`figma/tokens.json`** | Same shape; edited on the Figma path (`pnpm run sync:figma`) or **generated** by `sync:md` |
-
-**Markdown workflow:** edit token **tables** here (e.g. `` `primary-color` `#EC4899` ``) and/or **`design-tokens.json`**, bump **`**Version:**`** → `pnpm run sync:md` → table values override matching keys in **`figma/tokens.json`** + full `dist/**`.
-
-**Figma workflow:** edit **`figma/tokens.json`** → `pnpm run sync:figma`.
+Token values live in the **`figma-tokens`** JSON block of the foundations doc (Tokens Studio format). On the `figma-ssot` branch, `figma/tokens.json` is canonical and syncs via `pnpm run sync:figma`; on `main`, edit the JSON block and run `pnpm run sync:md`. These feed a Style Dictionary export pipeline targeting web, React Native, native iOS, and Android.
 
 ---
 
