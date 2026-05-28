@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-export const ColorBrandPrimary = "#64f263";
+export const ColorBrandPrimary = "#ec4899";
 export const ColorBrandPrimaryHover = "#4f46e5";
 export const ColorBrandPrimaryLight = "#818cf8";
 export const ColorBrandPrimaryTint15 = "#6366f126";
@@ -15,6 +15,8 @@ export const ColorEisenhowerUrgencyNot = "#6b7280";
 export const ColorEisenhowerUrgencyUrgent = "#ef4444";
 export const ColorGradientAuthGradientColor1 = "#4338ca";
 export const ColorGradientAuthGradientColor2 = "#6b21a8";
+export const ColorGradientAuth =
+  "linear-gradient(to bottom right, #BE185D, #86198F)";
 export const ColorSemanticDanger = "#ef4444";
 export const ColorSemanticSuccess = "#22c55e";
 export const ColorSemanticWarning = "#f59e0b";
@@ -23,12 +25,12 @@ export const ColorSemanticDangerHover = "#dc2626";
 export const ColorSemanticInfoHover = "#2563eb";
 export const ColorSemanticSuccessHover = "#16a34a";
 export const ColorSemanticWarningHover = "#d97706";
-export const ColorSurfaceBackground = "#0f172a";
+export const ColorSurfaceBackground = "#1a0a13";
 export const ColorSurfaceSurface = "#1e293b";
 export const ColorSurfaceBorder = "#334155";
 export const ColorSurfaceBorderLight = "#475569";
 export const ColorSurfaceSurfaceHover = "#334155";
-export const ColorTextPrimary = "#f8fafc";
+export const ColorTextPrimary = "#fdf2f8";
 export const ColorTextSecondary = "#94a3b8";
 export const ColorTextTertiary = "#64748b";
 export const MotionDurationBase = "200ms";

@@ -8,6 +8,10 @@
       "auth-gradient-color-2": {
         "$value": "#6B21A8",
         "$type": "color"
+      },
+      "auth": {
+        "$value": "linear-gradient(to bottom right, #BE185D, #86198F)",
+        "$type": "gradient"
       }
     }
   }

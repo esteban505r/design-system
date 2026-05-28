@@ -88,7 +88,7 @@ Prefer the semantic `--type-*` shorthand (`var(--type-h2)`, `var(--type-body)`, 
 | **`design-tokens.json`** | Machine-readable token values (Tokens Studio format) — edit for `pnpm run sync:md` |
 | **`figma/tokens.json`** | Same shape; edited on the Figma path (`pnpm run sync:figma`) or **generated** by `sync:md` |
 
-**Markdown workflow:** edit **`design-tokens.json`** + bump **`**Version:**`** here → `pnpm run sync:md` → updates **`design-tokens.json`**, **`figma/tokens.json`**, `tokens/`, `dist/**`.
+**Markdown workflow:** edit token **tables** here (e.g. `` `primary-color` `#EC4899` ``) and/or **`design-tokens.json`**, bump **`**Version:**`** → `pnpm run sync:md` → table values override matching keys in **`figma/tokens.json`** + full `dist/**`.
 
 **Figma workflow:** edit **`figma/tokens.json`** → `pnpm run sync:figma`.
 

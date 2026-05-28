@@ -2,7 +2,7 @@
   "color": {
     "brand": {
       "primary": {
-        "$value": "#64F263",
+        "$value": "#EC4899",
         "$type": "color"
       },
       "primary-hover": {

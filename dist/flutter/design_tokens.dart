@@ -12,7 +12,7 @@ import 'dart:ui';
 class {
     ._();
 
-    static const colorBrandPrimary = Color(0xFF64F263);
+    static const colorBrandPrimary = Color(0xFFEC4899);
     static const colorBrandPrimaryHover = Color(0xFF4F46E5);
     static const colorBrandPrimaryLight = Color(0xFF818CF8);
     static const colorBrandPrimaryTint15 = Color(0x266366F1);
@@ -23,6 +23,7 @@ class {
     static const colorEisenhowerUrgencyModerate = Color(0xFFF59E0B);
     static const colorEisenhowerUrgencyNot = Color(0xFF6B7280);
     static const colorEisenhowerUrgencyUrgent = Color(0xFFEF4444);
+    static const colorGradientAuth = linear-gradient(to bottom right, #BE185D, #86198F);
     static const colorGradientAuthGradientColor1 = Color(0xFF4338CA);
     static const colorGradientAuthGradientColor2 = Color(0xFF6B21A8);
     static const colorSemanticDanger = Color(0xFFEF4444);
@@ -33,12 +34,12 @@ class {
     static const colorSemanticSuccessHover = Color(0xFF16A34A);
     static const colorSemanticWarning = Color(0xFFF59E0B);
     static const colorSemanticWarningHover = Color(0xFFD97706);
-    static const colorSurfaceBackground = Color(0xFF0F172A);
+    static const colorSurfaceBackground = Color(0xFF1A0A13);
     static const colorSurfaceBorder = Color(0xFF334155);
     static const colorSurfaceBorderLight = Color(0xFF475569);
     static const colorSurfaceSurface = Color(0xFF1E293B);
     static const colorSurfaceSurfaceHover = Color(0xFF334155);
-    static const colorTextPrimary = Color(0xFFF8FAFC);
+    static const colorTextPrimary = Color(0xFFFDF2F8);
     static const colorTextSecondary = Color(0xFF94A3B8);
     static const colorTextTertiary = Color(0xFF64748B);
     static const fontFamilyBrand = Geist;

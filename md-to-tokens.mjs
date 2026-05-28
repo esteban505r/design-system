@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// Markdown workflow: design-system-foundations.md (**Version:**) + design-tokens.json → outputs.
+// Markdown workflow: design-system-foundations.md (**Version:** + table values) + design-tokens.json → outputs.
 //
 // Writes: tokens/, design-tokens.json (normalized), figma/tokens.json, dist/figma/tokens.json.
 // Does not read figma/tokens.json as input. Use sync:figma when Figma JSON is the SSOT.
@@ -10,6 +10,10 @@
 
 import fs from 'fs';
 import path from 'path';
+import {
+  applyMarkdownOverrides,
+  extractMarkdownTokenOverrides,
+} from './md-token-overrides.mjs';
 import {
   copyFigmaJsonToDist,
   resolveFigmaCollection,
@@ -163,6 +167,15 @@ if (fromMd) {
 console.log(`📄 ${inputFile} + ${tokenInputLabel}\n`);
 
 const { collectionName, collection } = resolveFigmaCollection(tokenSource);
+
+const mdOverrides = extractMarkdownTokenOverrides(md);
+const overrideCount = applyMarkdownOverrides(
+  /** @type {Record<string, unknown>} */ (collection),
+  mdOverrides,
+);
+if (overrideCount > 0) {
+  console.log(`📝 Applied ${overrideCount} token value(s) from ${inputFile} tables\n`);
+}
 
 const normalizedCollection = normalizeCollectionForExport(
   /** @type {Record<string, { $value: unknown, $type?: string }>} */ (collection),

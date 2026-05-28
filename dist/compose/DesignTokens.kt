@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.*
 
 object DesignTokens {
-  val colorBrandPrimary = Color(0xff64f263)
+  val colorBrandPrimary = Color(0xffec4899)
   val colorBrandPrimaryHover = Color(0xff4f46e5)
   val colorBrandPrimaryLight = Color(0xff818cf8)
   val colorBrandPrimaryTint15 = Color(0x266366f1)
@@ -21,6 +21,7 @@ object DesignTokens {
   val colorEisenhowerUrgencyModerate = Color(0xfff59e0b)
   val colorEisenhowerUrgencyNot = Color(0xff6b7280)
   val colorEisenhowerUrgencyUrgent = Color(0xffef4444)
+  val colorGradientAuth = linear-gradient(to bottom right, #BE185D, #86198F)
   val colorGradientAuthGradientColor1 = Color(0xff4338ca)
   val colorGradientAuthGradientColor2 = Color(0xff6b21a8)
   val colorSemanticDanger = Color(0xffef4444)
@@ -31,12 +32,12 @@ object DesignTokens {
   val colorSemanticSuccessHover = Color(0xff16a34a)
   val colorSemanticWarning = Color(0xfff59e0b)
   val colorSemanticWarningHover = Color(0xffd97706)
-  val colorSurfaceBackground = Color(0xff0f172a)
+  val colorSurfaceBackground = Color(0xff1a0a13)
   val colorSurfaceBorder = Color(0xff334155)
   val colorSurfaceBorderLight = Color(0xff475569)
   val colorSurfaceSurface = Color(0xff1e293b)
   val colorSurfaceSurfaceHover = Color(0xff334155)
-  val colorTextPrimary = Color(0xfff8fafc)
+  val colorTextPrimary = Color(0xfffdf2f8)
   val colorTextSecondary = Color(0xff94a3b8)
   val colorTextTertiary = Color(0xff64748b)
   val fontFamilyBrand = Geist

@@ -2,7 +2,7 @@
   "color": {
     "text": {
       "primary": {
-        "$value": "#F8FAFC",
+        "$value": "#FDF2F8",
         "$type": "color"
       },
       "secondary": {

@@ -9,7 +9,7 @@
 import UIKit
 
 public class {
-    public static let colorBrandPrimary = UIColor(red: 0.392, green: 0.949, blue: 0.388, alpha: 1)
+    public static let colorBrandPrimary = UIColor(red: 0.925, green: 0.282, blue: 0.600, alpha: 1)
     public static let colorBrandPrimaryHover = UIColor(red: 0.310, green: 0.275, blue: 0.898, alpha: 1)
     public static let colorBrandPrimaryLight = UIColor(red: 0.506, green: 0.549, blue: 0.973, alpha: 1)
     public static let colorBrandPrimaryTint15 = UIColor(red: 0.388, green: 0.400, blue: 0.945, alpha: 0.14901960784313725)
@@ -20,6 +20,7 @@ public class {
     public static let colorEisenhowerUrgencyModerate = UIColor(red: 0.961, green: 0.620, blue: 0.043, alpha: 1)
     public static let colorEisenhowerUrgencyNot = UIColor(red: 0.420, green: 0.447, blue: 0.502, alpha: 1)
     public static let colorEisenhowerUrgencyUrgent = UIColor(red: 0.937, green: 0.267, blue: 0.267, alpha: 1)
+    public static let colorGradientAuth = linear-gradient(to bottom right, #BE185D, #86198F)
     public static let colorGradientAuthGradientColor1 = UIColor(red: 0.263, green: 0.220, blue: 0.792, alpha: 1)
     public static let colorGradientAuthGradientColor2 = UIColor(red: 0.420, green: 0.129, blue: 0.659, alpha: 1)
     public static let colorSemanticDanger = UIColor(red: 0.937, green: 0.267, blue: 0.267, alpha: 1)
@@ -30,12 +31,12 @@ public class {
     public static let colorSemanticSuccessHover = UIColor(red: 0.086, green: 0.639, blue: 0.290, alpha: 1)
     public static let colorSemanticWarning = UIColor(red: 0.961, green: 0.620, blue: 0.043, alpha: 1)
     public static let colorSemanticWarningHover = UIColor(red: 0.851, green: 0.467, blue: 0.024, alpha: 1)
-    public static let colorSurfaceBackground = UIColor(red: 0.059, green: 0.090, blue: 0.165, alpha: 1)
+    public static let colorSurfaceBackground = UIColor(red: 0.102, green: 0.039, blue: 0.075, alpha: 1)
     public static let colorSurfaceBorder = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1)
     public static let colorSurfaceBorderLight = UIColor(red: 0.278, green: 0.333, blue: 0.412, alpha: 1)
     public static let colorSurfaceSurface = UIColor(red: 0.118, green: 0.161, blue: 0.231, alpha: 1)
     public static let colorSurfaceSurfaceHover = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1)
-    public static let colorTextPrimary = UIColor(red: 0.973, green: 0.980, blue: 0.988, alpha: 1)
+    public static let colorTextPrimary = UIColor(red: 0.992, green: 0.949, blue: 0.973, alpha: 1)
     public static let colorTextSecondary = UIColor(red: 0.580, green: 0.639, blue: 0.722, alpha: 1)
     public static let colorTextTertiary = UIColor(red: 0.392, green: 0.455, blue: 0.545, alpha: 1)
     public static let fontFamilyBrand = Geist
