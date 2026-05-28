@@ -5,6 +5,7 @@
 export const ColorBrandPrimary = "#f97316";
 export const ColorBrandPrimaryHover = "#4f46e5";
 export const ColorBrandPrimaryLight = "#818cf8";
+export const ColorBrandPrimaryTint = "#343c75";
 export const ColorBrandPrimaryTint15 = "#6366f126";
 export const ColorBrandPrimaryTint20 = "#6366f133";
 export const ColorEisenhowerImportanceHigh = "#3b82f6";
@@ -36,7 +37,7 @@ export const ColorTextTertiary = "#64748b";
 export const MotionDurationBase = "200ms";
 export const MotionDurationFast = "150ms";
 export const MotionDurationSlow = "300ms";
-export const MotionEasingStandard = "cubic-bezier(0.4, 0, 0.2, 1)";
+export const MotionEasingStandard = "cubic-bezier(.4, 0, .2, 1)";
 export const RadiusFull = "9999px";
 export const RadiusLg = "12px";
 export const RadiusMd = "8px";
