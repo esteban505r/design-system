@@ -2,8 +2,7 @@
 
 > Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on a pink-on-plum palette, with a light theme that inverts surfaces while preserving the brand hue.
 
-**Version:** 1.0.25  
-**Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
+**Version:** 1.0.9 · **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
 
 ---
 
@@ -82,15 +81,7 @@ Prefer the semantic `--type-*` shorthand (`var(--type-h2)`, `var(--type-body)`, 
 
 ## Token source of truth
 
-| Path | Role |
-|------|------|
-| **`design-system-foundations.md`** (this file) | Version (`**Version:**`), naming, conventions, human-readable tables |
-| **`design-tokens.json`** | Machine-readable token values (Tokens Studio format) — edit for `pnpm run sync:md` |
-| **`figma/tokens.json`** | Same shape; edited on the Figma path (`pnpm run sync:figma`) or **generated** by `sync:md` |
-
-**Markdown workflow:** edit **`design-tokens.json`** + bump **`**Version:**`** here → `pnpm run sync:md` → updates **`design-tokens.json`**, **`figma/tokens.json`**, `tokens/`, `dist/**`.
-
-**Figma workflow:** edit **`figma/tokens.json`** → `pnpm run sync:figma`.
+Token values live in the **`figma-tokens`** JSON block of the foundations doc (Tokens Studio format). On the `figma-ssot` branch, `figma/tokens.json` is canonical and syncs via `pnpm run sync:figma`; on `main`, edit the JSON block and run `pnpm run sync:md`. These feed a Style Dictionary export pipeline targeting web, React Native, native iOS, and Android.
 
 ---
 

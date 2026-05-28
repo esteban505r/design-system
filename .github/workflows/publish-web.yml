@@ -62,8 +62,8 @@ jobs:
               }
               ;;
             md)
-              grep -qE '```json[[:space:]]+(design-tokens|figma-tokens)' design-system-foundations.md || {
-                echo "::error::source=md requires a \`\`\`json design-tokens block in design-system-foundations.md"
+              test -f design-tokens.json || {
+                echo "::error::source=md requires design-tokens.json"
                 exit 1
               }
               ;;

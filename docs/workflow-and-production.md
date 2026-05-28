@@ -93,7 +93,7 @@ Configure once per org/repo:
 
 | Script | What it runs | Output |
 |--------|----------------|--------|
-| `pnpm run parse` | `md-to-tokens.mjs` | `tokens/`, `figma/tokens.json` (Figma format), `package.json` version |
+| `pnpm run parse` | `md-to-tokens.mjs` | `tokens/`, `figma/tokens.json`, `package.json` ← `design-tokens.json` + `**Version:**` in foundations md |
 | `pnpm run figma` | `tokens-to-figma.mjs` | `dist/figma/tokens.json` |
 | `pnpm run build` | `sd.config.mjs` (Style Dictionary) | `dist/web`, `dist/android`, `dist/ios`, … |
 | `pnpm run sync:md` | parse (md) → figma export → build | All of the above |
@@ -252,7 +252,7 @@ Both publish workflows require a **`version`** input (semver) when you click **R
 
 - Publishes `design-tokens-android` to **GitHub Packages** Maven
 - **`source=figma`:** `sync:figma` → `dist/android/*.xml` → Gradle AAR (does not use markdown)
-- **`source=md`:** `sync:md` from `design-tokens` block → updates `figma/tokens.json` + `dist/android/*.xml` → Gradle AAR
+- **`source=md`:** `sync:md` from `design-tokens.json` → updates `figma/tokens.json` + `dist/android/*.xml` → Gradle AAR
 - Uses the workflow **version** input (via sync → `package.json` → `-PtokensVersion`)
 - **409 Conflict** = version already published → run again with a higher **version** input
 
