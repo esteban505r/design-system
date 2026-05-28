@@ -27,7 +27,7 @@ pnpm run sync:md
 | Command | Source | Generates |
 |---------|--------|-----------|
 | **`pnpm run sync:figma`** | `figma/tokens.json` | `tokens/`, `dist/**`, `package.json` ← `$metadata.version` |
-| **`pnpm run sync:md`** | `design-system-foundations.md` (`figma-tokens` JSON block) | `tokens/`, `figma/tokens.json`, `dist/**`, `package.json` ← `**Version:**` |
+| **`pnpm run sync:md`** | `design-system-foundations.md` (`design-tokens` JSON block + `**Version:**`) | `tokens/`, `figma/tokens.json`, `dist/**`, `package.json` ← `**Version:**` |
 
 `pnpm run sync` is an alias for **`sync:figma`** on the current branch.
 
@@ -98,7 +98,7 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 
 #### npm release checklist (maintainers)
 
-1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**). Choose **source**: **`figma`** (`figma/tokens.json`, default) or **`md`** (foundations markdown).
+1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on **`main`** (or **`figma-ssot`**). Choose **source**: **`figma`** (`figma/tokens.json`, default) or **`md`** (`design-tokens` block in `design-system-foundations.md`). Both paths build the same `dist/android/*.xml` for the AAR.
 2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`**Version:**`** in **`design-system-foundations.md`** (not `figma/tokens.json` metadata), then syncs and publishes.
 3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
 4. **Locally:** `pnpm run version:set -- --version 1.0.10` then `pnpm run sync:md` and commit if you want the version bump on the branch before running Actions.

@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-// Reads design-system-foundations.md → tokens/ (+ optional figma/tokens.json export).
+// Reads design-system-foundations.md → tokens/ + figma/tokens.json (generated export).
 //
 // Requires a ```json design-tokens block (Tokens Studio / DTCG shape) in the markdown.
-// Does not read figma/tokens.json. Use sync:figma for that path.
+// Does not read figma/tokens.json as input. Use sync:figma when Figma JSON is the SSOT.
 //
 // Usage:
-//   node md-to-tokens.mjs [design-system-foundations.md] [--out tokens]
-//   node md-to-tokens.mjs --figma-out figma/tokens.json   # also write Figma JSON file
+//   node md-to-tokens.mjs [design-system-foundations.md] [--out tokens] [--figma-out path]
+//   node md-to-tokens.mjs --no-figma-out   # skip writing figma/tokens.json
 
 import fs from 'fs';
 import path from 'path';
@@ -117,9 +117,9 @@ const inputFile = args.find((a) => !a.startsWith('--')) || 'design-system-founda
 const outFlag = args.indexOf('--out');
 const outputDir = outFlag !== -1 ? args[outFlag + 1] : 'tokens';
 const figmaOutFlag = args.indexOf('--figma-out');
-const writeFigmaOut = figmaOutFlag !== -1;
+const skipFigmaOut = args.includes('--no-figma-out');
 const figmaOut =
-  writeFigmaOut && figmaOutFlag !== -1 ? args[figmaOutFlag + 1] : 'figma/tokens.json';
+  figmaOutFlag !== -1 ? args[figmaOutFlag + 1] : 'figma/tokens.json';
 
 if (!fs.existsSync(inputFile)) {
   console.error(`❌ File not found: ${inputFile}`);
@@ -149,10 +149,11 @@ const tokenDocument = {
       ? tokenSource.$metadata
       : {}),
     tokenSetOrder: [canonicalName],
+    version: designSystemVersion,
   },
 };
 
-if (writeFigmaOut) {
+if (!skipFigmaOut) {
   writeFigmaTokensJson(tokenDocument, figmaOut);
   console.log(`  ✔ ${path.relative(process.cwd(), path.resolve(figmaOut))}`);
 }

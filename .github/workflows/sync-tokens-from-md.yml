@@ -3,7 +3,7 @@
 # bot commits generated files or when foundations and outputs land in the same push.
 #
 # Pipeline: pnpm run sync:md
-#   design-system-foundations.md (design-tokens block) → tokens/**/*.json → dist/**
+#   design-system-foundations.md (design-tokens block) → tokens/**/*.json → figma/tokens.json → dist/**
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
@@ -66,7 +66,7 @@ jobs:
               echo 'Auto-generated with `pnpm run sync:md`:'
               echo ''
               echo '- **Source:** `design-system-foundations.md` (`**Version:**` → `package.json`)'
-              echo '- **Outputs:** `tokens/`, `dist/` (all platforms)'
+              echo '- **Outputs:** `tokens/`, `figma/tokens.json`, `dist/` (all platforms)'
               echo ''
               echo 'See [docs/workflow-and-production.md](docs/workflow-and-production.md).'
             } > "$PR_BODY_FILE"

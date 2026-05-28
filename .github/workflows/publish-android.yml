@@ -1,6 +1,10 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose branch, usually `main`).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
+# source=figma → sync:figma (figma/tokens.json) → dist/android/*.xml → AAR
+# source=md    → sync:md (design-tokens block + **Version:** in foundations.md) → dist/android/*.xml → AAR
+# Gradle only packages dist/android/; it does not read figma/tokens.json.
+#
 # GitHub Packages returns HTTP 409 if that GAV already exists — use a new version input.
 
 name: Publish Android library
@@ -46,6 +50,27 @@ jobs:
 
       - name: Set release version in source files
         run: node set-release-version.mjs --version "${{ inputs.version }}"
+
+      - name: Verify token source inputs
+        run: |
+          case "${{ inputs.source }}" in
+            figma)
+              test -f figma/tokens.json || {
+                echo "::error::source=figma requires figma/tokens.json on this branch"
+                exit 1
+              }
+              ;;
+            md)
+              grep -qE '```json[[:space:]]+(design-tokens|figma-tokens)' design-system-foundations.md || {
+                echo "::error::source=md requires a \`\`\`json design-tokens block in design-system-foundations.md (sync:md does not read figma/tokens.json)"
+                exit 1
+              }
+              grep -qE '\*\*Version:\*\*[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+' design-system-foundations.md || {
+                echo "::error::source=md requires **Version:** semver in design-system-foundations.md"
+                exit 1
+              }
+              ;;
+          esac
 
       - name: Sync tokens before publish
         env:

@@ -40,7 +40,11 @@ jobs:
         run: |
           git add -A
           if ! git diff --staged --exit-code; then
-            echo "::error::Run \`pnpm run ${{ steps.sync.outputs.cmd }}\` locally and commit \`tokens/\`, \`dist/\`, \`figma/tokens.json\` (if applicable), and \`package.json\`."
+            if [ "${{ steps.sync.outputs.cmd }}" = "sync:md" ]; then
+              echo "::error::Run \`pnpm run sync:md\` locally and commit \`tokens/\`, \`figma/tokens.json\`, \`dist/\`, and \`package.json\` (source: design-tokens block in design-system-foundations.md)."
+            else
+              echo "::error::Run \`pnpm run sync:figma\` locally and commit \`tokens/\`, \`dist/\`, \`figma/tokens.json\`, and \`package.json\`."
+            fi
             echo "Source of truth for this branch: ${{ steps.sync.outputs.source }}"
             git diff --staged
             exit 1

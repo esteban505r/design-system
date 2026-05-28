@@ -2,7 +2,7 @@
 
 > Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on a pink-on-plum palette, with a light theme that inverts surfaces while preserving the brand hue.
 
-**Version:** 1.0.21 
+**Version:** 1.0.21
 **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
 
 ---
@@ -82,7 +82,7 @@ Prefer the semantic `--type-*` shorthand (`var(--type-h2)`, `var(--type-body)`, 
 
 ## Token data
 
-Machine-readable source for **`pnpm run sync:md`**. Edit values here (not `figma/tokens.json`).
+Machine-readable source for **`pnpm run sync:md`**. Edits here regenerate **`figma/tokens.json`**, `tokens/`, and `dist/`.
 
 ```json design-tokens
 {
@@ -779,7 +779,7 @@ Machine-readable source for **`pnpm run sync:md`**. Edit values here (not `figma
 
 ## Token source of truth
 
-**Markdown path:** edit the **`design-tokens`** JSON block above and **`**Version:**`**, then run **`pnpm run sync:md`** (does not read `figma/tokens.json`). **Figma path:** edit **`figma/tokens.json`** and run **`pnpm run sync:figma`**.
+**Markdown path:** edit the **`design-tokens`** JSON block above and **`**Version:**`**, then run **`pnpm run sync:md`** (writes **`figma/tokens.json`** + platform `dist/`). **Figma path:** edit **`figma/tokens.json`** directly and run **`pnpm run sync:figma`**.
 
 ---
 

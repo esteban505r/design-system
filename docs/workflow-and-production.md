@@ -251,6 +251,8 @@ Both publish workflows require a **`version`** input (semver) when you click **R
 **Android (`publish-android.yml`)**
 
 - Publishes `design-tokens-android` to **GitHub Packages** Maven
+- **`source=figma`:** `sync:figma` → `dist/android/*.xml` → Gradle AAR (does not use markdown)
+- **`source=md`:** `sync:md` from `design-tokens` block → updates `figma/tokens.json` + `dist/android/*.xml` → Gradle AAR
 - Uses the workflow **version** input (via sync → `package.json` → `-PtokensVersion`)
 - **409 Conflict** = version already published → run again with a higher **version** input
 
