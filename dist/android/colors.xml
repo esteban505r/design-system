@@ -4,7 +4,7 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <color name="color_brand_primary">#ffec4899</color>
+  <color name="color_brand_primary">#fff97316</color>
   <color name="color_brand_primary_hover">#ff4f46e5</color>
   <color name="color_brand_primary_light">#ff818cf8</color>
   <color name="color_brand_primary_tint_15">#266366f1</color>
@@ -25,12 +25,12 @@
   <color name="color_semantic_info_hover">#ff2563eb</color>
   <color name="color_semantic_success_hover">#ff16a34a</color>
   <color name="color_semantic_warning_hover">#ffd97706</color>
-  <color name="color_surface_background">#ff1a0a13</color>
+  <color name="color_surface_background">#ff1a0f08</color>
   <color name="color_surface_surface">#ff1e293b</color>
   <color name="color_surface_border">#ff334155</color>
   <color name="color_surface_border_light">#ff475569</color>
   <color name="color_surface_surface_hover">#ff334155</color>
-  <color name="color_text_primary">#fffdf2f8</color>
+  <color name="color_text_primary">#fffff7ed</color>
   <color name="color_text_secondary">#ff94a3b8</color>
   <color name="color_text_tertiary">#ff64748b</color>
 </resources>

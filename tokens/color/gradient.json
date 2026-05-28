@@ -10,7 +10,7 @@
         "$type": "color"
       },
       "auth": {
-        "$value": "linear-gradient(to bottom right, #BE185D, #86198F)",
+        "$value": "linear-gradient(to bottom right, #C2410C, #7C2D12)",
         "$type": "gradient"
       }
     }
