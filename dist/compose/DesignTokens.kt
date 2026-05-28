@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.*
 
 object DesignTokens {
-  val colorBrandPrimary = Color(0xff6366f1)
+  val colorBrandPrimary = Color(0xff64f263)
   val colorBrandPrimaryHover = Color(0xff4f46e5)
   val colorBrandPrimaryLight = Color(0xff818cf8)
   val colorBrandPrimaryTint15 = Color(0x266366f1)

@@ -9,7 +9,7 @@
 import UIKit
 
 public class {
-    public static let colorBrandPrimary = UIColor(red: 0.388, green: 0.400, blue: 0.945, alpha: 1)
+    public static let colorBrandPrimary = UIColor(red: 0.392, green: 0.949, blue: 0.388, alpha: 1)
     public static let colorBrandPrimaryHover = UIColor(red: 0.310, green: 0.275, blue: 0.898, alpha: 1)
     public static let colorBrandPrimaryLight = UIColor(red: 0.506, green: 0.549, blue: 0.973, alpha: 1)
     public static let colorBrandPrimaryTint15 = UIColor(red: 0.388, green: 0.400, blue: 0.945, alpha: 0.14901960784313725)
