@@ -12,7 +12,7 @@ import 'dart:ui';
 class {
     ._();
 
-    static const colorBrandPrimary = Color(0xFFF97316);
+    static const colorBrandPrimary = Color(0xFF1621FA);
     static const colorBrandPrimaryHover = Color(0xFFEA580C);
     static const colorBrandPrimaryLight = Color(0xFFFB923C);
     static const colorBrandPrimaryTint = Color(0xFF9A3412);

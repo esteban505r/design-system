@@ -2,7 +2,7 @@
  * Do not edit directly, this file was auto-generated.
  */
 
-export const ColorBrandPrimary = "#f97316";
+export const ColorBrandPrimary = "#1621fa";
 export const ColorBrandPrimaryHover = "#ea580c";
 export const ColorBrandPrimaryLight = "#fb923c";
 export const ColorBrandPrimaryTint = "#9a3412";
