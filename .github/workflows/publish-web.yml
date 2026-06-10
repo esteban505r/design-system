@@ -2,17 +2,15 @@
 # Publishes this repo’s npm package (CSS + JS + flat JSON) using npm Trusted Publishing (OIDC).
 # No NPM_TOKEN — configure the package on npmjs.com (see README).
 #
+# Release version comes from the VERSION file (no workflow input):
+#   pnpm run version:set -- --version x.y.z   → commit → run this workflow.
+#
 # Requires: npm CLI ≥ 11.5.1, Node ≥ 22.14.0 (https://docs.npmjs.com/trusted-publishers/).
 
 name: Publish web tokens (npm)
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (semver) — written to VERSION (+ foundations md, package.json)'
-        required: true
-        type: string
 
 permissions:
   contents: read
@@ -41,8 +39,20 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Set release version in source files
-        run: node set-release-version.mjs --version "${{ inputs.version }}"
+      - name: Read release version from VERSION file
+        id: version
+        run: |
+          test -f VERSION || {
+            echo "::error::VERSION file is missing — run: pnpm run version:set -- --version x.y.z"
+            exit 1
+          }
+          VERSION=$(tr -d '[:space:]' < VERSION)
+          echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$' || {
+            echo "::error::VERSION file does not contain a valid semver: '$VERSION'"
+            exit 1
+          }
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Releasing version $VERSION"
 
       - name: Verify token source
         run: |
@@ -52,20 +62,14 @@ jobs:
           }
 
       - name: Sync tokens before publish
-        env:
-          RELEASE_VERSION: ${{ inputs.version }}
         run: pnpm run sync:figma
-
-      - name: Ensure release version after sync
-        run: node set-release-version.mjs --version "${{ inputs.version }}"
 
       - name: Verify release version
         run: |
-          EXPECTED="${{ inputs.version }}"
-          VERSION=$(tr -d '[:space:]' < VERSION)
+          VERSION="${{ steps.version.outputs.version }}"
           PKG_VERSION=$(jq -r .version package.json)
-          if [ "$VERSION" != "$EXPECTED" ] || [ "$PKG_VERSION" != "$EXPECTED" ]; then
-            echo "::error::VERSION=$VERSION / package.json=$PKG_VERSION but expected $EXPECTED after sync"
+          if [ "$PKG_VERSION" != "$VERSION" ]; then
+            echo "::error::package.json=$PKG_VERSION but VERSION=$VERSION after sync (sync:figma should mirror VERSION)"
             exit 1
           fi
           echo "Publishing @estebanruano/design-tokens@${PKG_VERSION}"
