@@ -3,7 +3,8 @@
 > Centralized design tokens for the SomosBelcorp consultant app (Android today, iOS next).
 > **`figma/tokens.json` is the absolute single source of truth** — `tokens/` and `dist/`
 > are generated from it by `pnpm run sync:figma`. This document is documentation only;
-> the `**Version:**` line below drives the Maven release version.
+> the Maven release version comes from the `VERSION` file at the repo root (the
+> `**Version:**` line below is a synced mirror).
 
 **Version:** 1.0.0 · **Scope:** Android (Compose) · iOS (planned) · **Status:** Active
 

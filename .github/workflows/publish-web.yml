@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
+        description: 'Release version (semver) — written to VERSION (+ foundations md, package.json)'
         required: true
         type: string
 
@@ -59,15 +59,16 @@ jobs:
       - name: Ensure release version after sync
         run: node set-release-version.mjs --version "${{ inputs.version }}"
 
-      - name: Verify package.json version
+      - name: Verify release version
         run: |
           EXPECTED="${{ inputs.version }}"
-          ACTUAL=$(jq -r .version package.json)
-          if [ "$ACTUAL" != "$EXPECTED" ]; then
-            echo "::error::package.json version is $ACTUAL but expected $EXPECTED after sync"
+          VERSION=$(tr -d '[:space:]' < VERSION)
+          PKG_VERSION=$(jq -r .version package.json)
+          if [ "$VERSION" != "$EXPECTED" ] || [ "$PKG_VERSION" != "$EXPECTED" ]; then
+            echo "::error::VERSION=$VERSION / package.json=$PKG_VERSION but expected $EXPECTED after sync"
             exit 1
           fi
-          echo "Publishing @estebanruano/design-tokens@${ACTUAL}"
+          echo "Publishing @estebanruano/design-tokens@${PKG_VERSION}"
 
       - name: Publish to npm (OIDC trusted publishing)
         run: npm publish --access public

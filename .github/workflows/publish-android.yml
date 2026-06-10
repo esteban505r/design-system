@@ -2,7 +2,7 @@
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
 # figma/tokens.json (SSOT) → pnpm run sync:figma → tokens/ + dist/android/*.xml → AAR
-# Gradle only packages dist/android/.
+# Gradle only packages dist/android/. Release version source of truth: VERSION file.
 #
 # GitHub Packages returns HTTP 409 if that GAV already exists — use a new version input.
 
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
+        description: 'Release version (semver) — written to VERSION (+ foundations md, package.json)'
         required: true
         type: string
 
@@ -84,9 +84,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           EXPECTED="${{ inputs.version }}"
-          VERSION=$(jq -r .version package.json)
-          if [ "$VERSION" != "$EXPECTED" ]; then
-            echo "::error::package.json version is $VERSION but expected $EXPECTED after sync"
+          VERSION=$(tr -d '[:space:]' < VERSION)
+          PKG_VERSION=$(jq -r .version package.json)
+          if [ "$VERSION" != "$EXPECTED" ] || [ "$PKG_VERSION" != "$EXPECTED" ]; then
+            echo "::error::VERSION=$VERSION / package.json=$PKG_VERSION but expected $EXPECTED after sync"
             exit 1
           fi
           echo "Publishing design-tokens-android version ${VERSION}"

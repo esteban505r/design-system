@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@10.33.4",
-  "description": "SomosBelcorp design system tokens — single source of truth for Android and (future) iOS. On this branch tokens/ is the SSOT (no Figma/markdown parse step).",
+  "description": "SomosBelcorp design system tokens — figma/tokens.json is the single source of truth for Android and (future) iOS.",
   "type": "module",
   "files": [
+    "VERSION",
     "figma/tokens.json",
     "dist/web",
     "dist/json",
