@@ -4,26 +4,42 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <dimen name="radius_full">9999dp</dimen>
-  <dimen name="radius_lg">12dp</dimen>
+  <dimen name="radius_xs">2dp</dimen>
+  <dimen name="radius_sm">4dp</dimen>
   <dimen name="radius_md">8dp</dimen>
-  <dimen name="radius_sm">6dp</dimen>
+  <dimen name="radius_lg">12dp</dimen>
   <dimen name="radius_xl">16dp</dimen>
+  <dimen name="radius_xxl">24dp</dimen>
+  <dimen name="radius_pill">100dp</dimen>
+  <dimen name="spacing_xxs">2dp</dimen>
   <dimen name="spacing_xs">4dp</dimen>
   <dimen name="spacing_sm">8dp</dimen>
   <dimen name="spacing_md">16dp</dimen>
   <dimen name="spacing_lg">24dp</dimen>
   <dimen name="spacing_xl">32dp</dimen>
-  <dimen name="spacing_xxl">64dp</dimen>
-  <dimen name="font_size_h1">28sp</dimen>
-  <dimen name="font_size_h2">24sp</dimen>
-  <dimen name="font_size_body">16sp</dimen>
-  <dimen name="font_size_body_sm">14sp</dimen>
-  <dimen name="font_size_button">16sp</dimen>
+  <dimen name="spacing_xxl">48dp</dimen>
+  <dimen name="spacing_xxxl">64dp</dimen>
+  <dimen name="stroke_sm">1dp</dimen>
+  <dimen name="stroke_md">2dp</dimen>
+  <dimen name="stroke_lg">4dp</dimen>
+  <dimen name="font_line_height_caption">16sp</dimen>
+  <dimen name="font_line_height_body">20sp</dimen>
+  <dimen name="font_line_height_body_md">24sp</dimen>
+  <dimen name="font_line_height_subtitle">26sp</dimen>
+  <dimen name="font_line_height_h6">28sp</dimen>
+  <dimen name="font_line_height_h4">32sp</dimen>
+  <dimen name="font_line_height_h3">36sp</dimen>
+  <dimen name="font_line_height_h2">48sp</dimen>
+  <dimen name="font_line_height_h1">56sp</dimen>
   <dimen name="font_size_caption">12sp</dimen>
-  <dimen name="font_size_h3">20sp</dimen>
-  <dimen name="font_size_h4">18sp</dimen>
-  <dimen name="font_size_h5">16sp</dimen>
-  <dimen name="font_size_h6">14sp</dimen>
-  <dimen name="font_size_mono">14sp</dimen>
+  <dimen name="font_size_body_sm">13sp</dimen>
+  <dimen name="font_size_body">14sp</dimen>
+  <dimen name="font_size_body_md">16sp</dimen>
+  <dimen name="font_size_subtitle">18sp</dimen>
+  <dimen name="font_size_h6">20sp</dimen>
+  <dimen name="font_size_title">22sp</dimen>
+  <dimen name="font_size_h4">24sp</dimen>
+  <dimen name="font_size_h3">32sp</dimen>
+  <dimen name="font_size_h2">42sp</dimen>
+  <dimen name="font_size_h1">48sp</dimen>
 </resources>

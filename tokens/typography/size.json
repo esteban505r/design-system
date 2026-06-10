@@ -1,48 +1,48 @@
 {
   "font": {
     "size": {
-      "h1": {
-        "$value": "28px",
-        "$type": "fontSize"
-      },
-      "h2": {
-        "$value": "24px",
-        "$type": "fontSize"
-      },
-      "body": {
-        "$value": "16px",
-        "$type": "fontSize"
-      },
-      "body-sm": {
-        "$value": "14px",
-        "$type": "fontSize"
-      },
-      "button": {
-        "$value": "16px",
-        "$type": "fontSize"
-      },
       "caption": {
         "$value": "12px",
         "$type": "fontSize"
       },
-      "h3": {
-        "$value": "20px",
+      "body-sm": {
+        "$value": "13px",
         "$type": "fontSize"
       },
-      "h4": {
-        "$value": "18px",
+      "body": {
+        "$value": "14px",
         "$type": "fontSize"
       },
-      "h5": {
+      "body-md": {
         "$value": "16px",
         "$type": "fontSize"
       },
-      "h6": {
-        "$value": "14px",
+      "subtitle": {
+        "$value": "18px",
         "$type": "fontSize"
       },
-      "mono": {
-        "$value": "14px",
+      "h6": {
+        "$value": "20px",
+        "$type": "fontSize"
+      },
+      "title": {
+        "$value": "22px",
+        "$type": "fontSize"
+      },
+      "h4": {
+        "$value": "24px",
+        "$type": "fontSize"
+      },
+      "h3": {
+        "$value": "32px",
+        "$type": "fontSize"
+      },
+      "h2": {
+        "$value": "42px",
+        "$type": "fontSize"
+      },
+      "h1": {
+        "$value": "48px",
         "$type": "fontSize"
       }
     }

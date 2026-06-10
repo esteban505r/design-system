@@ -2,20 +2,14 @@
   "font": {
     "family": {
       "brand": {
-        "$value": "Geist",
-        "$type": "fontFamily"
+        "$value": "Mulish",
+        "$type": "fontFamily",
+        "$description": "Primary app typeface (res/font/mulish_*)."
       },
-      "mobile": {
-        "$value": "Lexend",
-        "$type": "fontFamily"
-      },
-      "mono": {
-        "$value": "Geist Mono",
-        "$type": "fontFamily"
-      },
-      "sans": {
-        "$value": "Geist",
-        "$type": "fontFamily"
+      "heading": {
+        "$value": "Montserrat",
+        "$type": "fontFamily",
+        "$description": "Display typeface for selected headings (res/font/montserratbold)."
       }
     }
   }

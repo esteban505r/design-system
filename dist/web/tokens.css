@@ -3,82 +3,78 @@
  */
 
 :root {
-  --color-brand-primary: #1621fa;
-  --color-brand-primary-hover: #ea580c;
-  --color-brand-primary-light: #fb923c;
-  --color-brand-primary-tint: #9a3412;
-  --color-brand-primary-tint-15: rgba(249, 115, 22, 0.15);
-  --color-brand-primary-tint-20: rgba(249, 115, 22, 0.2);
-  --color-eisenhower-importance-high: #fb923c;
-  --color-eisenhower-importance-low: #7c2d12;
-  --color-eisenhower-importance-medium: #fdba74;
-  --color-eisenhower-urgency-moderate: #f97316;
-  --color-eisenhower-urgency-not: #9a3412;
-  --color-eisenhower-urgency-urgent: #ea580c;
-  --color-gradient-auth-gradient-color-1: #c2410c;
-  --color-gradient-auth-gradient-color-2: #9a3412;
-  --color-gradient-auth: linear-gradient(to bottom right, #EA580C, #7C2D12);
-  --color-semantic-danger: #ea580c;
-  --color-semantic-success: #fb923c;
-  --color-semantic-warning: #fdba74;
-  --color-semantic-info: #f97316;
-  --color-semantic-danger-hover: #c2410c;
-  --color-semantic-info-hover: #ea580c;
-  --color-semantic-success-hover: #f97316;
-  --color-semantic-warning-hover: #fb923c;
-  --color-surface-background: #1a0a08;
-  --color-surface-surface: #2a1408;
-  --color-surface-border: #4d2810;
-  --color-surface-border-light: #6b3a18;
-  --color-surface-surface-hover: #3d1f0c;
-  --color-text-primary: #ffedd5;
-  --color-text-secondary: #fdba74;
-  --color-text-tertiary: #c2410c;
-  --motion-duration-base: 200ms;
+  --color-brand-primary: #7d4dbe; /** Core Belcorp purple. Matches md_theme_light_primary. */
+  --color-brand-primary-dark: #6436ab; /** Darker brand purple used for splash and emphasis. */
+  --color-brand-primary-surface: #f0ecf5; /** Light purple surface used for cards and screen backgrounds. */
+  --color-brand-primary-tint: #e0d1ff; /** Purple tint used for dividers, selection and bonus cards. */
+  --color-brand-secondary: #6f5b40; /** Material 3 secondary. Matches md_theme_light_secondary. */
+  --color-semantic-success: #038356; /** Success text and icons. */
+  --color-semantic-success-surface: #e6f3ee; /** Success background. */
+  --color-semantic-error: #ba1a1a; /** Material 3 error. Matches md_theme_light_error. */
+  --color-semantic-error-container: #ffdad6; /** Material 3 error container. Matches md_theme_light_errorContainer. */
+  --color-semantic-danger: #d40000; /** Inline error text and outlines. */
+  --color-semantic-danger-surface: #fbe5e5; /** Error background. */
+  --color-semantic-warning: #ffc83e; /** Warning accents. */
+  --color-semantic-warning-surface: #fff9ec; /** Warning background. */
+  --color-semantic-info: #2596be; /** Informational accents. */
+  --color-semantic-info-surface: #d7ecf9; /** Informational background. */
+  --color-surface-background: #ffffff; /** Default screen background. */
+  --color-surface-surface: #ffffff; /** Default component surface. */
+  --color-surface-surface-alt: #f6f6f6; /** Alternate light gray surface. */
+  --color-surface-border: #cccccc; /** Default border / outline color. */
+  --color-surface-border-strong: #353434; /** High-contrast outline color. */
+  --color-surface-disabled: #d9d9d9; /** Disabled component background. */
+  --color-surface-overlay: rgba(0, 0, 0, 0.4); /** Scrim / overlay color (40% black). */
+  --color-text-primary: #000000; /** Primary text color. */
+  --color-text-secondary: #545353; /** Secondary text color. */
+  --color-text-tertiary: #777676; /** Tertiary / hint text color. */
+  --color-text-disabled: #707070; /** Disabled text color. */
+  --color-text-placeholder: #bdbdbd; /** Text field label / placeholder color. */
+  --color-text-inverse: #ffffff; /** Text on dark or brand backgrounds. Matches md_theme_light_onPrimary. */
   --motion-duration-fast: 150ms;
+  --motion-duration-base: 200ms;
   --motion-duration-slow: 300ms;
-  --motion-easing-standard: cubic-bezier(.4, 0, .2, 1);
-  --radius-full: 9999px;
-  --radius-lg: 12px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
   --radius-md: 8px;
-  --radius-sm: 6px;
+  --radius-lg: 12px;
   --radius-xl: 16px;
-  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10);
-  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.10), 0 2px 4px -2px rgba(0,0,0,0.10);
-  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.10);
+  --radius-xxl: 24px;
+  --radius-pill: 100px; /** Fully rounded corners for pills and circular buttons. */
+  --spacing-xxs: 2px;
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
   --spacing-xl: 32px;
-  --spacing-xxl: 64px;
-  --font-family-brand: Geist;
-  --font-family-mobile: Lexend;
-  --font-family-mono: 'Geist Mono';
-  --font-family-sans: Geist;
-  --font-size-h1: 28px;
-  --font-size-h2: 24px;
-  --font-size-body: 16px;
-  --font-size-body-sm: 14px;
-  --font-size-button: 16px;
+  --spacing-xxl: 48px;
+  --spacing-xxxl: 64px;
+  --stroke-sm: 1px;
+  --stroke-md: 2px;
+  --stroke-lg: 4px;
+  --font-family-brand: Mulish; /** Primary app typeface (res/font/mulish_*). */
+  --font-family-heading: Montserrat; /** Display typeface for selected headings (res/font/montserratbold). */
+  --font-line-height-caption: 16px;
+  --font-line-height-body: 20px;
+  --font-line-height-body-md: 24px;
+  --font-line-height-subtitle: 26px;
+  --font-line-height-h6: 28px;
+  --font-line-height-h4: 32px;
+  --font-line-height-h3: 36px;
+  --font-line-height-h2: 48px;
+  --font-line-height-h1: 56px;
   --font-size-caption: 12px;
-  --font-size-h3: 20px;
-  --font-size-h4: 18px;
-  --font-size-h5: 16px;
-  --font-size-h6: 14px;
-  --font-size-mono: 14px;
+  --font-size-body-sm: 13px;
+  --font-size-body: 14px;
+  --font-size-body-md: 16px;
+  --font-size-subtitle: 18px;
+  --font-size-h6: 20px;
+  --font-size-title: 22px;
+  --font-size-h4: 24px;
+  --font-size-h3: 32px;
+  --font-size-h2: 42px;
+  --font-size-h1: 48px;
+  --font-weight-regular: 400;
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
-  --font-weight-medium: 500;
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-  --z-index-base: 0;
-  --z-index-dropdown: 1000;
-  --z-index-fixed: 1030;
-  --z-index-modal: 1050;
-  --z-index-modal-backdrop: 1040;
-  --z-index-sticky: 1020;
-  --z-index-toast: 1060;
-  --z-index-tooltip: 1070;
 }

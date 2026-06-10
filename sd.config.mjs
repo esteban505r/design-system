@@ -88,8 +88,10 @@ const sd = new StyleDictionary({
           .filter((t) => {
             if (t.$type === 'fontSize') return true;
             if (t.$type !== 'dimension') return false;
-            // Typography sizes (font.size.*) must use sp in dimens.xml
-            if (t.path?.[0] === 'font' && t.path?.[1] === 'size') return true;
+            // Typography dimensions (font.size.*, font.line-height.*) must use sp in dimens.xml
+            if (t.path?.[0] === 'font' && ['size', 'line-height'].includes(t.path?.[1])) {
+              return true;
+            }
             return t.path?.[0] !== 'font';
           })
           .map((t) => `  <dimen name="${t.name}">${t.$value}</dimen>`);
@@ -106,7 +108,10 @@ const sd = new StyleDictionary({
           .filter((t) =>
             ['fontFamily', 'shadow', 'cubicBezier', 'gradient'].includes(t.$type),
           )
-          .map((t) => `  <string name="${t.name}">${escAndroidString(t.$value)}</string>`);
+          .map(
+            (t) =>
+              `  <string name="${t.name}" translatable="false">${escAndroidString(t.$value)}</string>`,
+          );
         return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
       },
     },

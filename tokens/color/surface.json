@@ -2,24 +2,39 @@
   "color": {
     "surface": {
       "background": {
-        "$value": "#0F0202",
-        "$type": "color"
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Default screen background."
       },
       "surface": {
-        "$value": "#1A0404",
-        "$type": "color"
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Default component surface."
+      },
+      "surface-alt": {
+        "$value": "#F6F6F6",
+        "$type": "color",
+        "$description": "Alternate light gray surface."
       },
       "border": {
-        "$value": "#3A0808",
-        "$type": "color"
+        "$value": "#CCCCCC",
+        "$type": "color",
+        "$description": "Default border / outline color."
       },
-      "border-light": {
-        "$value": "#520C0C",
-        "$type": "color"
+      "border-strong": {
+        "$value": "#353434",
+        "$type": "color",
+        "$description": "High-contrast outline color."
       },
-      "surface-hover": {
-        "$value": "#2A0606",
-        "$type": "color"
+      "disabled": {
+        "$value": "#D9D9D9",
+        "$type": "color",
+        "$description": "Disabled component background."
+      },
+      "overlay": {
+        "$value": "#00000066",
+        "$type": "color",
+        "$description": "Scrim / overlay color (40% black)."
       }
     }
   }

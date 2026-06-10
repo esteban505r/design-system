@@ -2,16 +2,34 @@
   "color": {
     "text": {
       "primary": {
-        "$value": "#FFF0F0",
-        "$type": "color"
+        "$value": "#000000",
+        "$type": "color",
+        "$description": "Primary text color."
       },
       "secondary": {
-        "$value": "#FF9999",
-        "$type": "color"
+        "$value": "#545353",
+        "$type": "color",
+        "$description": "Secondary text color."
       },
       "tertiary": {
-        "$value": "#B80404",
-        "$type": "color"
+        "$value": "#777676",
+        "$type": "color",
+        "$description": "Tertiary / hint text color."
+      },
+      "disabled": {
+        "$value": "#707070",
+        "$type": "color",
+        "$description": "Disabled text color."
+      },
+      "placeholder": {
+        "$value": "#BDBDBD",
+        "$type": "color",
+        "$description": "Text field label / placeholder color."
+      },
+      "inverse": {
+        "$value": "#FFFFFF",
+        "$type": "color",
+        "$description": "Text on dark or brand backgrounds. Matches md_theme_light_onPrimary."
       }
     }
   }

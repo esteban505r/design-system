@@ -4,20 +4,10 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <integer name="motion_duration_base">200</integer>
   <integer name="motion_duration_fast">150</integer>
+  <integer name="motion_duration_base">200</integer>
   <integer name="motion_duration_slow">300</integer>
+  <integer name="font_weight_regular">400</integer>
   <integer name="font_weight_bold">700</integer>
   <integer name="font_weight_extrabold">800</integer>
-  <integer name="font_weight_medium">500</integer>
-  <integer name="font_weight_regular">400</integer>
-  <integer name="font_weight_semibold">600</integer>
-  <integer name="z_index_base">0</integer>
-  <integer name="z_index_dropdown">1000</integer>
-  <integer name="z_index_fixed">1030</integer>
-  <integer name="z_index_modal">1050</integer>
-  <integer name="z_index_modal_backdrop">1040</integer>
-  <integer name="z_index_sticky">1020</integer>
-  <integer name="z_index_toast">1060</integer>
-  <integer name="z_index_tooltip">1070</integer>
 </resources>

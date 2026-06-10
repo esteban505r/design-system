@@ -1,12 +1,11 @@
 {
-  "name": "@estebanruano/design-tokens",
-  "version": "1.0.9",
+  "name": "@estebanruano/design-tokens-belcorp",
+  "version": "1.0.0",
+  "private": true,
   "packageManager": "pnpm@10.33.4",
-  "description": "Design system tokens — single source of truth for all platforms",
+  "description": "SomosBelcorp design system tokens — single source of truth for Android and (future) iOS. On this branch tokens/ is the SSOT (no Figma/markdown parse step).",
   "type": "module",
   "files": [
-    "design-tokens.json",
-    "figma/tokens.json",
     "dist/web",
     "dist/json",
     "dist/figma"
@@ -14,15 +13,11 @@
   "exports": {
     ".": "./dist/web/tokens.js",
     "./css": "./dist/web/tokens.css",
-    "./json": "./dist/json/tokens.json",
-    "./figma": "./figma/tokens.json"
+    "./json": "./dist/json/tokens.json"
   },
   "sideEffects": [
     "**/*.css"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/esteban505r/design-system.git"
@@ -37,23 +32,17 @@
   "keywords": [
     "design-tokens",
     "design-system",
-    "css-variables",
     "style-dictionary"
   ],
   "scripts": {
-    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
-    "sync:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens && node sd.config.mjs",
-    "sync": "pnpm run sync:figma",
     "build": "node sd.config.mjs",
-    "parse": "node figma-to-tokens.mjs",
-    "parse:md": "node md-to-tokens.mjs design-system-foundations.md --out tokens",
-    "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
-    "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
+    "sync": "node sd.config.mjs",
+    "figma:export": "node tokens-to-figma.mjs --out dist/figma/tokens.json",
     "version:set": "node set-release-version.mjs",
-    "clean": "rm -rf dist/ tokens/"
+    "clean": "rm -rf dist/"
   },
   "author": "",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "devDependencies": {
     "style-dictionary": "^5.4.0"
   }

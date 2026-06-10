@@ -1,9 +1,9 @@
-# Manual publish: Actions → Publish Android library → Run workflow (choose branch, usually `main`).
+# Manual publish: Actions → Publish Android library → Run workflow (choose branch `belcorp`).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# source=figma → sync:figma (figma/tokens.json) → dist/android/*.xml → AAR
-# source=md    → sync:md (design-tokens block + **Version:** in foundations.md) → dist/android/*.xml → AAR
-# Gradle only packages dist/android/; it does not read figma/tokens.json.
+# source=tokens → tokens/**/*.json (SSOT on this branch) → dist/android/*.xml → AAR
+# (figma/md sources from main do not exist on this branch — keep source=tokens.)
+# Gradle only packages dist/android/.
 #
 # GitHub Packages returns HTTP 409 if that GAV already exists — use a new version input.
 
@@ -20,10 +20,9 @@ on:
         description: 'Token source for sync before publish'
         required: true
         type: choice
-        default: figma
+        default: tokens
         options:
-          - figma
-          - md
+          - tokens
 
 permissions:
   contents: read
@@ -54,19 +53,9 @@ jobs:
       - name: Verify token source inputs
         run: |
           case "${{ inputs.source }}" in
-            figma)
-              test -f figma/tokens.json || {
-                echo "::error::source=figma requires figma/tokens.json on this branch"
-                exit 1
-              }
-              ;;
-            md)
-              test -f design-tokens.json || {
-                echo "::error::source=md requires design-tokens.json (Tokens Studio format)"
-                exit 1
-              }
-              grep -qE '\*\*Version:\*\*[[:space:]]*[0-9]+\.[0-9]+\.[0-9]+' design-system-foundations.md || {
-                echo "::error::source=md requires **Version:** semver in design-system-foundations.md"
+            tokens)
+              ls tokens/**/*.json >/dev/null 2>&1 || {
+                echo "::error::source=tokens requires DTCG JSON files under tokens/"
                 exit 1
               }
               ;;
@@ -77,10 +66,9 @@ jobs:
           RELEASE_VERSION: ${{ inputs.version }}
         run: |
           case "${{ inputs.source }}" in
-            figma) pnpm run sync:figma ;;
-            md) pnpm run sync:md ;;
+            tokens) pnpm run build ;;
             *)
-              echo "::error::Unknown source: ${{ inputs.source }} (expected figma or md)"
+              echo "::error::Unknown source: ${{ inputs.source }} (expected tokens)"
               exit 1
               ;;
           esac

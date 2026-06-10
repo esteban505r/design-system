@@ -1,5 +1,9 @@
 {
   "spacing": {
+    "xxs": {
+      "$value": "2px",
+      "$type": "dimension"
+    },
     "xs": {
       "$value": "4px",
       "$type": "dimension"
@@ -21,6 +25,10 @@
       "$type": "dimension"
     },
     "xxl": {
+      "$value": "48px",
+      "$type": "dimension"
+    },
+    "xxxl": {
       "$value": "64px",
       "$type": "dimension"
     }
