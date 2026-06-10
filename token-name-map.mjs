@@ -1,91 +1,101 @@
-// Shared flat Figma name ↔ nested token path mapping (Oter design system).
+// Shared flat Figma name ↔ nested token path mapping (SomosBelcorp design system).
 
 /** @type {Record<string, string[]>} */
 export const FIGMA_TO_TOKEN_PATH = {
-  'primary-color': ['color', 'brand', 'primary'],
-  'primary-hover': ['color', 'brand', 'primary-hover'],
-  'primary-light': ['color', 'brand', 'primary-light'],
-  'primary-tint': ['color', 'brand', 'primary-tint'],
-  'primary-tint-15': ['color', 'brand', 'primary-tint-15'],
-  'primary-tint-20': ['color', 'brand', 'primary-tint-20'],
-  'background-color': ['color', 'surface', 'background'],
+  // Color — brand
+  'brand-primary': ['color', 'brand', 'primary'],
+  'brand-primary-dark': ['color', 'brand', 'primary-dark'],
+  'brand-primary-surface': ['color', 'brand', 'primary-surface'],
+  'brand-primary-tint': ['color', 'brand', 'primary-tint'],
+  'brand-secondary': ['color', 'brand', 'secondary'],
+  // Color — surface
+  'surface-background': ['color', 'surface', 'background'],
   'surface-color': ['color', 'surface', 'surface'],
-  'surface-hover': ['color', 'surface', 'surface-hover'],
+  'surface-alt': ['color', 'surface', 'surface-alt'],
   'border-color': ['color', 'surface', 'border'],
-  'border-light': ['color', 'surface', 'border-light'],
+  'border-strong': ['color', 'surface', 'border-strong'],
+  'surface-disabled': ['color', 'surface', 'disabled'],
+  'overlay-color': ['color', 'surface', 'overlay'],
+  // Color — text
   'text-primary': ['color', 'text', 'primary'],
   'text-secondary': ['color', 'text', 'secondary'],
   'text-tertiary': ['color', 'text', 'tertiary'],
+  'text-disabled': ['color', 'text', 'disabled'],
+  'text-placeholder': ['color', 'text', 'placeholder'],
+  'text-inverse': ['color', 'text', 'inverse'],
+  // Color — semantic
   'success-color': ['color', 'semantic', 'success'],
-  'success-hover': ['color', 'semantic', 'success-hover'],
-  'warning-color': ['color', 'semantic', 'warning'],
-  'warning-hover': ['color', 'semantic', 'warning-hover'],
+  'success-surface': ['color', 'semantic', 'success-surface'],
+  'error-color': ['color', 'semantic', 'error'],
+  'error-container': ['color', 'semantic', 'error-container'],
   'danger-color': ['color', 'semantic', 'danger'],
-  'danger-hover': ['color', 'semantic', 'danger-hover'],
+  'danger-surface': ['color', 'semantic', 'danger-surface'],
+  'warning-color': ['color', 'semantic', 'warning'],
+  'warning-surface': ['color', 'semantic', 'warning-surface'],
   'info-color': ['color', 'semantic', 'info'],
-  'info-hover': ['color', 'semantic', 'info-hover'],
-  'urgency-urgent': ['color', 'eisenhower', 'urgency-urgent'],
-  'urgency-moderate': ['color', 'eisenhower', 'urgency-moderate'],
-  'urgency-not': ['color', 'eisenhower', 'urgency-not'],
-  'importance-high': ['color', 'eisenhower', 'importance-high'],
-  'importance-medium': ['color', 'eisenhower', 'importance-medium'],
-  'importance-low': ['color', 'eisenhower', 'importance-low'],
-  'auth-gradient': ['color', 'gradient', 'auth'],
-  'auth-gradient-color-1': ['color', 'gradient', 'auth-gradient-color-1'],
-  'auth-gradient-color-2': ['color', 'gradient', 'auth-gradient-color-2'],
-  'font-sans': ['font', 'family', 'sans'],
-  'font-mono': ['font', 'family', 'mono'],
-  'font-mobile': ['font', 'family', 'mobile'],
+  'info-surface': ['color', 'semantic', 'info-surface'],
+  // Typography — families & weights
   'font-brand': ['font', 'family', 'brand'],
+  'font-heading': ['font', 'family', 'heading'],
   'font-regular': ['font', 'weight', 'regular'],
-  'font-medium': ['font', 'weight', 'medium'],
-  'font-semibold': ['font', 'weight', 'semibold'],
   'font-bold': ['font', 'weight', 'bold'],
   'font-extrabold': ['font', 'weight', 'extrabold'],
-  'type-h1': ['font', 'size', 'h1'],
-  'type-h2': ['font', 'size', 'h2'],
-  'type-h3': ['font', 'size', 'h3'],
-  'type-h4': ['font', 'size', 'h4'],
-  'type-h5': ['font', 'size', 'h5'],
-  'type-h6': ['font', 'size', 'h6'],
-  'type-body': ['font', 'size', 'body'],
-  'type-body-sm': ['font', 'size', 'body-sm'],
+  // Typography — sizes
   'type-caption': ['font', 'size', 'caption'],
-  'type-button': ['font', 'size', 'button'],
-  'type-mono': ['font', 'size', 'mono'],
+  'type-body-sm': ['font', 'size', 'body-sm'],
+  'type-body': ['font', 'size', 'body'],
+  'type-body-md': ['font', 'size', 'body-md'],
+  'type-subtitle': ['font', 'size', 'subtitle'],
+  'type-h6': ['font', 'size', 'h6'],
+  'type-title': ['font', 'size', 'title'],
+  'type-h4': ['font', 'size', 'h4'],
+  'type-h3': ['font', 'size', 'h3'],
+  'type-h2': ['font', 'size', 'h2'],
+  'type-h1': ['font', 'size', 'h1'],
+  // Typography — line heights
+  'leading-caption': ['font', 'line-height', 'caption'],
+  'leading-body': ['font', 'line-height', 'body'],
+  'leading-body-md': ['font', 'line-height', 'body-md'],
+  'leading-subtitle': ['font', 'line-height', 'subtitle'],
+  'leading-h6': ['font', 'line-height', 'h6'],
+  'leading-h4': ['font', 'line-height', 'h4'],
+  'leading-h3': ['font', 'line-height', 'h3'],
+  'leading-h2': ['font', 'line-height', 'h2'],
+  'leading-h1': ['font', 'line-height', 'h1'],
+  // Spacing
+  'spacing-xxs': ['spacing', 'xxs'],
   'spacing-xs': ['spacing', 'xs'],
   'spacing-sm': ['spacing', 'sm'],
   'spacing-md': ['spacing', 'md'],
   'spacing-lg': ['spacing', 'lg'],
   'spacing-xl': ['spacing', 'xl'],
   'spacing-xxl': ['spacing', 'xxl'],
+  'spacing-xxxl': ['spacing', 'xxxl'],
+  // Radius
+  'radius-xs': ['radius', 'xs'],
   'radius-sm': ['radius', 'sm'],
   'radius-md': ['radius', 'md'],
   'radius-lg': ['radius', 'lg'],
   'radius-xl': ['radius', 'xl'],
-  'radius-full': ['radius', 'full'],
-  'shadow-sm': ['shadow', 'sm'],
-  'shadow-md': ['shadow', 'md'],
-  'shadow-lg': ['shadow', 'lg'],
-  'shadow-xl': ['shadow', 'xl'],
+  'radius-xxl': ['radius', 'xxl'],
+  'radius-pill': ['radius', 'pill'],
+  // Stroke
+  'stroke-sm': ['stroke', 'sm'],
+  'stroke-md': ['stroke', 'md'],
+  'stroke-lg': ['stroke', 'lg'],
+  // Motion
   'transition-fast': ['motion', 'duration', 'fast'],
   'transition-base': ['motion', 'duration', 'base'],
   'transition-slow': ['motion', 'duration', 'slow'],
-  'easing-standard': ['motion', 'easing', 'standard'],
-  'z-base': ['z-index', 'base'],
-  'z-dropdown': ['z-index', 'dropdown'],
-  'z-sticky': ['z-index', 'sticky'],
-  'z-fixed': ['z-index', 'fixed'],
-  'z-modal-backdrop': ['z-index', 'modal-backdrop'],
-  'z-modal': ['z-index', 'modal'],
-  'z-toast': ['z-index', 'toast'],
-  'z-tooltip': ['z-index', 'tooltip'],
 };
 
 /** @type {Map<string, string>} */
 const pathToFigmaCache = new Map(
   Object.entries(FIGMA_TO_TOKEN_PATH).map(([figma, p]) => [p.join('|'), figma]),
 );
+
+const FONT_FAMILY_LEAVES = ['brand', 'heading'];
+const FONT_WEIGHT_LEAVES = ['regular', 'medium', 'semibold', 'bold', 'extrabold'];
 
 /**
  * @param {string[]} tokenPath
@@ -98,24 +108,18 @@ export function tokenPathToFigmaName(tokenPath) {
   const [category, group, ...rest] = tokenPath;
   const leaf = rest.length > 0 ? rest.join('-') : group;
 
+  if (category === 'color' && group === 'brand') return `brand-${leaf}`;
   if (category === 'color' && group === 'text') return `text-${leaf}`;
-  if (category === 'color' && (group === 'brand' || group === 'surface' || group === 'semantic')) {
-    return leaf;
-  }
-  if (category === 'color' && group === 'gradient') {
-    if (leaf === 'auth') return 'auth-gradient';
-    return leaf;
-  }
-  if (category === 'color' && group === 'eisenhower') return leaf;
+  if (category === 'color' && group === 'surface') return `surface-${leaf}`;
+  if (category === 'color' && group === 'semantic') return leaf.includes('-') ? leaf : `${leaf}-color`;
   if (category === 'font' && group === 'size') return `type-${leaf}`;
+  if (category === 'font' && group === 'line-height') return `leading-${leaf}`;
   if (category === 'font' && group === 'weight') return `font-${leaf}`;
   if (category === 'font' && group === 'family') return `font-${leaf}`;
   if (category === 'spacing') return `spacing-${group}`;
   if (category === 'radius') return `radius-${group}`;
-  if (category === 'shadow') return `shadow-${group}`;
+  if (category === 'stroke') return `stroke-${group}`;
   if (category === 'motion' && group === 'duration') return `transition-${leaf}`;
-  if (category === 'motion' && group === 'easing') return `easing-${leaf}`;
-  if (category === 'z-index') return `z-${group}`;
 
   return tokenPath.join('-');
 }
@@ -135,49 +139,34 @@ function withUnit(value, unit) {
 export function figmaTokenToDtcg(figmaName, figmaToken) {
   const { $value, $type } = figmaToken;
 
-  if (figmaName === 'auth-gradient') {
-    return { $value, $type: 'gradient' };
-  }
-
   if ($type === 'color') {
     const v = String($value);
-    const normalized =
-      v.startsWith('#') ? v.toUpperCase() : v;
+    const normalized = v.startsWith('#') ? v.toUpperCase() : v;
     return { $value: normalized, $type: 'color' };
   }
 
-  if (figmaName.startsWith('font-') && ['sans', 'mono', 'mobile', 'brand'].includes(figmaName.slice(5))) {
+  if (figmaName.startsWith('font-') && FONT_FAMILY_LEAVES.includes(figmaName.slice(5))) {
     return { $value: String($value), $type: 'fontFamily' };
   }
 
-  if (
-    figmaName.startsWith('font-') &&
-    ['regular', 'medium', 'semibold', 'bold', 'extrabold'].includes(figmaName.slice(5))
-  ) {
+  if (figmaName.startsWith('font-') && FONT_WEIGHT_LEAVES.includes(figmaName.slice(5))) {
     return { $value: $value, $type: 'fontWeight' };
-  }
-
-  if (figmaName.startsWith('z-')) {
-    return { $value: $value, $type: 'number' };
   }
 
   if (figmaName.startsWith('transition-')) {
     return { $value: withUnit($value, 'ms'), $type: 'duration' };
   }
 
-  if (figmaName.startsWith('shadow-')) {
-    return { $value: String($value), $type: 'shadow' };
-  }
-
-  if (figmaName === 'easing-standard') {
-    return { $value: String($value), $type: 'cubicBezier' };
-  }
-
   if (figmaName.startsWith('type-')) {
     return { $value: withUnit($value, 'px'), $type: 'fontSize' };
   }
 
-  if (figmaName.startsWith('spacing-') || figmaName.startsWith('radius-')) {
+  if (
+    figmaName.startsWith('leading-') ||
+    figmaName.startsWith('spacing-') ||
+    figmaName.startsWith('radius-') ||
+    figmaName.startsWith('stroke-')
+  ) {
     return { $value: withUnit($value, 'px'), $type: 'dimension' };
   }
 

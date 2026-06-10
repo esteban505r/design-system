@@ -21,12 +21,14 @@ export const fileMap = {
     subCategories: {
       family: 'typography/family.json',
       weight: 'typography/weight.json',
-      size: 'typography/scale.json',
+      size: 'typography/size.json',
+      'line-height': 'typography/line-height.json',
       _default: 'typography/other.json',
     },
   },
   spacing: { split: false, file: 'spacing/spacing.json' },
   radius: { split: false, file: 'radius/radius.json' },
+  stroke: { split: false, file: 'stroke/stroke.json' },
   shadow: { split: false, file: 'shadow/shadow.json' },
   motion: {
     split: true,
@@ -50,6 +52,7 @@ export const OBSOLETE_TOKEN_FILES = [
   'motion/motion.json',
   'shadow/elevation.json',
   'opacity/opacity.json',
+  'typography/scale.json',
 ];
 
 /**

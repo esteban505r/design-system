@@ -1,35 +1,29 @@
 {
   "color": {
     "text": {
-      "primary": {
-        "$value": "#000000",
-        "$type": "color",
-        "$description": "Primary text color."
-      },
-      "secondary": {
-        "$value": "#545353",
-        "$type": "color",
-        "$description": "Secondary text color."
-      },
-      "tertiary": {
-        "$value": "#777676",
-        "$type": "color",
-        "$description": "Tertiary / hint text color."
-      },
       "disabled": {
         "$value": "#707070",
-        "$type": "color",
-        "$description": "Disabled text color."
-      },
-      "placeholder": {
-        "$value": "#BDBDBD",
-        "$type": "color",
-        "$description": "Text field label / placeholder color."
+        "$type": "color"
       },
       "inverse": {
         "$value": "#FFFFFF",
-        "$type": "color",
-        "$description": "Text on dark or brand backgrounds. Matches md_theme_light_onPrimary."
+        "$type": "color"
+      },
+      "placeholder": {
+        "$value": "#BDBDBD",
+        "$type": "color"
+      },
+      "primary": {
+        "$value": "#000000",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#545353",
+        "$type": "color"
+      },
+      "tertiary": {
+        "$value": "#777676",
+        "$type": "color"
       }
     }
   }

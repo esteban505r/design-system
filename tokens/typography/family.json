@@ -3,13 +3,11 @@
     "family": {
       "brand": {
         "$value": "Mulish",
-        "$type": "fontFamily",
-        "$description": "Primary app typeface (res/font/mulish_*)."
+        "$type": "fontFamily"
       },
       "heading": {
         "$value": "Montserrat",
-        "$type": "fontFamily",
-        "$description": "Display typeface for selected headings (res/font/montserratbold)."
+        "$type": "fontFamily"
       }
     }
   }

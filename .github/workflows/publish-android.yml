@@ -1,8 +1,7 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose branch `belcorp`).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# source=tokens → tokens/**/*.json (SSOT on this branch) → dist/android/*.xml → AAR
-# (figma/md sources from main do not exist on this branch — keep source=tokens.)
+# figma/tokens.json (SSOT) → pnpm run sync:figma → tokens/ + dist/android/*.xml → AAR
 # Gradle only packages dist/android/.
 #
 # GitHub Packages returns HTTP 409 if that GAV already exists — use a new version input.
@@ -16,13 +15,6 @@ on:
         description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
         required: true
         type: string
-      source:
-        description: 'Token source for sync before publish'
-        required: true
-        type: choice
-        default: tokens
-        options:
-          - tokens
 
 permissions:
   contents: read
@@ -50,29 +42,17 @@ jobs:
       - name: Set release version in source files
         run: node set-release-version.mjs --version "${{ inputs.version }}"
 
-      - name: Verify token source inputs
+      - name: Verify token source
         run: |
-          case "${{ inputs.source }}" in
-            tokens)
-              ls tokens/**/*.json >/dev/null 2>&1 || {
-                echo "::error::source=tokens requires DTCG JSON files under tokens/"
-                exit 1
-              }
-              ;;
-          esac
+          test -f figma/tokens.json || {
+            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
+            exit 1
+          }
 
       - name: Sync tokens before publish
         env:
           RELEASE_VERSION: ${{ inputs.version }}
-        run: |
-          case "${{ inputs.source }}" in
-            tokens) pnpm run build ;;
-            *)
-              echo "::error::Unknown source: ${{ inputs.source }} (expected tokens)"
-              exit 1
-              ;;
-          esac
-          echo "Synced from source: ${{ inputs.source }}"
+        run: pnpm run sync:figma
 
       - name: Ensure release version after sync
         run: node set-release-version.mjs --version "${{ inputs.version }}"

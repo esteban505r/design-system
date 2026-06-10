@@ -1,33 +1,32 @@
 {
   "radius": {
-    "xs": {
-      "$value": "2px",
-      "$type": "dimension"
-    },
-    "sm": {
-      "$value": "4px",
+    "lg": {
+      "$value": "12px",
       "$type": "dimension"
     },
     "md": {
       "$value": "8px",
       "$type": "dimension"
     },
-    "lg": {
-      "$value": "12px",
+    "pill": {
+      "$value": "100px",
+      "$type": "dimension"
+    },
+    "sm": {
+      "$value": "4px",
       "$type": "dimension"
     },
     "xl": {
       "$value": "16px",
       "$type": "dimension"
     },
+    "xs": {
+      "$value": "2px",
+      "$type": "dimension"
+    },
     "xxl": {
       "$value": "24px",
       "$type": "dimension"
-    },
-    "pill": {
-      "$value": "100px",
-      "$type": "dimension",
-      "$description": "Fully rounded corners for pills and circular buttons."
     }
   }
 }

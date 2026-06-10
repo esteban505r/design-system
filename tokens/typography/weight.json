@@ -1,16 +1,16 @@
 {
   "font": {
     "weight": {
-      "regular": {
-        "$value": 400,
-        "$type": "fontWeight"
-      },
       "bold": {
         "$value": 700,
         "$type": "fontWeight"
       },
       "extrabold": {
         "$value": 800,
+        "$type": "fontWeight"
+      },
+      "regular": {
+        "$value": 400,
         "$type": "fontWeight"
       }
     }

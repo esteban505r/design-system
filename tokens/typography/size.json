@@ -1,14 +1,6 @@
 {
   "font": {
     "size": {
-      "caption": {
-        "$value": "12px",
-        "$type": "fontSize"
-      },
-      "body-sm": {
-        "$value": "13px",
-        "$type": "fontSize"
-      },
       "body": {
         "$value": "14px",
         "$type": "fontSize"
@@ -17,32 +9,40 @@
         "$value": "16px",
         "$type": "fontSize"
       },
-      "subtitle": {
-        "$value": "18px",
+      "body-sm": {
+        "$value": "13px",
         "$type": "fontSize"
       },
-      "h6": {
-        "$value": "20px",
+      "caption": {
+        "$value": "12px",
         "$type": "fontSize"
       },
-      "title": {
-        "$value": "22px",
-        "$type": "fontSize"
-      },
-      "h4": {
-        "$value": "24px",
-        "$type": "fontSize"
-      },
-      "h3": {
-        "$value": "32px",
+      "h1": {
+        "$value": "48px",
         "$type": "fontSize"
       },
       "h2": {
         "$value": "42px",
         "$type": "fontSize"
       },
-      "h1": {
-        "$value": "48px",
+      "h3": {
+        "$value": "32px",
+        "$type": "fontSize"
+      },
+      "h4": {
+        "$value": "24px",
+        "$type": "fontSize"
+      },
+      "h6": {
+        "$value": "20px",
+        "$type": "fontSize"
+      },
+      "subtitle": {
+        "$value": "18px",
+        "$type": "fontSize"
+      },
+      "title": {
+        "$value": "22px",
         "$type": "fontSize"
       }
     }

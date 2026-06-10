@@ -4,10 +4,10 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <integer name="motion_duration_fast">150</integer>
   <integer name="motion_duration_base">200</integer>
+  <integer name="motion_duration_fast">150</integer>
   <integer name="motion_duration_slow">300</integer>
-  <integer name="font_weight_regular">400</integer>
   <integer name="font_weight_bold">700</integer>
   <integer name="font_weight_extrabold">800</integer>
+  <integer name="font_weight_regular">400</integer>
 </resources>

@@ -6,6 +6,7 @@
   "description": "SomosBelcorp design system tokens — single source of truth for Android and (future) iOS. On this branch tokens/ is the SSOT (no Figma/markdown parse step).",
   "type": "module",
   "files": [
+    "figma/tokens.json",
     "dist/web",
     "dist/json",
     "dist/figma"
@@ -13,7 +14,8 @@
   "exports": {
     ".": "./dist/web/tokens.js",
     "./css": "./dist/web/tokens.css",
-    "./json": "./dist/json/tokens.json"
+    "./json": "./dist/json/tokens.json",
+    "./figma": "./figma/tokens.json"
   },
   "sideEffects": [
     "**/*.css"
@@ -35,9 +37,12 @@
     "style-dictionary"
   ],
   "scripts": {
+    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
+    "sync": "pnpm run sync:figma",
     "build": "node sd.config.mjs",
-    "sync": "node sd.config.mjs",
-    "figma:export": "node tokens-to-figma.mjs --out dist/figma/tokens.json",
+    "parse": "node figma-to-tokens.mjs",
+    "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
+    "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
     "version:set": "node set-release-version.mjs",
     "clean": "rm -rf dist/"
   },

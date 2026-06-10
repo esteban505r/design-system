@@ -3,78 +3,78 @@
  */
 
 :root {
-  --color-brand-primary: #7d4dbe; /** Core Belcorp purple. Matches md_theme_light_primary. */
-  --color-brand-primary-dark: #6436ab; /** Darker brand purple used for splash and emphasis. */
-  --color-brand-primary-surface: #f0ecf5; /** Light purple surface used for cards and screen backgrounds. */
-  --color-brand-primary-tint: #e0d1ff; /** Purple tint used for dividers, selection and bonus cards. */
-  --color-brand-secondary: #6f5b40; /** Material 3 secondary. Matches md_theme_light_secondary. */
-  --color-semantic-success: #038356; /** Success text and icons. */
-  --color-semantic-success-surface: #e6f3ee; /** Success background. */
-  --color-semantic-error: #ba1a1a; /** Material 3 error. Matches md_theme_light_error. */
-  --color-semantic-error-container: #ffdad6; /** Material 3 error container. Matches md_theme_light_errorContainer. */
-  --color-semantic-danger: #d40000; /** Inline error text and outlines. */
-  --color-semantic-danger-surface: #fbe5e5; /** Error background. */
-  --color-semantic-warning: #ffc83e; /** Warning accents. */
-  --color-semantic-warning-surface: #fff9ec; /** Warning background. */
-  --color-semantic-info: #2596be; /** Informational accents. */
-  --color-semantic-info-surface: #d7ecf9; /** Informational background. */
-  --color-surface-background: #ffffff; /** Default screen background. */
-  --color-surface-surface: #ffffff; /** Default component surface. */
-  --color-surface-surface-alt: #f6f6f6; /** Alternate light gray surface. */
-  --color-surface-border: #cccccc; /** Default border / outline color. */
-  --color-surface-border-strong: #353434; /** High-contrast outline color. */
-  --color-surface-disabled: #d9d9d9; /** Disabled component background. */
-  --color-surface-overlay: rgba(0, 0, 0, 0.4); /** Scrim / overlay color (40% black). */
-  --color-text-primary: #000000; /** Primary text color. */
-  --color-text-secondary: #545353; /** Secondary text color. */
-  --color-text-tertiary: #777676; /** Tertiary / hint text color. */
-  --color-text-disabled: #707070; /** Disabled text color. */
-  --color-text-placeholder: #bdbdbd; /** Text field label / placeholder color. */
-  --color-text-inverse: #ffffff; /** Text on dark or brand backgrounds. Matches md_theme_light_onPrimary. */
-  --motion-duration-fast: 150ms;
+  --color-brand-primary: #7d4dbe;
+  --color-brand-primary-dark: #6436ab;
+  --color-brand-primary-surface: #f0ecf5;
+  --color-brand-primary-tint: #e0d1ff;
+  --color-brand-secondary: #6f5b40;
+  --color-semantic-danger: #d40000;
+  --color-semantic-danger-surface: #fbe5e5;
+  --color-semantic-error: #ba1a1a;
+  --color-semantic-error-container: #ffdad6;
+  --color-semantic-info: #2596be;
+  --color-semantic-info-surface: #d7ecf9;
+  --color-semantic-success: #038356;
+  --color-semantic-success-surface: #e6f3ee;
+  --color-semantic-warning: #ffc83e;
+  --color-semantic-warning-surface: #fff9ec;
+  --color-surface-border: #cccccc;
+  --color-surface-border-strong: #353434;
+  --color-surface-overlay: rgba(0, 0, 0, 0.4);
+  --color-surface-surface-alt: #f6f6f6;
+  --color-surface-background: #ffffff;
+  --color-surface-surface: #ffffff;
+  --color-surface-disabled: #d9d9d9;
+  --color-text-disabled: #707070;
+  --color-text-inverse: #ffffff;
+  --color-text-placeholder: #bdbdbd;
+  --color-text-primary: #000000;
+  --color-text-secondary: #545353;
+  --color-text-tertiary: #777676;
   --motion-duration-base: 200ms;
+  --motion-duration-fast: 150ms;
   --motion-duration-slow: 300ms;
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
   --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-pill: 100px;
+  --radius-sm: 4px;
   --radius-xl: 16px;
+  --radius-xs: 2px;
   --radius-xxl: 24px;
-  --radius-pill: 100px; /** Fully rounded corners for pills and circular buttons. */
-  --spacing-xxs: 2px;
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
   --spacing-lg: 24px;
+  --spacing-md: 16px;
+  --spacing-sm: 8px;
   --spacing-xl: 32px;
+  --spacing-xs: 4px;
   --spacing-xxl: 48px;
+  --spacing-xxs: 2px;
   --spacing-xxxl: 64px;
-  --stroke-sm: 1px;
-  --stroke-md: 2px;
   --stroke-lg: 4px;
-  --font-family-brand: Mulish; /** Primary app typeface (res/font/mulish_*). */
-  --font-family-heading: Montserrat; /** Display typeface for selected headings (res/font/montserratbold). */
-  --font-line-height-caption: 16px;
+  --stroke-md: 2px;
+  --stroke-sm: 1px;
+  --font-family-brand: Mulish;
+  --font-family-heading: Montserrat;
   --font-line-height-body: 20px;
   --font-line-height-body-md: 24px;
-  --font-line-height-subtitle: 26px;
-  --font-line-height-h6: 28px;
-  --font-line-height-h4: 32px;
-  --font-line-height-h3: 36px;
-  --font-line-height-h2: 48px;
+  --font-line-height-caption: 16px;
   --font-line-height-h1: 56px;
-  --font-size-caption: 12px;
-  --font-size-body-sm: 13px;
+  --font-line-height-h2: 48px;
+  --font-line-height-h3: 36px;
+  --font-line-height-h4: 32px;
+  --font-line-height-h6: 28px;
+  --font-line-height-subtitle: 26px;
   --font-size-body: 14px;
   --font-size-body-md: 16px;
-  --font-size-subtitle: 18px;
-  --font-size-h6: 20px;
-  --font-size-title: 22px;
-  --font-size-h4: 24px;
-  --font-size-h3: 32px;
-  --font-size-h2: 42px;
+  --font-size-body-sm: 13px;
+  --font-size-caption: 12px;
   --font-size-h1: 48px;
-  --font-weight-regular: 400;
+  --font-size-h2: 42px;
+  --font-size-h3: 32px;
+  --font-size-h4: 24px;
+  --font-size-h6: 20px;
+  --font-size-subtitle: 18px;
+  --font-size-title: 22px;
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
+  --font-weight-regular: 400;
 }

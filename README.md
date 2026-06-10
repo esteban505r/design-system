@@ -2,12 +2,14 @@
 
 > **This branch carries the SomosBelcorp token set**, published as
 > **`com.estebanruano:tokens-android-belcorp`** to GitHub Packages and consumed by
-> `app-consultoras-replatform-android` (`:core:presentation:designsystem`). Unlike `main`
-> (the Oter tokens with Figma/markdown sync), here the DTCG JSON under **`tokens/`** is the
-> single source of truth: edit `tokens/`, run **`pnpm run build`**, commit, then run
-> **Actions → Publish Android library** on this branch with `source = tokens`.
-> Token reference: [design-system-foundations.md](design-system-foundations.md).
-> The rest of this README documents the `main` workflow and is kept for reference.
+> `app-consultoras-replatform-android` (`:core:presentation:designsystem`).
+> **`figma/tokens.json` is the absolute single source of truth** (Tokens Studio / Figma
+> Variables export): edit it (or push it from Figma), run **`pnpm run sync:figma`**, commit
+> the regenerated `tokens/`, `dist/` and `package.json`, then run
+> **Actions → Publish Android library** on this branch with a new version.
+> Markdown-based syncing was removed on every branch — never edit `tokens/` or `dist/` by
+> hand. Token reference: [design-system-foundations.md](design-system-foundations.md)
+> (documentation only). The rest of this README documents the `main` workflow.
 
 Single source of truth for all design tokens — authored either in **`figma/tokens.json`** or **`design-system-foundations.md`**, then generated into `tokens/` and platform `dist/` outputs.
 

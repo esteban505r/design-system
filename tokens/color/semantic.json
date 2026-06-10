@@ -1,55 +1,45 @@
 {
   "color": {
     "semantic": {
-      "success": {
-        "$value": "#038356",
-        "$type": "color",
-        "$description": "Success text and icons."
-      },
-      "success-surface": {
-        "$value": "#E6F3EE",
-        "$type": "color",
-        "$description": "Success background."
-      },
-      "error": {
-        "$value": "#BA1A1A",
-        "$type": "color",
-        "$description": "Material 3 error. Matches md_theme_light_error."
-      },
-      "error-container": {
-        "$value": "#FFDAD6",
-        "$type": "color",
-        "$description": "Material 3 error container. Matches md_theme_light_errorContainer."
-      },
       "danger": {
         "$value": "#D40000",
-        "$type": "color",
-        "$description": "Inline error text and outlines."
+        "$type": "color"
       },
       "danger-surface": {
         "$value": "#FBE5E5",
-        "$type": "color",
-        "$description": "Error background."
+        "$type": "color"
       },
-      "warning": {
-        "$value": "#FFC83E",
-        "$type": "color",
-        "$description": "Warning accents."
+      "error": {
+        "$value": "#BA1A1A",
+        "$type": "color"
       },
-      "warning-surface": {
-        "$value": "#FFF9EC",
-        "$type": "color",
-        "$description": "Warning background."
+      "error-container": {
+        "$value": "#FFDAD6",
+        "$type": "color"
       },
       "info": {
         "$value": "#2596BE",
-        "$type": "color",
-        "$description": "Informational accents."
+        "$type": "color"
       },
       "info-surface": {
         "$value": "#D7ECF9",
-        "$type": "color",
-        "$description": "Informational background."
+        "$type": "color"
+      },
+      "success": {
+        "$value": "#038356",
+        "$type": "color"
+      },
+      "success-surface": {
+        "$value": "#E6F3EE",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#FFC83E",
+        "$type": "color"
+      },
+      "warning-surface": {
+        "$value": "#FFF9EC",
+        "$type": "color"
       }
     }
   }

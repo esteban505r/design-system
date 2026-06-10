@@ -1,10 +1,6 @@
 {
   "font": {
     "line-height": {
-      "caption": {
-        "$value": "16px",
-        "$type": "dimension"
-      },
       "body": {
         "$value": "20px",
         "$type": "dimension"
@@ -13,28 +9,32 @@
         "$value": "24px",
         "$type": "dimension"
       },
-      "subtitle": {
-        "$value": "26px",
+      "caption": {
+        "$value": "16px",
         "$type": "dimension"
       },
-      "h6": {
-        "$value": "28px",
-        "$type": "dimension"
-      },
-      "h4": {
-        "$value": "32px",
-        "$type": "dimension"
-      },
-      "h3": {
-        "$value": "36px",
+      "h1": {
+        "$value": "56px",
         "$type": "dimension"
       },
       "h2": {
         "$value": "48px",
         "$type": "dimension"
       },
-      "h1": {
-        "$value": "56px",
+      "h3": {
+        "$value": "36px",
+        "$type": "dimension"
+      },
+      "h4": {
+        "$value": "32px",
+        "$type": "dimension"
+      },
+      "h6": {
+        "$value": "28px",
+        "$type": "dimension"
+      },
+      "subtitle": {
+        "$value": "26px",
         "$type": "dimension"
       }
     }

@@ -3,28 +3,23 @@
     "brand": {
       "primary": {
         "$value": "#7D4DBE",
-        "$type": "color",
-        "$description": "Core Belcorp purple. Matches md_theme_light_primary."
+        "$type": "color"
       },
       "primary-dark": {
         "$value": "#6436AB",
-        "$type": "color",
-        "$description": "Darker brand purple used for splash and emphasis."
+        "$type": "color"
       },
       "primary-surface": {
         "$value": "#F0ECF5",
-        "$type": "color",
-        "$description": "Light purple surface used for cards and screen backgrounds."
+        "$type": "color"
       },
       "primary-tint": {
         "$value": "#E0D1FF",
-        "$type": "color",
-        "$description": "Purple tint used for dividers, selection and bonus cards."
+        "$type": "color"
       },
       "secondary": {
         "$value": "#6F5B40",
-        "$type": "color",
-        "$description": "Material 3 secondary. Matches md_theme_light_secondary."
+        "$type": "color"
       }
     }
   }

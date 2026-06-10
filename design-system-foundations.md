@@ -1,8 +1,8 @@
 # SomosBelcorp — Design System Foundations
 
 > Centralized design tokens for the SomosBelcorp consultant app (Android today, iOS next).
-> On this `belcorp` branch the DTCG JSON files under `tokens/` are the **single source of
-> truth** — there is no Figma/markdown parse step. This document describes the token set;
+> **`figma/tokens.json` is the absolute single source of truth** — `tokens/` and `dist/`
+> are generated from it by `pnpm run sync:figma`. This document is documentation only;
 > the `**Version:**` line below drives the Maven release version.
 
 **Version:** 1.0.0 · **Scope:** Android (Compose) · iOS (planned) · **Status:** Active
@@ -12,7 +12,9 @@
 ## Golden rule
 
 **Always use tokens.** Never hardcode hex values, font sizes, spacing numbers, radii,
-stroke widths, or duration integers in component code.
+stroke widths, or duration integers in component code. Token edits happen in
+`figma/tokens.json` (flat Tokens Studio names, e.g. `brand-primary`, `type-body`,
+`spacing-md`) followed by `pnpm run sync:figma`.
 
 Values were seeded from the production app theme (`Colors.kt`, `Dimentions.kt` in
 `:core:presentation:designsystem`), so adopting tokens is visually neutral.
@@ -59,11 +61,11 @@ Durations (ms): `fast 150` · `base 200` · `slow 300`.
 ## Releasing
 
 Consumers resolve **`com.estebanruano:tokens-android-belcorp`** from GitHub Packages.
-Run **Actions → Publish Android library** on the `belcorp` branch with `source = tokens`,
-or locally:
+Run **Actions → Publish Android library** on the `belcorp` branch (syncs from
+`figma/tokens.json` automatically), or locally:
 
 ```bash
-pnpm install && pnpm run build
+pnpm install && pnpm run sync:figma
 TOKENS_VERSION=x.y.z GITHUB_REPOSITORY=esteban505r/design-system \
 GITHUB_ACTOR=<user> GITHUB_TOKEN=<PAT write:packages> \
 ./gradlew :design-tokens-android:publish -PtokensVersion=x.y.z
