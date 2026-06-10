@@ -2,8 +2,9 @@
 // ============================================================
 // set-release-version.mjs
 // ============================================================
-// Writes a semver into design-system-foundations.md and package.json
-// before publish/sync. Does not modify figma/tokens.json $metadata.
+// Writes a semver into VERSION (the release-version source of truth),
+// design-system-foundations.md, and package.json before publish/sync.
+// Does not modify figma/tokens.json $metadata.
 //
 // Publish workflows set RELEASE_VERSION on sync so sync:figma does not
 // overwrite package.json with stale figma $metadata.version.
@@ -47,6 +48,13 @@ function setMarkdownVersion(filePath, version) {
 }
 
 /** @param {string} version */
+function setVersionFile(version) {
+  const versionPath = path.resolve('VERSION');
+  fs.writeFileSync(versionPath, version + '\n');
+  console.log(`🏷️  VERSION → ${version}`);
+}
+
+/** @param {string} version */
 function setPackageJsonVersion(version) {
   const pkgPath = path.resolve('package.json');
   if (!fs.existsSync(pkgPath)) {
@@ -76,6 +84,7 @@ if (!version) {
 assertSemver(version.trim());
 const normalized = version.trim();
 
+setVersionFile(normalized);
 setMarkdownVersion(mdFile, normalized);
 setPackageJsonVersion(normalized);
 console.log('');

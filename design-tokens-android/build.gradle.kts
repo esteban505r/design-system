@@ -18,6 +18,14 @@ fun readRootPackageJsonVersion(projectDir: java.io.File): String? {
     }
 }
 
+// VERSION file at repo root is the release-version source of truth
+// (written by set-release-version.mjs; package.json is a synced mirror).
+fun readRootVersionFile(projectDir: java.io.File): String? {
+    val f = File(projectDir, "VERSION")
+    if (!f.exists()) return null
+    return f.readText().trim().takeIf { it.matches(Regex("""\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?""")) }
+}
+
 val syncAndroidTokensFromDist = tasks.register<Copy>("syncAndroidTokensFromDist") {
     group = "build"
     description = "Copy dist/android/*.xml into this module (run: pnpm run sync)"
@@ -72,6 +80,7 @@ android {
 val tokensVersion: String =
     (project.findProperty("tokensVersion") as String?)
         ?: System.getenv("TOKENS_VERSION")
+        ?: readRootVersionFile(rootProject.projectDir)
         ?: readRootPackageJsonVersion(rootProject.projectDir)
         ?: "0.0.0-SNAPSHOT"
 

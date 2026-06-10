@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, belcorp]
 
 permissions:
   contents: read
@@ -22,30 +22,15 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Choose sync pipeline from branch
-        id: sync
-        run: |
-          if [ "${{ github.head_ref }}" = "figma-ssot" ]; then
-            echo "cmd=sync:figma" >> "$GITHUB_OUTPUT"
-            echo "source=figma/tokens.json" >> "$GITHUB_OUTPUT"
-          else
-            echo "cmd=sync:md" >> "$GITHUB_OUTPUT"
-            echo "source=design-system-foundations.md" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Regenerate outputs (must match committed files)
-        run: pnpm run ${{ steps.sync.outputs.cmd }}
+      - name: Regenerate outputs from figma/tokens.json (must match committed files)
+        run: pnpm run sync:figma
 
       - name: Fail if generated files drift
         run: |
           git add -A
           if ! git diff --staged --exit-code; then
-            if [ "${{ steps.sync.outputs.cmd }}" = "sync:md" ]; then
-              echo "::error::Run \`pnpm run sync:md\` locally and commit \`design-tokens.json\`, \`tokens/\`, \`figma/tokens.json\`, \`dist/\`, and \`package.json\`."
-            else
-              echo "::error::Run \`pnpm run sync:figma\` locally and commit \`tokens/\`, \`dist/\`, \`figma/tokens.json\`, and \`package.json\`."
-            fi
-            echo "Source of truth for this branch: ${{ steps.sync.outputs.source }}"
+            echo "::error::Run \`pnpm run sync:figma\` locally and commit \`tokens/\`, \`dist/\`, and \`package.json\`."
+            echo "Source of truth: figma/tokens.json"
             git diff --staged
             exit 1
           fi

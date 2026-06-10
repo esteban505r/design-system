@@ -10,17 +10,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release version (semver) — updates design-system-foundations.md **Version:**'
+        description: 'Release version (semver) — written to VERSION (+ foundations md, package.json)'
         required: true
         type: string
-      source:
-        description: 'Token source for sync before publish'
-        required: true
-        type: choice
-        default: figma
-        options:
-          - figma
-          - md
 
 permissions:
   contents: read
@@ -52,49 +44,31 @@ jobs:
       - name: Set release version in source files
         run: node set-release-version.mjs --version "${{ inputs.version }}"
 
-      - name: Verify token source inputs
+      - name: Verify token source
         run: |
-          case "${{ inputs.source }}" in
-            figma)
-              test -f figma/tokens.json || {
-                echo "::error::source=figma requires figma/tokens.json on this branch"
-                exit 1
-              }
-              ;;
-            md)
-              test -f design-tokens.json || {
-                echo "::error::source=md requires design-tokens.json"
-                exit 1
-              }
-              ;;
-          esac
+          test -f figma/tokens.json || {
+            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
+            exit 1
+          }
 
       - name: Sync tokens before publish
         env:
           RELEASE_VERSION: ${{ inputs.version }}
-        run: |
-          case "${{ inputs.source }}" in
-            figma) pnpm run sync:figma ;;
-            md) pnpm run sync:md ;;
-            *)
-              echo "::error::Unknown source: ${{ inputs.source }} (expected figma or md)"
-              exit 1
-              ;;
-          esac
-          echo "Synced from source: ${{ inputs.source }}"
+        run: pnpm run sync:figma
 
       - name: Ensure release version after sync
         run: node set-release-version.mjs --version "${{ inputs.version }}"
 
-      - name: Verify package.json version
+      - name: Verify release version
         run: |
           EXPECTED="${{ inputs.version }}"
-          ACTUAL=$(jq -r .version package.json)
-          if [ "$ACTUAL" != "$EXPECTED" ]; then
-            echo "::error::package.json version is $ACTUAL but expected $EXPECTED after sync"
+          VERSION=$(tr -d '[:space:]' < VERSION)
+          PKG_VERSION=$(jq -r .version package.json)
+          if [ "$VERSION" != "$EXPECTED" ] || [ "$PKG_VERSION" != "$EXPECTED" ]; then
+            echo "::error::VERSION=$VERSION / package.json=$PKG_VERSION but expected $EXPECTED after sync"
             exit 1
           fi
-          echo "Publishing @estebanruano/design-tokens@${ACTUAL}"
+          echo "Publishing @estebanruano/design-tokens@${PKG_VERSION}"
 
       - name: Publish to npm (OIDC trusted publishing)
         run: npm publish --access public

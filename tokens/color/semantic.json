@@ -2,35 +2,35 @@
   "color": {
     "semantic": {
       "danger": {
-        "$value": "#FC0303",
+        "$value": "#EA580C",
         "$type": "color"
       },
       "success": {
-        "$value": "#FF6666",
+        "$value": "#FB923C",
         "$type": "color"
       },
       "warning": {
-        "$value": "#FF8080",
+        "$value": "#FDBA74",
         "$type": "color"
       },
       "info": {
-        "$value": "#FF4040",
+        "$value": "#F97316",
         "$type": "color"
       },
       "danger-hover": {
-        "$value": "#D90202",
+        "$value": "#C2410C",
         "$type": "color"
       },
       "info-hover": {
-        "$value": "#FC0303",
+        "$value": "#EA580C",
         "$type": "color"
       },
       "success-hover": {
-        "$value": "#FC0303",
+        "$value": "#F97316",
         "$type": "color"
       },
       "warning-hover": {
-        "$value": "#FF5555",
+        "$value": "#FB923C",
         "$type": "color"
       }
     }
