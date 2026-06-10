@@ -62,14 +62,15 @@ Durations (ms): `fast 150` · `base 200` · `slow 300`.
 ## Releasing
 
 Consumers resolve **`com.estebanruano:tokens-android-belcorp`** from GitHub Packages.
-Run **Actions → Publish Android library** on the `belcorp` branch (syncs from
-`figma/tokens.json` automatically), or locally:
+Bump the **`VERSION`** file (`pnpm run version:set -- --version x.y.z`), commit, then run
+**Actions → Publish Android library** on the `belcorp` branch — no inputs; it syncs from
+`figma/tokens.json` and publishes the version in `VERSION`. Or locally:
 
 ```bash
-pnpm install && pnpm run sync:figma
-TOKENS_VERSION=x.y.z GITHUB_REPOSITORY=esteban505r/design-system \
+pnpm install && pnpm run version:set -- --version x.y.z && pnpm run sync:figma
+GITHUB_REPOSITORY=esteban505r/design-system \
 GITHUB_ACTOR=<user> GITHUB_TOKEN=<PAT write:packages> \
-./gradlew :design-tokens-android:publish -PtokensVersion=x.y.z
+./gradlew :design-tokens-android:publish
 ```
 
 Semver: **major** = token renamed/removed · **minor** = new tokens · **patch** = value change.

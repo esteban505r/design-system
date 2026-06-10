@@ -5,8 +5,9 @@
 > `app-consultoras-replatform-android` (`:core:presentation:designsystem`).
 > **`figma/tokens.json` is the absolute single source of truth** (Tokens Studio / Figma
 > Variables export): edit it (or push it from Figma), run **`pnpm run sync:figma`**, commit
-> the regenerated `tokens/`, `dist/` and `package.json`, then run
-> **Actions → Publish Android library** on this branch with a new version.
+> the regenerated `tokens/`, `dist/` and `package.json`. To release, bump the **`VERSION`**
+> file (`pnpm run version:set -- --version x.y.z`), commit, then run
+> **Actions → Publish Android library** on this branch (no inputs).
 > Markdown-based syncing was removed on every branch — never edit `tokens/` or `dist/` by
 > hand. Token reference: [design-system-foundations.md](design-system-foundations.md)
 > (documentation only). The rest of this README documents the `main` workflow.
@@ -100,10 +101,9 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 
 #### npm release checklist (maintainers)
 
-1. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on the branch to release. Both sync from **`figma/tokens.json`** and build `dist/android/*.xml` for the AAR.
-2. Enter the **version** (semver, e.g. `1.0.10`) — updates **`**Version:**`** in **`design-system-foundations.md`** (not `figma/tokens.json` metadata), then syncs and publishes.
+1. Bump the version locally: `pnpm run version:set -- --version 1.0.10` (writes **`VERSION`** and mirrors it into the foundations md + `package.json`), run `pnpm run sync:figma`, commit, push.
+2. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on the branch to release (no inputs — the version is read from the **`VERSION`** file). Both sync from **`figma/tokens.json`** and build `dist/android/*.xml` for the AAR.
 3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
-4. **Locally:** `pnpm run version:set -- --version 1.0.10` then `pnpm run sync:figma` and commit if you want the version bump on the branch before running Actions.
 
 ### Fetching without a package manager (CDN)
 
