@@ -2,27 +2,27 @@
   "color": {
     "brand": {
       "primary": {
-        "$value": "#7C3AED",
+        "$value": "#16A34A",
         "$type": "color"
       },
       "primary-hover": {
-        "$value": "#6D28D9",
+        "$value": "#15803D",
         "$type": "color"
       },
       "primary-light": {
-        "$value": "#A78BFA",
+        "$value": "#4ADE80",
         "$type": "color"
       },
       "primary-tint": {
-        "$value": "#4C1D95",
+        "$value": "#14532D",
         "$type": "color"
       },
       "primary-tint-15": {
-        "$value": "#8B5CF626",
+        "$value": "#22C55E26",
         "$type": "color"
       },
       "primary-tint-20": {
-        "$value": "#8B5CF633",
+        "$value": "#22C55E33",
         "$type": "color"
       }
     }
