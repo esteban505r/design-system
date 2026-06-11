@@ -1,40 +1,52 @@
 {
   "font": {
     "line-height": {
-      "body": {
-        "$value": "20px",
-        "$type": "dimension"
-      },
-      "body-md": {
+      "body-lg": {
         "$value": "24px",
         "$type": "dimension"
       },
-      "caption": {
-        "$value": "16px",
+      "body-md": {
+        "$value": "21px",
+        "$type": "dimension"
+      },
+      "body-sm": {
+        "$value": "18px",
+        "$type": "dimension"
+      },
+      "button": {
+        "$value": "14px",
+        "$type": "dimension"
+      },
+      "display": {
+        "$value": "72px",
         "$type": "dimension"
       },
       "h1": {
-        "$value": "56px",
+        "$value": "40px",
         "$type": "dimension"
       },
       "h2": {
-        "$value": "48px",
-        "$type": "dimension"
-      },
-      "h3": {
-        "$value": "36px",
-        "$type": "dimension"
-      },
-      "h4": {
         "$value": "32px",
         "$type": "dimension"
       },
-      "h6": {
-        "$value": "28px",
+      "h3": {
+        "$value": "24px",
         "$type": "dimension"
       },
-      "subtitle": {
-        "$value": "26px",
+      "h4": {
+        "$value": "20px",
+        "$type": "dimension"
+      },
+      "h5": {
+        "$value": "16px",
+        "$type": "dimension"
+      },
+      "label": {
+        "$value": "21px",
+        "$type": "dimension"
+      },
+      "overline": {
+        "$value": "12px",
         "$type": "dimension"
       }
     }

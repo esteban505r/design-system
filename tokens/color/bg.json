@@ -1,44 +1,48 @@
 {
   "color": {
-    "text": {
+    "bg": {
       "brand": {
         "$value": "#7D4DBE",
         "$type": "color"
       },
+      "brand-subtle": {
+        "$value": "#EBE2F8",
+        "$type": "color"
+      },
       "disabled": {
-        "$value": "#D1D5DB",
+        "$value": "#F3F4F6",
         "$type": "color"
       },
       "error": {
-        "$value": "#B91C1C",
+        "$value": "#FEE2E2",
         "$type": "color"
       },
       "info": {
-        "$value": "#1245D4",
+        "$value": "#DBEAFE",
         "$type": "color"
       },
-      "inverse": {
+      "overlay": {
+        "$value": "#03071299",
+        "$type": "color"
+      },
+      "page": {
         "$value": "#FFFFFF",
         "$type": "color"
       },
-      "primary": {
-        "$value": "#030712",
-        "$type": "color"
-      },
-      "secondary": {
-        "$value": "#4B5563",
+      "subtle": {
+        "$value": "#F9FAFB",
         "$type": "color"
       },
       "success": {
-        "$value": "#15803D",
+        "$value": "#BBF7D0",
         "$type": "color"
       },
-      "tertiary": {
-        "$value": "#9CA3AF",
+      "surface": {
+        "$value": "#FFFFFF",
         "$type": "color"
       },
       "warning": {
-        "$value": "#BD750F",
+        "$value": "#FEF3C7",
         "$type": "color"
       }
     }

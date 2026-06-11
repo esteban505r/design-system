@@ -1,6 +1,6 @@
 {
   "name": "@estebanruano/design-tokens-belcorp",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "packageManager": "pnpm@10.33.4",
   "description": "SomosBelcorp design system tokens — figma/tokens.json is the single source of truth for Android and (future) iOS.",

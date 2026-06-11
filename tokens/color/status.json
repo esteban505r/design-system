@@ -1,0 +1,54 @@
+{
+  "color": {
+    "status": {
+      "error": {
+        "$value": "#DC2626",
+        "$type": "color"
+      },
+      "error-dark": {
+        "$value": "#B91C1C",
+        "$type": "color"
+      },
+      "error-light": {
+        "$value": "#FEE2E2",
+        "$type": "color"
+      },
+      "info": {
+        "$value": "#2563EB",
+        "$type": "color"
+      },
+      "info-dark": {
+        "$value": "#1245D4",
+        "$type": "color"
+      },
+      "info-light": {
+        "$value": "#DBEAFE",
+        "$type": "color"
+      },
+      "success": {
+        "$value": "#16A34A",
+        "$type": "color"
+      },
+      "success-dark": {
+        "$value": "#15803D",
+        "$type": "color"
+      },
+      "success-light": {
+        "$value": "#BBF7D0",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#FFB90A",
+        "$type": "color"
+      },
+      "warning-dark": {
+        "$value": "#BD750F",
+        "$type": "color"
+      },
+      "warning-light": {
+        "$value": "#FEF3C7",
+        "$type": "color"
+      }
+    }
+  }
+}

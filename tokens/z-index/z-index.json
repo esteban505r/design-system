@@ -1,0 +1,24 @@
+{
+  "z-index": {
+    "base": {
+      "$value": 0,
+      "$type": "number"
+    },
+    "modal": {
+      "$value": 200,
+      "$type": "number"
+    },
+    "overlay": {
+      "$value": 100,
+      "$type": "number"
+    },
+    "raised": {
+      "$value": 10,
+      "$type": "number"
+    },
+    "toast": {
+      "$value": 300,
+      "$type": "number"
+    }
+  }
+}

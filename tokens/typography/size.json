@@ -1,48 +1,52 @@
 {
   "font": {
     "size": {
-      "body": {
-        "$value": "14px",
-        "$type": "fontSize"
-      },
-      "body-md": {
+      "body-lg": {
         "$value": "16px",
         "$type": "fontSize"
       },
-      "body-sm": {
-        "$value": "13px",
+      "body-md": {
+        "$value": "14px",
         "$type": "fontSize"
       },
-      "caption": {
+      "body-sm": {
         "$value": "12px",
         "$type": "fontSize"
       },
+      "button": {
+        "$value": "14px",
+        "$type": "fontSize"
+      },
+      "display": {
+        "$value": "72px",
+        "$type": "fontSize"
+      },
       "h1": {
-        "$value": "48px",
+        "$value": "40px",
         "$type": "fontSize"
       },
       "h2": {
-        "$value": "42px",
-        "$type": "fontSize"
-      },
-      "h3": {
         "$value": "32px",
         "$type": "fontSize"
       },
-      "h4": {
+      "h3": {
         "$value": "24px",
         "$type": "fontSize"
       },
-      "h6": {
+      "h4": {
         "$value": "20px",
         "$type": "fontSize"
       },
-      "subtitle": {
-        "$value": "18px",
+      "h5": {
+        "$value": "16px",
         "$type": "fontSize"
       },
-      "title": {
-        "$value": "22px",
+      "label": {
+        "$value": "14px",
+        "$type": "fontSize"
+      },
+      "overline": {
+        "$value": "12px",
         "$type": "fontSize"
       }
     }

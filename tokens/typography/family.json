@@ -1,11 +1,7 @@
 {
   "font": {
     "family": {
-      "brand": {
-        "$value": "Mulish",
-        "$type": "fontFamily"
-      },
-      "heading": {
+      "primary": {
         "$value": "Montserrat",
         "$type": "fontFamily"
       }
