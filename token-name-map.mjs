@@ -120,6 +120,28 @@ export function tokenPathToFigmaName(tokenPath) {
   return tokenPath.join('-');
 }
 
+// ---------------------------------------------------------------------------
+// DESIGN.md (spec) ↔ internal token category aliases.
+// The frontmatter uses google-labs DESIGN.md vocabulary; tokens/ uses the
+// internal category names. Identity for spacing / shadow / motion.
+// ---------------------------------------------------------------------------
+
+/** Frontmatter top-level key → internal token category. @type {Record<string, string>} */
+export const SPEC_TO_CATEGORY = {
+  colors: 'color',
+  typography: 'font',
+  spacing: 'spacing',
+  rounded: 'radius',
+  shadow: 'shadow',
+  motion: 'motion',
+  zIndex: 'z-index',
+};
+
+/** Internal token category → frontmatter top-level key. @type {Record<string, string>} */
+export const CATEGORY_TO_SPEC = Object.fromEntries(
+  Object.entries(SPEC_TO_CATEGORY).map(([spec, category]) => [category, spec]),
+);
+
 /** @param {unknown} value @param {string} unit */
 function withUnit(value, unit) {
   const s = String(value).trim();
@@ -182,4 +204,47 @@ export function figmaTokenToDtcg(figmaName, figmaToken) {
   }
 
   return { $value, $type: $type || 'string' };
+}
+
+/**
+ * Convert a plain DESIGN.md frontmatter value into a DTCG token, inferring
+ * `$type` from the token path. Path-keyed mirror of {@link figmaTokenToDtcg};
+ * the two must agree so the spec → tokens/ → figma round-trip is lossless.
+ *
+ * @param {string[]} tokenPath  Internal path, e.g. ['color','brand','primary'].
+ * @param {unknown} value       Raw frontmatter value (string or number).
+ * @returns {{ $value: unknown, $type: string }}
+ */
+export function specValueToDtcg(tokenPath, value) {
+  const [category, group, ...rest] = tokenPath;
+  const leaf = rest.length > 0 ? rest.join('-') : group;
+
+  if (category === 'color') {
+    if (group === 'gradient' && leaf === 'auth') {
+      return { $value: String(value), $type: 'gradient' };
+    }
+    const v = String(value);
+    return { $value: v.startsWith('#') ? v.toUpperCase() : v, $type: 'color' };
+  }
+
+  if (category === 'font') {
+    if (group === 'family') return { $value: String(value), $type: 'fontFamily' };
+    if (group === 'weight') return { $value: Number(value), $type: 'fontWeight' };
+    if (group === 'size') return { $value: withUnit(value, 'px'), $type: 'fontSize' };
+  }
+
+  if (category === 'spacing' || category === 'radius') {
+    return { $value: withUnit(value, 'px'), $type: 'dimension' };
+  }
+
+  if (category === 'shadow') return { $value: String(value), $type: 'shadow' };
+
+  if (category === 'motion') {
+    if (group === 'duration') return { $value: withUnit(value, 'ms'), $type: 'duration' };
+    if (group === 'easing') return { $value: String(value), $type: 'cubicBezier' };
+  }
+
+  if (category === 'z-index') return { $value: Number(value), $type: 'number' };
+
+  return { $value: value, $type: 'string' };
 }

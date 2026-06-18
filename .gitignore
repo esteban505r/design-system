@@ -21,3 +21,7 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Verify artifacts (pnpm run spec:verify / figma:verify)
+dist/DESIGN.generated.md
+dist/figma/tokens.generated.json

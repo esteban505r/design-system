@@ -1,18 +1,19 @@
-# Regenerate tokens/ + dist/ when figma/tokens.json changes (Figma SSOT path).
+# Regenerate tokens/ + dist/ + figma/tokens.json when DESIGN.md changes (SSOT path).
 #
-# Pipeline: pnpm run sync:figma
-#   figma/tokens.json → tokens/**/*.json → dist/** (platform outputs)
+# Pipeline: pnpm run sync
+#   DESIGN.md → tokens/**/*.json → dist/** (platform outputs)
+#                                 → figma/tokens.json (generated, for Tokens Studio import)
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
 #   - Allow GitHub Actions to create and approve pull requests (optional, for gh pr create)
 
-name: Sync tokens from Figma JSON
+name: Sync tokens from DESIGN.md
 
 on:
   push:
     paths:
-      - 'figma/tokens.json'
+      - 'DESIGN.md'
   workflow_dispatch:
 
 permissions:
@@ -20,7 +21,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: token-sync-figma-${{ github.ref }}
+  group: token-sync-spec-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -38,8 +39,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Generate all outputs from figma/tokens.json
-        run: pnpm run sync:figma
+      - name: Generate all outputs from DESIGN.md
+        run: pnpm run sync
 
       - name: Commit generated files
         run: |
@@ -47,10 +48,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --staged --quiet; then
-            echo "No changes after sync:figma — working tree already up to date."
+            echo "No changes after sync — working tree already up to date."
             exit 0
           fi
-          git commit -m "chore(tokens): sync from figma/tokens.json"
+          git commit -m "chore(tokens): sync from DESIGN.md"
           git push
 
       - name: Open pull request (feature branches only)
@@ -64,15 +65,15 @@ jobs:
           if [ "$COUNT" -eq 0 ]; then
             PR_BODY_FILE="$(mktemp)"
             {
-              echo 'Auto-generated with `pnpm run sync:figma`:'
+              echo 'Auto-generated with `pnpm run sync`:'
               echo ''
-              echo '- **Source:** `figma/tokens.json`'
-              echo '- **Outputs:** `tokens/`, `dist/` (web, Android, iOS, Flutter, Compose, Figma copy), `package.json` (version from `$metadata.version`)'
+              echo '- **Source:** `DESIGN.md` (YAML frontmatter)'
+              echo '- **Outputs:** `tokens/`, `dist/` (web, Android, iOS, Flutter, Compose, Figma copy), `figma/tokens.json` (generated), `package.json` (version from `VERSION`)'
               echo ''
-              echo 'See [docs/figma-ssot.md](docs/figma-ssot.md).'
+              echo 'See [docs/spec-ssot.md](docs/spec-ssot.md).'
             } > "$PR_BODY_FILE"
             if ! gh pr create --base main --head "$BRANCH" \
-              --title "Design tokens: update from figma/tokens.json" \
+              --title "Design tokens: update from DESIGN.md" \
               --body-file "$PR_BODY_FILE"; then
               echo "::warning::Could not open a PR (GitHub blocked createPullRequest)."
               echo "Enable: Settings → Actions → General → Workflow permissions →"
