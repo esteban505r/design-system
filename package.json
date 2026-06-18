@@ -1,11 +1,12 @@
 {
   "name": "@estebanruano/design-tokens",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "packageManager": "pnpm@10.33.4",
   "description": "Design system tokens — single source of truth for all platforms",
   "type": "module",
   "files": [
     "VERSION",
+    "DESIGN.md",
     "figma/tokens.json",
     "dist/web",
     "dist/json",
@@ -15,7 +16,8 @@
     ".": "./dist/web/tokens.js",
     "./css": "./dist/web/tokens.css",
     "./json": "./dist/json/tokens.json",
-    "./figma": "./figma/tokens.json"
+    "./figma": "./figma/tokens.json",
+    "./spec": "./DESIGN.md"
   },
   "sideEffects": [
     "**/*.css"
@@ -41,18 +43,23 @@
     "style-dictionary"
   ],
   "scripts": {
-    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
-    "sync": "pnpm run sync:figma",
+    "sync": "pnpm run sync:spec",
+    "sync:spec": "node spec-to-tokens.mjs && node sd.config.mjs && node tokens-to-figma.mjs --out figma/tokens.json",
     "build": "node sd.config.mjs",
-    "parse": "node figma-to-tokens.mjs",
+    "parse": "node spec-to-tokens.mjs",
+    "spec:write": "node tokens-to-spec.mjs",
+    "spec:verify": "node tokens-to-spec.mjs --out dist/DESIGN.generated.md",
     "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
     "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
+    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
     "version:set": "node set-release-version.mjs",
+    "test": "node --test",
     "clean": "rm -rf dist/ tokens/"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "style-dictionary": "^5.4.0"
+    "style-dictionary": "^5.4.0",
+    "yaml": "^2.6.1"
   }
 }

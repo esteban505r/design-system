@@ -1,7 +1,7 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose the branch to release).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# figma/tokens.json (SSOT) → pnpm run sync:figma → tokens/ + dist/android/*.xml → AAR
+# DESIGN.md (SSOT) → pnpm run sync → tokens/ + dist/android/*.xml → AAR
 # Gradle only packages dist/android/.
 #
 # Release version comes from the VERSION file (no workflow input):
@@ -53,13 +53,13 @@ jobs:
 
       - name: Verify token source
         run: |
-          test -f figma/tokens.json || {
-            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
+          test -f DESIGN.md || {
+            echo "::error::DESIGN.md (single source of truth) is missing on this branch"
             exit 1
           }
 
       - name: Sync tokens before publish
-        run: pnpm run sync:figma
+        run: pnpm run sync
 
       - name: Verify Android dist before Gradle
         run: |
@@ -72,7 +72,7 @@ jobs:
             exit 1
           }
           if grep -E '<(dimen|item)[^>]*>[^<]*pxpx' dist/android/dimens.xml; then
-            echo "::error::Invalid Android dimen (e.g. 28pxpx) — fix figmaTokenToDtcg / sync and republish"
+            echo "::error::Invalid Android dimen (e.g. 28pxpx) — fix specValueToDtcg / sync and republish"
             exit 1
           fi
           echo "dist/android resource counts:"
@@ -90,7 +90,7 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
           PKG_VERSION=$(jq -r .version package.json)
           if [ "$PKG_VERSION" != "$VERSION" ]; then
-            echo "::error::package.json=$PKG_VERSION but VERSION=$VERSION after sync (sync:figma should mirror VERSION)"
+            echo "::error::package.json=$PKG_VERSION but VERSION=$VERSION after sync (sync should mirror VERSION)"
             exit 1
           fi
           echo "Publishing design-tokens-android version ${VERSION}"

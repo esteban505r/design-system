@@ -1,6 +1,8 @@
 # Workflow & production guide
 
-This document describes **how the Oter design token pipeline works end to end** when **`design-system-foundations.md`** is the source of truth. For the Figma JSON path (`figma/tokens.json`), see **[figma-ssot.md](figma-ssot.md)**.
+> **Historical.** The current source of truth is **[`DESIGN.md`](../DESIGN.md)** (`pnpm run sync`) — see **[spec-ssot.md](spec-ssot.md)**. The `sync:md` (markdown JSON-block) and `figma/tokens.json`-as-SSOT flows described below are **no longer active**; `sync:md` has been removed and `figma/tokens.json` is now a generated output. This page is kept for release/registry mechanics only.
+
+This document describes **how the Oter design token pipeline works end to end** when **`design-system-foundations.md`** was the source of truth. For the (now generated) Figma JSON, see **[spec-ssot.md](spec-ssot.md)**.
 
 There are **two full-generation commands** (do not run both on the same change unless you intend to reconcile sources):
 
@@ -97,7 +99,7 @@ Configure once per org/repo:
 | `pnpm run figma` | `tokens-to-figma.mjs` | `dist/figma/tokens.json` |
 | `pnpm run build` | `sd.config.mjs` (Style Dictionary) | `dist/web`, `dist/android`, `dist/ios`, … |
 | `pnpm run sync:md` | parse (md) → figma export → build | All of the above |
-| `pnpm run sync:figma` | figma → tokens → build | See [figma-ssot.md](figma-ssot.md) |
+| `pnpm run sync:figma` | figma → tokens → build | See [spec-ssot.md](spec-ssot.md) |
 | `pnpm run clean` | removes `tokens/` and `dist/` | Use before a full regen from scratch |
 
 ### 3.1 Stage 1 — Markdown → `tokens/`
@@ -423,4 +425,4 @@ This keeps production releases deliberate and traceable to a semver on `main`.
 
 ---
 
-*Last updated: May 2026 · markdown path: `sync:md` · Figma path: `sync:figma` (see [figma-ssot.md](figma-ssot.md))*
+*Last updated: May 2026 · markdown path: `sync:md` · Figma path: `sync:figma` (see [spec-ssot.md](spec-ssot.md))*

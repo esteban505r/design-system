@@ -1,5 +1,7 @@
 # Oter — Design System & Product Screens
 
+> **Token source of truth has moved to [`DESIGN.md`](DESIGN.md).** Token *values* are now authored in `DESIGN.md` (google-labs DESIGN.md format) and generated into `tokens/`, `dist/**`, and `figma/tokens.json`. This file is **documentation only** — design rationale and product-screen notes. Do not change token values here. See [docs/spec-ssot.md](docs/spec-ssot.md).
+
 > Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on an orange-on-umber palette, with a light theme that inverts surfaces while preserving the brand hue.
 
 **Version:** 1.0.31 · **Scope:** Web · Desktop · Mobile (iOS, Android, Compose) · **Status:** Active
@@ -129,7 +131,7 @@ Prefer the semantic `--type-*` shorthand (`var(--type-h2)`, `var(--type-body)`, 
 
 ## Token source of truth
 
-Token values live in the **`figma-tokens`** JSON block of the foundations doc (Tokens Studio format). On the `figma-ssot` branch, `figma/tokens.json` is canonical and syncs via `pnpm run sync:figma`; on `main`, edit the JSON block and run `pnpm run sync:md`. These feed a Style Dictionary export pipeline targeting web, React Native, native iOS, and Android.
+Token values are authored in the YAML frontmatter of **[`DESIGN.md`](DESIGN.md)** (the source of truth) and synced via `pnpm run sync`, which generates `tokens/`, the platform `dist/` outputs, and `figma/tokens.json`. These feed a Style Dictionary export pipeline targeting web, React Native, native iOS, and Android. See [docs/spec-ssot.md](docs/spec-ssot.md).
 
 ---
 
