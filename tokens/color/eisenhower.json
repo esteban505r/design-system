@@ -2,27 +2,27 @@
   "color": {
     "eisenhower": {
       "importance-high": {
-        "$value": "#C084FC",
+        "$value": "#F87171",
         "$type": "color"
       },
       "importance-low": {
-        "$value": "#0F052E",
+        "$value": "#2E0505",
         "$type": "color"
       },
       "importance-medium": {
-        "$value": "#D8B4FE",
+        "$value": "#FEB4B4",
         "$type": "color"
       },
       "urgency-moderate": {
-        "$value": "#A855F7",
+        "$value": "#EF4444",
         "$type": "color"
       },
       "urgency-not": {
-        "$value": "#581C87",
+        "$value": "#7F1D1D",
         "$type": "color"
       },
       "urgency-urgent": {
-        "$value": "#7E22CE",
+        "$value": "#B91C1C",
         "$type": "color"
       }
     }
