@@ -2,15 +2,15 @@
   "color": {
     "text": {
       "primary": {
-        "$value": "#FFF7ED",
+        "$value": "#F5F3FF",
         "$type": "color"
       },
       "secondary": {
-        "$value": "#FED7AA",
+        "$value": "#E9D5FF",
         "$type": "color"
       },
       "tertiary": {
-        "$value": "#C2410C",
+        "$value": "#7E22CE",
         "$type": "color"
       }
     }

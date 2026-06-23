@@ -2,15 +2,15 @@
   "color": {
     "gradient": {
       "auth": {
-        "$value": "linear-gradient(to bottom right, #EA580C, #2E1505)",
+        "$value": "linear-gradient(to bottom right, #A855F7, #2E0530)",
         "$type": "gradient"
       },
       "auth-gradient-color-1": {
-        "$value": "#C2410C",
+        "$value": "#7E22CE",
         "$type": "color"
       },
       "auth-gradient-color-2": {
-        "$value": "#7C2D12",
+        "$value": "#4C1D95",
         "$type": "color"
       }
     }
