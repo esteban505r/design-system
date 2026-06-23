@@ -2,23 +2,23 @@
   "color": {
     "surface": {
       "background": {
-        "$value": "#0F050F",
+        "$value": "#0F0904",
         "$type": "color"
       },
       "border": {
-        "$value": "#3D1F47",
+        "$value": "#3F2414",
         "$type": "color"
       },
       "border-light": {
-        "$value": "#50305F",
+        "$value": "#5D3619",
         "$type": "color"
       },
       "surface": {
-        "$value": "#1A0F2E",
+        "$value": "#1A0F05",
         "$type": "color"
       },
       "surface-hover": {
-        "$value": "#291B3D",
+        "$value": "#2D1810",
         "$type": "color"
       }
     }
