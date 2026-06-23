@@ -25,15 +25,15 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-      - name: Regenerate outputs from DESIGN.md (must match committed files)
+      - name: Regenerate outputs from figma/tokens.json (must match committed files)
         run: pnpm run sync
 
       - name: Fail if generated files drift
         run: |
           git add -A
           if ! git diff --staged --exit-code; then
-            echo "::error::Run \`pnpm run sync\` locally and commit \`tokens/\`, \`dist/\`, \`figma/tokens.json\`, and \`package.json\`."
-            echo "Source of truth: DESIGN.md"
+            echo "::error::Run \`pnpm run sync\` locally and commit \`tokens/\`, \`dist/\`, \`DESIGN.md\`, and \`package.json\`."
+            echo "Source of truth: figma/tokens.json"
             git diff --staged
             exit 1
           fi

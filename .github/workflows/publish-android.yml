@@ -1,7 +1,7 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose the branch to release).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# DESIGN.md (SSOT) → pnpm run sync → tokens/ + dist/android/*.xml → AAR
+# figma/tokens.json (SSOT) → pnpm run sync → tokens/ + dist/android/*.xml → AAR
 # Gradle only packages dist/android/.
 #
 # Release version comes from the VERSION file (no workflow input):
@@ -53,8 +53,8 @@ jobs:
 
       - name: Verify token source
         run: |
-          test -f DESIGN.md || {
-            echo "::error::DESIGN.md (single source of truth) is missing on this branch"
+          test -f figma/tokens.json || {
+            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
             exit 1
           }
 

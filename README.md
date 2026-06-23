@@ -1,43 +1,43 @@
 # Design System Tokens
 
-Single source of truth for all design tokens — **`DESIGN.md`** (the google-labs [DESIGN.md](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md) format: YAML frontmatter + human-readable body) is the **source of truth**, generated into `tokens/`, platform `dist/` outputs, and **`figma/tokens.json`** (now a generated artifact for Figma / Tokens Studio import).
+Single source of truth for all design tokens — **`figma/tokens.json`** (Tokens Studio export) is the **source of truth**, generated into `tokens/`, platform `dist/` outputs, and **`DESIGN.md`** (regenerated human-readable spec: YAML frontmatter + body, in the google-labs [DESIGN.md](https://github.com/google-labs-code/design.md/blob/main/docs/spec.md) format).
 
 ## Documentation
 
 | Guide | Audience |
 |-------|----------|
-| **[DESIGN.md SSOT](docs/spec-ssot.md)** | `DESIGN.md` as source — `pnpm run sync` |
+| **[DESIGN.md SSOT](docs/spec-ssot.md)** | Historical (DESIGN.md is now a generated artifact; kept as the manual-dispatch fallback path) |
 | [Workflow & production](docs/workflow-and-production.md) | Releases (markdown-sync sections are historical) |
 | [General next steps](docs/general-next-steps.md) | Platform leads — adopting tokens across web, mobile, Flutter |
 | [Android + Material 3](docs/android-material3-next-steps.md) | Android / Compose — theme mapping |
-| [DESIGN.md](DESIGN.md) | The source of truth — token values + design rationale |
+| [DESIGN.md](DESIGN.md) | Regenerated spec — token values + design rationale |
 
 ## Quick Start
 
 ```bash
 pnpm install
 
-# Edit token values in DESIGN.md (YAML frontmatter — the SSOT), then:
+# Edit token values in figma/tokens.json (the SSOT — usually via Tokens Studio export), then:
 pnpm run sync
 ```
 
 | Command | Source | Generates |
 |---------|--------|-----------|
-| **`pnpm run sync`** | `DESIGN.md` | `tokens/`, `dist/**`, `figma/tokens.json`, `package.json` ← `VERSION` |
+| **`pnpm run sync`** | `figma/tokens.json` | `tokens/`, `dist/**`, `DESIGN.md`, `package.json` ← `VERSION` |
 
-`pnpm run sync` is an alias for **`sync:spec`**. The legacy **`pnpm run sync:figma`** (import `figma/tokens.json` → `tokens/`) is kept for migration only.
+`pnpm run sync` is an alias for **`sync:figma`**. **`pnpm run sync:spec`** is the manual-dispatch fallback path (DESIGN.md → tokens/ → dist/ → figma/tokens.json), used when you hand-edit DESIGN.md and want to push that state back into figma/tokens.json.
 
 ### Pipeline
 
-**DESIGN.md → everything**
+**figma/tokens.json → everything**
 
 ```
-DESIGN.md  →  pnpm run sync  →  tokens/ + dist/ + figma/tokens.json
+figma/tokens.json  →  pnpm run sync  →  tokens/ + dist/ + DESIGN.md
 ```
 
 ### Versioning (releases)
 
-Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the **`VERSION`** file at the repo root (single line, semver). `pnpm run version:set -- --version x.y.z` writes it (and mirrors it into the foundations md and `package.json`); **`pnpm run sync`** copies `VERSION` into `package.json`; Gradle reads `VERSION` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump it for each release (npm and GitHub Packages reject duplicate versions). `DESIGN.md`'s `version: alpha` is the *format* version and is ignored for releases.
+Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the **`VERSION`** file at the repo root (single line, semver). `pnpm run version:set -- --version x.y.z` writes it (and mirrors it into `package.json`); **`pnpm run sync`** copies `VERSION` into `package.json`; Gradle reads `VERSION` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump it for each release (npm and GitHub Packages reject duplicate versions). `figma/tokens.json`'s `$metadata.version` is intentionally ignored for releases.
 
 **Further reading:** [Workflow & production](docs/workflow-and-production.md) · [General next steps](docs/general-next-steps.md) · [Android + Material 3](docs/android-material3-next-steps.md)
 
@@ -88,7 +88,7 @@ Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … 
 
 #### npm release checklist (maintainers)
 
-1. Bump the version locally: `pnpm run version:set -- --version 1.0.10` (writes **`VERSION`** and mirrors it into the foundations md + `package.json`), run `pnpm run sync:figma`, commit, push.
+1. Bump the version locally: `pnpm run version:set -- --version 1.0.10` (writes **`VERSION`** and mirrors it into `package.json`), run `pnpm run sync`, commit, push.
 2. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on the branch to release (no inputs — the version is read from the **`VERSION`** file). Both sync from **`figma/tokens.json`** and build `dist/android/*.xml` for the AAR.
 3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
 
@@ -131,32 +131,26 @@ tokens/
 
 ## How to Update Tokens
 
+### For designers (Tokens Studio → push)
+1. Edit tokens in **Tokens Studio for Figma**, export to **`figma/tokens.json`**, and push the change.
+2. The **Sync tokens from figma/tokens.json** workflow fires on push, regenerates `tokens/`, `dist/`, and `DESIGN.md`, and commits the result.
+
 ### For engineers (Claude Code)
 ```bash
-claude "Update colors.brand.primary to #4F46E5 in DESIGN.md, run pnpm run sync, commit and push"
+claude "Update colors.brand.primary to #4F46E5 in figma/tokens.json, run pnpm run sync, commit and push"
 ```
 
 ### For designers (GitHub Web UI)
-1. Open **`DESIGN.md`** on GitHub → Edit → change the value in the YAML frontmatter
+1. Open **`figma/tokens.json`** on GitHub → Edit → change the value
 2. Create branch + open PR → CI validates → reviewer merges
-
-### For non-technical team (Cloud automation)
-1. Edit `DESIGN.md` in the shared repo / drive folder
-2. n8n automation validates and opens a PR automatically
 
 ## Adding a New Token
 
-1. Add the value under the matching group in **`DESIGN.md`** frontmatter (e.g. a new
-   `colors.brand.*` entry):
-   ```yaml
-   colors:
-     brand:
-       accent: "#F97316"
-   ```
-   The `$type` is inferred by token path in `specValueToDtcg` (`token-name-map.mjs`); add a
-   rule there only for a genuinely new category/shape. The reverse Figma name is derived by
-   `tokenPathToFigmaName` — extend it (or `FIGMA_TO_TOKEN_PATH`) only if the default naming is wrong.
-2. Run `pnpm run sync` to verify all platforms generate correctly (never edit `tokens/`, `dist/`, or `figma/tokens.json` by hand)
+1. Add the value under the matching collection in **`figma/tokens.json`** (the Tokens Studio shape).
+   The token path is derived by `figmaNameToTokenPath` (`token-name-map.mjs`); extend it (or
+   `FIGMA_TO_TOKEN_PATH`) only if the default naming is wrong. The reverse DESIGN.md key is
+   inferred by `tokenPathToSpecKey`.
+2. Run `pnpm run sync` to verify all platforms generate correctly (never edit `tokens/`, `dist/`, or `DESIGN.md` by hand — `DESIGN.md` is regenerated from `figma/tokens.json`)
 3. Commit and push — CI validates; merge to `main`, then run **Publish Android library** and/or **Publish web tokens (npm)** manually when you want a Maven or npm release (see below)
 
 ## Automation (GitHub Actions)
@@ -165,7 +159,8 @@ Full setup, branch flows, Figma in prod, release checklists, and troubleshooting
 
 | Workflow | When | What it does |
 |----------|------|----------------|
-| **Sync tokens from DESIGN.md** | Push to `DESIGN.md` (or manual) | `pnpm run sync` → commit `tokens/`, `dist/`, `figma/tokens.json`, `package.json` |
+| **Sync tokens from figma/tokens.json** | Push to `figma/tokens.json` (or manual) | `pnpm run sync` → commit `tokens/`, `dist/`, `DESIGN.md`, `package.json` |
+| **Sync tokens from DESIGN.md (manual)** | Manual dispatch only | `pnpm run sync:spec` → commit `tokens/`, `dist/`, `figma/tokens.json`, `package.json` (fallback path) |
 | **CI** | PR to `main` / `belcorp` | `sync` → fail on drift → assemble Android |
 | **Publish web tokens (npm)** | Manual | `sync` → `npm publish` |
 | **Publish Android library** | Manual | `sync` → Gradle publish |

@@ -1,14 +1,6 @@
 {
   "font": {
     "size": {
-      "h1": {
-        "$value": "28px",
-        "$type": "fontSize"
-      },
-      "h2": {
-        "$value": "24px",
-        "$type": "fontSize"
-      },
       "body": {
         "$value": "16px",
         "$type": "fontSize"
@@ -23,6 +15,14 @@
       },
       "caption": {
         "$value": "12px",
+        "$type": "fontSize"
+      },
+      "h1": {
+        "$value": "28px",
+        "$type": "fontSize"
+      },
+      "h2": {
+        "$value": "24px",
         "$type": "fontSize"
       },
       "h3": {

@@ -12,9 +12,9 @@ colors:
     primary-tint-20: "#EF444433"
   surface:
     background: "#0F0705"
-    surface: "#1A0D0A"
     border: "#3D1E1E"
     border-light: "#502A2A"
+    surface: "#1A0D0A"
     surface-hover: "#291515"
   text:
     primary: "#FFF5F5"
@@ -22,12 +22,12 @@ colors:
     tertiary: "#B91C1C"
   semantic:
     danger: "#B91C1C"
-    success: "#F87171"
-    warning: "#FEB4B4"
-    info: "#EF4444"
     danger-hover: "#B91C1C"
+    info: "#EF4444"
     info-hover: "#B91C1C"
+    success: "#F87171"
     success-hover: "#EF4444"
+    warning: "#FEB4B4"
     warning-hover: "#F87171"
   eisenhower:
     importance-high: "#F87171"
@@ -37,9 +37,9 @@ colors:
     urgency-not: "#7F1D1D"
     urgency-urgent: "#B91C1C"
   gradient:
+    auth: "linear-gradient(to bottom right, #DC2626, #2E0505)"
     auth-gradient-color-1: "#B91C1C"
     auth-gradient-color-2: "#7F1D1D"
-    auth: "linear-gradient(to bottom right, #DC2626, #2E0505)"
 typography:
   family:
     brand: Geist
@@ -53,23 +53,23 @@ typography:
     regular: 400
     semibold: 600
   size:
-    h1: 28px
-    h2: 24px
     body: 16px
     body-sm: 14px
     button: 16px
     caption: 12px
+    h1: 28px
+    h2: 24px
     h3: 20px
     h4: 18px
     h5: 16px
     h6: 14px
     mono: 14px
 spacing:
-  xs: 4px
-  sm: 8px
-  md: 16px
   lg: 24px
+  md: 16px
+  sm: 8px
   xl: 32px
+  xs: 4px
   xxl: 64px
 rounded:
   full: 9999px

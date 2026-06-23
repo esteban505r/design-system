@@ -5,28 +5,28 @@
         "$value": "#B91C1C",
         "$type": "color"
       },
-      "success": {
-        "$value": "#F87171",
-        "$type": "color"
-      },
-      "warning": {
-        "$value": "#FEB4B4",
+      "danger-hover": {
+        "$value": "#B91C1C",
         "$type": "color"
       },
       "info": {
         "$value": "#EF4444",
         "$type": "color"
       },
-      "danger-hover": {
-        "$value": "#B91C1C",
-        "$type": "color"
-      },
       "info-hover": {
         "$value": "#B91C1C",
         "$type": "color"
       },
+      "success": {
+        "$value": "#F87171",
+        "$type": "color"
+      },
       "success-hover": {
         "$value": "#EF4444",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#FEB4B4",
         "$type": "color"
       },
       "warning-hover": {

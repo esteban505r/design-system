@@ -43,7 +43,8 @@
     "style-dictionary"
   ],
   "scripts": {
-    "sync": "pnpm run sync:spec",
+    "sync": "pnpm run sync:figma",
+    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs && node tokens-to-spec.mjs",
     "sync:spec": "node spec-to-tokens.mjs && node sd.config.mjs && node tokens-to-figma.mjs --out figma/tokens.json",
     "build": "node sd.config.mjs",
     "parse": "node spec-to-tokens.mjs",
@@ -51,7 +52,6 @@
     "spec:verify": "node tokens-to-spec.mjs --out dist/DESIGN.generated.md",
     "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
     "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
-    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
     "version:set": "node set-release-version.mjs",
     "test": "node --test",
     "clean": "rm -rf dist/ tokens/"
