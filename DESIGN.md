@@ -4,42 +4,42 @@ name: Oter Design System
 description: Single source of truth for Oter design tokens across web, Android, iOS, Flutter, and Compose.
 colors:
   brand:
-    primary: "#DC2626"
-    primary-hover: "#B91C1C"
-    primary-light: "#F87171"
-    primary-tint: "#7F1D1D"
-    primary-tint-15: "#EF444426"
-    primary-tint-20: "#EF444433"
+    primary: "#EA580C"
+    primary-hover: "#C2410C"
+    primary-light: "#FB923C"
+    primary-tint: "#7C2D12"
+    primary-tint-15: "#F9731626"
+    primary-tint-20: "#F9731633"
   surface:
-    background: "#0F0705"
-    border: "#3D1E1E"
-    border-light: "#502A2A"
-    surface: "#1A0D0A"
-    surface-hover: "#291515"
+    background: "#0F0A05"
+    border: "#3D2A1E"
+    border-light: "#50382A"
+    surface: "#1A1109"
+    surface-hover: "#291C12"
   text:
-    primary: "#FFF5F5"
-    secondary: "#FEB4B4"
-    tertiary: "#B91C1C"
+    primary: "#FFF7ED"
+    secondary: "#FED7AA"
+    tertiary: "#C2410C"
   semantic:
-    danger: "#B91C1C"
-    danger-hover: "#B91C1C"
-    info: "#EF4444"
-    info-hover: "#B91C1C"
-    success: "#F87171"
-    success-hover: "#EF4444"
-    warning: "#FEB4B4"
-    warning-hover: "#F87171"
+    danger: "#C2410C"
+    danger-hover: "#C2410C"
+    info: "#F97316"
+    info-hover: "#C2410C"
+    success: "#FB923C"
+    success-hover: "#F97316"
+    warning: "#FED7AA"
+    warning-hover: "#FB923C"
   eisenhower:
-    importance-high: "#F87171"
-    importance-low: "#2E0505"
-    importance-medium: "#FEB4B4"
-    urgency-moderate: "#EF4444"
-    urgency-not: "#7F1D1D"
-    urgency-urgent: "#B91C1C"
+    importance-high: "#FB923C"
+    importance-low: "#2E1505"
+    importance-medium: "#FED7AA"
+    urgency-moderate: "#F97316"
+    urgency-not: "#7C2D12"
+    urgency-urgent: "#C2410C"
   gradient:
-    auth: "linear-gradient(to bottom right, #DC2626, #2E0505)"
-    auth-gradient-color-1: "#B91C1C"
-    auth-gradient-color-2: "#7F1D1D"
+    auth: "linear-gradient(to bottom right, #EA580C, #2E1505)"
+    auth-gradient-color-1: "#C2410C"
+    auth-gradient-color-2: "#7C2D12"
 typography:
   family:
     brand: Geist
@@ -102,17 +102,17 @@ zIndex:
 
 # Oter Design System
 
-> Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on a red-on-umber palette.
+> Oter is a life-management platform spanning **finance, tasks, habits, nutrition, workouts, and study**. The product ships **dark-first** on an orange-on-umber palette.
 
 The machine-readable design tokens live in the YAML frontmatter above — **this is the single source of truth**. Run `pnpm run sync` after editing them to regenerate `tokens/`, `dist/**`, and `figma/tokens.json`. Never hand-edit those generated outputs.
 
 ## Overview
 
-Dark-first, high-contrast UI with a single evocative red accent driving interaction. Calm umber surfaces; the brand red is reserved for the most important action per screen.
+Dark-first, high-contrast UI with a single evocative orange accent driving interaction. Calm umber surfaces; the brand orange is reserved for the most important action per screen.
 
 ## Colors
 
-- **Brand** — `primary` (#DC2626) is the sole interaction driver, with hover/light/tint variants for states and washes.
+- **Brand** — `primary` (#EA580C) is the sole interaction driver, with hover/light/tint variants for states and washes.
 - **Surface** — layered umber backgrounds and borders for depth in dark mode.
 - **Text** — a readable ramp from `primary` down to `tertiary`.
 - **Semantic** — success / warning / danger / info plus hover variants.
