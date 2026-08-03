@@ -78,6 +78,26 @@ jobs:
           echo "dist/android resource counts:"
           grep -c 'name="' dist/android/*.xml
 
+      - name: Verify Compose dist before Gradle
+        run: |
+          set -e
+          test -f dist/compose/DesignTokens.kt || {
+            echo "::error::Missing dist/compose/DesignTokens.kt — sync failed?"
+            exit 1
+          }
+          # Guard against the pre-fix codegen bug where sizes were multiplied by 16.
+          if grep -E 'val spacing1 = 32\.dp\b|val radiusBadge = 159984\.dp\b' dist/compose/DesignTokens.kt; then
+            echo "::error::DesignTokens.kt has the remToDp-multiplied values — sd.config.mjs compose transform group is wrong"
+            exit 1
+          fi
+          # Reject legacy invalid Kotlin syntax that used to leak through (CSS strings, bare identifiers).
+          if grep -E 'val [A-Za-z0-9_]+ = [0-9]+px|rgba\(|cubic-bezier|val fontFamily[A-Za-z0-9_]+ = [A-Z]' dist/compose/DesignTokens.kt; then
+            echo "::error::DesignTokens.kt contains invalid Kotlin (unquoted CSS shadow/motion/family) — check compose/typed-object format"
+            exit 1
+          fi
+          echo "dist/compose token count:"
+          grep -c '^\s*val ' dist/compose/DesignTokens.kt
+
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'

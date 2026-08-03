@@ -6,7 +6,7 @@
 > the Maven release version comes from the `VERSION` file at the repo root (the version
 > line below is a synced mirror).
 
-**Version:** 2.0.0 · **Scope:** Android (Compose) · iOS (planned) · **Status:** Active
+**Version:** 2.1.0
 
 ---
 

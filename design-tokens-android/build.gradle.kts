@@ -1,5 +1,6 @@
 plugins {
     id("com.android.library")
+    id("org.jetbrains.kotlin.android")
     id("maven-publish")
 }
 
@@ -42,12 +43,27 @@ val syncAndroidTokensFromDist = tasks.register<Copy>("syncAndroidTokensFromDist"
     }
 }
 
+val syncComposeTokensFromDist = tasks.register<Copy>("syncComposeTokensFromDist") {
+    group = "build"
+    description = "Copy dist/compose/DesignTokens.kt into this module (run: pnpm run sync)"
+    from(rootProject.layout.projectDirectory.dir("dist/compose"))
+    include("DesignTokens.kt")
+    into(layout.projectDirectory.dir("src/main/kotlin/com/estebanruano/designtokens"))
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    doFirst {
+        val f = rootProject.layout.projectDirectory.file("dist/compose/DesignTokens.kt").asFile
+        require(f.exists()) {
+            "Missing dist/compose/DesignTokens.kt — from repo root run: pnpm run sync"
+        }
+    }
+}
+
 val mavenGroupId = (rootProject.findProperty("mavenGroupId") as String?) ?: error("mavenGroupId missing in root gradle.properties")
 val mavenArtifactId = (rootProject.findProperty("mavenArtifactId") as String?) ?: error("mavenArtifactId missing in root gradle.properties")
 val tokensAndroidNamespace = (rootProject.findProperty("tokensAndroidNamespace") as String?) ?: error("tokensAndroidNamespace missing in root gradle.properties")
 
 tasks.named("preBuild") {
-    dependsOn(syncAndroidTokensFromDist)
+    dependsOn(syncAndroidTokensFromDist, syncComposeTokensFromDist)
 }
 
 android {
@@ -70,11 +86,28 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    sourceSets {
+        getByName("main") {
+            java.srcDirs("src/main/kotlin")
+        }
+    }
+
     publishing {
         singleVariant("release") {
             withSourcesJar()
         }
     }
+}
+
+// Compose types used by the generated DesignTokens object.
+// compileOnly: consumers already ship Compose; do not force a runtime dep or lock a version.
+dependencies {
+    compileOnly("androidx.compose.ui:ui-graphics:1.6.8")
+    compileOnly("androidx.compose.ui:ui-unit:1.6.8")
 }
 
 val tokensVersion: String =
