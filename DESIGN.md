@@ -1,10 +1,27 @@
 # Belcorp Design System — Token Reference
 
-> **Generated file — do not edit.**  
-> Produced by `pnpm run sync` from `figma/tokens.json`, the single source of truth.  
-> To change a value, change the token in Figma and re-sync — edits here are overwritten.
+> ## 🤖 Automatically generated — do not edit
+>
+> This file is written by `sd.config.mjs` (the `markdown/design-doc` format)
+> from **`figma/tokens.json`**, the single source of truth. Any edit you make
+> here is overwritten the next time it regenerates.
+>
+> **To change a value:** change the token in Figma, export to
+> `figma/tokens.json`, then run `pnpm run sync`.
 
-**Version:** 2.6.0  
+### When this file regenerates
+
+| When | What triggers it |
+|---|---|
+| `pnpm run sync` (or `sync:figma`) | Manually, after editing `figma/tokens.json` |
+| `pnpm run build` | Style Dictionary rebuild — the `docs` platform runs with every other platform |
+| **Sync tokens from Figma JSON** workflow | A push touching `figma/tokens.json`, or manual dispatch |
+| **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |
+| **CI**, on every PR to `main` or `belcorp` | Re-runs `sync:figma` and **fails the build if this file differs** from what was committed |
+
+That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, so what you read here always matches the artifact the apps compile against.
+
+**Version:** 3.0.0  
 **Tokens:** 317  
 **By type:** color 240 · dimension 42 · fontSize 12 · shadow 5 · duration 5 · number 5 · fontWeight 4 · cubicBezier 3 · fontFamily 1
 
@@ -61,136 +78,136 @@ Every token below is listed with the exact identifier to type on each platform.
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
 | `color.app.black.alpha-40` | `#00000066` | `colorAppBlackAlpha40` | `@color/color_app_black_alpha_40` | `--color-app-black-alpha-40` |
-| `color.app.blue.50-light` | `#F4F8FC` | `colorAppBlue50Light` | `@color/color_app_blue_50_light` | `--color-app-blue-50-light` |
-| `color.app.blue.alpha-50` | `#0856BF80` | `colorAppBlueAlpha50` | `@color/color_app_blue_alpha_50` | `--color-app-blue-alpha-50` |
+| `color.app.blue.50-light` | `#FFF6F1` | `colorAppBlue50Light` | `@color/color_app_blue_50_light` | `--color-app-blue-50-light` |
+| `color.app.blue.alpha-50` | `#C23F2F80` | `colorAppBlueAlpha50` | `@color/color_app_blue_alpha_50` | `--color-app-blue-alpha-50` |
 | `color.app.border-subtle` | `#00000011` | `colorAppBorderSubtle` | `@color/color_app_border_subtle` | `--color-app-border-subtle` |
-| `color.app.brand-tint-05` | `#7D4DBE0D` | `colorAppBrandTint05` | `@color/color_app_brand_tint_05` | `--color-app-brand-tint-05` |
-| `color.app.camino-ambar` | `#D46259` | `colorAppCaminoAmbar` | `@color/color_app_camino_ambar` | `--color-app-camino-ambar` |
-| `color.app.camino-ambar-deep` | `#912C23` | `colorAppCaminoAmbarDeep` | `@color/color_app_camino_ambar_deep` | `--color-app-camino-ambar-deep` |
-| `color.app.camino-brillante` | `#59595B` | `colorAppCaminoBrillante` | `@color/color_app_camino_brillante` | `--color-app-camino-brillante` |
-| `color.app.camino-brillante-deep` | `#212127` | `colorAppCaminoBrillanteDeep` | `@color/color_app_camino_brillante_deep` | `--color-app-camino-brillante-deep` |
-| `color.app.camino-club-card-bg` | `#FFFDF2` | `colorAppCaminoClubCardBg` | `@color/color_app_camino_club_card_bg` | `--color-app-camino-club-card-bg` |
-| `color.app.camino-club-card-gold` | `#C07B27` | `colorAppCaminoClubCardGold` | `@color/color_app_camino_club_card_gold` | `--color-app-camino-club-card-gold` |
-| `color.app.camino-club-card-highlight` | `#FDF1AD` | `colorAppCaminoClubCardHighlight` | `@color/color_app_camino_club_card_highlight` | `--color-app-camino-club-card-highlight` |
-| `color.app.camino-consultora` | `#6B49A5` | `colorAppCaminoConsultora` | `@color/color_app_camino_consultora` | `--color-app-camino-consultora` |
-| `color.app.camino-consultora-deep` | `#2B1257` | `colorAppCaminoConsultoraDeep` | `@color/color_app_camino_consultora_deep` | `--color-app-camino-consultora-deep` |
-| `color.app.camino-coral` | `#E39E46` | `colorAppCaminoCoral` | `@color/color_app_camino_coral` | `--color-app-camino-coral` |
-| `color.app.camino-coral-deep` | `#774E19` | `colorAppCaminoCoralDeep` | `@color/color_app_camino_coral_deep` | `--color-app-camino-coral-deep` |
-| `color.app.camino-cristal` | `#28A0AD` | `colorAppCaminoCristal` | `@color/color_app_camino_cristal` | `--color-app-camino-cristal` |
-| `color.app.camino-cristal-light` | `#8AD6D6` | `colorAppCaminoCristalLight` | `@color/color_app_camino_cristal_light` | `--color-app-camino-cristal-light` |
-| `color.app.camino-diamante` | `#406D9F` | `colorAppCaminoDiamante` | `@color/color_app_camino_diamante` | `--color-app-camino-diamante` |
-| `color.app.camino-diamante-light` | `#6F91BC` | `colorAppCaminoDiamanteLight` | `@color/color_app_camino_diamante_light` | `--color-app-camino-diamante-light` |
-| `color.app.camino-first-level` | `#CB0A0A` | `colorAppCaminoFirstLevel` | `@color/color_app_camino_first_level` | `--color-app-camino-first-level` |
-| `color.app.camino-gran-brillante` | `#BA8B37` | `colorAppCaminoGranBrillante` | `@color/color_app_camino_gran_brillante` | `--color-app-camino-gran-brillante` |
-| `color.app.camino-gran-brillante-light` | `#D6C159` | `colorAppCaminoGranBrillanteLight` | `@color/color_app_camino_gran_brillante_light` | `--color-app-camino-gran-brillante-light` |
-| `color.app.camino-jade` | `#5FB19B` | `colorAppCaminoJade` | `@color/color_app_camino_jade` | `--color-app-camino-jade` |
-| `color.app.camino-perla-deep` | `#5D1233` | `colorAppCaminoPerlaDeep` | `@color/color_app_camino_perla_deep` | `--color-app-camino-perla-deep` |
-| `color.app.camino-rubi` | `#C23C4B` | `colorAppCaminoRubi` | `@color/color_app_camino_rubi` | `--color-app-camino-rubi` |
-| `color.app.camino-rubi-light` | `#D4727E` | `colorAppCaminoRubiLight` | `@color/color_app_camino_rubi_light` | `--color-app-camino-rubi-light` |
-| `color.app.camino-topacio` | `#276F9C` | `colorAppCaminoTopacio` | `@color/color_app_camino_topacio` | `--color-app-camino-topacio` |
-| `color.app.camino-topacio-deep` | `#0B3956` | `colorAppCaminoTopacioDeep` | `@color/color_app_camino_topacio_deep` | `--color-app-camino-topacio-deep` |
-| `color.app.campaign-purple` | `#7A5ADB` | `colorAppCampaignPurple` | `@color/color_app_campaign_purple` | `--color-app-campaign-purple` |
-| `color.app.check-campaign-purple` | `#845ED1` | `colorAppCheckCampaignPurple` | `@color/color_app_check_campaign_purple` | `--color-app-check-campaign-purple` |
-| `color.app.divider-dotted` | `#949393` | `colorAppDividerDotted` | `@color/color_app_divider_dotted` | `--color-app-divider-dotted` |
-| `color.app.divider-onboarding` | `#1F1F1F` | `colorAppDividerOnboarding` | `@color/color_app_divider_onboarding` | `--color-app-divider-onboarding` |
-| `color.app.divider-solid-dark` | `#111111` | `colorAppDividerSolidDark` | `@color/color_app_divider_solid_dark` | `--color-app-divider-solid-dark` |
-| `color.app.dream-survey-bg` | `#E6E0FF` | `colorAppDreamSurveyBg` | `@color/color_app_dream_survey_bg` | `--color-app-dream-survey-bg` |
-| `color.app.earnings-pink-bg` | `#FFF1F4` | `colorAppEarningsPinkBg` | `@color/color_app_earnings_pink_bg` | `--color-app-earnings-pink-bg` |
-| `color.app.ecatalogue-blue` | `#0856BF` | `colorAppEcatalogueBlue` | `@color/color_app_ecatalogue_blue` | `--color-app-ecatalogue-blue` |
-| `color.app.event-tag-gold` | `#B3842F` | `colorAppEventTagGold` | `@color/color_app_event_tag_gold` | `--color-app-event-tag-gold` |
-| `color.app.gana-plus-indigo` | `#432DD7` | `colorAppGanaPlusIndigo` | `@color/color_app_gana_plus_indigo` | `--color-app-gana-plus-indigo` |
-| `color.app.gana-plus-purple` | `#9810FA` | `colorAppGanaPlusPurple` | `@color/color_app_gana_plus_purple` | `--color-app-gana-plus-purple` |
-| `color.app.gray.300-light` | `#C4C4C4` | `colorAppGray300Light` | `@color/color_app_gray_300_light` | `--color-app-gray-300-light` |
-| `color.app.gray.50-warm` | `#F6F6F6` | `colorAppGray50Warm` | `@color/color_app_gray_50_warm` | `--color-app-gray-50-warm` |
-| `color.app.gray.600-warm` | `#777676` | `colorAppGray600Warm` | `@color/color_app_gray_600_warm` | `--color-app-gray-600-warm` |
-| `color.app.green.alpha-20` | `#5FB19B33` | `colorAppGreenAlpha20` | `@color/color_app_green_alpha_20` | `--color-app-green-alpha-20` |
-| `color.app.header-purple-deep` | `#3C1D97` | `colorAppHeaderPurpleDeep` | `@color/color_app_header_purple_deep` | `--color-app-header-purple-deep` |
-| `color.app.header-purple-light` | `#EDE7FF` | `colorAppHeaderPurpleLight` | `@color/color_app_header_purple_light` | `--color-app-header-purple-light` |
-| `color.app.header-text-dark` | `#212121` | `colorAppHeaderTextDark` | `@color/color_app_header_text_dark` | `--color-app-header-text-dark` |
-| `color.app.highlight-arrow` | `#4DD0E1` | `colorAppHighlightArrow` | `@color/color_app_highlight_arrow` | `--color-app-highlight-arrow` |
-| `color.app.icon-burgundy` | `#944065` | `colorAppIconBurgundy` | `@color/color_app_icon_burgundy` | `--color-app-icon-burgundy` |
-| `color.app.learning-path-bg` | `#E7DCFF` | `colorAppLearningPathBg` | `@color/color_app_learning_path_bg` | `--color-app-learning-path-bg` |
-| `color.app.learning-path-dark` | `#2D155E` | `colorAppLearningPathDark` | `@color/color_app_learning_path_dark` | `--color-app-learning-path-dark` |
-| `color.app.learning-path-lilac` | `#D9C4FF` | `colorAppLearningPathLilac` | `@color/color_app_learning_path_lilac` | `--color-app-learning-path-lilac` |
-| `color.app.learning-path-pink` | `#FBD7F4` | `colorAppLearningPathPink` | `@color/color_app_learning_path_pink` | `--color-app-learning-path-pink` |
-| `color.app.learning-path-purple` | `#6B3DB7` | `colorAppLearningPathPurple` | `@color/color_app_learning_path_purple` | `--color-app-learning-path-purple` |
-| `color.app.modifier-indigo` | `#8468FF` | `colorAppModifierIndigo` | `@color/color_app_modifier_indigo` | `--color-app-modifier-indigo` |
-| `color.app.modifier-lilac` | `#D8CCFD` | `colorAppModifierLilac` | `@color/color_app_modifier_lilac` | `--color-app-modifier-lilac` |
-| `color.app.offer-of-the-day-gold` | `#CDA938` | `colorAppOfferOfTheDayGold` | `@color/color_app_offer_of_the_day_gold` | `--color-app-offer-of-the-day-gold` |
-| `color.app.payment-blue` | `#2E7BC1` | `colorAppPaymentBlue` | `@color/color_app_payment_blue` | `--color-app-payment-blue` |
-| `color.app.pdp-bg` | `#F8F4FC` | `colorAppPdpBg` | `@color/color_app_pdp_bg` | `--color-app-pdp-bg` |
-| `color.app.period-purple` | `#9C27B0` | `colorAppPeriodPurple` | `@color/color_app_period_purple` | `--color-app-period-purple` |
-| `color.app.pink.50-dark` | `#FCE7F3` | `colorAppPink50Dark` | `@color/color_app_pink_50_dark` | `--color-app-pink-50-dark` |
-| `color.app.points-amber` | `#FFA000` | `colorAppPointsAmber` | `@color/color_app_points_amber` | `--color-app-points-amber` |
-| `color.app.points-orange` | `#FF6B35` | `colorAppPointsOrange` | `@color/color_app_points_orange` | `--color-app-points-orange` |
-| `color.app.points-teal` | `#4ECDC4` | `colorAppPointsTeal` | `@color/color_app_points_teal` | `--color-app-points-teal` |
-| `color.app.purple-deep-action` | `#5A2BC8` | `colorAppPurpleDeepAction` | `@color/color_app_purple_deep_action` | `--color-app-purple-deep-action` |
-| `color.app.purple.100-message` | `#F2E4F9` | `colorAppPurple100Message` | `@color/color_app_purple_100_message` | `--color-app-purple-100-message` |
-| `color.app.purple.100-quiz` | `#EFE7FF` | `colorAppPurple100Quiz` | `@color/color_app_purple_100_quiz` | `--color-app-purple-100-quiz` |
-| `color.app.purple.200-alpha-15` | `#BCA8F226` | `colorAppPurple200Alpha15` | `@color/color_app_purple_200_alpha_15` | `--color-app-purple-200-alpha-15` |
-| `color.app.purple.200-gradient` | `#CFC6F3` | `colorAppPurple200Gradient` | `@color/color_app_purple_200_gradient` | `--color-app-purple-200-gradient` |
-| `color.app.purple.200-light` | `#DCC9FF` | `colorAppPurple200Light` | `@color/color_app_purple_200_light` | `--color-app-purple-200-light` |
-| `color.app.purple.200-mid` | `#DBCCFD` | `colorAppPurple200Mid` | `@color/color_app_purple_200_mid` | `--color-app-purple-200-mid` |
-| `color.app.purple.300-end` | `#B468FF` | `colorAppPurple300End` | `@color/color_app_purple_300_end` | `--color-app-purple-300-end` |
-| `color.app.purple.300-scrim` | `#BCA8F2` | `colorAppPurple300Scrim` | `@color/color_app_purple_300_scrim` | `--color-app-purple-300-scrim` |
-| `color.app.purple.400-light` | `#A483D2` | `colorAppPurple400Light` | `@color/color_app_purple_400_light` | `--color-app-purple-400-light` |
-| `color.app.purple.50-bottom` | `#F2EEFD` | `colorAppPurple50Bottom` | `@color/color_app_purple_50_bottom` | `--color-app-purple-50-bottom` |
-| `color.app.purple.50-tip` | `#FAF0FE` | `colorAppPurple50Tip` | `@color/color_app_purple_50_tip` | `--color-app-purple-50-tip` |
-| `color.app.purple.500-action` | `#7C5CBF` | `colorAppPurple500Action` | `@color/color_app_purple_500_action` | `--color-app-purple-500-action` |
-| `color.app.purple.500-animation` | `#A421BF` | `colorAppPurple500Animation` | `@color/color_app_purple_500_animation` | `--color-app-purple-500-animation` |
-| `color.app.purple.500-light` | `#946DCA` | `colorAppPurple500Light` | `@color/color_app_purple_500_light` | `--color-app-purple-500-light` |
-| `color.app.purple.600-consultora` | `#8D45CC` | `colorAppPurple600Consultora` | `@color/color_app_purple_600_consultora` | `--color-app-purple-600-consultora` |
-| `color.app.purple.600-gana` | `#9A00AB` | `colorAppPurple600Gana` | `@color/color_app_purple_600_gana` | `--color-app-purple-600-gana` |
-| `color.app.purple.600-light` | `#875BC3` | `colorAppPurple600Light` | `@color/color_app_purple_600_light` | `--color-app-purple-600-light` |
-| `color.app.purple.600-mid` | `#6750A3` | `colorAppPurple600Mid` | `@color/color_app_purple_600_mid` | `--color-app-purple-600-mid` |
-| `color.app.purple.700-alpha-50` | `#7D4DBE80` | `colorAppPurple700Alpha50` | `@color/color_app_purple_700_alpha_50` | `--color-app-purple-700-alpha-50` |
-| `color.app.purple.700-light` | `#7443B7` | `colorAppPurple700Light` | `@color/color_app_purple_700_light` | `--color-app-purple-700-light` |
-| `color.app.purple.800-alpha-20` | `#6436AB33` | `colorAppPurple800Alpha20` | `@color/color_app_purple_800_alpha_20` | `--color-app-purple-800-alpha-20` |
-| `color.app.purple.800-animation` | `#7A0078` | `colorAppPurple800Animation` | `@color/color_app_purple_800_animation` | `--color-app-purple-800-animation` |
-| `color.app.purple.900-brillante` | `#49266E` | `colorAppPurple900Brillante` | `@color/color_app_purple_900_brillante` | `--color-app-purple-900-brillante` |
-| `color.app.purple.900-dark` | `#372E45` | `colorAppPurple900Dark` | `@color/color_app_purple_900_dark` | `--color-app-purple-900-dark` |
-| `color.app.quiz-answer-correct` | `#4CAF50` | `colorAppQuizAnswerCorrect` | `@color/color_app_quiz_answer_correct` | `--color-app-quiz-answer-correct` |
+| `color.app.brand-tint-05` | `#BE5B060D` | `colorAppBrandTint05` | `@color/color_app_brand_tint_05` | `--color-app-brand-tint-05` |
+| `color.app.camino-ambar` | `#59A354` | `colorAppCaminoAmbar` | `@color/color_app_camino_ambar` | `--color-app-camino-ambar` |
+| `color.app.camino-ambar-deep` | `#18712C` | `colorAppCaminoAmbarDeep` | `@color/color_app_camino_ambar_deep` | `--color-app-camino-ambar-deep` |
+| `color.app.camino-brillante` | `#605852` | `colorAppCaminoBrillante` | `@color/color_app_camino_brillante` | `--color-app-camino-brillante` |
+| `color.app.camino-brillante-deep` | `#27201C` | `colorAppCaminoBrillanteDeep` | `@color/color_app_camino_brillante_deep` | `--color-app-camino-brillante-deep` |
+| `color.app.camino-club-card-bg` | `#FFFCFA` | `colorAppCaminoClubCardBg` | `@color/color_app_camino_club_card_bg` | `--color-app-camino-club-card-bg` |
+| `color.app.camino-club-card-gold` | `#00AB93` | `colorAppCaminoClubCardGold` | `@color/color_app_camino_club_card_gold` | `--color-app-camino-club-card-gold` |
+| `color.app.camino-club-card-highlight` | `#CAFAFF` | `colorAppCaminoClubCardHighlight` | `@color/color_app_camino_club_card_highlight` | `--color-app-camino-club-card-highlight` |
+| `color.app.camino-consultora` | `#AB551B` | `colorAppCaminoConsultora` | `@color/color_app_camino_consultora` | `--color-app-camino-consultora` |
+| `color.app.camino-consultora-deep` | `#5E2900` | `colorAppCaminoConsultoraDeep` | `@color/color_app_camino_consultora_deep` | `--color-app-camino-consultora-deep` |
+| `color.app.camino-coral` | `#00CCB4` | `colorAppCaminoCoral` | `@color/color_app_camino_coral` | `--color-app-camino-coral` |
+| `color.app.camino-coral-deep` | `#007667` | `colorAppCaminoCoralDeep` | `@color/color_app_camino_coral_deep` | `--color-app-camino-coral-deep` |
+| `color.app.camino-cristal` | `#B791C4` | `colorAppCaminoCristal` | `@color/color_app_camino_cristal` | `--color-app-camino-cristal` |
+| `color.app.camino-cristal-light` | `#D9C8F5` | `colorAppCaminoCristalLight` | `@color/color_app_camino_cristal_light` | `--color-app-camino-cristal-light` |
+| `color.app.camino-diamante` | `#AF666B` | `colorAppCaminoDiamante` | `@color/color_app_camino_diamante` | `--color-app-camino-diamante` |
+| `color.app.camino-diamante-light` | `#CA8A8F` | `colorAppCaminoDiamanteLight` | `@color/color_app_camino_diamante_light` | `--color-app-camino-diamante-light` |
+| `color.app.camino-first-level` | `#00883C` | `colorAppCaminoFirstLevel` | `@color/color_app_camino_first_level` | `--color-app-camino-first-level` |
+| `color.app.camino-gran-brillante` | `#00B2A7` | `colorAppCaminoGranBrillante` | `@color/color_app_camino_gran_brillante` | `--color-app-camino-gran-brillante` |
+| `color.app.camino-gran-brillante-light` | `#00DDE7` | `colorAppCaminoGranBrillanteLight` | `@color/color_app_camino_gran_brillante_light` | `--color-app-camino-gran-brillante-light` |
+| `color.app.camino-jade` | `#98ACE3` | `colorAppCaminoJade` | `@color/color_app_camino_jade` | `--color-app-camino-jade` |
+| `color.app.camino-perla-deep` | `#454908` | `colorAppCaminoPerlaDeep` | `@color/color_app_camino_perla_deep` | `--color-app-camino-perla-deep` |
+| `color.app.camino-rubi` | `#4E8C29` | `colorAppCaminoRubi` | `@color/color_app_camino_rubi` | `--color-app-camino-rubi` |
+| `color.app.camino-rubi-light` | `#88A55D` | `colorAppCaminoRubiLight` | `@color/color_app_camino_rubi_light` | `--color-app-camino-rubi-light` |
+| `color.app.camino-topacio` | `#AD6475` | `colorAppCaminoTopacio` | `@color/color_app_camino_topacio` | `--color-app-camino-topacio` |
+| `color.app.camino-topacio-deep` | `#6C3D46` | `colorAppCaminoTopacioDeep` | `@color/color_app_camino_topacio_deep` | `--color-app-camino-topacio-deep` |
+| `color.app.campaign-purple` | `#D65B0D` | `colorAppCampaignPurple` | `@color/color_app_campaign_purple` | `--color-app-campaign-purple` |
+| `color.app.check-campaign-purple` | `#D1651F` | `colorAppCheckCampaignPurple` | `@color/color_app_check_campaign_purple` | `--color-app-check-campaign-purple` |
+| `color.app.divider-dotted` | `#9B918C` | `colorAppDividerDotted` | `@color/color_app_divider_dotted` | `--color-app-divider-dotted` |
+| `color.app.divider-onboarding` | `#251E19` | `colorAppDividerOnboarding` | `@color/color_app_divider_onboarding` | `--color-app-divider-onboarding` |
+| `color.app.divider-solid-dark` | `#180F08` | `colorAppDividerSolidDark` | `@color/color_app_divider_solid_dark` | `--color-app-divider-solid-dark` |
+| `color.app.dream-survey-bg` | `#FFE1D6` | `colorAppDreamSurveyBg` | `@color/color_app_dream_survey_bg` | `--color-app-dream-survey-bg` |
+| `color.app.earnings-pink-bg` | `#FEF2EC` | `colorAppEarningsPinkBg` | `@color/color_app_earnings_pink_bg` | `--color-app-earnings-pink-bg` |
+| `color.app.ecatalogue-blue` | `#C23F2F` | `colorAppEcatalogueBlue` | `@color/color_app_ecatalogue_blue` | `--color-app-ecatalogue-blue` |
+| `color.app.event-tag-gold` | `#00ABA1` | `colorAppEventTagGold` | `@color/color_app_event_tag_gold` | `--color-app-event-tag-gold` |
+| `color.app.gana-plus-indigo` | `#A84300` | `colorAppGanaPlusIndigo` | `@color/color_app_gana_plus_indigo` | `--color-app-gana-plus-indigo` |
+| `color.app.gana-plus-purple` | `#BA6100` | `colorAppGanaPlusPurple` | `@color/color_app_gana_plus_purple` | `--color-app-gana-plus-purple` |
+| `color.app.gray.300-light` | `#CDC2BC` | `colorAppGray300Light` | `@color/color_app_gray_300_light` | `--color-app-gray-300-light` |
+| `color.app.gray.50-warm` | `#FFF4EE` | `colorAppGray50Warm` | `@color/color_app_gray_50_warm` | `--color-app-gray-50-warm` |
+| `color.app.gray.600-warm` | `#7E746F` | `colorAppGray600Warm` | `@color/color_app_gray_600_warm` | `--color-app-gray-600-warm` |
+| `color.app.green.alpha-20` | `#98ACE333` | `colorAppGreenAlpha20` | `@color/color_app_green_alpha_20` | `--color-app-green-alpha-20` |
+| `color.app.header-purple-deep` | `#833600` | `colorAppHeaderPurpleDeep` | `@color/color_app_header_purple_deep` | `--color-app-header-purple-deep` |
+| `color.app.header-purple-light` | `#FFE8DF` | `colorAppHeaderPurpleLight` | `@color/color_app_header_purple_light` | `--color-app-header-purple-light` |
+| `color.app.header-text-dark` | `#27201B` | `colorAppHeaderTextDark` | `@color/color_app_header_text_dark` | `--color-app-header-text-dark` |
+| `color.app.highlight-arrow` | `#E6B6F1` | `colorAppHighlightArrow` | `@color/color_app_highlight_arrow` | `--color-app-highlight-arrow` |
+| `color.app.icon-burgundy` | `#75712A` | `colorAppIconBurgundy` | `@color/color_app_icon_burgundy` | `--color-app-icon-burgundy` |
+| `color.app.learning-path-bg` | `#FFDECF` | `colorAppLearningPathBg` | `@color/color_app_learning_path_bg` | `--color-app-learning-path-bg` |
+| `color.app.learning-path-dark` | `#642B00` | `colorAppLearningPathDark` | `@color/color_app_learning_path_dark` | `--color-app-learning-path-dark` |
+| `color.app.learning-path-lilac` | `#FFC8AC` | `colorAppLearningPathLilac` | `@color/color_app_learning_path_lilac` | `--color-app-learning-path-lilac` |
+| `color.app.learning-path-pink` | `#FBE1C0` | `colorAppLearningPathPink` | `@color/color_app_learning_path_pink` | `--color-app-learning-path-pink` |
+| `color.app.learning-path-purple` | `#AE4F00` | `colorAppLearningPathPurple` | `@color/color_app_learning_path_purple` | `--color-app-learning-path-purple` |
+| `color.app.modifier-indigo` | `#F36006` | `colorAppModifierIndigo` | `@color/color_app_modifier_indigo` | `--color-app-modifier-indigo` |
+| `color.app.modifier-lilac` | `#FFCDB8` | `colorAppModifierLilac` | `@color/color_app_modifier_lilac` | `--color-app-modifier-lilac` |
+| `color.app.offer-of-the-day-gold` | `#00CBCB` | `colorAppOfferOfTheDayGold` | `@color/color_app_offer_of_the_day_gold` | `--color-app-offer-of-the-day-gold` |
+| `color.app.payment-blue` | `#CD6870` | `colorAppPaymentBlue` | `@color/color_app_payment_blue` | `--color-app-payment-blue` |
+| `color.app.pdp-bg` | `#FEF3ED` | `colorAppPdpBg` | `@color/color_app_pdp_bg` | `--color-app-pdp-bg` |
+| `color.app.period-purple` | `#A16300` | `colorAppPeriodPurple` | `@color/color_app_period_purple` | `--color-app-period-purple` |
+| `color.app.pink.50-dark` | `#F7EEDC` | `colorAppPink50Dark` | `@color/color_app_pink_50_dark` | `--color-app-pink-50-dark` |
+| `color.app.points-amber` | `#00D5BB` | `colorAppPointsAmber` | `@color/color_app_points_amber` | `--color-app-points-amber` |
+| `color.app.points-orange` | `#00BD71` | `colorAppPointsOrange` | `@color/color_app_points_orange` | `--color-app-points-orange` |
+| `color.app.points-teal` | `#C2BAFF` | `colorAppPointsTeal` | `@color/color_app_points_teal` | `--color-app-points-teal` |
+| `color.app.purple-deep-action` | `#A44700` | `colorAppPurpleDeepAction` | `@color/color_app_purple_deep_action` | `--color-app-purple-deep-action` |
+| `color.app.purple.100-message` | `#FEE7D7` | `colorAppPurple100Message` | `@color/color_app_purple_100_message` | `--color-app-purple-100-message` |
+| `color.app.purple.100-quiz` | `#FFE9DF` | `colorAppPurple100Quiz` | `@color/color_app_purple_100_quiz` | `--color-app-purple-100-quiz` |
+| `color.app.purple.200-alpha-15` | `#FAA98226` | `colorAppPurple200Alpha15` | `@color/color_app_purple_200_alpha_15` | `--color-app-purple-200-alpha-15` |
+| `color.app.purple.200-gradient` | `#FCC6B1` | `colorAppPurple200Gradient` | `@color/color_app_purple_200_gradient` | `--color-app-purple-200-gradient` |
+| `color.app.purple.200-light` | `#FFCCB3` | `colorAppPurple200Light` | `@color/color_app_purple_200_light` | `--color-app-purple-200-light` |
+| `color.app.purple.200-mid` | `#FFCEB8` | `colorAppPurple200Mid` | `@color/color_app_purple_200_mid` | `--color-app-purple-200-mid` |
+| `color.app.purple.300-end` | `#F07900` | `colorAppPurple300End` | `@color/color_app_purple_300_end` | `--color-app-purple-300-end` |
+| `color.app.purple.300-scrim` | `#FAA982` | `colorAppPurple300Scrim` | `@color/color_app_purple_300_scrim` | `--color-app-purple-300-scrim` |
+| `color.app.purple.400-light` | `#DB8B5B` | `colorAppPurple400Light` | `@color/color_app_purple_400_light` | `--color-app-purple-400-light` |
+| `color.app.purple.50-bottom` | `#FFEFE8` | `colorAppPurple50Bottom` | `@color/color_app_purple_50_bottom` | `--color-app-purple-50-bottom` |
+| `color.app.purple.50-tip` | `#FFF2EA` | `colorAppPurple50Tip` | `@color/color_app_purple_50_tip` | `--color-app-purple-50-tip` |
+| `color.app.purple.500-action` | `#C4642A` | `colorAppPurple500Action` | `@color/color_app_purple_500_action` | `--color-app-purple-500-action` |
+| `color.app.purple.500-animation` | `#A76600` | `colorAppPurple500Animation` | `@color/color_app_purple_500_animation` | `--color-app-purple-500-animation` |
+| `color.app.purple.500-light` | `#D0773D` | `colorAppPurple500Light` | `@color/color_app_purple_500_light` | `--color-app-purple-500-light` |
+| `color.app.purple.600-consultora` | `#BE6100` | `colorAppPurple600Consultora` | `@color/color_app_purple_600_consultora` | `--color-app-purple-600-consultora` |
+| `color.app.purple.600-gana` | `#965E00` | `colorAppPurple600Gana` | `@color/color_app_purple_600_gana` | `--color-app-purple-600-gana` |
+| `color.app.purple.600-light` | `#C66722` | `colorAppPurple600Light` | `@color/color_app_purple_600_light` | `--color-app-purple-600-light` |
+| `color.app.purple.600-mid` | `#AC592B` | `colorAppPurple600Mid` | `@color/color_app_purple_600_mid` | `--color-app-purple-600-mid` |
+| `color.app.purple.700-alpha-50` | `#BE5B0680` | `colorAppPurple700Alpha50` | `@color/color_app_purple_700_alpha_50` | `--color-app-purple-700-alpha-50` |
+| `color.app.purple.700-light` | `#B35400` | `colorAppPurple700Light` | `@color/color_app_purple_700_light` | `--color-app-purple-700-light` |
+| `color.app.purple.800-alpha-20` | `#A34A0033` | `colorAppPurple800Alpha20` | `@color/color_app_purple_800_alpha_20` | `--color-app-purple-800-alpha-20` |
+| `color.app.purple.800-animation` | `#754E00` | `colorAppPurple800Animation` | `@color/color_app_purple_800_animation` | `--color-app-purple-800-animation` |
+| `color.app.purple.900-brillante` | `#7A3B04` | `colorAppPurple900Brillante` | `@color/color_app_purple_900_brillante` | `--color-app-purple-900-brillante` |
+| `color.app.purple.900-dark` | `#5B4133` | `colorAppPurple900Dark` | `@color/color_app_purple_900_dark` | `--color-app-purple-900-dark` |
+| `color.app.quiz-answer-correct` | `#00B2F0` | `colorAppQuizAnswerCorrect` | `@color/color_app_quiz_answer_correct` | `--color-app-quiz-answer-correct` |
 | `color.app.quiz-feedback-bg` | `#E0D4FF` | `colorAppQuizFeedbackBg` | `@color/color_app_quiz_feedback_bg` | `--color-app-quiz-feedback-bg` |
 | `color.app.quiz-feedback-green` | `#08A66E` | `colorAppQuizFeedbackGreen` | `@color/color_app_quiz_feedback_green` | `--color-app-quiz-feedback-green` |
-| `color.app.quiz-message-text` | `#444444` | `colorAppQuizMessageText` | `@color/color_app_quiz_message_text` | `--color-app-quiz-message-text` |
-| `color.app.quiz-progress-completed` | `#AF96E3` | `colorAppQuizProgressCompleted` | `@color/color_app_quiz_progress_completed` | `--color-app-quiz-progress-completed` |
-| `color.app.quiz-progress-track` | `#E0E0E0` | `colorAppQuizProgressTrack` | `@color/color_app_quiz_progress_track` | `--color-app-quiz-progress-track` |
-| `color.app.red.alpha-50` | `#E1251B80` | `colorAppRedAlpha50` | `@color/color_app_red_alpha_50` | `--color-app-red-alpha-50` |
-| `color.app.referrals-bg` | `#F5F5F5` | `colorAppReferralsBg` | `@color/color_app_referrals_bg` | `--color-app-referrals-bg` |
-| `color.app.refresh-green` | `#05C07E` | `colorAppRefreshGreen` | `@color/color_app_refresh_green` | `--color-app-refresh-green` |
+| `color.app.quiz-message-text` | `#4B423E` | `colorAppQuizMessageText` | `@color/color_app_quiz_message_text` | `--color-app-quiz-message-text` |
+| `color.app.quiz-progress-completed` | `#EB9A6F` | `colorAppQuizProgressCompleted` | `@color/color_app_quiz_progress_completed` | `--color-app-quiz-progress-completed` |
+| `color.app.quiz-progress-track` | `#E9DED8` | `colorAppQuizProgressTrack` | `@color/color_app_quiz_progress_track` | `--color-app-quiz-progress-track` |
+| `color.app.red.alpha-50` | `#00984080` | `colorAppRedAlpha50` | `@color/color_app_red_alpha_50` | `--color-app-red-alpha-50` |
+| `color.app.referrals-bg` | `#FEF3ED` | `colorAppReferralsBg` | `@color/color_app_referrals_bg` | `--color-app-referrals-bg` |
+| `color.app.refresh-green` | `#6EB7FF` | `colorAppRefreshGreen` | `@color/color_app_refresh_green` | `--color-app-refresh-green` |
 | `color.app.scrim-30` | `#0000004D` | `colorAppScrim30` | `@color/color_app_scrim_30` | `--color-app-scrim-30` |
 | `color.app.scrim-50` | `#00000080` | `colorAppScrim50` | `@color/color_app_scrim_50` | `--color-app-scrim-50` |
 | `color.app.shadow-15` | `#00000026` | `colorAppShadow15` | `@color/color_app_shadow_15` | `--color-app-shadow-15` |
-| `color.app.shimmer-highlight` | `#E1E0E0` | `colorAppShimmerHighlight` | `@color/color_app_shimmer_highlight` | `--color-app-shimmer-highlight` |
-| `color.app.star-animated-lilac` | `#B883FF` | `colorAppStarAnimatedLilac` | `@color/color_app_star_animated_lilac` | `--color-app-star-animated-lilac` |
-| `color.app.star-animated-magenta` | `#E948A3` | `colorAppStarAnimatedMagenta` | `@color/color_app_star_animated_magenta` | `--color-app-star-animated-magenta` |
-| `color.app.star-animated-violet` | `#AF4FD2` | `colorAppStarAnimatedViolet` | `@color/color_app_star_animated_violet` | `--color-app-star-animated-violet` |
-| `color.app.stars-proximity-pink` | `#FF98F5` | `colorAppStarsProximityPink` | `@color/color_app_stars_proximity_pink` | `--color-app-stars-proximity-pink` |
-| `color.app.stat-text-gray` | `#616161` | `colorAppStatTextGray` | `@color/color_app_stat_text_gray` | `--color-app-stat-text-gray` |
-| `color.app.tab-fallback-accent` | `#6C45D9` | `colorAppTabFallbackAccent` | `@color/color_app_tab_fallback_accent` | `--color-app-tab-fallback-accent` |
-| `color.app.tab-unselected` | `#E6D9FF` | `colorAppTabUnselected` | `@color/color_app_tab_unselected` | `--color-app-tab-unselected` |
-| `color.app.tooltip-purple` | `#6B4EFF` | `colorAppTooltipPurple` | `@color/color_app_tooltip_purple` | `--color-app-tooltip-purple` |
-| `color.app.tracker-bg` | `#FDFDFD` | `colorAppTrackerBg` | `@color/color_app_tracker_bg` | `--color-app-tracker-bg` |
-| `color.app.unbeatable-dark` | `#4D3279` | `colorAppUnbeatableDark` | `@color/color_app_unbeatable_dark` | `--color-app-unbeatable-dark` |
-| `color.app.unbeatable-purple` | `#7E48C6` | `colorAppUnbeatablePurple` | `@color/color_app_unbeatable_purple` | `--color-app-unbeatable-purple` |
-| `color.app.video-control-icon` | `#E3E3E3` | `colorAppVideoControlIcon` | `@color/color_app_video_control_icon` | `--color-app-video-control-icon` |
-| `color.app.video-controls-bg` | `#1B1B2F` | `colorAppVideoControlsBg` | `@color/color_app_video_controls_bg` | `--color-app-video-controls-bg` |
+| `color.app.shimmer-highlight` | `#E9DED8` | `colorAppShimmerHighlight` | `@color/color_app_shimmer_highlight` | `--color-app-shimmer-highlight` |
+| `color.app.star-animated-lilac` | `#FC8A3A` | `colorAppStarAnimatedLilac` | `@color/color_app_star_animated_lilac` | `--color-app-star-animated-lilac` |
+| `color.app.star-animated-magenta` | `#A79700` | `colorAppStarAnimatedMagenta` | `@color/color_app_star_animated_magenta` | `--color-app-star-animated-magenta` |
+| `color.app.star-animated-violet` | `#C87400` | `colorAppStarAnimatedViolet` | `@color/color_app_star_animated_violet` | `--color-app-star-animated-violet` |
+| `color.app.stars-proximity-pink` | `#F7B954` | `colorAppStarsProximityPink` | `@color/color_app_stars_proximity_pink` | `--color-app-stars-proximity-pink` |
+| `color.app.stat-text-gray` | `#685F5A` | `colorAppStatTextGray` | `@color/color_app_stat_text_gray` | `--color-app-stat-text-gray` |
+| `color.app.tab-fallback-accent` | `#C15200` | `colorAppTabFallbackAccent` | `@color/color_app_tab_fallback_accent` | `--color-app-tab-fallback-accent` |
+| `color.app.tab-unselected` | `#FFDBCB` | `colorAppTabUnselected` | `@color/color_app_tab_unselected` | `--color-app-tab-unselected` |
+| `color.app.tooltip-purple` | `#D75600` | `colorAppTooltipPurple` | `@color/color_app_tooltip_purple` | `--color-app-tooltip-purple` |
+| `color.app.tracker-bg` | `#FFFDFB` | `colorAppTrackerBg` | `@color/color_app_tracker_bg` | `--color-app-tracker-bg` |
+| `color.app.unbeatable-dark` | `#854214` | `colorAppUnbeatableDark` | `@color/color_app_unbeatable_dark` | `--color-app-unbeatable-dark` |
+| `color.app.unbeatable-purple` | `#BE5A00` | `colorAppUnbeatablePurple` | `@color/color_app_unbeatable_purple` | `--color-app-unbeatable-purple` |
+| `color.app.video-control-icon` | `#ECE1DB` | `colorAppVideoControlIcon` | `@color/color_app_video_control_icon` | `--color-app-video-control-icon` |
+| `color.app.video-controls-bg` | `#462D25` | `colorAppVideoControlsBg` | `@color/color_app_video_controls_bg` | `--color-app-video-controls-bg` |
 | `color.app.white-alpha-20` | `#FFFFFF33` | `colorAppWhiteAlpha20` | `@color/color_app_white_alpha_20` | `--color-app-white-alpha-20` |
 | `color.app.white.alpha-75` | `#FFFFFFBF` | `colorAppWhiteAlpha75` | `@color/color_app_white_alpha_75` | `--color-app-white-alpha-75` |
-| `color.app.yellow.alpha-50` | `#B3842F80` | `colorAppYellowAlpha50` | `@color/color_app_yellow_alpha_50` | `--color-app-yellow-alpha-50` |
+| `color.app.yellow.alpha-50` | `#00ABA180` | `colorAppYellowAlpha50` | `@color/color_app_yellow_alpha_50` | `--color-app-yellow-alpha-50` |
 
 ## color · bg
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.bg.brand` | `#7D4DBE` | `colorBgBrand` | `@color/color_bg_brand` | `--color-bg-brand` |
-| `color.bg.brand-subtle` | `#EBE2F8` | `colorBgBrandSubtle` | `@color/color_bg_brand_subtle` | `--color-bg-brand-subtle` |
-| `color.bg.disabled` | `#F3F4F6` | `colorBgDisabled` | `@color/color_bg_disabled` | `--color-bg-disabled` |
+| `color.bg.brand` | `#BE5B06` | `colorBgBrand` | `@color/color_bg_brand` | `--color-bg-brand` |
+| `color.bg.brand-subtle` | `#FEE4D6` | `colorBgBrandSubtle` | `@color/color_bg_brand_subtle` | `--color-bg-brand-subtle` |
+| `color.bg.disabled` | `#FDF2EC` | `colorBgDisabled` | `@color/color_bg_disabled` | `--color-bg-disabled` |
 | `color.bg.error` | `#FEE2E2` | `colorBgError` | `@color/color_bg_error` | `--color-bg-error` |
 | `color.bg.info` | `#DBEAFE` | `colorBgInfo` | `@color/color_bg_info` | `--color-bg-info` |
-| `color.bg.overlay` | `#03071299` | `colorBgOverlay` | `@color/color_bg_overlay` | `--color-bg-overlay` |
+| `color.bg.overlay` | `#0F050099` | `colorBgOverlay` | `@color/color_bg_overlay` | `--color-bg-overlay` |
 | `color.bg.page` | `#FFFFFF` | `colorBgPage` | `@color/color_bg_page` | `--color-bg-page` |
-| `color.bg.subtle` | `#F9FAFB` | `colorBgSubtle` | `@color/color_bg_subtle` | `--color-bg-subtle` |
+| `color.bg.subtle` | `#FFF9F5` | `colorBgSubtle` | `@color/color_bg_subtle` | `--color-bg-subtle` |
 | `color.bg.success` | `#BBF7D0` | `colorBgSuccess` | `@color/color_bg_success` | `--color-bg-success` |
 | `color.bg.surface` | `#FFFFFF` | `colorBgSurface` | `@color/color_bg_surface` | `--color-bg-surface` |
 | `color.bg.warning` | `#FEF3C7` | `colorBgWarning` | `@color/color_bg_warning` | `--color-bg-warning` |
@@ -199,26 +216,26 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.blue.100` | `#D7ECF9` | `colorBlue100` | `@color/color_blue_100` | `--color-blue-100` |
-| `color.blue.300` | `#A1C5E8` | `colorBlue300` | `@color/color_blue_300` | `--color-blue-300` |
-| `color.blue.50` | `#F3F8FC` | `colorBlue50` | `@color/color_blue_50` | `--color-blue-50` |
-| `color.blue.600` | `#2596BE` | `colorBlue600` | `@color/color_blue_600` | `--color-blue-600` |
-| `color.blue.700` | `#2F7AC1` | `colorBlue700` | `@color/color_blue_700` | `--color-blue-700` |
+| `color.blue.100` | `#FDE5EE` | `colorBlue100` | `@color/color_blue_100` | `--color-blue-100` |
+| `color.blue.300` | `#F1BAC4` | `colorBlue300` | `@color/color_blue_300` | `--color-blue-300` |
+| `color.blue.50` | `#FFF6F0` | `colorBlue50` | `@color/color_blue_50` | `--color-blue-50` |
+| `color.blue.600` | `#CB82A5` | `colorBlue600` | `@color/color_blue_600` | `--color-blue-600` |
+| `color.blue.700` | `#CD676E` | `colorBlue700` | `@color/color_blue_700` | `--color-blue-700` |
 
 ## color · border
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.border.brand` | `#7D4DBE` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
-| `color.border.default` | `#E5E7EB` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
-| `color.border.disabled` | `#E5E7EB` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
-| `color.border.strong` | `#D1D5DB` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
+| `color.border.brand` | `#BE5B06` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
+| `color.border.default` | `#F0E5DF` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
+| `color.border.disabled` | `#F0E5DF` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
+| `color.border.strong` | `#DDD3CD` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
 
 ## color · brand
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.brand.belcorp` | `#7D4DBE` | `colorBrandBelcorp` | `@color/color_brand_belcorp` | `--color-brand-belcorp` |
+| `color.brand.belcorp` | `#BE5B06` | `colorBrandBelcorp` | `@color/color_brand_belcorp` | `--color-brand-belcorp` |
 | `color.brand.cyzone` | `#A90061` | `colorBrandCyzone` | `@color/color_brand_cyzone` | `--color-brand-cyzone` |
 | `color.brand.esika` | `#E1251B` | `colorBrandEsika` | `@color/color_brand_esika` | `--color-brand-esika` |
 | `color.brand.lbel` | `#2E1A47` | `colorBrandLbel` | `@color/color_brand_lbel` | `--color-brand-lbel` |
@@ -227,51 +244,51 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.brown.600` | `#6F5B40` | `colorBrown600` | `@color/color_brown_600` | `--color-brown-600` |
+| `color.brown.600` | `#457972` | `colorBrown600` | `@color/color_brown_600` | `--color-brown-600` |
 
 ## color · burgundy
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.burgundy.800` | `#4F0036` | `colorBurgundy800` | `@color/color_burgundy_800` | `--color-burgundy-800` |
+| `color.burgundy.800` | `#473B00` | `colorBurgundy800` | `@color/color_burgundy_800` | `--color-burgundy-800` |
 
 ## color · cyan
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.cyan.500` | `#01A9C5` | `colorCyan500` | `@color/color_cyan_500` | `--color-cyan-500` |
+| `color.cyan.500` | `#D092C5` | `colorCyan500` | `@color/color_cyan_500` | `--color-cyan-500` |
 
 ## color · gray
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.gray.100` | `#EFEFEF` | `colorGray100` | `@color/color_gray_100` | `--color-gray-100` |
-| `color.gray.200` | `#D9D9D9` | `colorGray200` | `@color/color_gray_200` | `--color-gray-200` |
-| `color.gray.300` | `#CCCCCC` | `colorGray300` | `@color/color_gray_300` | `--color-gray-300` |
-| `color.gray.400` | `#BDBDBD` | `colorGray400` | `@color/color_gray_400` | `--color-gray-400` |
-| `color.gray.50` | `#F2F2F2` | `colorGray50` | `@color/color_gray_50` | `--color-gray-50` |
-| `color.gray.500` | `#909094` | `colorGray500` | `@color/color_gray_500` | `--color-gray-500` |
-| `color.gray.600` | `#707070` | `colorGray600` | `@color/color_gray_600` | `--color-gray-600` |
-| `color.gray.700` | `#545353` | `colorGray700` | `@color/color_gray_700` | `--color-gray-700` |
-| `color.gray.800` | `#3B3A3A` | `colorGray800` | `@color/color_gray_800` | `--color-gray-800` |
-| `color.gray.850` | `#353434` | `colorGray850` | `@color/color_gray_850` | `--color-gray-850` |
+| `color.gray.100` | `#F8EDE7` | `colorGray100` | `@color/color_gray_100` | `--color-gray-100` |
+| `color.gray.200` | `#E2D7D1` | `colorGray200` | `@color/color_gray_200` | `--color-gray-200` |
+| `color.gray.300` | `#D5CAC4` | `colorGray300` | `@color/color_gray_300` | `--color-gray-300` |
+| `color.gray.400` | `#C6BBB5` | `colorGray400` | `@color/color_gray_400` | `--color-gray-400` |
+| `color.gray.50` | `#FBF0EA` | `colorGray50` | `@color/color_gray_50` | `--color-gray-50` |
+| `color.gray.500` | `#988F89` | `colorGray500` | `@color/color_gray_500` | `--color-gray-500` |
+| `color.gray.600` | `#786E69` | `colorGray600` | `@color/color_gray_600` | `--color-gray-600` |
+| `color.gray.700` | `#5A524D` | `colorGray700` | `@color/color_gray_700` | `--color-gray-700` |
+| `color.gray.800` | `#413934` | `colorGray800` | `@color/color_gray_800` | `--color-gray-800` |
+| `color.gray.850` | `#3B332E` | `colorGray850` | `@color/color_gray_850` | `--color-gray-850` |
 
 ## color · green
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.green.50` | `#E6F3EE` | `colorGreen50` | `@color/color_green_50` | `--color-green-50` |
-| `color.green.700` | `#038356` | `colorGreen700` | `@color/color_green_700` | `--color-green-700` |
+| `color.green.50` | `#F9EEE8` | `colorGreen50` | `@color/color_green_50` | `--color-green-50` |
+| `color.green.700` | `#2587CF` | `colorGreen700` | `@color/color_green_700` | `--color-green-700` |
 
 ## color · interactive
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.interactive.focus-ring` | `#8A5ACE` | `colorInteractiveFocusRing` | `@color/color_interactive_focus_ring` | `--color-interactive-focus-ring` |
-| `color.interactive.primary.active` | `#471F86` | `colorInteractivePrimaryActive` | `@color/color_interactive_primary_active` | `--color-interactive-primary-active` |
-| `color.interactive.primary.default` | `#7D4DBE` | `colorInteractivePrimaryDefault` | `@color/color_interactive_primary_default` | `--color-interactive-primary-default` |
-| `color.interactive.primary.disabled` | `#E5E7EB` | `colorInteractivePrimaryDisabled` | `@color/color_interactive_primary_disabled` | `--color-interactive-primary-disabled` |
-| `color.interactive.primary.hover` | `#6436AB` | `colorInteractivePrimaryHover` | `@color/color_interactive_primary_hover` | `--color-interactive-primary-hover` |
+| `color.interactive.focus-ring` | `#CD6516` | `colorInteractiveFocusRing` | `@color/color_interactive_focus_ring` | `--color-interactive-focus-ring` |
+| `color.interactive.primary.active` | `#7F3900` | `colorInteractivePrimaryActive` | `@color/color_interactive_primary_active` | `--color-interactive-primary-active` |
+| `color.interactive.primary.default` | `#BE5B06` | `colorInteractivePrimaryDefault` | `@color/color_interactive_primary_default` | `--color-interactive-primary-default` |
+| `color.interactive.primary.disabled` | `#F0E5DF` | `colorInteractivePrimaryDisabled` | `@color/color_interactive_primary_disabled` | `--color-interactive-primary-disabled` |
+| `color.interactive.primary.hover` | `#A34A00` | `colorInteractivePrimaryHover` | `@color/color_interactive_primary_hover` | `--color-interactive-primary-hover` |
 | `color.interactive.primary.text` | `#FFFFFF` | `colorInteractivePrimaryText` | `@color/color_interactive_primary_text` | `--color-interactive-primary-text` |
 
 ## color · neutral
@@ -279,88 +296,88 @@ Every token below is listed with the exact identifier to type on each platform.
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
 | `color.neutral.0` | `#FFFFFF` | `colorNeutral0` | `@color/color_neutral_0` | `--color-neutral-0` |
-| `color.neutral.100` | `#F3F4F6` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
+| `color.neutral.100` | `#FDF2EC` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
 | `color.neutral.1000` | `#000000` | `colorNeutral1000` | `@color/color_neutral_1000` | `--color-neutral-1000` |
-| `color.neutral.200` | `#E5E7EB` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
-| `color.neutral.300` | `#D1D5DB` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
-| `color.neutral.400` | `#9CA3AF` | `colorNeutral400` | `@color/color_neutral_400` | `--color-neutral-400` |
-| `color.neutral.50` | `#F9FAFB` | `colorNeutral50` | `@color/color_neutral_50` | `--color-neutral-50` |
-| `color.neutral.500` | `#6B7280` | `colorNeutral500` | `@color/color_neutral_500` | `--color-neutral-500` |
-| `color.neutral.600` | `#4B5563` | `colorNeutral600` | `@color/color_neutral_600` | `--color-neutral-600` |
-| `color.neutral.700` | `#374151` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
-| `color.neutral.800` | `#1F2937` | `colorNeutral800` | `@color/color_neutral_800` | `--color-neutral-800` |
-| `color.neutral.900` | `#030712` | `colorNeutral900` | `@color/color_neutral_900` | `--color-neutral-900` |
+| `color.neutral.200` | `#F0E5DF` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
+| `color.neutral.300` | `#DDD3CD` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
+| `color.neutral.400` | `#BBA9A9` | `colorNeutral400` | `@color/color_neutral_400` | `--color-neutral-400` |
+| `color.neutral.50` | `#FFF9F5` | `colorNeutral50` | `@color/color_neutral_50` | `--color-neutral-50` |
+| `color.neutral.500` | `#917C7C` | `colorNeutral500` | `@color/color_neutral_500` | `--color-neutral-500` |
+| `color.neutral.600` | `#776163` | `colorNeutral600` | `@color/color_neutral_600` | `--color-neutral-600` |
+| `color.neutral.700` | `#674E4F` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
+| `color.neutral.800` | `#4E3839` | `colorNeutral800` | `@color/color_neutral_800` | `--color-neutral-800` |
+| `color.neutral.900` | `#0F0500` | `colorNeutral900` | `@color/color_neutral_900` | `--color-neutral-900` |
 
 ## color · orange
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.orange.500` | `#FFA500` | `colorOrange500` | `@color/color_orange_500` | `--color-orange-500` |
+| `color.orange.500` | `#00D8C1` | `colorOrange500` | `@color/color_orange_500` | `--color-orange-500` |
 
 ## color · pink
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.pink.100` | `#FFC6F9` | `colorPink100` | `@color/color_pink_100` | `--color-pink-100` |
-| `color.pink.200` | `#F9CCF1` | `colorPink200` | `@color/color_pink_200` | `--color-pink-200` |
-| `color.pink.400` | `#F45AC2` | `colorPink400` | `@color/color_pink_400` | `--color-pink-400` |
-| `color.pink.50` | `#FBEFFD` | `colorPink50` | `@color/color_pink_50` | `--color-pink-50` |
-| `color.pink.500` | `#D34DE2` | `colorPink500` | `@color/color_pink_500` | `--color-pink-500` |
-| `color.pink.700` | `#C60361` | `colorPink700` | `@color/color_pink_700` | `--color-pink-700` |
+| `color.pink.100` | `#FFD6A1` | `colorPink100` | `@color/color_pink_100` | `--color-pink-100` |
+| `color.pink.200` | `#F8D9AF` | `colorPink200` | `@color/color_pink_200` | `--color-pink-200` |
+| `color.pink.400` | `#C29E00` | `colorPink400` | `@color/color_pink_400` | `--color-pink-400` |
+| `color.pink.50` | `#FFF2E7` | `colorPink50` | `@color/color_pink_50` | `--color-pink-50` |
+| `color.pink.500` | `#D08500` | `colorPink500` | `@color/color_pink_500` | `--color-pink-500` |
+| `color.pink.700` | `#6B7E00` | `colorPink700` | `@color/color_pink_700` | `--color-pink-700` |
 
 ## color · primary
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.primary.00` | `#F5F0FC` | `colorPrimary00` | `@color/color_primary_00` | `--color-primary-00` |
-| `color.primary.100` | `#D6C4F2` | `colorPrimary100` | `@color/color_primary_100` | `--color-primary-100` |
-| `color.primary.200` | `#B896E7` | `colorPrimary200` | `@color/color_primary_200` | `--color-primary-200` |
-| `color.primary.300` | `#9D6ED9` | `colorPrimary300` | `@color/color_primary_300` | `--color-primary-300` |
-| `color.primary.400` | `#8A5ACE` | `colorPrimary400` | `@color/color_primary_400` | `--color-primary-400` |
-| `color.primary.50` | `#EBE2F8` | `colorPrimary50` | `@color/color_primary_50` | `--color-primary-50` |
-| `color.primary.500` | `#7D4DBE` | `colorPrimary500` | `@color/color_primary_500` | `--color-primary-500` |
-| `color.primary.600` | `#6436AB` | `colorPrimary600` | `@color/color_primary_600` | `--color-primary-600` |
-| `color.primary.700` | `#471F86` | `colorPrimary700` | `@color/color_primary_700` | `--color-primary-700` |
-| `color.primary.800` | `#2D0F5E` | `colorPrimary800` | `@color/color_primary_800` | `--color-primary-800` |
+| `color.primary.00` | `#FFF1EA` | `colorPrimary00` | `@color/color_primary_00` | `--color-primary-00` |
+| `color.primary.100` | `#FBC7AC` | `colorPrimary100` | `@color/color_primary_100` | `--color-primary-100` |
+| `color.primary.200` | `#EE9C6B` | `colorPrimary200` | `@color/color_primary_200` | `--color-primary-200` |
+| `color.primary.300` | `#DB7833` | `colorPrimary300` | `@color/color_primary_300` | `--color-primary-300` |
+| `color.primary.400` | `#CD6516` | `colorPrimary400` | `@color/color_primary_400` | `--color-primary-400` |
+| `color.primary.50` | `#FEE4D6` | `colorPrimary50` | `@color/color_primary_50` | `--color-primary-50` |
+| `color.primary.500` | `#BE5B06` | `colorPrimary500` | `@color/color_primary_500` | `--color-primary-500` |
+| `color.primary.600` | `#A34A00` | `colorPrimary600` | `@color/color_primary_600` | `--color-primary-600` |
+| `color.primary.700` | `#7F3900` | `colorPrimary700` | `@color/color_primary_700` | `--color-primary-700` |
+| `color.primary.800` | `#5F2A00` | `colorPrimary800` | `@color/color_primary_800` | `--color-primary-800` |
 
 ## color · purple
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.purple.100` | `#EFE9FF` | `colorPurple100` | `@color/color_purple_100` | `--color-purple-100` |
-| `color.purple.200` | `#E0D1FF` | `colorPurple200` | `@color/color_purple_200` | `--color-purple-200` |
-| `color.purple.300` | `#CDBFEA` | `colorPurple300` | `@color/color_purple_300` | `--color-purple-300` |
-| `color.purple.400` | `#8A56D6` | `colorPurple400` | `@color/color_purple_400` | `--color-purple-400` |
-| `color.purple.50` | `#F0ECF5` | `colorPurple50` | `@color/color_purple_50` | `--color-purple-50` |
-| `color.purple.500` | `#7B22E6` | `colorPurple500` | `@color/color_purple_500` | `--color-purple-500` |
-| `color.purple.600` | `#7E0EAB` | `colorPurple600` | `@color/color_purple_600` | `--color-purple-600` |
-| `color.purple.900` | `#2D0865` | `colorPurple900` | `@color/color_purple_900` | `--color-purple-900` |
-| `color.purple.950` | `#2B0A63` | `colorPurple950` | `@color/color_purple_950` | `--color-purple-950` |
+| `color.purple.100` | `#FFEAE2` | `colorPurple100` | `@color/color_purple_100` | `--color-purple-100` |
+| `color.purple.200` | `#FFD4BF` | `colorPurple200` | `@color/color_purple_200` | `--color-purple-200` |
+| `color.purple.300` | `#F3C2AA` | `colorPurple300` | `@color/color_purple_300` | `--color-purple-300` |
+| `color.purple.400` | `#D16100` | `colorPurple400` | `@color/color_purple_400` | `--color-purple-400` |
+| `color.purple.50` | `#F6ECE6` | `colorPurple50` | `@color/color_purple_50` | `--color-purple-50` |
+| `color.purple.500` | `#B05600` | `colorPurple500` | `@color/color_purple_500` | `--color-purple-500` |
+| `color.purple.600` | `#915100` | `colorPurple600` | `@color/color_purple_600` | `--color-purple-600` |
+| `color.purple.900` | `#5E2A00` | `colorPurple900` | `@color/color_purple_900` | `--color-purple-900` |
+| `color.purple.950` | `#5E2900` | `colorPurple950` | `@color/color_purple_950` | `--color-purple-950` |
 
 ## color · red
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.red.100` | `#FBE5E5` | `colorRed100` | `@color/color_red_100` | `--color-red-100` |
-| `color.red.400` | `#FF5460` | `colorRed400` | `@color/color_red_400` | `--color-red-400` |
-| `color.red.50` | `#FFDAD6` | `colorRed50` | `@color/color_red_50` | `--color-red-50` |
-| `color.red.600` | `#D40000` | `colorRed600` | `@color/color_red_600` | `--color-red-600` |
-| `color.red.700` | `#BA1A1A` | `colorRed700` | `@color/color_red_700` | `--color-red-700` |
+| `color.red.100` | `#E8EFE0` | `colorRed100` | `@color/color_red_100` | `--color-red-100` |
+| `color.red.400` | `#58B236` | `colorRed400` | `@color/color_red_400` | `--color-red-400` |
+| `color.red.50` | `#D9EBD3` | `colorRed50` | `@color/color_red_50` | `--color-red-50` |
+| `color.red.600` | `#008C41` | `colorRed600` | `@color/color_red_600` | `--color-red-600` |
+| `color.red.700` | `#00822F` | `colorRed700` | `@color/color_red_700` | `--color-red-700` |
 
 ## color · secondary
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.secondary.00` | `#FFFDF5` | `colorSecondary00` | `@color/color_secondary_00` | `--color-secondary-00` |
-| `color.secondary.100` | `#FFECB3` | `colorSecondary100` | `@color/color_secondary_100` | `--color-secondary-100` |
-| `color.secondary.200` | `#FFE082` | `colorSecondary200` | `@color/color_secondary_200` | `--color-secondary-200` |
-| `color.secondary.300` | `#FFD54F` | `colorSecondary300` | `@color/color_secondary_300` | `--color-secondary-300` |
-| `color.secondary.400` | `#FFCA28` | `colorSecondary400` | `@color/color_secondary_400` | `--color-secondary-400` |
-| `color.secondary.50` | `#FFF8E1` | `colorSecondary50` | `@color/color_secondary_50` | `--color-secondary-50` |
-| `color.secondary.500` | `#FFBD42` | `colorSecondary500` | `@color/color_secondary_500` | `--color-secondary-500` |
-| `color.secondary.600` | `#FFB300` | `colorSecondary600` | `@color/color_secondary_600` | `--color-secondary-600` |
-| `color.secondary.700` | `#E79B1D` | `colorSecondary700` | `@color/color_secondary_700` | `--color-secondary-700` |
-| `color.secondary.800` | `#C28B30` | `colorSecondary800` | `@color/color_secondary_800` | `--color-secondary-800` |
+| `color.secondary.00` | `#FFFCFB` | `colorSecondary00` | `@color/color_secondary_00` | `--color-secondary-00` |
+| `color.secondary.100` | `#B1FCFF` | `colorSecondary100` | `@color/color_secondary_100` | `--color-secondary-100` |
+| `color.secondary.200` | `#5AFCFF` | `colorSecondary200` | `@color/color_secondary_200` | `--color-secondary-200` |
+| `color.secondary.300` | `#00F6F7` | `colorSecondary300` | `@color/color_secondary_300` | `--color-secondary-300` |
+| `color.secondary.400` | `#00EEEB` | `colorSecondary400` | `@color/color_secondary_400` | `--color-secondary-400` |
+| `color.secondary.50` | `#E6FDFF` | `colorSecondary50` | `@color/color_secondary_50` | `--color-secondary-50` |
+| `color.secondary.500` | `#00E7D9` | `colorSecondary500` | `@color/color_secondary_500` | `--color-secondary-500` |
+| `color.secondary.600` | `#00E0D1` | `colorSecondary600` | `@color/color_secondary_600` | `--color-secondary-600` |
+| `color.secondary.700` | `#00CAB7` | `colorSecondary700` | `@color/color_secondary_700` | `--color-secondary-700` |
+| `color.secondary.800` | `#00B5A6` | `colorSecondary800` | `@color/color_secondary_800` | `--color-secondary-800` |
 
 ## color · status
 
@@ -383,23 +400,23 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.text.brand` | `#7D4DBE` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
-| `color.text.disabled` | `#D1D5DB` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
+| `color.text.brand` | `#BE5B06` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
+| `color.text.disabled` | `#DDD3CD` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
 | `color.text.error` | `#B91C1C` | `colorTextError` | `@color/color_text_error` | `--color-text-error` |
 | `color.text.info` | `#1245D4` | `colorTextInfo` | `@color/color_text_info` | `--color-text-info` |
 | `color.text.inverse` | `#FFFFFF` | `colorTextInverse` | `@color/color_text_inverse` | `--color-text-inverse` |
-| `color.text.primary` | `#030712` | `colorTextPrimary` | `@color/color_text_primary` | `--color-text-primary` |
-| `color.text.secondary` | `#4B5563` | `colorTextSecondary` | `@color/color_text_secondary` | `--color-text-secondary` |
+| `color.text.primary` | `#0F0500` | `colorTextPrimary` | `@color/color_text_primary` | `--color-text-primary` |
+| `color.text.secondary` | `#776163` | `colorTextSecondary` | `@color/color_text_secondary` | `--color-text-secondary` |
 | `color.text.success` | `#15803D` | `colorTextSuccess` | `@color/color_text_success` | `--color-text-success` |
-| `color.text.tertiary` | `#9CA3AF` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
+| `color.text.tertiary` | `#BBA9A9` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
 | `color.text.warning` | `#BD750F` | `colorTextWarning` | `@color/color_text_warning` | `--color-text-warning` |
 
 ## color · yellow
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.yellow.50` | `#FFF9EC` | `colorYellow50` | `@color/color_yellow_50` | `--color-yellow-50` |
-| `color.yellow.500` | `#FFC83E` | `colorYellow500` | `@color/color_yellow_500` | `--color-yellow-500` |
+| `color.yellow.50` | `#EAFEFE` | `colorYellow50` | `@color/color_yellow_50` | `--color-yellow-50` |
+| `color.yellow.500` | `#00EEE8` | `colorYellow500` | `@color/color_yellow_500` | `--color-yellow-500` |
 
 ## elevation
 

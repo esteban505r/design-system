@@ -30,11 +30,27 @@ figma/tokens.json          ← SSOT (commit this file)
 | `pnpm run build` | `tokens/` → platform `dist/` **and `DESIGN.md`** |
 | `pnpm run figma:verify` | Diff `tokens/` export vs SSOT (`dist/figma/tokens.generated.json`) |
 
-> **`DESIGN.md` is documentation, not a source.** It is regenerated on every
-> build, so what designers read is by construction the same data the apps
-> compile against. Editing it does nothing — change the token in Figma.
-> CI stages all files and fails on any diff, so a stale `DESIGN.md` blocks the
-> PR exactly like a stale `dist/` would.
+### `DESIGN.md` — generated, never authored
+
+`DESIGN.md` at the repo root is **automatically generated**, like everything in
+`dist/`. It is documentation, not a source: editing it does nothing, because the
+next regeneration overwrites it. To change a value, change the token in Figma.
+
+It is rewritten by the `docs` platform in `sd.config.mjs`, which runs as part of
+Style Dictionary's build — so it regenerates **whenever any platform output
+does**:
+
+| When | Trigger |
+|---|---|
+| `pnpm run sync` / `sync:figma` | Manual, after editing `figma/tokens.json` |
+| `pnpm run build` | Style Dictionary rebuild on its own |
+| **Sync tokens from Figma JSON** | Push touching `figma/tokens.json`, or manual dispatch |
+| **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |
+| **CI**, on PRs to `main` or `belcorp` | Re-runs `sync:figma` and **fails on any diff** |
+
+That last row is the guarantee: a stale `DESIGN.md` blocks the PR exactly as a
+stale `dist/` would, so the reference can never drift from the artifact the apps
+compile against.
 
 ---
 

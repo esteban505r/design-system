@@ -264,9 +264,26 @@ ${lines.join('\n')}
         const out = [];
         out.push('# Belcorp Design System — Token Reference\n');
         out.push(
-          '> **Generated file — do not edit.**  \n' +
-            '> Produced by `pnpm run sync` from `figma/tokens.json`, the single source of truth.  \n' +
-            '> To change a value, change the token in Figma and re-sync — edits here are overwritten.\n',
+          '> ## 🤖 Automatically generated — do not edit\n' +
+            '>\n' +
+            '> This file is written by `sd.config.mjs` (the `markdown/design-doc` format)\n' +
+            '> from **`figma/tokens.json`**, the single source of truth. Any edit you make\n' +
+            '> here is overwritten the next time it regenerates.\n' +
+            '>\n' +
+            '> **To change a value:** change the token in Figma, export to\n' +
+            '> `figma/tokens.json`, then run `pnpm run sync`.\n',
+        );
+        out.push('### When this file regenerates\n');
+        out.push('| When | What triggers it |');
+        out.push('|---|---|');
+        out.push('| `pnpm run sync` (or `sync:figma`) | Manually, after editing `figma/tokens.json` |');
+        out.push('| `pnpm run build` | Style Dictionary rebuild — the `docs` platform runs with every other platform |');
+        out.push('| **Sync tokens from Figma JSON** workflow | A push touching `figma/tokens.json`, or manual dispatch |');
+        out.push('| **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |');
+        out.push('| **CI**, on every PR to `main` or `belcorp` | Re-runs `sync:figma` and **fails the build if this file differs** from what was committed |\n');
+        out.push(
+          'That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, ' +
+            'so what you read here always matches the artifact the apps compile against.\n',
         );
         out.push(`**Version:** ${version}  `);
         out.push(`**Tokens:** ${all.length}  `);

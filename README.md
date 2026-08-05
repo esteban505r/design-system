@@ -19,7 +19,7 @@ Single source of truth for all design tokens — **`figma/tokens.json`** (Tokens
 
 | Guide | Audience |
 |-------|----------|
-| **[DESIGN.md](DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Generated — start here.** |
+| **[DESIGN.md](DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Auto-generated on every `pnpm run sync` — start here, never edit it.** |
 | **[Figma SSOT](docs/figma-ssot.md)** | Figma JSON as source — `pnpm run sync:figma` |
 | **[Releasing the Android library](docs/releasing-android.md)** | Shipping a new AAR to the Somos Belcorp app — checklist, versioning, rollback |
 | [Workflow & production](docs/workflow-and-production.md) | Repo/CI setup. **The markdown-source sections describe a removed pipeline** |
