@@ -2,19 +2,19 @@
   "color": {
     "brand": {
       "belcorp": {
-        "$value": "#D81820",
+        "$value": "#7D4DBE",
         "$type": "color"
       },
       "cyzone": {
-        "$value": "#C2141C",
+        "$value": "#A90061",
         "$type": "color"
       },
       "esika": {
-        "$value": "#EB1B24",
+        "$value": "#E1251B",
         "$type": "color"
       },
       "lbel": {
-        "$value": "#7C090D",
+        "$value": "#2E1A47",
         "$type": "color"
       }
     }

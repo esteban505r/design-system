@@ -6,7 +6,7 @@
 > the Maven release version comes from the `VERSION` file at the repo root (the version
 > line below is a synced mirror).
 
-**Version:** 2.4.0
+**Version:** 2.5.0
 
 ---
 

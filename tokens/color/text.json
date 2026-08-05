@@ -2,43 +2,43 @@
   "color": {
     "text": {
       "brand": {
-        "$value": "#D81820",
+        "$value": "#7D4DBE",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#FCA697",
+        "$value": "#D1D5DB",
         "$type": "color"
       },
       "error": {
-        "$value": "#CD161E",
+        "$value": "#B91C1C",
         "$type": "color"
       },
       "info": {
-        "$value": "#C1141C",
+        "$value": "#1245D4",
         "$type": "color"
       },
       "inverse": {
-        "$value": "#FDD0C7",
+        "$value": "#FFFFFF",
         "$type": "color"
       },
       "primary": {
-        "$value": "#570703",
+        "$value": "#030712",
         "$type": "color"
       },
       "secondary": {
-        "$value": "#BF141B",
+        "$value": "#4B5563",
         "$type": "color"
       },
       "success": {
-        "$value": "#E41A23",
+        "$value": "#15803D",
         "$type": "color"
       },
       "tertiary": {
-        "$value": "#FB6B59",
+        "$value": "#9CA3AF",
         "$type": "color"
       },
       "warning": {
-        "$value": "#FA3430",
+        "$value": "#BD750F",
         "$type": "color"
       }
     }

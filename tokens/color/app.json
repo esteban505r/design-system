@@ -3,348 +3,348 @@
     "app": {
       "purple": {
         "700-light": {
-          "$value": "#CD161E",
+          "$value": "#7443B7",
           "$type": "color"
         },
         "600-light": {
-          "$value": "#E71B23",
+          "$value": "#875BC3",
           "$type": "color"
         },
         "600-mid": {
-          "$value": "#CD161E",
+          "$value": "#6750A3",
           "$type": "color"
         },
         "600-consultora": {
-          "$value": "#DD1921",
+          "$value": "#8D45CC",
           "$type": "color"
         },
         "600-gana": {
-          "$value": "#C5151C",
+          "$value": "#9A00AB",
           "$type": "color"
         },
         "500-light": {
-          "$value": "#FA2028",
+          "$value": "#946DCA",
           "$type": "color"
         },
         "500-animation": {
-          "$value": "#D51820",
+          "$value": "#A421BF",
           "$type": "color"
         },
         "500-action": {
-          "$value": "#E31A22",
+          "$value": "#7C5CBF",
           "$type": "color"
         },
         "400-light": {
-          "$value": "#FB5042",
+          "$value": "#A483D2",
           "$type": "color"
         },
         "300-end": {
-          "$value": "#FA473C",
+          "$value": "#B468FF",
           "$type": "color"
         },
         "300-scrim": {
-          "$value": "#FB816E",
+          "$value": "#BCA8F2",
           "$type": "color"
         },
         "200-mid": {
-          "$value": "#FCA596",
+          "$value": "#DBCCFD",
           "$type": "color"
         },
         "200-light": {
-          "$value": "#FCA394",
+          "$value": "#DCC9FF",
           "$type": "color"
         },
         "200-gradient": {
-          "$value": "#FC9D8C",
+          "$value": "#CFC6F3",
           "$type": "color"
         },
         "200-alpha-15": {
-          "$value": "#FB816E26",
+          "$value": "#BCA8F226",
           "$type": "color"
         },
         "100-quiz": {
-          "$value": "#FDBCB0",
+          "$value": "#EFE7FF",
           "$type": "color"
         },
         "100-message": {
-          "$value": "#FDBAAE",
+          "$value": "#F2E4F9",
           "$type": "color"
         },
         "50-bottom": {
-          "$value": "#FDC1B6",
+          "$value": "#F2EEFD",
           "$type": "color"
         },
         "50-tip": {
-          "$value": "#FDC5BA",
+          "$value": "#FAF0FE",
           "$type": "color"
         },
         "700-alpha-50": {
-          "$value": "#D8182080",
+          "$value": "#7D4DBE80",
           "$type": "color"
         },
         "800-alpha-20": {
-          "$value": "#BC131A33",
+          "$value": "#6436AB33",
           "$type": "color"
         },
         "900-brillante": {
-          "$value": "#980D13",
+          "$value": "#49266E",
           "$type": "color"
         },
         "800-animation": {
-          "$value": "#A71016",
+          "$value": "#7A0078",
           "$type": "color"
         },
         "900-dark": {
-          "$value": "#900C12",
+          "$value": "#372E45",
           "$type": "color"
         }
       },
       "pink": {
         "50-dark": {
-          "$value": "#FDBEB3",
+          "$value": "#FCE7F3",
           "$type": "color"
         }
       },
       "red": {
         "alpha-50": {
-          "$value": "#EB1B2480",
+          "$value": "#E1251B80",
           "$type": "color"
         }
       },
       "yellow": {
         "alpha-50": {
-          "$value": "#FA453A80",
+          "$value": "#B3842F80",
           "$type": "color"
         }
       },
       "green": {
         "alpha-20": {
-          "$value": "#FB6A5833",
+          "$value": "#5FB19B33",
           "$type": "color"
         }
       },
       "blue": {
         "50-light": {
-          "$value": "#FDC9BF",
+          "$value": "#F4F8FC",
           "$type": "color"
         },
         "alpha-50": {
-          "$value": "#C9161D80",
+          "$value": "#0856BF80",
           "$type": "color"
         }
       },
       "gray": {
         "600-warm": {
-          "$value": "#EE1C25",
+          "$value": "#777676",
           "$type": "color"
         },
         "300-light": {
-          "$value": "#FC9583",
+          "$value": "#C4C4C4",
           "$type": "color"
         },
         "50-warm": {
-          "$value": "#FDC7BD",
+          "$value": "#F6F6F6",
           "$type": "color"
         }
       },
       "white": {
         "alpha-75": {
-          "$value": "#FDD0C7BF",
+          "$value": "#FFFFFFBF",
           "$type": "color"
         }
       },
       "black": {
         "alpha-40": {
-          "$value": "#50090366",
+          "$value": "#00000066",
           "$type": "color"
         }
       },
       "tab-fallback-accent": {
-        "$value": "#D4171F",
+        "$value": "#6C45D9",
         "$type": "color"
       },
       "quiz-progress-completed": {
-        "$value": "#FB6B59",
+        "$value": "#AF96E3",
         "$type": "color"
       },
       "quiz-feedback-green": {
-        "$value": "#FB4F41",
+        "$value": "#08A66E",
         "$type": "color"
       },
       "quiz-answer-correct": {
-        "$value": "#FB604F",
+        "$value": "#4CAF50",
         "$type": "color"
       },
       "scrim-30": {
-        "$value": "#5009034D",
+        "$value": "#0000004D",
         "$type": "color"
       },
       "header-text-dark": {
-        "$value": "#77080C",
+        "$value": "#212121",
         "$type": "color"
       },
       "shimmer-highlight": {
-        "$value": "#FDB2A5",
+        "$value": "#E1E0E0",
         "$type": "color"
       },
       "brand-tint-05": {
-        "$value": "#D818200D",
+        "$value": "#7D4DBE0D",
         "$type": "color"
       },
       "stat-text-gray": {
-        "$value": "#D1171F",
+        "$value": "#616161",
         "$type": "color"
       },
       "points-orange": {
-        "$value": "#FB5D4D",
+        "$value": "#FF6B35",
         "$type": "color"
       },
       "quiz-progress-track": {
-        "$value": "#FDB2A4",
+        "$value": "#E0E0E0",
         "$type": "color"
       },
       "dream-survey-bg": {
-        "$value": "#FDB6A9",
+        "$value": "#E6E0FF",
         "$type": "color"
       },
       "purple-deep-action": {
-        "$value": "#BA131A",
+        "$value": "#5A2BC8",
         "$type": "color"
       },
       "divider-dotted": {
-        "$value": "#FB5244",
+        "$value": "#949393",
         "$type": "color"
       },
       "divider-solid-dark": {
-        "$value": "#610505",
+        "$value": "#111111",
         "$type": "color"
       },
       "learning-path-dark": {
-        "$value": "#7E090E",
+        "$value": "#2D155E",
         "$type": "color"
       },
       "unbeatable-purple": {
-        "$value": "#D71820",
+        "$value": "#7E48C6",
         "$type": "color"
       },
       "scrim-50": {
-        "$value": "#50090380",
+        "$value": "#00000080",
         "$type": "color"
       },
       "highlight-arrow": {
-        "$value": "#FC8F7D",
+        "$value": "#4DD0E1",
         "$type": "color"
       },
       "points-amber": {
-        "$value": "#FB8471",
+        "$value": "#FFA000",
         "$type": "color"
       },
       "points-teal": {
-        "$value": "#FC8977",
+        "$value": "#4ECDC4",
         "$type": "color"
       },
       "period-purple": {
-        "$value": "#CF171E",
+        "$value": "#9C27B0",
         "$type": "color"
       },
       "referrals-bg": {
-        "$value": "#FDC6BC",
+        "$value": "#F5F5F5",
         "$type": "color"
       },
       "gana-plus-purple": {
-        "$value": "#DB1921",
+        "$value": "#9810FA",
         "$type": "color"
       },
       "gana-plus-indigo": {
-        "$value": "#B9131A",
+        "$value": "#432DD7",
         "$type": "color"
       },
       "quiz-feedback-bg": {
-        "$value": "#FCAC9D",
+        "$value": "#E0D4FF",
         "$type": "color"
       },
       "quiz-message-text": {
-        "$value": "#A91017",
+        "$value": "#444444",
         "$type": "color"
       },
       "header-purple-deep": {
-        "$value": "#9A0E14",
+        "$value": "#3C1D97",
         "$type": "color"
       },
       "header-purple-light": {
-        "$value": "#FDBCB0",
+        "$value": "#EDE7FF",
         "$type": "color"
       },
       "tracker-bg": {
-        "$value": "#FDCEC5",
+        "$value": "#FDFDFD",
         "$type": "color"
       },
       "earnings-pink-bg": {
-        "$value": "#FDC6BB",
+        "$value": "#FFF1F4",
         "$type": "color"
       },
       "learning-path-purple": {
-        "$value": "#C5151C",
+        "$value": "#6B3DB7",
         "$type": "color"
       },
       "learning-path-bg": {
-        "$value": "#FDB3A6",
+        "$value": "#E7DCFF",
         "$type": "color"
       },
       "learning-path-pink": {
-        "$value": "#FDB3A6",
+        "$value": "#FBD7F4",
         "$type": "color"
       },
       "learning-path-lilac": {
-        "$value": "#FC9F8F",
+        "$value": "#D9C4FF",
         "$type": "color"
       },
       "unbeatable-dark": {
-        "$value": "#A51016",
+        "$value": "#4D3279",
         "$type": "color"
       },
       "campaign-purple": {
-        "$value": "#E71B23",
+        "$value": "#7A5ADB",
         "$type": "color"
       },
       "modifier-lilac": {
-        "$value": "#FCA495",
+        "$value": "#D8CCFD",
         "$type": "color"
       },
       "modifier-indigo": {
-        "$value": "#FA262A",
+        "$value": "#8468FF",
         "$type": "color"
       },
       "tab-unselected": {
-        "$value": "#FDB1A3",
+        "$value": "#E6D9FF",
         "$type": "color"
       },
       "pdp-bg": {
-        "$value": "#FDC7BC",
+        "$value": "#F8F4FC",
         "$type": "color"
       },
       "video-controls-bg": {
-        "$value": "#71070A",
+        "$value": "#1B1B2F",
         "$type": "color"
       },
       "shadow-15": {
-        "$value": "#50090326",
+        "$value": "#00000026",
         "$type": "color"
       },
       "tooltip-purple": {
-        "$value": "#E41A23",
+        "$value": "#6B4EFF",
         "$type": "color"
       },
       "payment-blue": {
-        "$value": "#EF1C25",
+        "$value": "#2E7BC1",
         "$type": "color"
       },
       "border-subtle": {
-        "$value": "#50090311",
+        "$value": "#00000011",
         "$type": "color"
       },
       "divider-onboarding": {
-        "$value": "#74080B",
+        "$value": "#1F1F1F",
         "$type": "color"
       }
     }

@@ -2,27 +2,27 @@
   "color": {
     "pink": {
       "50": {
-        "$value": "#FDC4B9",
+        "$value": "#FBEFFD",
         "$type": "color"
       },
       "100": {
-        "$value": "#FCAA9B",
+        "$value": "#FFC6F9",
         "$type": "color"
       },
       "200": {
-        "$value": "#FCAB9D",
+        "$value": "#F9CCF1",
         "$type": "color"
       },
       "400": {
-        "$value": "#FB5748",
+        "$value": "#F45AC2",
         "$type": "color"
       },
       "500": {
-        "$value": "#FA3B34",
+        "$value": "#D34DE2",
         "$type": "color"
       },
       "700": {
-        "$value": "#D61820",
+        "$value": "#C60361",
         "$type": "color"
       }
     }
