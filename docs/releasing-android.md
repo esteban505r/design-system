@@ -1,0 +1,254 @@
+# Releasing the Android token library
+
+How to cut and ship a new version of `com.estebanruano:tokens-android-belcorp` — the AAR that the
+Somos Belcorp Android app consumes. Read this before changing a colour that ships to production.
+
+**Related docs**
+
+| Document | Purpose |
+|----------|---------|
+| [figma-ssot.md](figma-ssot.md) | The `figma/tokens.json` source-of-truth pipeline |
+| [workflow-and-production.md](workflow-and-production.md) | The markdown-source pipeline and repo architecture |
+| [android-material3-next-steps.md](android-material3-next-steps.md) | Material 3 mapping for Compose |
+
+---
+
+## 1. What actually reaches the app
+
+This is the single most common source of confusion, so it comes first.
+
+```
+figma/tokens.json                        ← SOURCE OF TRUTH (edit this)
+        │  pnpm run sync
+        ▼
+tokens/**/*.json                         ← DTCG tokens (committed)
+        │  sd.config.mjs (Style Dictionary)
+        ▼
+dist/android/*.xml
+dist/compose/DesignTokens.kt             ← generated, committed
+        │  Gradle Copy task (syncAndroidTokensFromDist / syncComposeTokensFromDist)
+        │  ⚠️  runs on `preBuild` of :design-tokens-android — NOT during `pnpm run sync`
+        ▼
+design-tokens-android/src/main/…         ← module sources baked into the AAR
+        │  :design-tokens-android:publish
+        ▼
+GitHub Packages  →  app's libs.versions.toml  →  app build  →  device
+```
+
+**`pnpm run sync` regenerates `dist/` only.** It does *not* update the Android module's own
+sources. Those are populated by a Gradle `Copy` task wired to `preBuild`, which only fires when you
+run a Gradle build of the module (`publish`, `publishToMavenLocal`, `assemble`).
+
+> **If a colour change "isn't showing up in the app", this is almost always why:** `dist/` was
+> regenerated but no Gradle build ran, so the AAR still contains the previous values. Check
+> `design-tokens-android/src/main/res/values/colors.xml`, not `dist/android/colors.xml`.
+
+---
+
+## 2. Release checklist
+
+### 2.1 Edit the tokens
+
+Edit `figma/tokens.json` — never `tokens/`, `dist/`, or the module sources. All four are generated
+and will be overwritten on the next sync.
+
+```bash
+cd ~/Projects/design-system
+$EDITOR figma/tokens.json
+```
+
+Every colour token must carry a `$value` and `$type`:
+
+```json
+"purple-900": {
+  "$value": "#2d0865",
+  "$type": "color",
+  "$extensions": {
+    "com.figma.scopes": ["ALL_SCOPES"],
+    "com.figma.hiddenFromPublishing": false
+  }
+}
+```
+
+**Adding a *new* token requires two extra edits** — miss either one and the token is silently
+dropped with only a console warning:
+
+1. `token-name-map.mjs` — map the flat Figma name to its token path.
+   ```js
+   'purple-900': ['color', 'purple', '900'],
+   ```
+   Unmapped names are **skipped**, not defaulted.
+
+2. `token-writer.mjs` — if the new path introduces a category that has no `subCategories` entry
+   yet, add one so it lands in a real file instead of `color/other.json`.
+   ```js
+   purple: 'color/purple.json',
+   ```
+
+### 2.2 Bump the version
+
+`VERSION` at the repo root is the release-version source of truth. `package.json` and
+`design-system-foundations.md` are mirrors kept in sync by the script — do not hand-edit them.
+
+```bash
+pnpm run version:set -- --version 2.4.0
+```
+
+Semver, applied to token *values* rather than API shape:
+
+| Change | Bump |
+|--------|------|
+| New token added; no existing value changes | **minor** |
+| Existing token's value changes (visual change in consumers) | **minor** at minimum; **major** if it is a brand/primary colour |
+| Token renamed or removed | **major** — it breaks `DesignTokens.*` call sites at compile time |
+| Codegen/pipeline fix with byte-identical output | **patch** |
+
+**Never re-publish an existing version.** GitHub Packages returns HTTP 409 and the workflow fails.
+More importantly, a version that means two different things is how you get an app that shows stale
+colours no one can explain — bump instead.
+
+### 2.3 Regenerate and verify locally
+
+```bash
+pnpm run sync
+```
+
+Then check the generated output actually contains what you expect:
+
+```bash
+grep -c 'name="' dist/android/colors.xml         # resource count
+grep -c '^\s*val ' dist/compose/DesignTokens.kt  # Compose token count
+grep 'color_primary_500' dist/android/colors.xml # spot-check a value you changed
+```
+
+### 2.4 Smoke-test against the app before publishing
+
+Publish locally and point the app at `mavenLocal()` — this catches missing tokens and codegen
+breakage without burning a version number on GitHub Packages.
+
+```bash
+./gradlew :design-tokens-android:publishToMavenLocal
+ls ~/.m2/repository/com/estebanruano/tokens-android-belcorp/
+```
+
+In the app repo, temporarily swap the `DesignSystemGitHubPackages` repository in
+`settings.gradle.kts` for `mavenLocal()`:
+
+```kotlin
+exclusiveContent {
+    forRepository { mavenLocal() }   // TEMP — restore the GitHub Packages block before committing
+    filter { includeGroup("com.estebanruano") }
+}
+```
+
+Set the version in `gradle/libs.versions.toml`, then build:
+
+```bash
+./gradlew :capabilities:compileDebugKotlin
+./gradlew :app:assembleAllCountriesDevDebug
+```
+
+> **Revert the `mavenLocal()` swap before committing the app.** Leaving it in breaks CI and every
+> other developer's build, because the artifact only exists in your `~/.m2`.
+
+Verify the values actually reached the merged resources rather than trusting the build succeeded:
+
+```bash
+grep -r 'color_primary_500' app/build/intermediates/*/merged*/ | head
+```
+
+### 2.5 Commit and publish
+
+```bash
+git add figma/tokens.json tokens/ dist/ design-tokens-android/ VERSION package.json \
+        design-system-foundations.md token-name-map.mjs token-writer.mjs
+git commit -m "feat(color): <what changed> (v2.4.0)"
+git push origin belcorp
+```
+
+Publish is **manual and branch-scoped**:
+
+> GitHub → **Actions** → **Publish Android library** → **Run workflow** → pick the branch
+> (`belcorp` for the Somos Belcorp palette).
+
+The workflow reads `VERSION` — there is no version input. It re-runs `pnpm run sync:figma` from a
+clean checkout and fails the build if:
+
+- `VERSION` is missing or not valid semver
+- `figma/tokens.json` is absent on that branch
+- any of `colors.xml` / `dimens.xml` / `integers.xml` / `strings.xml` is missing from `dist/android`
+- `dimens.xml` contains malformed units (e.g. `28pxpx`)
+- `dist/compose/DesignTokens.kt` is missing or contains invalid Kotlin (unquoted CSS, `rgba(`,
+  `cubic-bezier`) or the old rem-multiplied sizes
+- `package.json` version disagrees with `VERSION` after sync
+
+Because the workflow re-syncs from source, **a hand-edited `dist/` will be silently overwritten** —
+another reason to only ever edit `figma/tokens.json`.
+
+### 2.6 Consume the new version
+
+In the app repo:
+
+```toml
+# gradle/libs.versions.toml
+design-system-tokens = "2.4.0"
+```
+
+Consumers need a GitHub PAT with `read:packages` in `~/.gradle/gradle.properties`:
+
+```properties
+gpr.user=<github-username>
+gpr.token=<PAT with read:packages>
+```
+
+CI falls back to `GITHUB_ACTOR` + `GITHUB_TOKEN`. See
+`docs/design-system/consuming-design-system.md` in the app repo.
+
+---
+
+## 3. Rollback
+
+Published versions are immutable. To roll back, pin the app to the previous version:
+
+```toml
+design-system-tokens = "2.3.0"
+```
+
+To roll forward instead, restore the old token values, bump to a **new** version, and publish that.
+Never try to overwrite a bad release in place.
+
+---
+
+## 4. Troubleshooting
+
+| Symptom | Cause | Fix |
+|---------|-------|-----|
+| Colour changed in `dist/` but not in the app | Gradle copy task never ran | `./gradlew :design-tokens-android:publishToMavenLocal` |
+| New token missing from `DesignTokens.kt` | Not in `token-name-map.mjs` | Add the mapping; re-run `pnpm run sync` and check for `⚠️` warnings |
+| New token landed in `color/other.json` | No `subCategories` entry | Add it to `fileMap.color.subCategories` in `token-writer.mjs` |
+| Publish fails with HTTP 409 | That version already exists | Bump `VERSION` — never re-publish |
+| App can't resolve the artifact | Missing/expired `gpr.token`, or `mavenLocal()` swap left in | Check `~/.gradle/gradle.properties`; restore the GitHub Packages block |
+| App resolves an old version despite the bump | Gradle cached the module metadata | `./gradlew --refresh-dependencies` |
+| Publish workflow ran on the wrong palette | Ran against the wrong branch | Re-run and select `belcorp` |
+
+---
+
+## 5. Verification releases (deliberate visual changes)
+
+To prove end-to-end propagation, it is useful to publish a version where every colour is obviously
+wrong — then confirm the app changes.
+
+**Do not flatten every token to the same value.** Setting all 204 colours to `#ff0000` makes the UI
+one solid block: text disappears into its background, borders vanish, and overlays stop reading as
+overlays, so you cannot tell propagation from breakage.
+
+Instead, keep each token's **perceptual lightness** and shift only the hue. Light colours stay
+light, dark stay dark, contrast ordering survives, and every surface is still unmistakably wrong:
+
+- convert each original value to CIE Lab and read `L*`
+- compress `L*` into roughly `[15, 87]` so nothing is pure black or pure white
+- re-render at a fixed hue with near-maximum in-gamut chroma
+- carry the original alpha through untouched
+
+Give the verification build its **own version number** and never reuse it for a real release — a
+version that means both "real palette" and "test palette" is unresolvable after the fact.
