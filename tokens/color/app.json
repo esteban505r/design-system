@@ -158,6 +158,194 @@
           "$value": "#00000066",
           "$type": "color"
         }
+      },
+      "tab-fallback-accent": {
+        "$value": "#6C45D9",
+        "$type": "color"
+      },
+      "quiz-progress-completed": {
+        "$value": "#AF96E3",
+        "$type": "color"
+      },
+      "quiz-feedback-green": {
+        "$value": "#08A66E",
+        "$type": "color"
+      },
+      "quiz-answer-correct": {
+        "$value": "#4CAF50",
+        "$type": "color"
+      },
+      "scrim-30": {
+        "$value": "#0000004D",
+        "$type": "color"
+      },
+      "header-text-dark": {
+        "$value": "#212121",
+        "$type": "color"
+      },
+      "shimmer-highlight": {
+        "$value": "#E1E0E0",
+        "$type": "color"
+      },
+      "brand-tint-05": {
+        "$value": "#7D4DBE0D",
+        "$type": "color"
+      },
+      "stat-text-gray": {
+        "$value": "#616161",
+        "$type": "color"
+      },
+      "points-orange": {
+        "$value": "#FF6B35",
+        "$type": "color"
+      },
+      "quiz-progress-track": {
+        "$value": "#E0E0E0",
+        "$type": "color"
+      },
+      "dream-survey-bg": {
+        "$value": "#E6E0FF",
+        "$type": "color"
+      },
+      "purple-deep-action": {
+        "$value": "#5A2BC8",
+        "$type": "color"
+      },
+      "divider-dotted": {
+        "$value": "#949393",
+        "$type": "color"
+      },
+      "divider-solid-dark": {
+        "$value": "#111111",
+        "$type": "color"
+      },
+      "learning-path-dark": {
+        "$value": "#2D155E",
+        "$type": "color"
+      },
+      "unbeatable-purple": {
+        "$value": "#7E48C6",
+        "$type": "color"
+      },
+      "scrim-50": {
+        "$value": "#00000080",
+        "$type": "color"
+      },
+      "highlight-arrow": {
+        "$value": "#4DD0E1",
+        "$type": "color"
+      },
+      "points-amber": {
+        "$value": "#FFA000",
+        "$type": "color"
+      },
+      "points-teal": {
+        "$value": "#4ECDC4",
+        "$type": "color"
+      },
+      "period-purple": {
+        "$value": "#9C27B0",
+        "$type": "color"
+      },
+      "referrals-bg": {
+        "$value": "#F5F5F5",
+        "$type": "color"
+      },
+      "gana-plus-purple": {
+        "$value": "#9810FA",
+        "$type": "color"
+      },
+      "gana-plus-indigo": {
+        "$value": "#432DD7",
+        "$type": "color"
+      },
+      "quiz-feedback-bg": {
+        "$value": "#E0D4FF",
+        "$type": "color"
+      },
+      "quiz-message-text": {
+        "$value": "#444444",
+        "$type": "color"
+      },
+      "header-purple-deep": {
+        "$value": "#3C1D97",
+        "$type": "color"
+      },
+      "header-purple-light": {
+        "$value": "#EDE7FF",
+        "$type": "color"
+      },
+      "tracker-bg": {
+        "$value": "#FDFDFD",
+        "$type": "color"
+      },
+      "earnings-pink-bg": {
+        "$value": "#FFF1F4",
+        "$type": "color"
+      },
+      "learning-path-purple": {
+        "$value": "#6B3DB7",
+        "$type": "color"
+      },
+      "learning-path-bg": {
+        "$value": "#E7DCFF",
+        "$type": "color"
+      },
+      "learning-path-pink": {
+        "$value": "#FBD7F4",
+        "$type": "color"
+      },
+      "learning-path-lilac": {
+        "$value": "#D9C4FF",
+        "$type": "color"
+      },
+      "unbeatable-dark": {
+        "$value": "#4D3279",
+        "$type": "color"
+      },
+      "campaign-purple": {
+        "$value": "#7A5ADB",
+        "$type": "color"
+      },
+      "modifier-lilac": {
+        "$value": "#D8CCFD",
+        "$type": "color"
+      },
+      "modifier-indigo": {
+        "$value": "#8468FF",
+        "$type": "color"
+      },
+      "tab-unselected": {
+        "$value": "#E6D9FF",
+        "$type": "color"
+      },
+      "pdp-bg": {
+        "$value": "#F8F4FC",
+        "$type": "color"
+      },
+      "video-controls-bg": {
+        "$value": "#1B1B2F",
+        "$type": "color"
+      },
+      "shadow-15": {
+        "$value": "#00000026",
+        "$type": "color"
+      },
+      "tooltip-purple": {
+        "$value": "#6B4EFF",
+        "$type": "color"
+      },
+      "payment-blue": {
+        "$value": "#2E7BC1",
+        "$type": "color"
+      },
+      "border-subtle": {
+        "$value": "#00000011",
+        "$type": "color"
+      },
+      "divider-onboarding": {
+        "$value": "#1F1F1F",
+        "$type": "color"
       }
     }
   }
