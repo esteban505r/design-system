@@ -2,23 +2,23 @@
   "color": {
     "blue": {
       "50": {
-        "$value": "#F3F8FC",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "100": {
-        "$value": "#D7ECF9",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "300": {
-        "$value": "#A1C5E8",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "600": {
-        "$value": "#2596BE",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "700": {
-        "$value": "#2F7AC1",
+        "$value": "#FF0000",
         "$type": "color"
       }
     }

@@ -2,43 +2,43 @@
   "color": {
     "gray": {
       "50": {
-        "$value": "#F2F2F2",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "100": {
-        "$value": "#EFEFEF",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "200": {
-        "$value": "#D9D9D9",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "300": {
-        "$value": "#CCCCCC",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "400": {
-        "$value": "#BDBDBD",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "500": {
-        "$value": "#909094",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "600": {
-        "$value": "#707070",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "700": {
-        "$value": "#545353",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "800": {
-        "$value": "#3B3A3A",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "850": {
-        "$value": "#353434",
+        "$value": "#FF0000",
         "$type": "color"
       }
     }

@@ -2,51 +2,51 @@
   "color": {
     "status": {
       "error": {
-        "$value": "#DC2626",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "error-dark": {
-        "$value": "#B91C1C",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "error-light": {
-        "$value": "#FEE2E2",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "info": {
-        "$value": "#2563EB",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "info-dark": {
-        "$value": "#1245D4",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "info-light": {
-        "$value": "#DBEAFE",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "success": {
-        "$value": "#16A34A",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "success-dark": {
-        "$value": "#15803D",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "success-light": {
-        "$value": "#BBF7D0",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "warning": {
-        "$value": "#FFB90A",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "warning-dark": {
-        "$value": "#BD750F",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "warning-light": {
-        "$value": "#FEF3C7",
+        "$value": "#FF0000",
         "$type": "color"
       }
     }

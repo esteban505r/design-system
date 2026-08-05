@@ -2,7 +2,7 @@
   "color": {
     "burgundy": {
       "800": {
-        "$value": "#4F0036",
+        "$value": "#FF0000",
         "$type": "color"
       }
     }

@@ -2,28 +2,28 @@
   "color": {
     "interactive": {
       "focus-ring": {
-        "$value": "#8A5ACE",
+        "$value": "#FF0000",
         "$type": "color"
       },
       "primary": {
         "active": {
-          "$value": "#471F86",
+          "$value": "#FF0000",
           "$type": "color"
         },
         "default": {
-          "$value": "#7D4DBE",
+          "$value": "#FF0000",
           "$type": "color"
         },
         "disabled": {
-          "$value": "#E5E7EB",
+          "$value": "#FF0000",
           "$type": "color"
         },
         "hover": {
-          "$value": "#6436AB",
+          "$value": "#FF0000",
           "$type": "color"
         },
         "text": {
-          "$value": "#FFFFFF",
+          "$value": "#FF0000",
           "$type": "color"
         }
       }

@@ -2,7 +2,7 @@
   "color": {
     "orange": {
       "500": {
-        "$value": "#FFA500",
+        "$value": "#FF0000",
         "$type": "color"
       }
     }
