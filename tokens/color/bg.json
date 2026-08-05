@@ -2,15 +2,15 @@
   "color": {
     "bg": {
       "brand": {
-        "$value": "#7D4DBE",
+        "$value": "#BE5B06",
         "$type": "color"
       },
       "brand-subtle": {
-        "$value": "#EBE2F8",
+        "$value": "#FEE4D6",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#F3F4F6",
+        "$value": "#FDF2EC",
         "$type": "color"
       },
       "error": {
@@ -22,7 +22,7 @@
         "$type": "color"
       },
       "overlay": {
-        "$value": "#03071299",
+        "$value": "#0F050099",
         "$type": "color"
       },
       "page": {
@@ -30,7 +30,7 @@
         "$type": "color"
       },
       "subtle": {
-        "$value": "#F9FAFB",
+        "$value": "#FFF9F5",
         "$type": "color"
       },
       "success": {

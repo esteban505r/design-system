@@ -2,11 +2,11 @@
   "color": {
     "yellow": {
       "50": {
-        "$value": "#FFF9EC",
+        "$value": "#EAFEFE",
         "$type": "color"
       },
       "500": {
-        "$value": "#FFC83E",
+        "$value": "#00EEE8",
         "$type": "color"
       }
     }

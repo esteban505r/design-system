@@ -9,11 +9,11 @@
       },
       "blue": {
         "50-light": {
-          "$value": "#F4F8FC",
+          "$value": "#FFF6F1",
           "$type": "color"
         },
         "alpha-50": {
-          "$value": "#0856BF80",
+          "$value": "#C23F2F80",
           "$type": "color"
         }
       },
@@ -22,355 +22,355 @@
         "$type": "color"
       },
       "brand-tint-05": {
-        "$value": "#7D4DBE0D",
+        "$value": "#BE5B060D",
         "$type": "color"
       },
       "camino-ambar": {
-        "$value": "#D46259",
+        "$value": "#59A354",
         "$type": "color"
       },
       "camino-ambar-deep": {
-        "$value": "#912C23",
+        "$value": "#18712C",
         "$type": "color"
       },
       "camino-brillante": {
-        "$value": "#59595B",
+        "$value": "#605852",
         "$type": "color"
       },
       "camino-brillante-deep": {
-        "$value": "#212127",
+        "$value": "#27201C",
         "$type": "color"
       },
       "camino-club-card-bg": {
-        "$value": "#FFFDF2",
+        "$value": "#FFFCFA",
         "$type": "color"
       },
       "camino-club-card-gold": {
-        "$value": "#C07B27",
+        "$value": "#00AB93",
         "$type": "color"
       },
       "camino-club-card-highlight": {
-        "$value": "#FDF1AD",
+        "$value": "#CAFAFF",
         "$type": "color"
       },
       "camino-consultora": {
-        "$value": "#6B49A5",
+        "$value": "#AB551B",
         "$type": "color"
       },
       "camino-consultora-deep": {
-        "$value": "#2B1257",
+        "$value": "#5E2900",
         "$type": "color"
       },
       "camino-coral": {
-        "$value": "#E39E46",
+        "$value": "#00CCB4",
         "$type": "color"
       },
       "camino-coral-deep": {
-        "$value": "#774E19",
+        "$value": "#007667",
         "$type": "color"
       },
       "camino-cristal": {
-        "$value": "#28A0AD",
+        "$value": "#B791C4",
         "$type": "color"
       },
       "camino-cristal-light": {
-        "$value": "#8AD6D6",
+        "$value": "#D9C8F5",
         "$type": "color"
       },
       "camino-diamante": {
-        "$value": "#406D9F",
+        "$value": "#AF666B",
         "$type": "color"
       },
       "camino-diamante-light": {
-        "$value": "#6F91BC",
+        "$value": "#CA8A8F",
         "$type": "color"
       },
       "camino-first-level": {
-        "$value": "#CB0A0A",
+        "$value": "#00883C",
         "$type": "color"
       },
       "camino-gran-brillante": {
-        "$value": "#BA8B37",
+        "$value": "#00B2A7",
         "$type": "color"
       },
       "camino-gran-brillante-light": {
-        "$value": "#D6C159",
+        "$value": "#00DDE7",
         "$type": "color"
       },
       "camino-jade": {
-        "$value": "#5FB19B",
+        "$value": "#98ACE3",
         "$type": "color"
       },
       "camino-perla-deep": {
-        "$value": "#5D1233",
+        "$value": "#454908",
         "$type": "color"
       },
       "camino-rubi": {
-        "$value": "#C23C4B",
+        "$value": "#4E8C29",
         "$type": "color"
       },
       "camino-rubi-light": {
-        "$value": "#D4727E",
+        "$value": "#88A55D",
         "$type": "color"
       },
       "camino-topacio": {
-        "$value": "#276F9C",
+        "$value": "#AD6475",
         "$type": "color"
       },
       "camino-topacio-deep": {
-        "$value": "#0B3956",
+        "$value": "#6C3D46",
         "$type": "color"
       },
       "campaign-purple": {
-        "$value": "#7A5ADB",
+        "$value": "#D65B0D",
         "$type": "color"
       },
       "check-campaign-purple": {
-        "$value": "#845ED1",
+        "$value": "#D1651F",
         "$type": "color"
       },
       "divider-dotted": {
-        "$value": "#949393",
+        "$value": "#9B918C",
         "$type": "color"
       },
       "divider-onboarding": {
-        "$value": "#1F1F1F",
+        "$value": "#251E19",
         "$type": "color"
       },
       "divider-solid-dark": {
-        "$value": "#111111",
+        "$value": "#180F08",
         "$type": "color"
       },
       "dream-survey-bg": {
-        "$value": "#E6E0FF",
+        "$value": "#FFE1D6",
         "$type": "color"
       },
       "earnings-pink-bg": {
-        "$value": "#FFF1F4",
+        "$value": "#FEF2EC",
         "$type": "color"
       },
       "ecatalogue-blue": {
-        "$value": "#0856BF",
+        "$value": "#C23F2F",
         "$type": "color"
       },
       "event-tag-gold": {
-        "$value": "#B3842F",
+        "$value": "#00ABA1",
         "$type": "color"
       },
       "gana-plus-indigo": {
-        "$value": "#432DD7",
+        "$value": "#A84300",
         "$type": "color"
       },
       "gana-plus-purple": {
-        "$value": "#9810FA",
+        "$value": "#BA6100",
         "$type": "color"
       },
       "gray": {
         "300-light": {
-          "$value": "#C4C4C4",
+          "$value": "#CDC2BC",
           "$type": "color"
         },
         "50-warm": {
-          "$value": "#F6F6F6",
+          "$value": "#FFF4EE",
           "$type": "color"
         },
         "600-warm": {
-          "$value": "#777676",
+          "$value": "#7E746F",
           "$type": "color"
         }
       },
       "green": {
         "alpha-20": {
-          "$value": "#5FB19B33",
+          "$value": "#98ACE333",
           "$type": "color"
         }
       },
       "header-purple-deep": {
-        "$value": "#3C1D97",
+        "$value": "#833600",
         "$type": "color"
       },
       "header-purple-light": {
-        "$value": "#EDE7FF",
+        "$value": "#FFE8DF",
         "$type": "color"
       },
       "header-text-dark": {
-        "$value": "#212121",
+        "$value": "#27201B",
         "$type": "color"
       },
       "highlight-arrow": {
-        "$value": "#4DD0E1",
+        "$value": "#E6B6F1",
         "$type": "color"
       },
       "icon-burgundy": {
-        "$value": "#944065",
+        "$value": "#75712A",
         "$type": "color"
       },
       "learning-path-bg": {
-        "$value": "#E7DCFF",
+        "$value": "#FFDECF",
         "$type": "color"
       },
       "learning-path-dark": {
-        "$value": "#2D155E",
+        "$value": "#642B00",
         "$type": "color"
       },
       "learning-path-lilac": {
-        "$value": "#D9C4FF",
+        "$value": "#FFC8AC",
         "$type": "color"
       },
       "learning-path-pink": {
-        "$value": "#FBD7F4",
+        "$value": "#FBE1C0",
         "$type": "color"
       },
       "learning-path-purple": {
-        "$value": "#6B3DB7",
+        "$value": "#AE4F00",
         "$type": "color"
       },
       "modifier-indigo": {
-        "$value": "#8468FF",
+        "$value": "#F36006",
         "$type": "color"
       },
       "modifier-lilac": {
-        "$value": "#D8CCFD",
+        "$value": "#FFCDB8",
         "$type": "color"
       },
       "offer-of-the-day-gold": {
-        "$value": "#CDA938",
+        "$value": "#00CBCB",
         "$type": "color"
       },
       "payment-blue": {
-        "$value": "#2E7BC1",
+        "$value": "#CD6870",
         "$type": "color"
       },
       "pdp-bg": {
-        "$value": "#F8F4FC",
+        "$value": "#FEF3ED",
         "$type": "color"
       },
       "period-purple": {
-        "$value": "#9C27B0",
+        "$value": "#A16300",
         "$type": "color"
       },
       "pink": {
         "50-dark": {
-          "$value": "#FCE7F3",
+          "$value": "#F7EEDC",
           "$type": "color"
         }
       },
       "points-amber": {
-        "$value": "#FFA000",
+        "$value": "#00D5BB",
         "$type": "color"
       },
       "points-orange": {
-        "$value": "#FF6B35",
+        "$value": "#00BD71",
         "$type": "color"
       },
       "points-teal": {
-        "$value": "#4ECDC4",
+        "$value": "#C2BAFF",
         "$type": "color"
       },
       "purple": {
         "100-message": {
-          "$value": "#F2E4F9",
+          "$value": "#FEE7D7",
           "$type": "color"
         },
         "100-quiz": {
-          "$value": "#EFE7FF",
+          "$value": "#FFE9DF",
           "$type": "color"
         },
         "200-alpha-15": {
-          "$value": "#BCA8F226",
+          "$value": "#FAA98226",
           "$type": "color"
         },
         "200-gradient": {
-          "$value": "#CFC6F3",
+          "$value": "#FCC6B1",
           "$type": "color"
         },
         "200-light": {
-          "$value": "#DCC9FF",
+          "$value": "#FFCCB3",
           "$type": "color"
         },
         "200-mid": {
-          "$value": "#DBCCFD",
+          "$value": "#FFCEB8",
           "$type": "color"
         },
         "300-end": {
-          "$value": "#B468FF",
+          "$value": "#F07900",
           "$type": "color"
         },
         "300-scrim": {
-          "$value": "#BCA8F2",
+          "$value": "#FAA982",
           "$type": "color"
         },
         "400-light": {
-          "$value": "#A483D2",
+          "$value": "#DB8B5B",
           "$type": "color"
         },
         "50-bottom": {
-          "$value": "#F2EEFD",
+          "$value": "#FFEFE8",
           "$type": "color"
         },
         "50-tip": {
-          "$value": "#FAF0FE",
+          "$value": "#FFF2EA",
           "$type": "color"
         },
         "500-action": {
-          "$value": "#7C5CBF",
+          "$value": "#C4642A",
           "$type": "color"
         },
         "500-animation": {
-          "$value": "#A421BF",
+          "$value": "#A76600",
           "$type": "color"
         },
         "500-light": {
-          "$value": "#946DCA",
+          "$value": "#D0773D",
           "$type": "color"
         },
         "600-consultora": {
-          "$value": "#8D45CC",
+          "$value": "#BE6100",
           "$type": "color"
         },
         "600-gana": {
-          "$value": "#9A00AB",
+          "$value": "#965E00",
           "$type": "color"
         },
         "600-light": {
-          "$value": "#875BC3",
+          "$value": "#C66722",
           "$type": "color"
         },
         "600-mid": {
-          "$value": "#6750A3",
+          "$value": "#AC592B",
           "$type": "color"
         },
         "700-alpha-50": {
-          "$value": "#7D4DBE80",
+          "$value": "#BE5B0680",
           "$type": "color"
         },
         "700-light": {
-          "$value": "#7443B7",
+          "$value": "#B35400",
           "$type": "color"
         },
         "800-alpha-20": {
-          "$value": "#6436AB33",
+          "$value": "#A34A0033",
           "$type": "color"
         },
         "800-animation": {
-          "$value": "#7A0078",
+          "$value": "#754E00",
           "$type": "color"
         },
         "900-brillante": {
-          "$value": "#49266E",
+          "$value": "#7A3B04",
           "$type": "color"
         },
         "900-dark": {
-          "$value": "#372E45",
+          "$value": "#5B4133",
           "$type": "color"
         }
       },
       "purple-deep-action": {
-        "$value": "#5A2BC8",
+        "$value": "#A44700",
         "$type": "color"
       },
       "quiz-answer-correct": {
-        "$value": "#4CAF50",
+        "$value": "#00B2F0",
         "$type": "color"
       },
       "quiz-feedback-bg": {
@@ -382,29 +382,29 @@
         "$type": "color"
       },
       "quiz-message-text": {
-        "$value": "#444444",
+        "$value": "#4B423E",
         "$type": "color"
       },
       "quiz-progress-completed": {
-        "$value": "#AF96E3",
+        "$value": "#EB9A6F",
         "$type": "color"
       },
       "quiz-progress-track": {
-        "$value": "#E0E0E0",
+        "$value": "#E9DED8",
         "$type": "color"
       },
       "red": {
         "alpha-50": {
-          "$value": "#E1251B80",
+          "$value": "#00984080",
           "$type": "color"
         }
       },
       "referrals-bg": {
-        "$value": "#F5F5F5",
+        "$value": "#FEF3ED",
         "$type": "color"
       },
       "refresh-green": {
-        "$value": "#05C07E",
+        "$value": "#6EB7FF",
         "$type": "color"
       },
       "scrim-30": {
@@ -420,59 +420,59 @@
         "$type": "color"
       },
       "shimmer-highlight": {
-        "$value": "#E1E0E0",
+        "$value": "#E9DED8",
         "$type": "color"
       },
       "star-animated-lilac": {
-        "$value": "#B883FF",
+        "$value": "#FC8A3A",
         "$type": "color"
       },
       "star-animated-magenta": {
-        "$value": "#E948A3",
+        "$value": "#A79700",
         "$type": "color"
       },
       "star-animated-violet": {
-        "$value": "#AF4FD2",
+        "$value": "#C87400",
         "$type": "color"
       },
       "stars-proximity-pink": {
-        "$value": "#FF98F5",
+        "$value": "#F7B954",
         "$type": "color"
       },
       "stat-text-gray": {
-        "$value": "#616161",
+        "$value": "#685F5A",
         "$type": "color"
       },
       "tab-fallback-accent": {
-        "$value": "#6C45D9",
+        "$value": "#C15200",
         "$type": "color"
       },
       "tab-unselected": {
-        "$value": "#E6D9FF",
+        "$value": "#FFDBCB",
         "$type": "color"
       },
       "tooltip-purple": {
-        "$value": "#6B4EFF",
+        "$value": "#D75600",
         "$type": "color"
       },
       "tracker-bg": {
-        "$value": "#FDFDFD",
+        "$value": "#FFFDFB",
         "$type": "color"
       },
       "unbeatable-dark": {
-        "$value": "#4D3279",
+        "$value": "#854214",
         "$type": "color"
       },
       "unbeatable-purple": {
-        "$value": "#7E48C6",
+        "$value": "#BE5A00",
         "$type": "color"
       },
       "video-control-icon": {
-        "$value": "#E3E3E3",
+        "$value": "#ECE1DB",
         "$type": "color"
       },
       "video-controls-bg": {
-        "$value": "#1B1B2F",
+        "$value": "#462D25",
         "$type": "color"
       },
       "white-alpha-20": {
@@ -487,7 +487,7 @@
       },
       "yellow": {
         "alpha-50": {
-          "$value": "#B3842F80",
+          "$value": "#00ABA180",
           "$type": "color"
         }
       }
