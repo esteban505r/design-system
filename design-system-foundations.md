@@ -19,6 +19,12 @@ semantic tokens (`text-*`, `bg-*`, `border-*`, `interactive-*`); primitives (`pr
 Token edits happen in `figma/tokens.json` (flat Tokens Studio names) followed by
 `pnpm run sync:figma`.
 
+> **This rule is not currently met, and closing it is design-led work.** The semantic layer
+> is 43 colour tokens against 118 absorbed app one-offs, and the Android app binds to
+> primitives rather than roles — so a rebrand still needs a manual audit of call sites.
+> What design needs to author for the rule to become followable, and who owns which tier,
+> is in **[docs/foundations-and-semantics.md](docs/foundations-and-semantics.md)**.
+
 v2.0.0 adopts **Belcorp Design System 5.0** (Figma: _Claude Design.fig_) — a breaking
 change from the v1 set that was seeded from the legacy app theme.
 
