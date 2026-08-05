@@ -1,0 +1,30 @@
+{
+  "color": {
+    "pink": {
+      "50": {
+        "$value": "#FBEFFD",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FFC6F9",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#F9CCF1",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#F45AC2",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#D34DE2",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#C60361",
+        "$type": "color"
+      }
+    }
+  }
+}

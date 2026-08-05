@@ -16,6 +16,22 @@ export const fileMap = {
       bg: 'color/bg.json',
       border: 'color/border.json',
       interactive: 'color/interactive.json',
+      // Belcorp app palette — core ramps at the exact values shipping in the
+      // Android app. Kept separate from the idealised primary/neutral ramps
+      // above so the two are never confused during migration.
+      purple: 'color/purple.json',
+      gray: 'color/gray.json',
+      pink: 'color/pink.json',
+      red: 'color/red.json',
+      blue: 'color/blue.json',
+      green: 'color/green.json',
+      cyan: 'color/cyan.json',
+      orange: 'color/orange.json',
+      yellow: 'color/yellow.json',
+      burgundy: 'color/burgundy.json',
+      brown: 'color/brown.json',
+      // Feature one-offs and alpha variants — fenced off from the core ramps.
+      app: 'color/app.json',
       _default: 'color/other.json',
     },
   },

@@ -1,0 +1,14 @@
+{
+  "color": {
+    "yellow": {
+      "50": {
+        "$value": "#FFF9EC",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#FFC83E",
+        "$type": "color"
+      }
+    }
+  }
+}

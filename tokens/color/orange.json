@@ -1,0 +1,10 @@
+{
+  "color": {
+    "orange": {
+      "500": {
+        "$value": "#FFA500",
+        "$type": "color"
+      }
+    }
+  }
+}
