@@ -177,6 +177,106 @@ export const FIGMA_TO_TOKEN_PATH = {
   'z-overlay': ['z-index', 'overlay'],
   'z-modal': ['z-index', 'modal'],
   'z-toast': ['z-index', 'toast'],
+  // ── Belcorp app palette — core ramps (exact values shipping in the Android app) ──
+  // blue
+  'blue-100': ['color', 'blue', '100'],
+  'blue-300': ['color', 'blue', '300'],
+  'blue-50': ['color', 'blue', '50'],
+  'blue-600': ['color', 'blue', '600'],
+  'blue-700': ['color', 'blue', '700'],
+  // burgundy
+  'burgundy-800': ['color', 'burgundy', '800'],
+  // cyan
+  'cyan-500': ['color', 'cyan', '500'],
+  // gray
+  'gray-100': ['color', 'gray', '100'],
+  'gray-200': ['color', 'gray', '200'],
+  'gray-300': ['color', 'gray', '300'],
+  'gray-400': ['color', 'gray', '400'],
+  'gray-50': ['color', 'gray', '50'],
+  'gray-500': ['color', 'gray', '500'],
+  'gray-600': ['color', 'gray', '600'],
+  'gray-700': ['color', 'gray', '700'],
+  'gray-800': ['color', 'gray', '800'],
+  'gray-850': ['color', 'gray', '850'],
+  // green
+  'green-50': ['color', 'green', '50'],
+  'green-700': ['color', 'green', '700'],
+  // orange
+  'orange-500': ['color', 'orange', '500'],
+  // pink
+  'pink-100': ['color', 'pink', '100'],
+  'pink-200': ['color', 'pink', '200'],
+  'pink-400': ['color', 'pink', '400'],
+  'pink-50': ['color', 'pink', '50'],
+  'pink-500': ['color', 'pink', '500'],
+  'pink-700': ['color', 'pink', '700'],
+  // purple
+  'purple-100': ['color', 'purple', '100'],
+  'purple-200': ['color', 'purple', '200'],
+  'purple-300': ['color', 'purple', '300'],
+  'purple-400': ['color', 'purple', '400'],
+  'purple-50': ['color', 'purple', '50'],
+  'purple-500': ['color', 'purple', '500'],
+  'purple-600': ['color', 'purple', '600'],
+  'purple-900': ['color', 'purple', '900'],
+  'purple-950': ['color', 'purple', '950'],
+  // red
+  'red-100': ['color', 'red', '100'],
+  'red-400': ['color', 'red', '400'],
+  'red-50': ['color', 'red', '50'],
+  'red-600': ['color', 'red', '600'],
+  'red-700': ['color', 'red', '700'],
+  // yellow
+  'yellow-50': ['color', 'yellow', '50'],
+  'yellow-500': ['color', 'yellow', '500'],
+  // brown
+  'brown-600': ['color', 'brown', '600'],
+  // ── Belcorp app palette — feature one-offs & alpha variants (not core ramp) ──
+  // app/black
+  'app-black-alpha-40': ['color', 'app', 'black', 'alpha-40'],
+  // app/blue
+  'app-blue-50-light': ['color', 'app', 'blue', '50-light'],
+  'app-blue-alpha-50': ['color', 'app', 'blue', 'alpha-50'],
+  // app/gray
+  'app-gray-300-light': ['color', 'app', 'gray', '300-light'],
+  'app-gray-50-warm': ['color', 'app', 'gray', '50-warm'],
+  'app-gray-600-warm': ['color', 'app', 'gray', '600-warm'],
+  // app/green
+  'app-green-alpha-20': ['color', 'app', 'green', 'alpha-20'],
+  // app/pink
+  'app-pink-50-dark': ['color', 'app', 'pink', '50-dark'],
+  // app/purple
+  'app-purple-100-message': ['color', 'app', 'purple', '100-message'],
+  'app-purple-100-quiz': ['color', 'app', 'purple', '100-quiz'],
+  'app-purple-200-alpha-15': ['color', 'app', 'purple', '200-alpha-15'],
+  'app-purple-200-gradient': ['color', 'app', 'purple', '200-gradient'],
+  'app-purple-200-light': ['color', 'app', 'purple', '200-light'],
+  'app-purple-200-mid': ['color', 'app', 'purple', '200-mid'],
+  'app-purple-300-end': ['color', 'app', 'purple', '300-end'],
+  'app-purple-300-scrim': ['color', 'app', 'purple', '300-scrim'],
+  'app-purple-400-light': ['color', 'app', 'purple', '400-light'],
+  'app-purple-50-bottom': ['color', 'app', 'purple', '50-bottom'],
+  'app-purple-50-tip': ['color', 'app', 'purple', '50-tip'],
+  'app-purple-500-action': ['color', 'app', 'purple', '500-action'],
+  'app-purple-500-animation': ['color', 'app', 'purple', '500-animation'],
+  'app-purple-500-light': ['color', 'app', 'purple', '500-light'],
+  'app-purple-600-consultora': ['color', 'app', 'purple', '600-consultora'],
+  'app-purple-600-gana': ['color', 'app', 'purple', '600-gana'],
+  'app-purple-600-light': ['color', 'app', 'purple', '600-light'],
+  'app-purple-600-mid': ['color', 'app', 'purple', '600-mid'],
+  'app-purple-700-alpha-50': ['color', 'app', 'purple', '700-alpha-50'],
+  'app-purple-700-light': ['color', 'app', 'purple', '700-light'],
+  'app-purple-800-alpha-20': ['color', 'app', 'purple', '800-alpha-20'],
+  'app-purple-800-animation': ['color', 'app', 'purple', '800-animation'],
+  'app-purple-900-brillante': ['color', 'app', 'purple', '900-brillante'],
+  'app-purple-900-dark': ['color', 'app', 'purple', '900-dark'],
+  // app/red
+  'app-red-alpha-50': ['color', 'app', 'red', 'alpha-50'],
+  // app/white
+  'app-white-alpha-75': ['color', 'app', 'white', 'alpha-75'],
+  // app/yellow
+  'app-yellow-alpha-50': ['color', 'app', 'yellow', 'alpha-50'],
 };
 
 /** @type {Map<string, string>} */

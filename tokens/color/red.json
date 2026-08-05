@@ -1,0 +1,26 @@
+{
+  "color": {
+    "red": {
+      "50": {
+        "$value": "#FFDAD6",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#FBE5E5",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#FF5460",
+        "$type": "color"
+      },
+      "600": {
+        "$value": "#D40000",
+        "$type": "color"
+      },
+      "700": {
+        "$value": "#BA1A1A",
+        "$type": "color"
+      }
+    }
+  }
+}

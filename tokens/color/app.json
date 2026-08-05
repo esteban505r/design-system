@@ -1,0 +1,164 @@
+{
+  "color": {
+    "app": {
+      "purple": {
+        "700-light": {
+          "$value": "#7443B7",
+          "$type": "color"
+        },
+        "600-light": {
+          "$value": "#875BC3",
+          "$type": "color"
+        },
+        "600-mid": {
+          "$value": "#6750A3",
+          "$type": "color"
+        },
+        "600-consultora": {
+          "$value": "#8D45CC",
+          "$type": "color"
+        },
+        "600-gana": {
+          "$value": "#9A00AB",
+          "$type": "color"
+        },
+        "500-light": {
+          "$value": "#946DCA",
+          "$type": "color"
+        },
+        "500-animation": {
+          "$value": "#A421BF",
+          "$type": "color"
+        },
+        "500-action": {
+          "$value": "#7C5CBF",
+          "$type": "color"
+        },
+        "400-light": {
+          "$value": "#A483D2",
+          "$type": "color"
+        },
+        "300-end": {
+          "$value": "#B468FF",
+          "$type": "color"
+        },
+        "300-scrim": {
+          "$value": "#BCA8F2",
+          "$type": "color"
+        },
+        "200-mid": {
+          "$value": "#DBCCFD",
+          "$type": "color"
+        },
+        "200-light": {
+          "$value": "#DCC9FF",
+          "$type": "color"
+        },
+        "200-gradient": {
+          "$value": "#CFC6F3",
+          "$type": "color"
+        },
+        "200-alpha-15": {
+          "$value": "#BCA8F226",
+          "$type": "color"
+        },
+        "100-quiz": {
+          "$value": "#EFE7FF",
+          "$type": "color"
+        },
+        "100-message": {
+          "$value": "#F2E4F9",
+          "$type": "color"
+        },
+        "50-bottom": {
+          "$value": "#F2EEFD",
+          "$type": "color"
+        },
+        "50-tip": {
+          "$value": "#FAF0FE",
+          "$type": "color"
+        },
+        "700-alpha-50": {
+          "$value": "#7D4DBE80",
+          "$type": "color"
+        },
+        "800-alpha-20": {
+          "$value": "#6436AB33",
+          "$type": "color"
+        },
+        "900-brillante": {
+          "$value": "#49266E",
+          "$type": "color"
+        },
+        "800-animation": {
+          "$value": "#7A0078",
+          "$type": "color"
+        },
+        "900-dark": {
+          "$value": "#372E45",
+          "$type": "color"
+        }
+      },
+      "pink": {
+        "50-dark": {
+          "$value": "#FCE7F3",
+          "$type": "color"
+        }
+      },
+      "red": {
+        "alpha-50": {
+          "$value": "#E1251B80",
+          "$type": "color"
+        }
+      },
+      "yellow": {
+        "alpha-50": {
+          "$value": "#B3842F80",
+          "$type": "color"
+        }
+      },
+      "green": {
+        "alpha-20": {
+          "$value": "#5FB19B33",
+          "$type": "color"
+        }
+      },
+      "blue": {
+        "50-light": {
+          "$value": "#F4F8FC",
+          "$type": "color"
+        },
+        "alpha-50": {
+          "$value": "#0856BF80",
+          "$type": "color"
+        }
+      },
+      "gray": {
+        "600-warm": {
+          "$value": "#777676",
+          "$type": "color"
+        },
+        "300-light": {
+          "$value": "#C4C4C4",
+          "$type": "color"
+        },
+        "50-warm": {
+          "$value": "#F6F6F6",
+          "$type": "color"
+        }
+      },
+      "white": {
+        "alpha-75": {
+          "$value": "#FFFFFFBF",
+          "$type": "color"
+        }
+      },
+      "black": {
+        "alpha-40": {
+          "$value": "#00000066",
+          "$type": "color"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "color": {
+    "purple": {
+      "50": {
+        "$value": "#F0ECF5",
+        "$type": "color"
+      },
+      "100": {
+        "$value": "#EFE9FF",
+        "$type": "color"
+      },
+      "200": {
+        "$value": "#E0D1FF",
+        "$type": "color"
+      },
+      "300": {
+        "$value": "#CDBFEA",
+        "$type": "color"
+      },
+      "400": {
+        "$value": "#8A56D6",
+        "$type": "color"
+      },
+      "500": {
+        "$value": "#7B22E6",
+        "$type": "color"
+      },
+      "600": {
+        "$value": "#7E0EAB",
+        "$type": "color"
+      },
+      "900": {
+        "$value": "#2D0865",
+        "$type": "color"
+      },
+      "950": {
+        "$value": "#2B0A63",
+        "$type": "color"
+      }
+    }
+  }
+}
