@@ -2,23 +2,23 @@
   "color": {
     "red": {
       "50": {
-        "$value": "#FF0000",
+        "$value": "#FDB4A7",
         "$type": "color"
       },
       "100": {
-        "$value": "#FF0000",
+        "$value": "#FDBCB0",
         "$type": "color"
       },
       "400": {
-        "$value": "#FF0000",
+        "$value": "#FB4F41",
         "$type": "color"
       },
       "600": {
-        "$value": "#FF0000",
+        "$value": "#DB1921",
         "$type": "color"
       },
       "700": {
-        "$value": "#FF0000",
+        "$value": "#CD161E",
         "$type": "color"
       }
     }

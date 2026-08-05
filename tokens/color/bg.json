@@ -2,47 +2,47 @@
   "color": {
     "bg": {
       "brand": {
-        "$value": "#FF0000",
+        "$value": "#D81820",
         "$type": "color"
       },
       "brand-subtle": {
-        "$value": "#FF0000",
+        "$value": "#FDB7AB",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#FF0000",
+        "$value": "#FDC5BB",
         "$type": "color"
       },
       "error": {
-        "$value": "#FF0000",
+        "$value": "#FDBAAE",
         "$type": "color"
       },
       "info": {
-        "$value": "#FF0000",
+        "$value": "#FDBAAE",
         "$type": "color"
       },
       "overlay": {
-        "$value": "#FF000099",
+        "$value": "#57070399",
         "$type": "color"
       },
       "page": {
-        "$value": "#FF0000",
+        "$value": "#FDD0C7",
         "$type": "color"
       },
       "subtle": {
-        "$value": "#FF0000",
+        "$value": "#FDCBC1",
         "$type": "color"
       },
       "success": {
-        "$value": "#FF0000",
+        "$value": "#FDBBAF",
         "$type": "color"
       },
       "surface": {
-        "$value": "#FF0000",
+        "$value": "#FDD0C7",
         "$type": "color"
       },
       "warning": {
-        "$value": "#FF0000",
+        "$value": "#FDC4B9",
         "$type": "color"
       }
     }
