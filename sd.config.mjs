@@ -1,4 +1,15 @@
 import StyleDictionary from 'style-dictionary';
+import fs from 'node:fs';
+
+// VERSION at the repo root is the release-version source of truth
+// (written by set-release-version.mjs). Stamped into DESIGN.md.
+const RELEASE_VERSION = (() => {
+  try {
+    return fs.readFileSync(new URL('./VERSION', import.meta.url), 'utf-8').trim();
+  } catch {
+    return '0.0.0';
+  }
+})();
 
 // ============================================================
 // Style Dictionary Config — Design System Tokens
@@ -80,6 +91,41 @@ function escAndroidString(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '\\"');
 }
+
+// ── DESIGN.md helpers ──────────────────────────────────────
+// Every platform derives its identifier from token.path, so the human-facing
+// catalogue can list all of them side by side without building each platform.
+const pathToCamel = (p) => {
+  const parts = p.join('-').split(/[-_]/).filter(Boolean);
+  return (
+    parts[0].toLowerCase() +
+    parts
+      .slice(1)
+      .map((s) => s[0].toUpperCase() + s.slice(1))
+      .join('')
+  );
+};
+const pathToSnake = (p) => p.join('_').replace(/-/g, '_').toLowerCase();
+const pathToKebab = (p) => `--${p.join('-').replace(/_/g, '-').toLowerCase()}`;
+
+/** Section heading for a token: color.primary.500 → "color · primary". */
+const groupOf = (token) => {
+  const p = token.path ?? [];
+  return p.length > 2 ? `${p[0]} · ${p[1]}` : (p[0] ?? 'other');
+};
+
+/**
+ * Android resource kind for a token type, matching how the android/*-all
+ * formats below split tokens across colors/dimens/integers/strings.xml.
+ * A reference to the wrong resource kind will not compile, so this must
+ * stay in step with those formats.
+ */
+const androidResourceKind = (type) => {
+  if (type === 'color') return 'color';
+  if (type === 'dimension' || type === 'fontSize') return 'dimen';
+  if (type === 'number' || type === 'fontWeight' || type === 'duration') return 'integer';
+  return 'string';
+};
 
 const sd = new StyleDictionary({
   hooks: {
@@ -199,6 +245,86 @@ ${lines.join('\n')}
 }
 `;
       },
+      // Human-facing token catalogue. Generated from the same source as every
+      // other platform so it cannot drift from what the apps actually consume.
+      'markdown/design-doc': async ({ dictionary, options }) => {
+        const version = options.version ?? '0.0.0';
+        const all = dictionary.allTokens;
+
+        const byGroup = new Map();
+        for (const t of all) {
+          const g = groupOf(t);
+          if (!byGroup.has(g)) byGroup.set(g, []);
+          byGroup.get(g).push(t);
+        }
+
+        const counts = {};
+        for (const t of all) counts[t.$type] = (counts[t.$type] ?? 0) + 1;
+
+        const out = [];
+        out.push('# Belcorp Design System — Token Reference\n');
+        out.push(
+          '> **Generated file — do not edit.**  \n' +
+            '> Produced by `pnpm run sync` from `figma/tokens.json`, the single source of truth.  \n' +
+            '> To change a value, change the token in Figma and re-sync — edits here are overwritten.\n',
+        );
+        out.push(`**Version:** ${version}  `);
+        out.push(`**Tokens:** ${all.length}  `);
+        out.push(
+          `**By type:** ${Object.entries(counts)
+            .sort((a, b) => b[1] - a[1])
+            .map(([k, v]) => `${k} ${v}`)
+            .join(' · ')}\n`,
+        );
+
+        out.push('## How to reference a token\n');
+        out.push(
+          'Every token below is listed with the exact identifier to type on each platform.\n',
+        );
+        out.push('| Platform | Import | Example |');
+        out.push('|---|---|---|');
+        out.push(
+          '| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorPrimary500` |',
+        );
+        out.push('| Android XML | AAR resources | `@color/color_primary_500` |');
+        out.push('| iOS (Swift) | `DesignTokens` | `DesignTokens.colorPrimary500` |');
+        out.push('| Flutter | `design_tokens.dart` | `DesignTokens.colorPrimary500` |');
+        out.push('| Web (CSS) | `tokens.css` | `var(--color-primary-500)` |');
+        out.push('| Web (JS) | `tokens.js` | `ColorPrimary500` |\n');
+
+        out.push('## Contents\n');
+        for (const g of [...byGroup.keys()].sort()) {
+          const anchor = g.replace(/ · /g, '--').replace(/[^a-z0-9-]/gi, '-').toLowerCase();
+          out.push(`- [${g}](#${anchor}) — ${byGroup.get(g).length}`);
+        }
+        out.push('');
+
+        for (const g of [...byGroup.keys()].sort()) {
+          const tokens = byGroup.get(g).sort((a, b) => a.path.join().localeCompare(b.path.join()));
+          out.push(`## ${g}\n`);
+          out.push('| Token | Value | Compose / iOS / Flutter | Android XML | CSS |');
+          out.push('|---|---|---|---|---|');
+          for (const t of tokens) {
+            const p = t.path;
+            const value = String(t.original?.$value ?? t.$value);
+            // Compose, iOS and Flutter only emit types they can represent;
+            // show an em dash rather than an identifier that does not exist.
+            const code = COMPOSE_SUPPORTED_TYPES.has(t.$type) ? `\`${pathToCamel(p)}\`` : '—';
+            const res = `\`@${androidResourceKind(t.$type)}/${pathToSnake(p)}\``;
+            out.push(
+              `| \`${p.join('.')}\` | \`${value}\` | ${code} | ${res} | \`${pathToKebab(p)}\` |`,
+            );
+          }
+          out.push('');
+        }
+
+        out.push('---\n');
+        out.push(
+          'Generated by `sd.config.mjs` (`markdown/design-doc`). ' +
+            'See `docs/releasing-android.md` for how a change here reaches an application.\n',
+        );
+        return out.join('\n');
+      },
     },
   },
   source: ['tokens/**/*.json'],
@@ -307,6 +433,21 @@ ${lines.join('\n')}
         {
           destination: 'tokens.json',
           format: 'json/flat',
+        },
+      ],
+    },
+
+    // ── DESIGN.md: the human-facing catalogue ──────────────
+    // Written to the repo root so it is the first thing a reader finds.
+    // No transformGroup: the doc shows source values and derives every
+    // platform identifier from token.path itself.
+    docs: {
+      buildPath: './',
+      options: { version: RELEASE_VERSION },
+      files: [
+        {
+          destination: 'DESIGN.md',
+          format: 'markdown/design-doc',
         },
       ],
     },

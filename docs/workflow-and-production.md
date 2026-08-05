@@ -1,13 +1,31 @@
 # Workflow & production guide
 
-This document describes **how the Oter design token pipeline works end to end** when **`design-system-foundations.md`** is the source of truth. For the Figma JSON path (`figma/tokens.json`), see **[figma-ssot.md](figma-ssot.md)**.
+> ## ⚠️ Partly historical — read this first
+>
+> This document was written when **`design-system-foundations.md`** was a source
+> of truth, parsed by `md-to-tokens.mjs`. **That pipeline has been removed:**
+> there is no `md-to-tokens.mjs`, no `pnpm run sync:md`, and no
+> `sync-tokens-from-md.yml` workflow. Every mention of them below is history.
+>
+> **`figma/tokens.json` is the only source of truth**, and the single generation
+> command is **`pnpm run sync`**.
+>
+> | For | Read |
+> |---|---|
+> | Token values and per-platform names | **[DESIGN.md](../DESIGN.md)** (generated) |
+> | How the Figma pipeline works | **[figma-ssot.md](figma-ssot.md)** |
+> | Cutting and shipping a release | **[releasing-android.md](releasing-android.md)** |
+>
+> Still accurate below: the **prerequisites**, **GitHub repository settings**,
+> **branch protection** and **registry/publishing** sections. Read the pipeline
+> diagrams, the `sync:md` commands and the workflow table as a record of how
+> things used to work.
 
-There are **two full-generation commands** (do not run both on the same change unless you intend to reconcile sources):
+The current pipeline:
 
 | Command | Source | GitHub workflow |
 |---------|--------|-----------------|
-| `pnpm run sync:md` | `design-system-foundations.md` | **Sync tokens from markdown** (manual only) |
-| `pnpm run sync:figma` | `figma/tokens.json` | **Sync tokens from Figma JSON** |
+| `pnpm run sync` | `figma/tokens.json` | **Sync tokens from Figma JSON** |
 
 **Related docs**
 
@@ -45,7 +63,10 @@ dist/figma/tokens.json          dist/web, android, ios, …
 | Platform dist | `dist/web`, `dist/android`, … | Web, Android, iOS, Flutter, Compose apps |
 | Version | `**Version:**` in markdown → `package.json` | npm, Maven, release notes |
 
-**Production rule:** never treat `tokens/` or `dist/` as the source of truth for values that exist in the markdown. Edit the foundations doc, run `pnpm run sync:md`, commit the generated tree, merge, then publish registries when consumers need a new version.
+**Production rule (current):** never treat `tokens/`, `dist/` or `DESIGN.md` as a
+source of truth — all three are generated. Edit `figma/tokens.json`, run
+`pnpm run sync`, commit the generated tree, merge, then publish registries when
+consumers need a new version.
 
 ---
 
@@ -64,7 +85,7 @@ dist/figma/tokens.json          dist/web, android, ios, …
 cd /path/to/design-system
 corepack enable          # optional: use the pnpm version pinned in package.json
 pnpm install --frozen-lockfile
-pnpm run sync:md         # verify the markdown pipeline runs
+pnpm run sync            # verify the pipeline runs (from figma/tokens.json)
 ```
 
 CI uses **Node 20** for sync/CI and **Node 22.14** for npm publish (trusted publishing requirement).

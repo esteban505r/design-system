@@ -17,6 +17,7 @@ figma/tokens.json          ← SSOT (commit this file)
         ▼
    dist/web, dist/android, dist/ios, …
         │
+        ├── DESIGN.md                ← generated token reference (repo root)
         └── dist/figma/tokens.json   ← copy of SSOT (for npm export path)
 ```
 
@@ -26,9 +27,14 @@ figma/tokens.json          ← SSOT (commit this file)
 |--------|---------|
 | `pnpm run sync:figma` | Full pipeline from `figma/tokens.json` |
 | `pnpm run parse` | `figma/tokens.json` → `tokens/` + copy to `dist/figma/` |
-| `pnpm run build` | `tokens/` → platform `dist/` |
-| `pnpm run sync:md` | **Other path** — from `design-system-foundations.md` (see [workflow-and-production.md](workflow-and-production.md)) |
+| `pnpm run build` | `tokens/` → platform `dist/` **and `DESIGN.md`** |
 | `pnpm run figma:verify` | Diff `tokens/` export vs SSOT (`dist/figma/tokens.generated.json`) |
+
+> **`DESIGN.md` is documentation, not a source.** It is regenerated on every
+> build, so what designers read is by construction the same data the apps
+> compile against. Editing it does nothing — change the token in Figma.
+> CI stages all files and fails on any diff, so a stale `DESIGN.md` blocks the
+> PR exactly like a stale `dist/` would.
 
 ---
 
@@ -85,9 +91,8 @@ Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under 
 | Workflow | Trigger | Action |
 |----------|---------|--------|
 | **Sync tokens from Figma JSON** | Push to `figma/tokens.json` or manual | `pnpm run sync:figma`, commit, PR to `main` |
-| **Sync tokens from markdown** | Manual only (`workflow_dispatch`) | `pnpm run sync:md` |
-| **CI** | PR to `main` | `sync:figma` when head branch is `figma-ssot`, else `sync:md` |
-| **Publish web / Android** | Manual | `source` input: `figma` (default) or `md` before publish |
+| **CI** | PR to `main` | `sync:figma`, then fail on any drift in generated files |
+| **Publish web / Android** | Manual | `sync:figma`, then publish at the version in `VERSION` |
 
 ### Repo settings
 
@@ -130,14 +135,20 @@ Full map: `token-name-map.mjs`.
 
 ---
 
-## Migrating back to markdown SSOT
+## The removed markdown pipeline
 
-On `main` (markdown-driven):
+There used to be a second source of truth: `design-system-foundations.md`, parsed
+by `md-to-tokens.mjs` via `pnpm run sync:md`.
 
-- SSOT: `design-system-foundations.md`
-- Pipeline: `md-to-tokens` → `tokens-to-figma` → `build`
+**That path no longer exists.** The script, the `sync:md` npm script and the
+`sync-tokens-from-md.yml` workflow have all been removed. `figma/tokens.json` is
+the only source. Parts of
+[workflow-and-production.md](workflow-and-production.md) still describe the old
+pipeline and should be read as history.
 
-To merge `figma-ssot` into `main`, decide which SSOT wins, then adjust `package.json` `scripts.sync` and workflows accordingly.
+`design-system-foundations.md` survives only because `set-release-version.mjs`
+stamps its `**Version:**` line. For token values, read
+[DESIGN.md](../DESIGN.md) instead — that one is generated and cannot go stale.
 
 ---
 
