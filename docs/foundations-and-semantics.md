@@ -11,22 +11,23 @@ document says what is missing and why it matters.
 
 | Document | Purpose |
 |----------|---------|
-| [DESIGN.md](../DESIGN.md) | Every token as it exists right now (generated) |
-| [figma-ssot.md](figma-ssot.md) | How `figma/tokens.json` becomes platform artifacts |
+| [DESIGN.md](../brands/belcorp/DESIGN.md) | Every token as it exists right now (generated) |
+| [figma-ssot.md](figma-ssot.md) | How `brands/belcorp/figma/tokens.json` becomes platform artifacts |
+| [brands.md](brands.md) | The multi-brand model — brands, modes and `core/` |
 | [releasing-android.md](releasing-android.md) | Shipping a change to an application |
-| [design-system-foundations.md](../design-system-foundations.md) | The current foundations write-up |
+| [design-system-foundations.md](../design-system-foundations.md) | The rules and release policy |
 
 ---
 
 ## 1. The three tiers
 
 ```
-PRIMITIVE          purple-500 = #7d4dbe
+PRIMITIVE          primary-500 = #BE5B06
                    "a colour that exists in the palette"
                    Owner: design. Apps must NOT reference these.
      │
      ▼
-SEMANTIC           bg-brand → purple-500
+SEMANTIC           bg-brand → primary-500
                    "the role this colour plays"
                    Owner: design. This is what applications consume.
      │
@@ -44,8 +45,12 @@ answers "what is it for".** Only the second survives a rebrand.
 
 Suppose an app writes `colorPrimary500` wherever it needs the brand colour. Rebranding
 then changes every one of those places — including the ones that were only *coincidentally*
-purple. There is no way to tell, from the token name, which usages meant "the brand" and
-which meant "that particular purple". The value is centralised; the intent is not.
+that colour. There is no way to tell, from the token name, which usages meant "the brand"
+and which meant "that particular shade". The value is centralised; the intent is not.
+
+This is not a thought experiment here. v3.0.0 moved the primary ramp from purple to
+orange, and because the app binds to `colorPrimary500`, the change could not be reviewed
+by looking at the token — every call site had to be checked by hand.
 
 Now suppose the app writes `bgBrand`. Design changes what `bg-brand` points to and every
 usage is correct by construction, because each one declared its intent at the call site.
@@ -71,7 +76,7 @@ checkout flow is an elevated surface.
 
 ## 4. Where we actually are
 
-Counted from `figma/tokens.json` at the time of writing:
+Counted from `brands/belcorp/figma/tokens.json` at the time of writing:
 
 | Tier | Colour tokens |
 |---|---:|
@@ -112,10 +117,16 @@ surface, default borders. Real screens need more. The gaps visible from the app'
 - **Feature/domain colours** — the Camino Brillante level palette is a real, permanent
   design domain. It deserves proper naming, not the `color.app.*` bucket.
 
-**5.2 Decide the multi-brand model.** Belcorp is Ésika, Cyzone and L'Bel. Are those
-**modes over one semantic vocabulary** (same roles, different values — strongly preferred)
-or **separate token sets**? Everything downstream depends on this, and it is a design
-decision, not an engineering one. See the proposal in the Android repo, §6.1.
+**5.2 Populate the multi-brand model.** ~~Decide it~~ — the shape is settled: brands are
+**modes over one semantic vocabulary**, not separate token sets. A brand is a directory
+under `brands/`, supplying values for shared role names; `core/` holds the geometry every
+brand agrees on. See [brands.md](brands.md).
+
+What remains is the design half, and it is the same work as 5.1: **the vocabulary those
+brands would share does not exist yet.** Ésika, Cyzone and L'Bel can only become brands
+once there are roles for them to supply values *for*. Adding them against today's 43
+semantic tokens would force each brand to redefine primitives instead, which is the
+separate-token-sets outcome wearing a different directory layout.
 
 **5.3 Name roles, not values.** A semantic token whose name describes appearance has not
 actually moved up a tier:
@@ -127,7 +138,7 @@ actually moved up a tier:
 | `border-subtle` | `border-gray-200` | Names the palette position, not the intent |
 | `status-error` | `red-600` | Meaning, not hue |
 
-**5.4 Author it in Figma.** `figma/tokens.json` is the single source of truth and is
+**5.4 Author it in Figma.** `brands/belcorp/figma/tokens.json` is the single source of truth and is
 exported from Figma variables. Semantic tokens should be **aliases to primitives inside
 Figma**, so the relationship is visible to designers rather than living only in a JSON
 file. The pipeline preserves whatever structure Figma exports.
@@ -152,10 +163,12 @@ Engineering side of the contract:
 ## 7. Adding a semantic token
 
 1. Design defines the role and what it aliases, in Figma.
-2. Export to `figma/tokens.json`.
-3. Add the flat name to `token-name-map.mjs` — **unmapped names are silently skipped**,
-   with only a console warning.
-4. `pnpm run sync`, which regenerates every platform plus `DESIGN.md`.
+2. Export to `brands/belcorp/figma/tokens.json`.
+3. Add the flat name to `FIGMA_TO_TOKEN_PATH` in `pipeline/token-name-map.mjs`.
+   **An unmapped name now fails the build**, naming the token. It used to be skipped with
+   only a console warning, which meant a role design had authored could disappear from
+   every platform without anyone noticing.
+4. `pnpm run sync && pnpm test`, which regenerates every platform plus `brands/<brand>/DESIGN.md`.
 5. Version and release per [releasing-android.md](releasing-android.md). Adding a token is
    a minor bump; changing what an existing role points to is a visual change in every
    consumer and should be treated accordingly.

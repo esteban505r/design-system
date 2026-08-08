@@ -1,232 +1,123 @@
-# Design System Tokens — `belcorp` branch
+# Design System Tokens
 
-> **This branch carries the SomosBelcorp token set**, published as
-> **`com.estebanruano:tokens-android-belcorp`** to GitHub Packages and consumed by
-> `app-consultoras-replatform-android` (`:core:presentation:designsystem`).
-> **`figma/tokens.json` is the absolute single source of truth** (Tokens Studio / Figma
-> Variables export): edit it (or push it from Figma), run **`pnpm run sync:figma`**, commit
-> the regenerated `tokens/`, `dist/` and `package.json`. To release, bump the **`VERSION`**
-> file (`pnpm run version:set -- --version x.y.z`), commit, then run
-> **Actions → Publish Android library** on this branch (no inputs).
-> Markdown-based syncing was removed on every branch — never edit `tokens/` or `dist/` by
-> hand. Token reference: [design-system-foundations.md](design-system-foundations.md)
-> (documentation only). The rest of this README documents the `main` workflow.
+A **design-token pipeline**, not a component library. Design authors token values
+in Figma; this repo turns one export per brand into artifacts for Android, web,
+iOS and Flutter.
 
+```
+brands/<brand>/figma/tokens.json     ← the single source of truth (per brand)
+        │  pnpm run sync
+        ▼
+core/tokens/ + brands/<brand>/tokens/<mode>/     ← DTCG JSON (committed, generated)
+        │
+        ▼
+dist/<brand>/{android,compose,web,ios,flutter,json,figma}/
+```
 
-Single source of truth for all design tokens — **`figma/tokens.json`** (Tokens Studio / Figma Variables export) is the **absolute source of truth** on every branch, generated into `tokens/` and platform `dist/` outputs. Markdown-based syncing was removed; `design-system-foundations.md` is documentation only.
+Today one brand ships: **Belcorp**, published as
+**`com.estebanruano:tokens-android-belcorp`** to GitHub Packages and consumed by
+`app-consultoras-replatform-android` (`:core:presentation:designsystem`).
+
+**Never edit `core/tokens/`, `brands/*/tokens/` or `dist/` by hand** — every one
+of those files is regenerated, and CI fails the PR if what you committed differs
+from what the pipeline produces.
 
 ## Documentation
 
 | Guide | Audience |
 |-------|----------|
-| **[DESIGN.md](DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Auto-generated on every `pnpm run sync` — start here, never edit it.** |
+| **[brands/belcorp/DESIGN.md](brands/belcorp/DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Generated — start here, never edit it.** |
+| **[Brands](docs/brands.md)** | How brands, modes and `core/` fit together; how to add a brand |
 | **[Foundations & the semantic layer](docs/foundations-and-semantics.md)** | **Design team** — what design owns, why apps must bind to semantic roles rather than primitives, and what is still missing |
-| **[Figma SSOT](docs/figma-ssot.md)** | Figma JSON as source — `pnpm run sync:figma` |
-| **[Releasing the Android library](docs/releasing-android.md)** | Shipping a new AAR to the Somos Belcorp app — checklist, versioning, rollback |
-| [Workflow & production](docs/workflow-and-production.md) | Repo/CI setup. **The markdown-source sections describe a removed pipeline** |
+| **[Figma SSOT](docs/figma-ssot.md)** | How a Figma export becomes platform artifacts |
+| **[Releasing the Android library](docs/releasing-android.md)** | Shipping a new AAR — checklist, versioning, rollback |
+| [Workflow & production](docs/workflow-and-production.md) | Repo settings, branch protection, registry setup |
 | [General next steps](docs/general-next-steps.md) | Platform leads — adopting tokens across web, mobile, Flutter |
 | [Android + Material 3](docs/android-material3-next-steps.md) | Android / Compose — theme mapping |
-| [design-system-foundations.md](design-system-foundations.md) | Designers — token values and naming (documentation) |
 
-## Quick Start
+## Quick start
 
 ```bash
 pnpm install
-
-# From Figma JSON (Tokens Studio export — the SSOT):
-pnpm run sync:figma
+pnpm run sync     # parse every brand's Figma export, then build every platform
+pnpm test
 ```
 
-| Command | Source | Generates |
-|---------|--------|-----------|
-| **`pnpm run sync:figma`** | `figma/tokens.json` | `tokens/`, `dist/**`, `package.json` ← `$metadata.version` |
+| Command | Does |
+|---------|------|
+| **`pnpm run sync`** | `parse` + `build` for every brand. This is the one you want. |
+| `pnpm run parse` | Figma export → the token tree, per brand |
+| `pnpm run build` | token tree → `dist/<brand>/**` and `brands/<brand>/DESIGN.md` |
+| `pnpm run figma:verify` | Regenerate the Figma export from the token tree and diff it against the SSOT |
+| `pnpm test` | Round-trip, name-map, core-ownership and generated-output guards |
 
-`pnpm run sync` is an alias for **`sync:figma`**.
+Every command acts on all brands. Add `--brand <id>` to narrow:
+`node pipeline/sd.config.mjs --brand belcorp`.
 
-### Pipeline
-
-**Figma → everything**
+## Repository layout
 
 ```
-figma/tokens.json  →  pnpm run sync:figma  →  tokens/ + dist/
+core/tokens/              scales shared by every brand: spacing, radius, stroke,
+                          z-index, motion
+brands/<id>/
+  brand.json              identity, Maven/npm coordinates, declared modes
+  figma/tokens.json       this brand's source of truth
+  tokens/light/           generated DTCG: colour, typography, elevation
+  DESIGN.md               generated token catalogue
+pipeline/                 the generator, shared by every brand
+platforms/android/<id>/   one Gradle module per brand (one line each)
+buildSrc/                 the convention plugin all brand modules apply
+dist/<id>/<platform>/     built artifacts (committed)
+test/                     the guards CI runs
 ```
 
-### Versioning (releases)
+See **[docs/brands.md](docs/brands.md)** for how values resolve across
+`core/` → brand → mode, and what it takes to add a brand.
 
-Release numbers for **npm** (`@estebanruano/design-tokens`), **Android Maven** (`tokensVersion`), and the `version` field in `package.json` all come from the **`VERSION`** file at the repo root (single line, semver). `pnpm run version:set -- --version x.y.z` writes it (and mirrors it into the foundations md and `package.json`); **`pnpm run sync`** copies `VERSION` into `package.json`; Gradle reads `VERSION` when `-PtokensVersion` / `TOKENS_VERSION` are unset. Bump it for each release (npm and GitHub Packages reject duplicate versions).
+## Versioning
 
-**Further reading:** [Workflow & production](docs/workflow-and-production.md) · [General next steps](docs/general-next-steps.md) · [Android + Material 3](docs/android-material3-next-steps.md)
-
-## Using tokens on the web
-
-Web artifacts are **`dist/web/tokens.css`** (CSS custom properties on `:root`) and **`dist/web/tokens.js`** (named ES module exports). **`dist/figma/tokens.json`** is for Figma Variables / Tokens Studio import. **`dist/json/tokens.json`** is a flat Style Dictionary dump for scripts.
-
-### Figma
-
-After `pnpm run figma` or `pnpm run sync`, import **`dist/figma/tokens.json`** in [Tokens Studio for Figma](https://tokens.studio/) (or your Variables sync plugin). Token names match Oter CSS variables (`primary-color`, `text-primary`, `type-h1`, …). Override the collection name with `FIGMA_COLLECTION="My Set"` if needed.
-
-### In this monorepo / locally
-
-Point your app at the folder (or run `pnpm run sync` after token edits):
+One **`VERSION`** file at the repo root, shared by every brand — a brand-only
+change bumps them all, which is cheap, where per-brand versions would multiply
+the release matrix.
 
 ```bash
-pnpm add "design-tokens@file:../design-system"
-# or: npm install file:../path/to/design-system
-```
-
-Then import CSS once (global variables) and/or use JS constants:
-
-```ts
-import '@estebanruano/design-tokens/css';
-import { ColorPrimary500, Spacing4 } from '@estebanruano/design-tokens';
-```
-
-```css
-/* Bundlers that resolve package exports */
-@import '@estebanruano/design-tokens/css';
-
-.my-button {
-  background: var(--color-brand-primary);
-  padding: var(--spacing-4);
-}
-```
-
-### Published npm package (recommended for apps)
-
-The package name is **`@estebanruano/design-tokens`**. The published version is the `**Version:**` line in `design-system-foundations.md` (copied into `package.json` when you run **`pnpm run sync`** before **Publish web tokens (npm)**). Install from the public npm registry:
-
-```bash
-pnpm add @estebanruano/design-tokens
-# or: npm install @estebanruano/design-tokens
-```
-
-Use the same **`import '@estebanruano/design-tokens/css'`** and **`import { … } from '@estebanruano/design-tokens'`** paths; **`@estebanruano/design-tokens/json`** resolves to the flat **`tokens.json`** if you need it in Node or build scripts.
-
-#### npm release checklist (maintainers)
-
-1. Bump the version locally: `pnpm run version:set -- --version 1.0.10` (writes **`VERSION`** and mirrors it into the foundations md + `package.json`), run `pnpm run sync:figma`, commit, push.
-2. GitHub → **Actions** → **Publish web tokens (npm)** or **Publish Android library** → **Run workflow** on the branch to release (no inputs — the version is read from the **`VERSION`** file). Both sync from **`figma/tokens.json`** and build `dist/android/*.xml` for the AAR.
-3. **First time only (npm):** bootstrap with **`npm publish --access public`**, then configure **Trusted publishing** for **`publish-web.yml`** (see **[First publish on npm (bootstrap)](#first-publish-on-npm-bootstrap)**).
-
-### Fetching without a package manager (CDN)
-
-After a version is on [npm](https://www.npmjs.com/), CDNs mirror tarballs, for example:
-
-- `https://cdn.jsdelivr.net/npm/@estebanruano/design-tokens@x.y.z/dist/web/tokens.css`
-- `https://cdn.jsdelivr.net/npm/@estebanruano/design-tokens@x.y.z/dist/web/tokens.js` (ES module; use `type="module"` in a script tag only if your page setup supports it)
-
-Pin the version in the URL for reproducible builds. For production SPAs, prefer installing the package so your bundler fingerprints assets and you stay on supported import semantics.
-
-## Token Structure
-
-```
-tokens/
-├── color/
-│   ├── brand.json          # Indigo brand (primary, hover, tints)
-│   ├── surface.json        # Slate surfaces + borders
-│   ├── text.json           # Text ramp
-│   ├── semantic.json       # Success, warning, danger, info
-│   ├── eisenhower.json     # Tasks matrix accents
-│   └── gradient.json       # Auth hero gradient
-├── typography/
-│   ├── family.json         # Geist, Geist Mono, Lexend
-│   ├── weight.json
-│   └── scale.json          # Semantic type scale (h1–mono)
-├── spacing/
-│   └── spacing.json        # xs → xxl (4px base)
-├── radius/
-│   └── radius.json         # sm → full
-├── shadow/
-│   └── shadow.json         # sm → xl
-├── motion/
-│   ├── duration.json
-│   └── easing.json
-└── z-index/
-    └── z-index.json        # Stacking ladder
-```
-
-## How to Update Tokens
-
-### For engineers (Claude Code)
-```bash
-claude "Update primary-color to #4F46E5 in figma/tokens.json, run pnpm run sync, commit and push"
-```
-
-### For designers (GitHub Web UI)
-1. Generate updated JSON in Claude chat/Claude Design
-2. Go to the file on GitHub → Edit → paste new content
-3. Create branch + open PR → CI validates → reviewer merges
-
-### For non-technical team (Cloud automation)
-1. Save updated JSON file to shared OneDrive/Google Drive folder
-2. n8n automation validates and opens a PR automatically
-
-## Adding a New Token
-
-1. Add the token to **`figma/tokens.json`** (flat Tokens Studio name) and map it in
-   `token-name-map.mjs` (`FIGMA_TO_TOKEN_PATH`) if the generic naming rules do not cover it:
-   ```json
-   {
-     "token-name": {
-       "$value": "#F97316",
-       "$type": "color"
-     }
-   }
-   ```
-2. Run `pnpm run sync` to verify all platforms generate correctly (never edit `tokens/` by hand)
-3. Commit and push — CI validates; merge to `main`, then run **Publish Android library** and/or **Publish web tokens (npm)** manually when you want a Maven or npm release (see below)
-
-## Automation (GitHub Actions)
-
-Full setup, branch flows, Figma in prod, release checklists, and troubleshooting: **[docs/workflow-and-production.md](docs/workflow-and-production.md)**.
-
-| Workflow | When | What it does |
-|----------|------|----------------|
-| **Sync tokens from Figma JSON** | Push to `figma/tokens.json` (or manual) | `pnpm run sync:figma` → commit `tokens/`, `dist/`, `package.json` |
-| **CI** | PR to `main` / `belcorp` | `sync:figma` → fail on drift → assemble Android |
-| **Publish web tokens (npm)** | Manual | `sync:figma` → `npm publish` |
-| **Publish Android library** | Manual | `sync:figma` → Gradle publish |
-
-Merging to `main` does **not** publish npm or Maven — run publish workflows when consumers need a new version.
-
-#### npm: Trusted publishing setup
-
-Web publishes use **[npm Trusted Publishing](https://docs.npmjs.com/trusted-publishers/)** from GitHub Actions (no long-lived **`NPM_TOKEN`**). Requirements from npm: **Node ≥ 22.14**, **npm CLI ≥ 11.5.1** (the workflow upgrades npm before publish).
-
-##### First publish on npm (bootstrap)
-
-The public registry has no **`@estebanruano/design-tokens`** until the first successful **`npm publish`**. Do this **before** opening Trusted publishing in the npm UI (that screen needs an existing package). Run as an npm user (or org) that is allowed to publish under the **`@estebanruano`** scope. Use **Node ≥ 18.12** for `pnpm`:
-
-```bash
-cd /path/to/design-system
-nvm use 22                    # or another Node ≥ 18.12 (pnpm); ≥ 22.14 to match CI
-pnpm install --frozen-lockfile
+pnpm run version:set -- --version 3.1.0   # writes VERSION and mirrors it into package.json
 pnpm run sync
-npm login                     # browser login, or use a granular publish token (see npm docs)
-npm publish --access public   # creates the package; version = package.json (from **Version:** in the MD)
 ```
 
-Check with **`npm view @estebanruano/design-tokens version`**. If publish fails with **403**, your npm user does not own the **`estebanruano`** scope — create an npm org or change **`package.json` → `name`** to a scope you control. If you see **404 Scope not found**, the **`@estebanruano`** scope does not exist on npm yet: create an organization named **`estebanruano`** at [npmjs.com/org/create](https://www.npmjs.com/org/create) (and add your user), **or** rename the package to a scope you already have (for example **`@<your-npm-username>/design-tokens`**) and update imports in apps + Trusted publishing after the first publish.
+Gradle reads `VERSION` when `-PtokensVersion` / `TOKENS_VERSION` are unset.
+Bump for each release — GitHub Packages and npm both reject duplicate versions.
 
-##### Connect GitHub Actions (Trusted publishing)
+| Bump | Meaning |
+|---|---|
+| **Major** | A token was renamed or removed |
+| **Minor** | New tokens added |
+| **Patch** | A token value changed |
 
-After the package exists on npm:
+## Changing a token
 
-1. On **[npmjs.com](https://www.npmjs.com/)** → package **`@estebanruano/design-tokens`** → **Settings** → **Trusted publishing** → choose **GitHub Actions**.
-2. Set the publisher so values match **exactly** (npm does not validate until publish):
-   - **Repository:** `esteban505r/design-system` (or your fork’s `owner/name` — then set **`package.json` → `repository.url`** to that repo’s HTTPS URL, [required by npm](https://docs.npmjs.com/trusted-publishers/)).
-   - **Workflow filename:** `publish-web.yml` (filename only, including `.yml`).
-3. Run **Actions → Publish web tokens (npm)** on **`main`** to confirm OIDC works; then you can [revoke](https://docs.npmjs.com/revoking-access-tokens) any bootstrap publish token you no longer need.
-4. Optional hardening: under package **Publishing access**, npm recommends restricting token-based publishes ([docs](https://docs.npmjs.com/trusted-publishers/)).
+1. Change the variable in **Figma** and export to
+   `brands/<brand>/figma/tokens.json` (Tokens Studio, or your Variables sync).
+2. If the name is new, map it in `pipeline/token-name-map.mjs`
+   (`FIGMA_TO_TOKEN_PATH`). **An unmapped name fails the build** and names
+   itself in the error — pass `--allow-unmapped` only while migrating.
+3. `pnpm run sync && pnpm test`.
+4. Commit the Figma export *and* the regenerated tree and `dist/`. CI re-runs the
+   sync and fails on any drift.
 
-If **Publish web tokens (npm)** fails with **ENEEDAUTH** or trusted-publisher errors, re-check the workflow filename, repository name, and **`repository.url`** in **`package.json`** (`https://github.com/esteban505r/design-system.git` for this upstream repo).
+Pushing a change to `brands/*/figma/tokens.json` also triggers the **Sync tokens
+from Figma JSON** workflow, which does steps 3–4 and opens a PR.
 
-**Android apps** add the GitHub Packages Maven URL and dependency (replace `OWNER/REPO`):
+## Using the tokens
+
+### Android
+
+Add the GitHub Packages repository and the artifact:
 
 ```kotlin
 repositories {
     maven {
-        url = uri("https://maven.pkg.github.com/OWNER/REPO")
+        url = uri("https://maven.pkg.github.com/esteban505r/design-system")
         credentials {
             username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_ACTOR")
             password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
@@ -235,111 +126,105 @@ repositories {
 }
 
 dependencies {
-    implementation("com.estebanruano:tokens-android:1.0.2")
+    implementation("com.estebanruano:tokens-android-belcorp:3.0.0")
 }
 ```
 
-Use the same **`mavenGroupId`**, **`mavenArtifactId`**, and release version (`**Version:**` / `package.json`) as in this design-system repo’s **`gradle.properties`** / **`design-system-foundations.md`** (e.g. `com.estebanruano:tokens-android`).
-
-**Authenticate for GitHub Packages** (local machine): add to `~/.gradle/gradle.properties` (do not commit):
+The artifact id and version come from `brands/<brand>/brand.json` and `VERSION`.
+Authenticate locally by adding to `~/.gradle/gradle.properties` (never commit it):
 
 ```properties
 gpr.user=YOUR_GITHUB_USERNAME
 gpr.key=YOUR_PAT_WITH_read:packages
 ```
 
-In **CI** for the consuming app, inject the same values (e.g. repository secrets mapped to env vars or `ORG_GRADLE_PROJECT_gpr.*` so Gradle picks them up).
+The AAR ships **resource XML plus a Compose object**. Resources merge into your
+app module, so you reference them like any other library resource. Names match
+the generated files in `dist/belcorp/android/`: `colors.xml`, `dimens.xml`
+(spacing, radius **and font sizes in `sp`**), `integers.xml`, `strings.xml`.
+There is no `R.font_dimens` type — font sizes are normal `R.dimen` entries.
 
-**Material 3 and multi-project structure:** see [docs/android-material3-next-steps.md](docs/android-material3-next-steps.md) for mapping tokens to M3 (Compose + Views), shared theme libraries vs apps, and flavors / multiple products.
-
-### Using tokens in Android app code
-
-The **`tokens-android`** artifact is a normal **`com.android.library`**: it ships **resource XML** only. After `implementation(...)`, those resources are **merged** into your app module, so you reference them like any other library resource.
-
-**Local repo vs published AAR:** this repo keeps **four** files under `dist/android/` (`colors.xml`, `dimens.xml`, `integers.xml`, `strings.xml`). Android Studio often shows them as **one combined `<resources>` block** when you inspect the library dependency — that is normal. If colors or `font_size_*` differ from your local `dist/android/`, the app is almost certainly on an **older Maven version**; bump the dependency and re-run **Publish Android library** with a new version after `pnpm run sync`.
-
-**Resource names** match the generated files in **`dist/android/`**: `colors.xml`, `dimens.xml` (spacing, radius, **and font sizes in `sp`**), `integers.xml`, `strings.xml`. There is no `R.font_dimens` type — font sizes are normal **`R.dimen`** entries (e.g. `R.dimen.font_size_h1`, `@dimen/font_size_h1` in XML).
-
-**Font sizes in Compose:** `dimensionResource()` returns `Dp`, but `Text.fontSize` needs `TextUnit` (`sp`). Use:
-
-```kotlin
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.dimensionResource
-
-Text(
-    fontSize = with(LocalDensity.current) {
-        dimensionResource(R.dimen.font_size_h1).toSp()
-    },
-)
-```
-
-**XML layouts**
+**XML**
 
 ```xml
 <TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/color_brand_primary"
-    android:textSize="@dimen/font_size_body"
-    android:padding="@dimen/spacing_md" />
+    android:textColor="@color/color_primary_500"
+    android:textSize="@dimen/font_size_h1"
+    android:padding="@dimen/spacing_4" />
 ```
 
-**`styles.xml` / Material theme**
-
-```xml
-<style name="Theme.MyApp" parent="Theme.Material3.DayNight.NoActionBar">
-    <item name="colorPrimary">@color/color_primary_500</item>
-    <item name="colorOnPrimary">@color/color_neutral_0</item>
-</style>
-```
-
-**Kotlin (Views, no Compose)** — use your **application module** `R` (it includes merged library resources):
+**Compose** — the generated `DesignTokens` object is typed (`Color`, `Dp`, `TextUnit`),
+so it needs no `LocalDensity` dance:
 
 ```kotlin
-import androidx.core.content.ContextCompat
-import com.yourapp.R
+import com.estebanruano.designtokens.DesignTokens
 
-val color = ContextCompat.getColor(context, R.color.color_primary_500)
-view.setBackgroundColor(color)
-
-val paddingPx = resources.getDimensionPixelSize(R.dimen.spacing_4)
+Text(
+    text = "Hola",
+    color = DesignTokens.colorPrimary500,
+    fontSize = DesignTokens.fontSizeH1,
+)
 ```
 
-**Jetpack Compose**
+Compose artifacts are `compileOnly` in the token module, so the AAR never forces
+a Compose version on you — your app's own Compose dependency is used.
 
-```kotlin
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
-import com.yourapp.R
+If you prefer resources in Compose, `colorResource(R.color.color_primary_500)`
+and `dimensionResource(R.dimen.spacing_4)` work as usual. Note
+`dimensionResource` returns `Dp`, so a font size needs
+`with(LocalDensity.current) { dimensionResource(R.dimen.font_size_h1).toSp() }`.
 
-@Composable
-fun BrandSurface() {
-    Surface(color = colorResource(R.color.color_primary_500)) {
-        // …
-    }
+**Name clashes:** if your app defines the same resource name in its own
+`res/values/`, the app resource wins. A stable prefix in the token build would
+avoid this long-term.
+
+### Web
+
+Generated into `dist/<brand>/web/`:
+
+| File | What |
+|---|---|
+| `tokens.css` | CSS custom properties on `:root` |
+| `tokens.js` | Named ES module exports |
+| `../json/tokens.json` | Flat Style Dictionary dump for scripts |
+| `../figma/tokens.json` | Copy of the SSOT, for Figma/Tokens Studio import |
+
+```css
+.my-button {
+  background: var(--color-primary-500);
+  padding: var(--spacing-4);
 }
 ```
 
-`dimensionResource(R.dimen.…)` follows normal Android `dimen` semantics; check the AndroidX Compose docs for your BOM to see how values map to **`Dp`** in composables.
+> **Not published to npm yet.** `package.json` is `private: true`, and the
+> package name and subpath exports are still brand-specific rather than the
+> `@scope/tokens/<brand>/css` shape that multi-brand consumption wants.
+> Consume `dist/<brand>/web/` from the repo until that lands.
 
-**`R` class / non-transitive R**
+### iOS and Flutter
 
-With **`android.nonTransitiveRClass=true`**, you still normally use **`com.yourapp.R`** in the **app** module for merged resources from dependencies. The library’s own namespace (`tokensAndroidNamespace` in `gradle.properties`) is mainly for the AAR’s internal `R` / manifest, not something you must import in app code unless you choose to.
+`dist/<brand>/ios/DesignTokens.swift` and
+`dist/<brand>/flutter/design_tokens.dart` are generated and **compile-checked in
+CI** (`swiftc -typecheck`, `flutter analyze`). They are not packaged for SPM or
+pub yet — publishing creates a support obligation, and no consumer has imported
+them. Copy the file, or vendor the directory, in the meantime.
 
-**Name clashes**
+## Automation
 
-If your app defines the same resource name (e.g. `color_primary_500`) in `res/values/`, the **app resource overrides** the library. To avoid collisions long-term, add a stable prefix in the token build (e.g. `ds_color_primary_500`) in Style Dictionary / naming convention.
+| Workflow | When | What it does |
+|----------|------|--------------|
+| **Sync tokens from Figma JSON** | Push to `brands/*/figma/tokens.json`, or manual | `pnpm run sync` → commit → open a PR |
+| **CI** | PR to `main` / `belcorp` | sync → `pnpm test` → fail on drift → assemble every brand's AAR; type-check the generated Swift and Dart |
+| **Publish Android library** | Manual | sync → validate every brand's dist → Gradle `publish` |
+| **Publish web tokens (npm)** | Manual | sync → `npm publish` (blocked while `private: true`) |
 
-Local Gradle in **this** repo copies `dist/android/*.xml` into `design-tokens-android` on each `preBuild` — run **`pnpm run sync`** before `./gradlew` if `dist/android` is missing.
+Merging does **not** publish. Run a publish workflow when consumers need a new
+version.
 
-## Adding a New Platform
+## Adding a platform
 
-Edit `sd.config.mjs` and add a new platform entry. See [Style Dictionary docs](https://styledictionary.com) for available formats and transform groups.
-
-## Semver guidelines (token changes)
-
-When you bump `**Version:**` in the foundations doc for a release, align the bump with the kind of token change (same ideas as [semver](https://semver.org/)):
-
-- **Major** (2.0.0): Breaking change — token renamed or removed
-- **Minor** (1.1.0): New tokens added
-- **Patch** (1.0.1): Token value changed
+Add an entry to the `platforms` map in `pipeline/sd.config.mjs`. Note the warning
+at the top of that file: token values are **px**, and every built-in Style
+Dictionary size transform treats them as **rem** and multiplies by 16. Use the
+`android/px`, `compose/typed`, `ios/px` and `flutter/px` groups defined there,
+never the stock `android` / `compose` / `ios-swift` / `flutter` groups.

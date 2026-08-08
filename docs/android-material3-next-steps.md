@@ -1,6 +1,6 @@
 # Android next steps: design tokens + Material 3
 
-This document describes how to **use the published token artifact** (`tokens-android` / `dist/android`) together with **Material 3 (M3)** in real apps, how to **map tokens to M3 roles**, and how to **structure codebases** when the same token set is shared across several projects.
+This document describes how to **use the published token artifact** (`tokens-android-<brand>` / `dist/<brand>/android`) together with **Material 3 (M3)** in real apps, how to **map tokens to M3 roles**, and how to **structure codebases** when the same token set is shared across several projects.
 
 The token package is **primitive** (colors, dimens, font dimens as Android resources). **Material 3** is a **component and semantics layer** (roles like `primary`, `surface`, `onSurface`, shapes, motion). Your work is to define a **clear boundary** between “what comes from the design system repo” and “what each app composes with M3.”
 
@@ -12,7 +12,7 @@ For **all platforms** (web, iOS, Flutter, governance), see [general-next-steps.m
 
 | Layer | Owned by | Contents |
 |--------|-----------|----------|
-| **Tokens** | This `design-system` repo | `color_*`, `dimen/*`, etc. from `design-system-foundations.md` → Style Dictionary → AAR |
+| **Tokens** | This `design-system` repo | `color_*`, `dimen/*`, etc. from `brands/<brand>/figma/tokens.json` → Style Dictionary → AAR |
 | **Brand / theme mapping** | Each product line (or a shared internal library) | Maps token resources → `Theme.Material3.*` XML and/or Compose `ColorScheme` / `Typography` / `Shapes` |
 | **M3 components** | AndroidX Material3 | `MaterialButton`, `TextField`, `NavigationBar`, Compose `Button`, `Card`, … |
 | **App-specific UI** | Individual apps | Screens, navigation, one-off layouts; uses theme + tokens for anything not covered by M3 defaults |
@@ -49,7 +49,7 @@ Example **conceptual** mapping (adjust to your real token names after `pnpm run 
 | Outline | `neutral_400` or `primary-700` |
 | Tertiary (if used) | spare ramp or same as secondary with different weights |
 
-Use [Material Theme Builder](https://material.io/blog/announcing-material-theme-builder) only as **inspiration** for role coverage; your **source of truth** remains `design-system-foundations.md`.
+Use [Material Theme Builder](https://material.io/blog/announcing-material-theme-builder) only as **inspiration** for role coverage; your **source of truth** remains the brand's Figma export.
 
 ### 2.2 Dynamic color (Material You)
 
@@ -84,7 +84,7 @@ Think in **three rings** so multiple apps can share work without forking the tok
 
 ### Ring A — Token distribution (already here)
 
-- **Artifact:** `com.estebanruano:tokens-android` (Maven coordinates from this repo).
+- **Artifact:** `com.estebanruano:tokens-android-<brand>` (coordinates from `brands/<brand>/brand.json`).
 - **Rule:** only **semantic names** from tokens (`spacing_4`, `color_primary_500`); **no** app hex.
 
 ### Ring B — Shared “shell” (recommended internal artifact)
@@ -99,7 +99,7 @@ Create **one** internal Android library (mono-repo module or separate versioned 
 | Shapes | Map token radius to `Shapes` |
 | Reusable primitives | Thin wrappers: `OurPrimaryButton`, `OurScreenScaffold` that only use theme + tokens |
 
-**Apps depend on:** `tokens-android` **transitively** through `our-design-system-android`, or explicitly on both — pick one policy and stick to it (transitive is simpler for app Gradle files).
+**Apps depend on:** `tokens-android-<brand>` **transitively** through `our-design-system-android`, or explicitly on both — pick one policy and stick to it (transitive is simpler for app Gradle files).
 
 ### Ring C — Product apps
 
@@ -122,19 +122,19 @@ Create **one** internal Android library (mono-repo module or separate versioned 
 
 ### 5.2 Same org, different apps (different Gradle roots)
 
-- Pin the **same** `tokens-android` **version** across apps in a BOM or Renovate/Dependabot policy.
+- Pin the **same** token **version** across apps in a BOM or Renovate/Dependabot policy. One `VERSION` covers every brand, so this is a single number.
 - **Ring B** library can still be shared as a second Maven artifact so M3 mapping stays consistent.
 
 ### 5.3 Forked / legacy apps
 
 - Onboard by: add dependency → replace hardcoded colors in `themes.xml` / Compose theme first → then chip away at layouts.
-- Do **not** fork the token repo per app; bump **version** in foundations when tokens change globally.
+- Do **not** fork the token repo per app or per brand; brands are directories under `brands/` sharing one pipeline. Bump `VERSION` when tokens change.
 
 ---
 
 ## 6. Practical next steps (checklist)
 
-1. **Lock dependency:** add `implementation("com.estebanruano:tokens-android:…")` and verify `R.color.*` names in merged `res/values/colors.xml` from the AAR.
+1. **Lock dependency:** add `implementation("com.estebanruano:tokens-android-belcorp:…")` and verify `R.color.*` names in merged `res/values/colors.xml` from the AAR.
 2. **Write mapping doc** (could live next to this file): table token → M3 role for light/dark.
 3. **Implement theme** in Ring B (XML and/or Compose) using only `@color/color_*` / dimen resources.
 4. **Audit one screen** end-to-end with M3 components and the new theme.
@@ -146,6 +146,6 @@ Create **one** internal Android library (mono-repo module or separate versioned 
 ## 7. Where to evolve this documentation
 
 - Add **concrete** `themes.xml` and `Theme.kt` snippets once Ring B exists in a repo (link from here).
-- If you add **dark** tokens to `design-system-foundations.md`, regenerate and extend the mapping tables for `values-night`.
+- Dark mode is a **mode** on a brand (`brands/<brand>/tokens/dark/`). The resolver already layers it; what is missing is a generator that emits `values-night/` instead of overwriting the light output. See [brands.md](brands.md).
 
-This file is **guidance**, not a second source of truth for numeric token values — those always come from **`design-system-foundations.md`** and the generated Android XML.
+This file is **guidance**, not a second source of truth for numeric token values — those always come from **`brands/<brand>/DESIGN.md`** and the generated Android XML.

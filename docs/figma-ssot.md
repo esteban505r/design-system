@@ -1,52 +1,64 @@
-# Figma JSON as single source of truth (`figma-ssot` branch)
+# Figma as the single source of truth
 
-On branch **`figma-ssot`**, token **values** are authored in **`figma/tokens.json`** (Tokens Studio / Figma Variables export format). Everything else is generated.
+Token **values** are authored in Figma and exported to
+**`brands/<brand>/figma/tokens.json`** (Tokens Studio / Figma Variables format).
+Everything else in this repo is generated from those files.
 
 ---
 
 ## Pipeline
 
 ```
-figma/tokens.json          ← SSOT (commit this file)
+brands/<brand>/figma/tokens.json         ← SSOT (commit this file)
         │
-        │  pnpm run parse  (figma-to-tokens.mjs)
+        │  pnpm run parse  (pipeline/figma-to-tokens.mjs)
         ▼
-   tokens/**/*.json        ← DTCG JSON for Style Dictionary
+core/tokens/**                           ← shared scales, if this brand owns core
+brands/<brand>/tokens/<mode>/**          ← this brand's colour, type, elevation
         │
-        │  pnpm run build  (sd.config.mjs)
+        │  pnpm run build  (pipeline/sd.config.mjs)
         ▼
-   dist/web, dist/android, dist/ios, …
+dist/<brand>/{web,android,compose,ios,flutter,json}/
         │
-        ├── DESIGN.md                ← generated token reference (repo root)
-        └── dist/figma/tokens.json   ← copy of SSOT (for npm export path)
+        ├── brands/<brand>/DESIGN.md         ← generated token reference
+        └── dist/<brand>/figma/tokens.json   ← copy of the SSOT
 ```
 
-**One command:** `pnpm run sync:figma` = `parse` + `build`.
+**One command:** `pnpm run sync` = `parse` + `build`, for every brand.
 
 | Script | Purpose |
 |--------|---------|
-| `pnpm run sync:figma` | Full pipeline from `figma/tokens.json` |
-| `pnpm run parse` | `figma/tokens.json` → `tokens/` + copy to `dist/figma/` |
-| `pnpm run build` | `tokens/` → platform `dist/` **and `DESIGN.md`** |
-| `pnpm run figma:verify` | Diff `tokens/` export vs SSOT (`dist/figma/tokens.generated.json`) |
+| `pnpm run sync` | Full pipeline, all brands |
+| `pnpm run parse` | Figma export → token tree, plus the SSOT copy under `dist/<brand>/figma/` |
+| `pnpm run build` | Token tree → platform `dist/<brand>/` **and `brands/<brand>/DESIGN.md`** |
+| `pnpm run figma:verify` | Regenerate the export from the token tree into `dist/<brand>/figma/tokens.generated.json` and diff it against the SSOT |
 
-### `DESIGN.md` — generated, never authored
+Each accepts `--brand <id>` to act on one brand. Without it, all brands are processed.
 
-`DESIGN.md` at the repo root is **automatically generated**, like everything in
-`dist/`. It is documentation, not a source: editing it does nothing, because the
-next regeneration overwrites it. To change a value, change the token in Figma.
+### Why the parse step writes to two places
 
-It is rewritten by the `docs` platform in `sd.config.mjs`, which runs as part of
-Style Dictionary's build — so it regenerates **whenever any platform output
-does**:
+`core/tokens/` holds the scales every brand shares — spacing, radius, stroke,
+z-index, motion. A rebrand changes colour and type, not geometry, so those live
+outside any brand.
+
+Exactly one brand carries `"ownsCore": true` in its `brand.json`; its export is
+what writes `core/`. Any other brand whose export disagrees with `core/` **fails
+the build**, naming the files that differ, rather than silently winning or losing.
+See [brands.md](brands.md).
+
+### `brands/<brand>/DESIGN.md` — generated, never authored
+
+It is written by the `docs` platform in `pipeline/sd.config.mjs`, which runs as
+part of Style Dictionary's build — so it regenerates whenever any platform output
+does. Editing it does nothing; the next build overwrites it.
 
 | When | Trigger |
 |---|---|
-| `pnpm run sync` / `sync:figma` | Manual, after editing `figma/tokens.json` |
+| `pnpm run sync` | Manual, after editing a Figma export |
 | `pnpm run build` | Style Dictionary rebuild on its own |
-| **Sync tokens from Figma JSON** | Push touching `figma/tokens.json`, or manual dispatch |
-| **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |
-| **CI**, on PRs to `main` or `belcorp` | Re-runs `sync:figma` and **fails on any diff** |
+| **Sync tokens from Figma JSON** | Push touching `brands/*/figma/tokens.json`, or manual dispatch |
+| **Publish Android library** / **Publish web** | Both re-run the sync from a clean checkout before publishing |
+| **CI**, on PRs to `main` or `belcorp` | Re-runs the sync and **fails on any diff** |
 
 That last row is the guarantee: a stale `DESIGN.md` blocks the PR exactly as a
 stale `dist/` would, so the reference can never drift from the artifact the apps
@@ -56,115 +68,91 @@ compile against.
 
 ## Editing tokens
 
-### Designers (recommended)
+### Designers
 
 1. Change variables in **Figma** (Tokens Studio).
-2. **Export** or sync to `figma/tokens.json` in this repo (Plugins → export JSON, or your Tokens Studio git sync).
-3. Set **`$metadata.version`** in `figma/tokens.json` when cutting a release (semver, e.g. `"1.0.6"`).
-4. Commit and push `figma/tokens.json`.
-5. **Sync tokens from Figma JSON** (GitHub Action) runs `pnpm run sync:figma` and opens/updates a PR with `tokens/` + `dist/`.
+2. **Export** to `brands/<brand>/figma/tokens.json` (Plugins → export JSON, or Tokens Studio git sync).
+3. Commit and push that file.
+4. **Sync tokens from Figma JSON** runs `pnpm run sync` and opens or updates a PR.
 
 ### Engineers (local)
 
 ```bash
-# Edit figma/tokens.json (or pull from design)
-pnpm run sync:figma
-git add figma/tokens.json tokens/ dist/ package.json
+# after pulling the export from design
+pnpm run sync && pnpm test
+git add brands/ core/ dist/ package.json
 git commit -m "chore(tokens): update from Figma SSOT"
 ```
 
-**Version:** `figma-to-tokens.mjs` copies `$metadata.version` into `package.json` when present.
+**Version:** releases are driven by the root **`VERSION`** file, not by the
+export's `$metadata.version` — see [releasing-android.md](releasing-android.md).
 
 ---
 
 ## File format
 
-`figma/tokens.json` matches Tokens Studio export:
-
 ```json
 {
   "Global/Mode 1": {
-    "primary-color": {
-      "$value": "#6366f1",
+    "primary-500": {
+      "$value": "#BE5B06",
       "$type": "color",
-      "$extensions": { "com.figma.scopes": ["ALL_SCOPES"], … }
+      "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
     }
   },
   "$themes": [],
-  "$metadata": {
-    "version": "1.0.5",
-    "tokenSetOrder": ["global", "Global/Mode 1"]
-  }
+  "$metadata": { "tokenSetOrder": ["global", "Global/Mode 1"] }
 }
 ```
 
-Flat names (`primary-color`, `spacing-md`, `type-h1`) map to nested paths under `tokens/` via `token-name-map.mjs`. Unknown Figma names log a warning and are skipped.
+Flat names (`primary-500`, `space-4`, `type-h1`) map to nested token paths via
+`FIGMA_TO_TOKEN_PATH` in `pipeline/token-name-map.mjs`.
+
+> **An unmapped name fails the build.** It used to be dropped with a console
+> warning, so a designer who added a variable in Figma saw it silently vanish
+> from every platform. The error names every offending token. Pass
+> `--allow-unmapped` only while migrating a set deliberately.
+
+### Mapping reference (Belcorp)
+
+| Figma name | Token path |
+|------------|------------|
+| `primary-500` | `color.primary.500` |
+| `text-primary` | `color.text.primary` |
+| `bg-page` | `color.bg.page` |
+| `status-error` | `color.status.error` |
+| `type-h1` | `font.size.h1` |
+| `space-4` | `spacing.4` |
+| `radius-md` | `radius.md` |
+| `transition-fast` | `motion.duration.fast` |
+| `z-modal` | `z-index.modal` |
+
+Full map: `pipeline/token-name-map.mjs`. The table is shared across brands — it
+translates a name to a path, which is brand-agnostic; the *values* are what differ.
 
 ---
 
-## GitHub Actions (production)
+## GitHub Actions
 
 | Workflow | Trigger | Action |
 |----------|---------|--------|
-| **Sync tokens from Figma JSON** | Push to `figma/tokens.json` or manual | `pnpm run sync:figma`, commit, PR to `main` |
-| **CI** | PR to `main` | `sync:figma`, then fail on any drift in generated files |
-| **Publish web / Android** | Manual | `sync:figma`, then publish at the version in `VERSION` |
+| **Sync tokens from Figma JSON** | Push to `brands/*/figma/tokens.json`, or manual | `pnpm run sync`, commit, open a PR |
+| **CI** | PR to `main` / `belcorp` | sync → `pnpm test` → fail on drift → assemble each brand's AAR → type-check generated Swift and Dart |
+| **Publish web / Android** | Manual | sync, then publish at the version in `VERSION` |
 
 ### Repo settings
 
 1. **Settings → Actions → General → Workflow permissions**
-   - **Read and write permissions** (so the bot can commit and push).
-   - Check **Allow GitHub Actions to create and approve pull requests** — required for `gh pr create`. If this is off, you get:
-     `GitHub Actions is not permitted to create or approve pull requests (createPullRequest)`.
-     The sync commit still lands on your branch; open the PR to `main` yourself.
+   - **Read and write permissions**, so the bot can commit and push.
+   - Check **Allow GitHub Actions to create and approve pull requests** — required for `gh pr create`. Without it you get
+     `GitHub Actions is not permitted to create or approve pull requests (createPullRequest)`;
+     the sync commit still lands, but you open the PR yourself.
 
 2. **Branch protection:** require CI on PRs that change generated files.
 
-**Org-owned repos:** the same options may be locked at **Organization → Settings → Actions → General**. An org admin must allow PR creation for workflows, or you open PRs manually.
-
-### Release path
-
-1. Bump **`**Version:**`** via **Publish** workflow input or in `design-system-foundations.md` (publish does not write `figma/tokens.json` `$metadata`).
-2. Merge sync PR to `main` (or push on `figma-ssot` and merge branch when ready).
-3. Run **Publish web tokens (npm)** and/or **Publish Android library** from `main`.
-4. Import/sync Figma file in design tools if needed (SSOT already lives in git).
-
-npm package export: `@estebanruano/design-tokens/figma` → **`figma/tokens.json`** (committed SSOT, not only `dist/`).
-
----
-
-## Mapping reference
-
-| Figma name | Token path |
-|------------|------------|
-| `primary-color` | `color.brand.primary` |
-| `background-color` | `color.surface.background` |
-| `text-primary` | `color.text.primary` |
-| `success-color` | `color.semantic.success` |
-| `auth-gradient-color-1` | `color.gradient.auth-gradient-color-1` |
-| `type-h1` | `font.size.h1` |
-| `spacing-md` | `spacing.md` |
-| `transition-base` | `motion.duration.base` |
-| `z-modal` | `z-index.modal` |
-
-Full map: `token-name-map.mjs`.
-
----
-
-## The removed markdown pipeline
-
-There used to be a second source of truth: `design-system-foundations.md`, parsed
-by `md-to-tokens.mjs` via `pnpm run sync:md`.
-
-**That path no longer exists.** The script, the `sync:md` npm script and the
-`sync-tokens-from-md.yml` workflow have all been removed. `figma/tokens.json` is
-the only source. Parts of
-[workflow-and-production.md](workflow-and-production.md) still describe the old
-pipeline and should be read as history.
-
-`design-system-foundations.md` survives only because `set-release-version.mjs`
-stamps its `**Version:**` line. For token values, read
-[DESIGN.md](../DESIGN.md) instead — that one is generated and cannot go stale.
+**Org-owned repos:** the same options may be locked at
+**Organization → Settings → Actions → General**, in which case an org admin must
+allow PR creation for workflows.
 
 ---
 
@@ -172,12 +160,14 @@ stamps its `**Version:**` line. For token values, read
 
 | Issue | Fix |
 |-------|-----|
-| `createPullRequest` not permitted | Repo **Settings → Actions → General** → enable **Allow GitHub Actions to create and approve pull requests** (org admins may need to allow this org-wide). Sync still pushed — open PR to `main` manually. |
-| CI drift | Run `pnpm run sync:figma`, commit `tokens/` + `dist/` |
-| Unmapped Figma token warning | Add entry to `FIGMA_TO_TOKEN_PATH` in `token-name-map.mjs` |
-| Wrong collection name | Set `FIGMA_COLLECTION="Your Set"` when running `figma-to-tokens.mjs` |
-| Verify parity | `pnpm run figma:verify` then `diff figma/tokens.json dist/figma/tokens.generated.json` |
+| Build fails naming unmapped tokens | Add each to `FIGMA_TO_TOKEN_PATH` in `pipeline/token-name-map.mjs` |
+| Build fails "disagrees with core/" | Two brands claim different values for a shared scale — see [brands.md](brands.md) |
+| CI drift | Run `pnpm run sync`, commit `core/`, `brands/`, `dist/` |
+| `createPullRequest` not permitted | Enable PR creation for Actions (see repo settings above) |
+| Wrong collection name | Set `FIGMA_COLLECTION="Your Set"` when running the parse step |
+| Verify parity | `pnpm run figma:verify`, then diff the SSOT against `dist/<brand>/figma/tokens.generated.json`. `pnpm test` asserts this automatically. |
 
 ---
 
-*Branch: `figma-ssot` · See also [workflow-and-production.md](workflow-and-production.md) for registry publishing.*
+*See also [brands.md](brands.md) for the multi-brand model and
+[workflow-and-production.md](workflow-and-production.md) for registry setup.*

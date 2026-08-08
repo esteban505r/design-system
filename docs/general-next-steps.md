@@ -8,20 +8,23 @@ This document is the **cross-platform roadmap** for adopting tokens in product c
 
 | Artifact | Role |
 |----------|------|
-| **`design-system-foundations.md`** | Human-readable **source of truth** for token *values* and **`Version:`** |
-| **`tokens/**/*.json`** | Machine-readable DTCG JSON for engineering repos (`pnpm run parse`) |
-| **`dist/figma/tokens.json`** | Flat Figma Variables / Tokens Studio import (`pnpm run figma`) |
-| **`dist/**`** (elsewhere) | Web, Android, iOS, Flutter, Compose outputs (`pnpm run build` / `pnpm run sync`) |
+| **`brands/<brand>/figma/tokens.json`** | The **source of truth** for that brand's token values, exported from Figma |
+| **`core/tokens/**` + `brands/<brand>/tokens/<mode>/**`** | Machine-readable DTCG JSON (`pnpm run parse`) |
+| **`brands/<brand>/DESIGN.md`** | Generated human-readable catalogue — every token, per-platform identifiers |
+| **`VERSION`** | The release version, shared by every brand |
+| **`dist/<brand>/**`** | Web, Android, Compose, iOS, Flutter and Figma outputs (`pnpm run build`) |
 
-**Rule:** designers and design ops change **`design-system-foundations.md`**; engineers run **`pnpm run sync`**, review diffs in **`tokens/`** and **`dist/`**, and merge. Do not hand-edit generated JSON for values that exist in the markdown unless you are migrating tooling and have a plan to reconcile.
+**Rule:** design changes the Figma export; engineers run **`pnpm run sync`**, review the
+diff in the token tree and `dist/`, and merge. Nothing generated is ever hand-edited — CI
+regenerates everything and fails the PR on any difference.
 
 ---
 
 ## 2. Day-to-day workflow
 
-1. Edit **`design-system-foundations.md`** (tokens, and **`Version:`** when cutting a release).
-2. Run **`pnpm run sync`** locally (Node ≥ 18.12 for pnpm; use **`pnpm`**, not **`npm install`** in this repo).
-3. Commit **`tokens/`**, **`dist/`**, and **`package.json`** when they change (CI enforces no drift on PRs).
+1. Export the changed variables from Figma to **`brands/<brand>/figma/tokens.json`**.
+2. Run **`pnpm run sync && pnpm test`** locally (Node ≥ 18.12; use **`pnpm`**, not `npm install`).
+3. Commit the Figma export, the token tree, **`dist/`** and **`package.json`** (CI enforces no drift on PRs).
 4. Merge to **`main`**.
 5. **Publish** when consumers need a new version:
    - **Web:** GitHub Actions → **Publish web tokens (npm)** (Trusted Publishing; see main README).
@@ -33,8 +36,10 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ## 3. Versioning and releases
 
-- **`Version:`** in the foundations doc drives **`package.json`** and the default **Android** Maven version (after sync).
-- **npm** and **GitHub Packages** reject duplicate versions — bump **`Version:`** for each release you intend to publish.
+- The root **`VERSION`** file drives **`package.json`** and the default **Android** Maven
+  version. Write it with `pnpm run version:set -- --version x.y.z`. One version covers
+  every brand.
+- **npm** and **GitHub Packages** reject duplicate versions — bump `VERSION` for each release.
 - Align semver bumps with the kind of change (see **Semver guidelines** in the README): renames/removals → major; new tokens → minor; value-only tweaks → patch.
 
 ---
@@ -43,13 +48,13 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.1 Web
 
-**Artifacts:** `dist/web/tokens.css`, `dist/web/tokens.js`, `dist/json/tokens.json`.
+**Artifacts:** `dist/belcorp/web/tokens.css`, `dist/belcorp/web/tokens.js`, `dist/belcorp/json/tokens.json`.
 
-**Distribution:** npm package **`@estebanruano/design-tokens`** (or your chosen scope) — see README for install and **`package.json` `exports`**.
+**Distribution:** not yet published — `package.json` is `private: true` and its export paths are still single-brand. Consume `dist/<brand>/web/` from the repo meanwhile; see the README.
 
 **Integration:**
 
-- Import **CSS** once for **`:root`** variables (`var(--color-brand-primary)`, …).
+- Import **CSS** once for **`:root`** variables (`var(--color-primary-500)`, `var(--spacing-4)`, …).
 - Use **JS** exports when you need typed constants in TypeScript or build scripts.
 - **Design system vs product UI:** this repo ships **tokens only**, not React/Vue components. Your product (or a separate internal package) owns component primitives; tokens feed **CSS variables**, **Tailwind theme extension**, or **CSS-in-JS** theme objects built from the same values.
 
@@ -59,7 +64,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.2 Android
 
-**Artifacts:** `dist/android/*.xml` (also packaged as **`tokens-android`** on GitHub Packages).
+**Artifacts:** `dist/<brand>/android/*.xml` plus `dist/<brand>/compose/DesignTokens.kt`, packaged as **`com.estebanruano:tokens-android-<brand>`** on GitHub Packages.
 
 **Integration:** add Maven dependency; reference **`@color/`**, **`@dimen/`** from merged resources.
 
@@ -71,7 +76,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.3 iOS
 
-**Artifact:** `dist/ios/DesignTokens.swift` (generated **`DesignTokens`** API — confirm exact types in the file after each sync).
+**Artifact:** `dist/belcorp/ios/DesignTokens.swift` (generated **`DesignTokens`** API — confirm exact types in the file after each sync).
 
 **Integration (typical):**
 
@@ -84,7 +89,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.4 Flutter
 
-**Artifact:** `dist/flutter/design_tokens.dart` (`DesignTokens` class).
+**Artifact:** `dist/belcorp/flutter/design_tokens.dart` (`DesignTokens` class).
 
 **Integration:** add the file to your app or package `lib/`, import, use **`Color(...)`** / dimension constants as generated.
 
@@ -94,7 +99,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.5 Compose Multiplatform / shared Kotlin
 
-**Artifact:** `dist/compose/DesignTokens.kt` (package **`com.estebanruano.designtokens`** in current config — verify in file header after sync).
+**Artifact:** `dist/belcorp/compose/DesignTokens.kt` (package **`com.estebanruano.designtokens`** in current config — verify in file header after sync).
 
 **Integration:** add source to shared KMP module or publish an internal artifact that wraps this file.
 
@@ -104,17 +109,17 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 ### 4.6 Figma
 
-**Artifact:** `dist/figma/tokens.json` (Tokens Studio / Figma Variables import).
+**Artifact:** `dist/belcorp/figma/tokens.json` (Tokens Studio / Figma Variables import).
 
 **Use cases:** design library variables, design–dev parity with CSS names (`primary-color`, `type-h1`, …).
 
-**Next steps:** import after each token release on `main`; see [workflow-and-production.md § 6](workflow-and-production.md#6-figma--tokens-studio-in-production).
+**Next steps:** import after each token release; see [figma-ssot.md](figma-ssot.md).
 
 ### 4.7 JSON and tooling
 
-**Artifact:** `dist/json/tokens.json` (flat Style Dictionary dump).
+**Artifact:** `dist/belcorp/json/tokens.json` (flat Style Dictionary dump).
 
-**Use cases:** CI checks, documentation generators, one-off scripts — not the Figma format (use `dist/figma/tokens.json` for that).
+**Use cases:** CI checks, documentation generators, one-off scripts — not the Figma format (use `dist/belcorp/figma/tokens.json` for that).
 
 **Next steps:** avoid treating JSON as the **authoring** source; generate it from this repo in CI when other tools need it.
 
@@ -131,14 +136,14 @@ Use a **clear split of responsibilities** so every app does not re-implement the
 | **Components** | Buttons, inputs, navigation chrome | Product org or shared UI kit team |
 | **Applications** | Screens, flows, experiments | Product squads |
 
-**Multi-brand / multi-app:** keep **one** token package version policy (BOM or Renovate); put brand differences in **mapping** or **flavor-specific theme resources**, not forked token repos, unless brands truly diverge on scales (rare).
+**Multi-brand / multi-app:** brands live side by side in this repo as directories under `brands/`, sharing one pipeline and one version — not as forked repos or branches. Geometry the brands agree on lives in `core/`; a brand that disagrees with `core/` fails the build rather than silently overriding it. See [brands.md](brands.md).
 
 ---
 
 ## 6. Governance checklist
 
-- [ ] **Owners:** named people for markdown edits vs merge vs publish workflows.
-- [ ] **Slack / doc link:** where consumers read release notes when **`Version:`** bumps.
+- [ ] **Owners:** named people for Figma exports vs merge vs publish workflows.
+- [ ] **Slack / doc link:** where consumers read release notes when `VERSION` bumps.
 - [ ] **Breaking changes:** communicate renames (`color_*` / CSS variable names) before merging; use **major** semver when renames/removals ship.
 - [ ] **Consumer inventory:** list which apps use npm vs Maven vs vendored Swift so no platform is left behind on a token change.
 
@@ -146,8 +151,11 @@ Use a **clear split of responsibilities** so every app does not re-implement the
 
 ## 7. Optional future improvements (this repo)
 
-- Ship **iOS** via **Swift Package Manager** from generated `DesignTokens.swift`.
-- Add **prebuilt** Flutter / KMP packages if copy-pasting `dist/` becomes painful.
-- Expand **`design-system-foundations.md`** with motion/opacity blocks if Style Dictionary outputs should grow (already scaffolded in README token tree).
+- Ship **iOS** via **Swift Package Manager** and **Flutter** via a pub package. Both files
+  are generated and compile-checked in CI already; only the packaging is missing, and it is
+  deliberately deferred until a real consumer exists.
+- Bind tokens to target design systems declaratively (Material 3, Tailwind, SwiftUI,
+  Flutter `ThemeData`) so no consuming app hand-writes theme glue.
+- Unblock the npm publish: drop `private: true` and move to per-brand subpath exports.
 
 For Android-only Material 3 detail, continue with [android-material3-next-steps.md](android-material3-next-steps.md).
