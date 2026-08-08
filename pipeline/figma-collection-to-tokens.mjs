@@ -32,6 +32,41 @@ import { setTokenAtPath, writeTokensFromTree } from './token-writer.mjs';
 import { splitCoreAndBrand } from './brands.mjs';
 
 /**
+ * Count DTCG token leaves (`$value`-bearing objects) anywhere under a node, so a
+ * multi-set error can say how many tokens each candidate would have yielded.
+ * @param {unknown} node
+ * @returns {number}
+ */
+function countTokenLeaves(node) {
+  if (!node || typeof node !== 'object') return 0;
+  if ('$value' in /** @type {Record<string, unknown>} */ (node)) return 1;
+  let total = 0;
+  for (const value of Object.values(node)) total += countTokenLeaves(value);
+  return total;
+}
+
+/**
+ * A Figma export with more than one token set used to resolve to `keys[0]`
+ * silently. A bad Tokens Studio round-trip duplicates the collection into
+ * `Global/Mode 1` plus a nested `Global/Mode 1/Global/Mode 1`, and picking the
+ * first one drops every token the two sets do not share — with no error, since
+ * the names that survive are all still mapped. Refuse to guess instead.
+ *
+ * @param {Record<string, unknown>} source
+ * @param {string[]} keys  non-`$`-prefixed top-level keys
+ */
+function multipleTokenSetsError(source, keys) {
+  const found = keys.map((k) => `"${k}" (${countTokenLeaves(source[k])} tokens)`).join(', ');
+  return new Error(
+    `Figma export has ${keys.length} token sets; expected exactly one.` +
+      ` Found: ${found}.` +
+      ` This usually means a bad Tokens Studio round-trip duplicated the collection.` +
+      ` Re-export from Figma, or pass an explicit collection name` +
+      ` (the collectionName option, or the FIGMA_COLLECTION env var).`,
+  );
+}
+
+/**
  * @param {Record<string, unknown>} source  Full Figma export or `{ "Global/Mode 1": { ... } }`
  * @param {{ collectionName?: string }} [options]
  */
@@ -53,6 +88,8 @@ export function resolveFigmaCollection(source, options = {}) {
     } else if (keys.some((k) => FIGMA_TO_TOKEN_PATH[k])) {
       collectionName = options.collectionName || 'Global/Mode 1';
       collection = /** @type {Record<string, unknown>} */ (source);
+    } else if (keys.length > 1) {
+      throw multipleTokenSetsError(source, keys);
     } else if (keys.length > 0) {
       collectionName = keys[0];
       collection = /** @type {Record<string, unknown>} */ (source[collectionName]);
