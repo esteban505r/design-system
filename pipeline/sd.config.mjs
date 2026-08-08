@@ -103,6 +103,38 @@ const ANDROID_XML_HEADER = `<?xml version="1.0" encoding="UTF-8"?>
 -->
 `;
 
+// ── Android resource namespacing ───────────────────────────
+// AGP merges an AAR's res/values into the consuming application's flat
+// namespace. `android.nonTransitiveRClass` only changes R-class *generation*;
+// merging still flattens, and on a name clash the application module silently
+// wins over the library — no warning, no build failure, just a wrong value at
+// runtime. So generic names must be namespaced.
+//
+// Applied to dimens/integers/strings ONLY, deliberately:
+//   • `spacing_1`, `radius_md`, `elevation_2`, `z_index_modal` are names any
+//     feature module would plausibly reinvent, and they have ZERO `@dimen/`
+//     references in either consumer app — renaming is free today.
+//   • `color_*` is specific enough that nobody reinvents it and carries
+//     hundreds of `@color/` references across the consumers — renaming it
+//     would be a large migration for no measurable benefit. It stays bare.
+//
+// This is why the prefix lives in the three formats rather than in a transform
+// or the platform-level `prefix` option: both of those act on `token.name`,
+// which colors.xml AND the Compose object also read. Prefixing at the point
+// each XML file writes `name="…"` is the only mechanism that reaches exactly
+// these three files and leaves `token.name` — and therefore
+// `DesignTokens.colorPrimary500` and `@color/color_primary_500` — untouched.
+//
+// NOTE: `android.resourcePrefix` is deliberately NOT set in the Gradle
+// convention plugin. AGP's ResourceName lint checks *every* resource in the
+// library against the single declared prefix, so with colours intentionally
+// unprefixed it would emit one warning per colour. The invariant is enforced
+// in test/generated-output.test.mjs instead.
+const ANDROID_RES_PREFIX = 'bds_';
+
+/** @param {{ name: string }} token */
+const androidResName = (token) => `${ANDROID_RES_PREFIX}${token.name}`;
+
 /** @param {string} value */
 function escAndroidString(value) {
   return String(value)
@@ -145,6 +177,18 @@ const androidResourceKind = (type) => {
   if (type === 'dimension' || type === 'fontSize') return 'dimen';
   if (type === 'number' || type === 'fontWeight' || type === 'duration') return 'integer';
   return 'string';
+};
+
+/**
+ * The exact `@kind/name` an app types for a token. Colours are bare; everything
+ * else carries ANDROID_RES_PREFIX — see the note on that constant. Derived from
+ * token.path so the catalogue cannot drift from the XML the apps compile against.
+ * @param {{ $type: string, path: string[] }} token
+ */
+const androidResourceRef = (token) => {
+  const kind = androidResourceKind(token.$type);
+  const prefix = kind === 'color' ? '' : ANDROID_RES_PREFIX;
+  return `@${kind}/${prefix}${pathToSnake(token.path)}`;
 };
 
 /**
@@ -273,13 +317,13 @@ const configFor = (brand, mode) => {
             }
             return t.path?.[0] !== 'font';
           })
-          .map((t) => `  <dimen name="${t.name}">${t.$value}</dimen>`);
+          .map((t) => `  <dimen name="${androidResName(t)}">${t.$value}</dimen>`);
         return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
       },
       'android/integers-all': async ({ dictionary }) => {
         const lines = dictionary.allTokens
           .filter((t) => ['number', 'fontWeight', 'duration'].includes(t.$type))
-          .map((t) => `  <integer name="${t.name}">${t.$value}</integer>`);
+          .map((t) => `  <integer name="${androidResName(t)}">${t.$value}</integer>`);
         return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
       },
       'android/strings-all': async ({ dictionary }) => {
@@ -289,7 +333,7 @@ const configFor = (brand, mode) => {
           )
           .map(
             (t) =>
-              `  <string name="${t.name}" translatable="false">${escAndroidString(t.$value)}</string>`,
+              `  <string name="${androidResName(t)}" translatable="false">${escAndroidString(t.$value)}</string>`,
           );
         return `${ANDROID_XML_HEADER}<resources>\n${lines.join('\n')}\n</resources>\n`;
       },
@@ -386,11 +430,20 @@ ${lines.join('\n')}
         out.push(
           '| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorPrimary500` |',
         );
-        out.push('| Android XML | AAR resources | `@color/color_primary_500` |');
+        out.push('| Android XML | AAR resources | `@color/color_primary_500`, `@dimen/bds_spacing_4` |');
         out.push('| iOS (Swift) | `DesignTokens` | `DesignTokens.colorPrimary500` |');
         out.push('| Flutter | `design_tokens.dart` | `DesignTokens.colorPrimary500` |');
         out.push('| Web (CSS) | `tokens.css` | `var(--color-primary-500)` |');
         out.push('| Web (JS) | `tokens.js` | `ColorPrimary500` |\n');
+        out.push(
+          `> **Android XML naming.** Every non-colour resource — \`@dimen\`, \`@integer\`, ` +
+            `\`@string\` — is prefixed \`${ANDROID_RES_PREFIX}\`. Names like \`spacing_4\` or ` +
+            '`radius_md` are generic enough that an application module could define its own, ' +
+            'and when an app and a library declare the same resource name AGP silently resolves ' +
+            'to the app\'s value. Colours are **not** prefixed: `color_*` is already distinctive ' +
+            'and is referenced throughout the consuming apps. The exact identifier for each ' +
+            'token is in the **Android XML** column below — copy it from there.\n',
+        );
 
         out.push('## Contents\n');
         for (const g of [...byGroup.keys()].sort()) {
@@ -410,7 +463,7 @@ ${lines.join('\n')}
             // Compose, iOS and Flutter only emit types they can represent;
             // show an em dash rather than an identifier that does not exist.
             const code = COMPOSE_SUPPORTED_TYPES.has(t.$type) ? `\`${pathToCamel(p)}\`` : '—';
-            const res = `\`@${androidResourceKind(t.$type)}/${pathToSnake(p)}\``;
+            const res = `\`${androidResourceRef(t)}\``;
             out.push(
               `| \`${p.join('.')}\` | \`${value}\` | ${code} | ${res} | \`${pathToKebab(p)}\` |`,
             );

@@ -25,8 +25,17 @@ const distFilesFor = (brand) => {
     swift: path.join(d, 'ios/DesignTokens.swift'),
     dart: path.join(d, 'flutter/design_tokens.dart'),
     androidDimens: path.join(d, 'android/dimens.xml'),
+    androidIntegers: path.join(d, 'android/integers.xml'),
+    androidStrings: path.join(d, 'android/strings.xml'),
+    androidColors: path.join(d, 'android/colors.xml'),
   };
 };
+
+/** The `bds_` namespace carried by every non-colour Android resource. */
+const ANDROID_RES_PREFIX = 'bds_';
+
+/** Every `name="…"` declared in an Android values file. */
+const resourceNames = (src) => [...src.matchAll(/\sname="([^"]+)"/g)].map((m) => m[1]);
 
 const brands = loadAllBrands();
 const rel = (abs) => path.relative(REPO_ROOT, abs);
@@ -47,7 +56,7 @@ t('generated types are named — no anonymous class declarations', () => {
   assert.match(read(DIST.compose), /object DesignTokens \{/);
 
   for (const [name, abs] of Object.entries(DIST)) {
-    if (name === 'androidDimens') continue;
+    if (name.startsWith('android')) continue;
     const anonymous = read(abs)
       .split('\n')
       .filter((l) => /^\s*(public\s+)?(class|object)\s*\{\s*$/.test(l));
@@ -109,8 +118,47 @@ t('android dimens.xml is well formed and unscaled', () => {
   const xml = read(DIST.androidDimens);
   // `28pxpx` — the malformed-unit signature the publish workflow greps for.
   assert.doesNotMatch(xml, /\d(px){2,}/, 'malformed duplicated unit');
-  assert.match(xml, /<dimen name="spacing_4">12dp<\/dimen>/);
-  assert.match(xml, /<dimen name="font_size_h1">40sp<\/dimen>/);
+  assert.match(xml, /<dimen name="bds_spacing_4">12dp<\/dimen>/);
+  assert.match(xml, /<dimen name="bds_font_size_h1">40sp<\/dimen>/);
+});
+
+// ── Android resource namespacing ───────────────────────────
+// AGP merges the AAR's res/values into the app's flat namespace, and on a name
+// clash the *application* silently wins — no warning, no build failure, just a
+// wrong value at runtime. `android.resourcePrefix` cannot guard this, because
+// it lints every resource in the library against one prefix and colours are
+// deliberately left bare. These tests are that guard instead.
+
+t('non-colour android resources are namespaced with bds_', () => {
+  for (const key of ['androidDimens', 'androidIntegers', 'androidStrings']) {
+    const names = resourceNames(read(DIST[key]));
+    assert.ok(names.length > 0, `${rel(DIST[key])} declares no resources`);
+    const bare = names.filter((n) => !n.startsWith(ANDROID_RES_PREFIX));
+    assert.deepEqual(bare, [], `${rel(DIST[key])} has unprefixed resource names`);
+  }
+});
+
+t('android colours are deliberately NOT prefixed', () => {
+  // color_* is distinctive enough not to collide and carries hundreds of
+  // @color/ references in the consumer apps. Prefixing it is a breaking
+  // migration for no benefit — if this fails, the prefix has leaked.
+  const names = resourceNames(read(DIST.androidColors));
+  assert.ok(names.length > 0, `${rel(DIST.androidColors)} declares no resources`);
+  const prefixed = names.filter((n) => n.startsWith(ANDROID_RES_PREFIX));
+  assert.deepEqual(prefixed, [], `${rel(DIST.androidColors)} has bds_-prefixed colours`);
+  assert.ok(
+    names.includes('color_primary_500'),
+    `${rel(DIST.androidColors)} no longer declares color_primary_500`,
+  );
+});
+
+t('the XML prefix does not leak into the Compose object', () => {
+  // The prefix is applied where each XML file writes name="…", not to
+  // token.name — so Compose (how both Android consumers actually read tokens)
+  // is untouched. DesignTokens.kt is already namespaced by object + package.
+  const src = read(DIST.compose);
+  assert.match(src, /\bcolorPrimary500\b/);
+  assert.doesNotMatch(src, /bds_/, `${rel(DIST.compose)} picked up the XML resource prefix`);
 });
 
 t('no unresolved CSS leaks into typed platform outputs', () => {

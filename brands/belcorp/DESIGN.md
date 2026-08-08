@@ -32,11 +32,13 @@ Every token below is listed with the exact identifier to type on each platform.
 | Platform | Import | Example |
 |---|---|---|
 | Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorPrimary500` |
-| Android XML | AAR resources | `@color/color_primary_500` |
+| Android XML | AAR resources | `@color/color_primary_500`, `@dimen/bds_spacing_4` |
 | iOS (Swift) | `DesignTokens` | `DesignTokens.colorPrimary500` |
 | Flutter | `design_tokens.dart` | `DesignTokens.colorPrimary500` |
 | Web (CSS) | `tokens.css` | `var(--color-primary-500)` |
 | Web (JS) | `tokens.js` | `ColorPrimary500` |
+
+> **Android XML naming.** Every non-colour resource — `@dimen`, `@integer`, `@string` — is prefixed `bds_`. Names like `spacing_4` or `radius_md` are generic enough that an application module could define its own, and when an app and a library declare the same resource name AGP silently resolves to the app's value. Colours are **not** prefixed: `color_*` is already distinctive and is referenced throughout the consuming apps. The exact identifier for each token is in the **Android XML** column below — copy it from there.
 
 ## Contents
 
@@ -422,133 +424,133 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `elevation.1` | `0px 1px 2px rgba(0, 0, 0, 0.05)` | — | `@string/elevation_1` | `--elevation-1` |
-| `elevation.2` | `0px 2px 8px rgba(0, 0, 0, 0.08)` | — | `@string/elevation_2` | `--elevation-2` |
-| `elevation.3` | `0px 4px 16px rgba(0, 0, 0, 0.10)` | — | `@string/elevation_3` | `--elevation-3` |
-| `elevation.4` | `0px 8px 32px rgba(0, 0, 0, 0.12)` | — | `@string/elevation_4` | `--elevation-4` |
-| `elevation.5` | `0px 16px 48px rgba(0, 0, 0, 0.16)` | — | `@string/elevation_5` | `--elevation-5` |
+| `elevation.1` | `0px 1px 2px rgba(0, 0, 0, 0.05)` | — | `@string/bds_elevation_1` | `--elevation-1` |
+| `elevation.2` | `0px 2px 8px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_2` | `--elevation-2` |
+| `elevation.3` | `0px 4px 16px rgba(0, 0, 0, 0.10)` | — | `@string/bds_elevation_3` | `--elevation-3` |
+| `elevation.4` | `0px 8px 32px rgba(0, 0, 0, 0.12)` | — | `@string/bds_elevation_4` | `--elevation-4` |
+| `elevation.5` | `0px 16px 48px rgba(0, 0, 0, 0.16)` | — | `@string/bds_elevation_5` | `--elevation-5` |
 
 ## font · family
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.family.primary` | `Montserrat` | — | `@string/font_family_primary` | `--font-family-primary` |
+| `font.family.primary` | `Montserrat` | — | `@string/bds_font_family_primary` | `--font-family-primary` |
 
 ## font · line-height
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.line-height.body-lg` | `24px` | `fontLineHeightBodyLg` | `@dimen/font_line_height_body_lg` | `--font-line-height-body-lg` |
-| `font.line-height.body-md` | `21px` | `fontLineHeightBodyMd` | `@dimen/font_line_height_body_md` | `--font-line-height-body-md` |
-| `font.line-height.body-sm` | `18px` | `fontLineHeightBodySm` | `@dimen/font_line_height_body_sm` | `--font-line-height-body-sm` |
-| `font.line-height.button` | `14px` | `fontLineHeightButton` | `@dimen/font_line_height_button` | `--font-line-height-button` |
-| `font.line-height.display` | `72px` | `fontLineHeightDisplay` | `@dimen/font_line_height_display` | `--font-line-height-display` |
-| `font.line-height.h1` | `40px` | `fontLineHeightH1` | `@dimen/font_line_height_h1` | `--font-line-height-h1` |
-| `font.line-height.h2` | `32px` | `fontLineHeightH2` | `@dimen/font_line_height_h2` | `--font-line-height-h2` |
-| `font.line-height.h3` | `24px` | `fontLineHeightH3` | `@dimen/font_line_height_h3` | `--font-line-height-h3` |
-| `font.line-height.h4` | `20px` | `fontLineHeightH4` | `@dimen/font_line_height_h4` | `--font-line-height-h4` |
-| `font.line-height.h5` | `16px` | `fontLineHeightH5` | `@dimen/font_line_height_h5` | `--font-line-height-h5` |
-| `font.line-height.label` | `21px` | `fontLineHeightLabel` | `@dimen/font_line_height_label` | `--font-line-height-label` |
-| `font.line-height.overline` | `12px` | `fontLineHeightOverline` | `@dimen/font_line_height_overline` | `--font-line-height-overline` |
+| `font.line-height.body-lg` | `24px` | `fontLineHeightBodyLg` | `@dimen/bds_font_line_height_body_lg` | `--font-line-height-body-lg` |
+| `font.line-height.body-md` | `21px` | `fontLineHeightBodyMd` | `@dimen/bds_font_line_height_body_md` | `--font-line-height-body-md` |
+| `font.line-height.body-sm` | `18px` | `fontLineHeightBodySm` | `@dimen/bds_font_line_height_body_sm` | `--font-line-height-body-sm` |
+| `font.line-height.button` | `14px` | `fontLineHeightButton` | `@dimen/bds_font_line_height_button` | `--font-line-height-button` |
+| `font.line-height.display` | `72px` | `fontLineHeightDisplay` | `@dimen/bds_font_line_height_display` | `--font-line-height-display` |
+| `font.line-height.h1` | `40px` | `fontLineHeightH1` | `@dimen/bds_font_line_height_h1` | `--font-line-height-h1` |
+| `font.line-height.h2` | `32px` | `fontLineHeightH2` | `@dimen/bds_font_line_height_h2` | `--font-line-height-h2` |
+| `font.line-height.h3` | `24px` | `fontLineHeightH3` | `@dimen/bds_font_line_height_h3` | `--font-line-height-h3` |
+| `font.line-height.h4` | `20px` | `fontLineHeightH4` | `@dimen/bds_font_line_height_h4` | `--font-line-height-h4` |
+| `font.line-height.h5` | `16px` | `fontLineHeightH5` | `@dimen/bds_font_line_height_h5` | `--font-line-height-h5` |
+| `font.line-height.label` | `21px` | `fontLineHeightLabel` | `@dimen/bds_font_line_height_label` | `--font-line-height-label` |
+| `font.line-height.overline` | `12px` | `fontLineHeightOverline` | `@dimen/bds_font_line_height_overline` | `--font-line-height-overline` |
 
 ## font · size
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.size.body-lg` | `16px` | `fontSizeBodyLg` | `@dimen/font_size_body_lg` | `--font-size-body-lg` |
-| `font.size.body-md` | `14px` | `fontSizeBodyMd` | `@dimen/font_size_body_md` | `--font-size-body-md` |
-| `font.size.body-sm` | `12px` | `fontSizeBodySm` | `@dimen/font_size_body_sm` | `--font-size-body-sm` |
-| `font.size.button` | `14px` | `fontSizeButton` | `@dimen/font_size_button` | `--font-size-button` |
-| `font.size.display` | `72px` | `fontSizeDisplay` | `@dimen/font_size_display` | `--font-size-display` |
-| `font.size.h1` | `40px` | `fontSizeH1` | `@dimen/font_size_h1` | `--font-size-h1` |
-| `font.size.h2` | `32px` | `fontSizeH2` | `@dimen/font_size_h2` | `--font-size-h2` |
-| `font.size.h3` | `24px` | `fontSizeH3` | `@dimen/font_size_h3` | `--font-size-h3` |
-| `font.size.h4` | `20px` | `fontSizeH4` | `@dimen/font_size_h4` | `--font-size-h4` |
-| `font.size.h5` | `16px` | `fontSizeH5` | `@dimen/font_size_h5` | `--font-size-h5` |
-| `font.size.label` | `14px` | `fontSizeLabel` | `@dimen/font_size_label` | `--font-size-label` |
-| `font.size.overline` | `12px` | `fontSizeOverline` | `@dimen/font_size_overline` | `--font-size-overline` |
+| `font.size.body-lg` | `16px` | `fontSizeBodyLg` | `@dimen/bds_font_size_body_lg` | `--font-size-body-lg` |
+| `font.size.body-md` | `14px` | `fontSizeBodyMd` | `@dimen/bds_font_size_body_md` | `--font-size-body-md` |
+| `font.size.body-sm` | `12px` | `fontSizeBodySm` | `@dimen/bds_font_size_body_sm` | `--font-size-body-sm` |
+| `font.size.button` | `14px` | `fontSizeButton` | `@dimen/bds_font_size_button` | `--font-size-button` |
+| `font.size.display` | `72px` | `fontSizeDisplay` | `@dimen/bds_font_size_display` | `--font-size-display` |
+| `font.size.h1` | `40px` | `fontSizeH1` | `@dimen/bds_font_size_h1` | `--font-size-h1` |
+| `font.size.h2` | `32px` | `fontSizeH2` | `@dimen/bds_font_size_h2` | `--font-size-h2` |
+| `font.size.h3` | `24px` | `fontSizeH3` | `@dimen/bds_font_size_h3` | `--font-size-h3` |
+| `font.size.h4` | `20px` | `fontSizeH4` | `@dimen/bds_font_size_h4` | `--font-size-h4` |
+| `font.size.h5` | `16px` | `fontSizeH5` | `@dimen/bds_font_size_h5` | `--font-size-h5` |
+| `font.size.label` | `14px` | `fontSizeLabel` | `@dimen/bds_font_size_label` | `--font-size-label` |
+| `font.size.overline` | `12px` | `fontSizeOverline` | `@dimen/bds_font_size_overline` | `--font-size-overline` |
 
 ## font · weight
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.weight.bold` | `700` | `fontWeightBold` | `@integer/font_weight_bold` | `--font-weight-bold` |
-| `font.weight.medium` | `500` | `fontWeightMedium` | `@integer/font_weight_medium` | `--font-weight-medium` |
-| `font.weight.regular` | `400` | `fontWeightRegular` | `@integer/font_weight_regular` | `--font-weight-regular` |
-| `font.weight.semibold` | `600` | `fontWeightSemibold` | `@integer/font_weight_semibold` | `--font-weight-semibold` |
+| `font.weight.bold` | `700` | `fontWeightBold` | `@integer/bds_font_weight_bold` | `--font-weight-bold` |
+| `font.weight.medium` | `500` | `fontWeightMedium` | `@integer/bds_font_weight_medium` | `--font-weight-medium` |
+| `font.weight.regular` | `400` | `fontWeightRegular` | `@integer/bds_font_weight_regular` | `--font-weight-regular` |
+| `font.weight.semibold` | `600` | `fontWeightSemibold` | `@integer/bds_font_weight_semibold` | `--font-weight-semibold` |
 
 ## motion · duration
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `motion.duration.fast` | `100ms` | `motionDurationFast` | `@integer/motion_duration_fast` | `--motion-duration-fast` |
-| `motion.duration.instant` | `0ms` | `motionDurationInstant` | `@integer/motion_duration_instant` | `--motion-duration-instant` |
-| `motion.duration.normal` | `200ms` | `motionDurationNormal` | `@integer/motion_duration_normal` | `--motion-duration-normal` |
-| `motion.duration.slow` | `300ms` | `motionDurationSlow` | `@integer/motion_duration_slow` | `--motion-duration-slow` |
-| `motion.duration.slower` | `500ms` | `motionDurationSlower` | `@integer/motion_duration_slower` | `--motion-duration-slower` |
+| `motion.duration.fast` | `100ms` | `motionDurationFast` | `@integer/bds_motion_duration_fast` | `--motion-duration-fast` |
+| `motion.duration.instant` | `0ms` | `motionDurationInstant` | `@integer/bds_motion_duration_instant` | `--motion-duration-instant` |
+| `motion.duration.normal` | `200ms` | `motionDurationNormal` | `@integer/bds_motion_duration_normal` | `--motion-duration-normal` |
+| `motion.duration.slow` | `300ms` | `motionDurationSlow` | `@integer/bds_motion_duration_slow` | `--motion-duration-slow` |
+| `motion.duration.slower` | `500ms` | `motionDurationSlower` | `@integer/bds_motion_duration_slower` | `--motion-duration-slower` |
 
 ## motion · easing
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `motion.easing.default` | `cubic-bezier(0.4, 0, 0.2, 1)` | — | `@string/motion_easing_default` | `--motion-easing-default` |
-| `motion.easing.in` | `cubic-bezier(0.4, 0, 1, 1)` | — | `@string/motion_easing_in` | `--motion-easing-in` |
-| `motion.easing.out` | `cubic-bezier(0, 0, 0.2, 1)` | — | `@string/motion_easing_out` | `--motion-easing-out` |
+| `motion.easing.default` | `cubic-bezier(0.4, 0, 0.2, 1)` | — | `@string/bds_motion_easing_default` | `--motion-easing-default` |
+| `motion.easing.in` | `cubic-bezier(0.4, 0, 1, 1)` | — | `@string/bds_motion_easing_in` | `--motion-easing-in` |
+| `motion.easing.out` | `cubic-bezier(0, 0, 0.2, 1)` | — | `@string/bds_motion_easing_out` | `--motion-easing-out` |
 
 ## radius
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `radius.2xl` | `24px` | `radius2xl` | `@dimen/radius_2xl` | `--radius-2xl` |
-| `radius.badge` | `9999px` | `radiusBadge` | `@dimen/radius_badge` | `--radius-badge` |
-| `radius.button` | `8px` | `radiusButton` | `@dimen/radius_button` | `--radius-button` |
-| `radius.card` | `12px` | `radiusCard` | `@dimen/radius_card` | `--radius-card` |
-| `radius.full` | `9999px` | `radiusFull` | `@dimen/radius_full` | `--radius-full` |
-| `radius.input` | `8px` | `radiusInput` | `@dimen/radius_input` | `--radius-input` |
-| `radius.lg` | `12px` | `radiusLg` | `@dimen/radius_lg` | `--radius-lg` |
-| `radius.md` | `8px` | `radiusMd` | `@dimen/radius_md` | `--radius-md` |
-| `radius.modal` | `16px` | `radiusModal` | `@dimen/radius_modal` | `--radius-modal` |
-| `radius.none` | `0px` | `radiusNone` | `@dimen/radius_none` | `--radius-none` |
-| `radius.sm` | `4px` | `radiusSm` | `@dimen/radius_sm` | `--radius-sm` |
-| `radius.xl` | `16px` | `radiusXl` | `@dimen/radius_xl` | `--radius-xl` |
-| `radius.xs` | `2px` | `radiusXs` | `@dimen/radius_xs` | `--radius-xs` |
+| `radius.2xl` | `24px` | `radius2xl` | `@dimen/bds_radius_2xl` | `--radius-2xl` |
+| `radius.badge` | `9999px` | `radiusBadge` | `@dimen/bds_radius_badge` | `--radius-badge` |
+| `radius.button` | `8px` | `radiusButton` | `@dimen/bds_radius_button` | `--radius-button` |
+| `radius.card` | `12px` | `radiusCard` | `@dimen/bds_radius_card` | `--radius-card` |
+| `radius.full` | `9999px` | `radiusFull` | `@dimen/bds_radius_full` | `--radius-full` |
+| `radius.input` | `8px` | `radiusInput` | `@dimen/bds_radius_input` | `--radius-input` |
+| `radius.lg` | `12px` | `radiusLg` | `@dimen/bds_radius_lg` | `--radius-lg` |
+| `radius.md` | `8px` | `radiusMd` | `@dimen/bds_radius_md` | `--radius-md` |
+| `radius.modal` | `16px` | `radiusModal` | `@dimen/bds_radius_modal` | `--radius-modal` |
+| `radius.none` | `0px` | `radiusNone` | `@dimen/bds_radius_none` | `--radius-none` |
+| `radius.sm` | `4px` | `radiusSm` | `@dimen/bds_radius_sm` | `--radius-sm` |
+| `radius.xl` | `16px` | `radiusXl` | `@dimen/bds_radius_xl` | `--radius-xl` |
+| `radius.xs` | `2px` | `radiusXs` | `@dimen/bds_radius_xs` | `--radius-xs` |
 
 ## spacing
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `spacing.1` | `2px` | `spacing1` | `@dimen/spacing_1` | `--spacing-1` |
-| `spacing.10` | `48px` | `spacing10` | `@dimen/spacing_10` | `--spacing-10` |
-| `spacing.11` | `56px` | `spacing11` | `@dimen/spacing_11` | `--spacing-11` |
-| `spacing.12` | `64px` | `spacing12` | `@dimen/spacing_12` | `--spacing-12` |
-| `spacing.13` | `96px` | `spacing13` | `@dimen/spacing_13` | `--spacing-13` |
-| `spacing.14` | `128px` | `spacing14` | `@dimen/spacing_14` | `--spacing-14` |
-| `spacing.2` | `4px` | `spacing2` | `@dimen/spacing_2` | `--spacing-2` |
-| `spacing.3` | `8px` | `spacing3` | `@dimen/spacing_3` | `--spacing-3` |
-| `spacing.4` | `12px` | `spacing4` | `@dimen/spacing_4` | `--spacing-4` |
-| `spacing.5` | `16px` | `spacing5` | `@dimen/spacing_5` | `--spacing-5` |
-| `spacing.6` | `20px` | `spacing6` | `@dimen/spacing_6` | `--spacing-6` |
-| `spacing.7` | `24px` | `spacing7` | `@dimen/spacing_7` | `--spacing-7` |
-| `spacing.8` | `32px` | `spacing8` | `@dimen/spacing_8` | `--spacing-8` |
-| `spacing.9` | `40px` | `spacing9` | `@dimen/spacing_9` | `--spacing-9` |
+| `spacing.1` | `2px` | `spacing1` | `@dimen/bds_spacing_1` | `--spacing-1` |
+| `spacing.10` | `48px` | `spacing10` | `@dimen/bds_spacing_10` | `--spacing-10` |
+| `spacing.11` | `56px` | `spacing11` | `@dimen/bds_spacing_11` | `--spacing-11` |
+| `spacing.12` | `64px` | `spacing12` | `@dimen/bds_spacing_12` | `--spacing-12` |
+| `spacing.13` | `96px` | `spacing13` | `@dimen/bds_spacing_13` | `--spacing-13` |
+| `spacing.14` | `128px` | `spacing14` | `@dimen/bds_spacing_14` | `--spacing-14` |
+| `spacing.2` | `4px` | `spacing2` | `@dimen/bds_spacing_2` | `--spacing-2` |
+| `spacing.3` | `8px` | `spacing3` | `@dimen/bds_spacing_3` | `--spacing-3` |
+| `spacing.4` | `12px` | `spacing4` | `@dimen/bds_spacing_4` | `--spacing-4` |
+| `spacing.5` | `16px` | `spacing5` | `@dimen/bds_spacing_5` | `--spacing-5` |
+| `spacing.6` | `20px` | `spacing6` | `@dimen/bds_spacing_6` | `--spacing-6` |
+| `spacing.7` | `24px` | `spacing7` | `@dimen/bds_spacing_7` | `--spacing-7` |
+| `spacing.8` | `32px` | `spacing8` | `@dimen/bds_spacing_8` | `--spacing-8` |
+| `spacing.9` | `40px` | `spacing9` | `@dimen/bds_spacing_9` | `--spacing-9` |
 
 ## stroke
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `stroke.lg` | `4px` | `strokeLg` | `@dimen/stroke_lg` | `--stroke-lg` |
-| `stroke.md` | `2px` | `strokeMd` | `@dimen/stroke_md` | `--stroke-md` |
-| `stroke.sm` | `1px` | `strokeSm` | `@dimen/stroke_sm` | `--stroke-sm` |
+| `stroke.lg` | `4px` | `strokeLg` | `@dimen/bds_stroke_lg` | `--stroke-lg` |
+| `stroke.md` | `2px` | `strokeMd` | `@dimen/bds_stroke_md` | `--stroke-md` |
+| `stroke.sm` | `1px` | `strokeSm` | `@dimen/bds_stroke_sm` | `--stroke-sm` |
 
 ## z-index
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `z-index.base` | `0` | `zIndexBase` | `@integer/z_index_base` | `--z-index-base` |
-| `z-index.modal` | `200` | `zIndexModal` | `@integer/z_index_modal` | `--z-index-modal` |
-| `z-index.overlay` | `100` | `zIndexOverlay` | `@integer/z_index_overlay` | `--z-index-overlay` |
-| `z-index.raised` | `10` | `zIndexRaised` | `@integer/z_index_raised` | `--z-index-raised` |
-| `z-index.toast` | `300` | `zIndexToast` | `@integer/z_index_toast` | `--z-index-toast` |
+| `z-index.base` | `0` | `zIndexBase` | `@integer/bds_z_index_base` | `--z-index-base` |
+| `z-index.modal` | `200` | `zIndexModal` | `@integer/bds_z_index_modal` | `--z-index-modal` |
+| `z-index.overlay` | `100` | `zIndexOverlay` | `@integer/bds_z_index_overlay` | `--z-index-overlay` |
+| `z-index.raised` | `10` | `zIndexRaised` | `@integer/bds_z_index_raised` | `--z-index-raised` |
+| `z-index.toast` | `300` | `zIndexToast` | `@integer/bds_z_index_toast` | `--z-index-toast` |
 
 ---
 
