@@ -1,11 +1,15 @@
 import StyleDictionary from 'style-dictionary';
 import fs from 'node:fs';
+import path from 'node:path';
+import { brandDistDir, loadAllBrands, resolveBrandArg, tokenSources } from './brands.mjs';
 
 // VERSION at the repo root is the release-version source of truth
 // (written by set-release-version.mjs). Stamped into DESIGN.md.
+// One VERSION for all brands: a brand-only change bumps everyone, which is
+// cheap, where per-brand versions would multiply the release matrix by N.
 const RELEASE_VERSION = (() => {
   try {
-    return fs.readFileSync(new URL('./VERSION', import.meta.url), 'utf-8').trim();
+    return fs.readFileSync(new URL('../VERSION', import.meta.url), 'utf-8').trim();
   } catch {
     return '0.0.0';
   }
@@ -20,9 +24,15 @@ const RELEASE_VERSION = (() => {
 // Run:  pnpm run build
 // ============================================================
 //
-// Android: do NOT use the built-in `android` transformGroup — its
-// size/remToDp treats numeric values as rem and multiplies by 16
-// (4px in Figma → 64dp). We use 1:1 px → dp/sp instead.
+// Token values are px. Every built-in size transform treats them as rem and
+// multiplies by basePxFontSize (16) — 4px in Figma → 64dp. So NONE of the
+// built-in `android`, `compose`, `ios-swift` or `flutter` transformGroups may
+// be used here; each has a 1:1 replacement below:
+//
+//   android      → android/px      (size/pxToAndroidUnit)
+//   compose      → compose/typed   (size/pxToComposeDp, size/pxToComposeSp)
+//   ios-swift    → ios/px          (size/pxToSwiftCGFloat)
+//   flutter      → flutter/px      (size/pxToFlutterDouble)
 
 /** @param {unknown} value */
 function parsePx(value) {
@@ -68,6 +78,16 @@ const COMPOSE_SUPPORTED_TYPES = new Set([
   'fontWeight',
   'duration',
 ]);
+
+// shadow and cubicBezier are CSS strings ("0px 1px 2px rgba(…)",
+// "cubic-bezier(…)") with no single-value equivalent in Swift or Dart. Emitted
+// raw they become bare unquoted expressions that do not compile, so they are
+// filtered out of those platforms the same way COMPOSE_SUPPORTED_TYPES filters
+// them out of Kotlin. fontFamily IS representable — see font/quoteFamily.
+const TYPED_LANG_UNSUPPORTED_TYPES = new Set(['shadow', 'cubicBezier']);
+
+/** @param {{ $type?: string }} token */
+const isTypedLangSupported = (token) => !TYPED_LANG_UNSUPPORTED_TYPES.has(token.$type ?? '');
 
 /**
  * @param {{ path?: string[] } | undefined} token
@@ -127,7 +147,19 @@ const androidResourceKind = (type) => {
   return 'string';
 };
 
-const sd = new StyleDictionary({
+/**
+ * One Style Dictionary config per brand × mode. Everything above this point —
+ * transforms, transform groups and formats — is brand-agnostic and shared, so
+ * adding a brand adds token *values*, never pipeline code.
+ *
+ * @param {import('./brands.mjs').Brand} brand
+ * @param {string} mode
+ */
+const configFor = (brand, mode) => {
+  // Relative so Style Dictionary's own logging stays readable.
+  const dist = `${path.relative(process.cwd(), brandDistDir(brand))}/`;
+
+  return {
   hooks: {
     transforms: {
       'size/pxToAndroidUnit': {
@@ -160,6 +192,33 @@ const sd = new StyleDictionary({
         filter: (token) => token.$type === 'fontSize' || isFontSizeOrLineHeight(token),
         transform: (token) => toComposeLiteral(token.$value, 'sp'),
       },
+      // Swift/Dart have no dp-vs-sp distinction, so one transform covers both
+      // dimension and fontSize. Built-in size/swift/remToCGFloat and
+      // size/flutter/remToDouble multiply by basePxFontSize (16) — see the
+      // header note; our values are already px, so emit them 1:1.
+      'size/pxToSwiftCGFloat': {
+        type: 'value',
+        filter: (token) => token.$type === 'dimension' || token.$type === 'fontSize',
+        transform: (token) => {
+          const n = parsePx(token.$value);
+          return `CGFloat(${(Number.isNaN(n) ? 0 : n).toFixed(2)})`;
+        },
+      },
+      'size/pxToFlutterDouble': {
+        type: 'value',
+        filter: (token) => token.$type === 'dimension' || token.$type === 'fontSize',
+        transform: (token) => {
+          const n = parsePx(token.$value);
+          return (Number.isNaN(n) ? 0 : n).toFixed(2);
+        },
+      },
+      // A font family is a string; without quoting it emits as a bare
+      // identifier (`let fontFamilyPrimary = Montserrat`) and does not compile.
+      'font/quoteFamily': {
+        type: 'value',
+        filter: (token) => token.$type === 'fontFamily',
+        transform: (token) => `"${String(token.$value).replace(/"/g, '\\"')}"`,
+      },
     },
     transformGroups: {
       'android/px': [
@@ -177,6 +236,27 @@ const sd = new StyleDictionary({
         'size/pxToComposeDp',
         'size/pxToComposeSp',
         'duration/msInteger',
+      ],
+      // iOS/Flutter groups without the built-in rem→px transforms (which
+      // multiply by 16). Otherwise identical to the built-in ios-swift/flutter
+      // groups, so colour and asset handling stays stock.
+      'ios/px': [
+        'attribute/cti',
+        'name/camel',
+        'color/UIColorSwift',
+        'content/swift/literal',
+        'asset/swift/literal',
+        'size/pxToSwiftCGFloat',
+        'font/quoteFamily',
+      ],
+      'flutter/px': [
+        'attribute/cti',
+        'name/camel',
+        'color/hex8flutter',
+        'size/pxToFlutterDouble',
+        'content/flutter/literal',
+        'asset/flutter/literal',
+        'font/quoteFamily',
       ],
     },
     formats: {
@@ -249,6 +329,9 @@ ${lines.join('\n')}
       // other platform so it cannot drift from what the apps actually consume.
       'markdown/design-doc': async ({ dictionary, options }) => {
         const version = options.version ?? '0.0.0';
+        const brandName = options.brand?.name ?? 'Design System';
+        const brandId = options.brand?.id ?? 'brand';
+        const figmaPath = `brands/${brandId}/figma/tokens.json`;
         const all = dictionary.allTokens;
 
         const byGroup = new Map();
@@ -262,23 +345,23 @@ ${lines.join('\n')}
         for (const t of all) counts[t.$type] = (counts[t.$type] ?? 0) + 1;
 
         const out = [];
-        out.push('# Belcorp Design System — Token Reference\n');
+        out.push(`# ${brandName} Design System — Token Reference\n`);
         out.push(
           '> ## 🤖 Automatically generated — do not edit\n' +
             '>\n' +
-            '> This file is written by `sd.config.mjs` (the `markdown/design-doc` format)\n' +
-            '> from **`figma/tokens.json`**, the single source of truth. Any edit you make\n' +
-            '> here is overwritten the next time it regenerates.\n' +
+            '> This file is written by `pipeline/sd.config.mjs` (the `markdown/design-doc`\n' +
+            `> format) from **\`${figmaPath}\`**, the single source of truth. Any edit you\n` +
+            '> make here is overwritten the next time it regenerates.\n' +
             '>\n' +
             '> **To change a value:** change the token in Figma, export to\n' +
-            '> `figma/tokens.json`, then run `pnpm run sync`.\n',
+            `> \`${figmaPath}\`, then run \`pnpm run sync\`.\n`,
         );
         out.push('### When this file regenerates\n');
         out.push('| When | What triggers it |');
         out.push('|---|---|');
-        out.push('| `pnpm run sync` (or `sync:figma`) | Manually, after editing `figma/tokens.json` |');
+        out.push(`| \`pnpm run sync\` (or \`sync:figma\`) | Manually, after editing \`${figmaPath}\` |`);
         out.push('| `pnpm run build` | Style Dictionary rebuild — the `docs` platform runs with every other platform |');
-        out.push('| **Sync tokens from Figma JSON** workflow | A push touching `figma/tokens.json`, or manual dispatch |');
+        out.push(`| **Sync tokens from Figma JSON** workflow | A push touching \`${figmaPath}\`, or manual dispatch |`);
         out.push('| **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |');
         out.push('| **CI**, on every PR to `main` or `belcorp` | Re-runs `sync:figma` and **fails the build if this file differs** from what was committed |\n');
         out.push(
@@ -337,20 +420,20 @@ ${lines.join('\n')}
 
         out.push('---\n');
         out.push(
-          'Generated by `sd.config.mjs` (`markdown/design-doc`). ' +
+          'Generated by `pipeline/sd.config.mjs` (`markdown/design-doc`). ' +
             'See `docs/releasing-android.md` for how a change here reaches an application.\n',
         );
         return out.join('\n');
       },
     },
   },
-  source: ['tokens/**/*.json'],
+  source: tokenSources(brand, mode),
   platforms: {
 
     // ── Web: CSS Custom Properties ─────────────────────────
     css: {
       transformGroup: 'css',
-      buildPath: 'dist/web/',
+      buildPath: `${dist}web/`,
       files: [
         {
           destination: 'tokens.css',
@@ -365,7 +448,7 @@ ${lines.join('\n')}
     // ── Web: JavaScript / TypeScript module ─────────────────
     js: {
       transformGroup: 'js',
-      buildPath: 'dist/web/',
+      buildPath: `${dist}web/`,
       files: [
         {
           destination: 'tokens.js',
@@ -377,7 +460,7 @@ ${lines.join('\n')}
     // ── Android: XML resources ──────────────────────────────
     android: {
       transformGroup: 'android/px',
-      buildPath: 'dist/android/',
+      buildPath: `${dist}android/`,
       files: [
         {
           destination: 'colors.xml',
@@ -401,26 +484,41 @@ ${lines.join('\n')}
 
     // ── iOS: Swift file ─────────────────────────────────────
     ios: {
-      transformGroup: 'ios-swift',
-      buildPath: 'dist/ios/',
+      transformGroup: 'ios/px',
+      buildPath: `${dist}ios/`,
       files: [
         {
           destination: 'DesignTokens.swift',
           format: 'ios-swift/class.swift',
-          className: 'DesignTokens',
+          filter: isTypedLangSupported,
+          // className MUST live under `options` — as a file-level key Style
+          // Dictionary never receives it and emits `public class {`, which
+          // does not compile. Same trap as flutter below; compare compose.
+          options: {
+            className: 'DesignTokens',
+            // Pinned: Style Dictionary picks the import from the transformGroup
+            // *name* (only the literal 'ios-swift' yields UIKit, anything else
+            // yields SwiftUI). Our values are UIColor(...), a UIKit type, so
+            // this must not drift with the group name.
+            import: ['UIKit'],
+          },
         },
       ],
     },
 
     // ── Flutter: Dart constants ──────────────────────────────
     flutter: {
-      transformGroup: 'flutter',
-      buildPath: 'dist/flutter/',
+      transformGroup: 'flutter/px',
+      buildPath: `${dist}flutter/`,
       files: [
         {
           destination: 'design_tokens.dart',
           format: 'flutter/class.dart',
-          className: 'DesignTokens',
+          filter: isTypedLangSupported,
+          // See the iOS note above: file-level `className` is silently ignored.
+          options: {
+            className: 'DesignTokens',
+          },
         },
       ],
     },
@@ -429,14 +527,14 @@ ${lines.join('\n')}
     // Uses our compose/typed group (1:1 px → dp/sp) — never the built-in `compose` group.
     compose: {
       transformGroup: 'compose/typed',
-      buildPath: 'dist/compose/',
+      buildPath: `${dist}compose/`,
       files: [
         {
           destination: 'DesignTokens.kt',
           format: 'compose/typed-object',
           options: {
             className: 'DesignTokens',
-            packageName: 'com.estebanruano.designtokens',
+            packageName: brand.composePackage,
           },
         },
       ],
@@ -445,7 +543,7 @@ ${lines.join('\n')}
     // ── JSON dump (for debugging / other tools) ─────────────
     json: {
       transformGroup: 'js',
-      buildPath: 'dist/json/',
+      buildPath: `${dist}json/`,
       files: [
         {
           destination: 'tokens.json',
@@ -455,12 +553,13 @@ ${lines.join('\n')}
     },
 
     // ── DESIGN.md: the human-facing catalogue ──────────────
-    // Written to the repo root so it is the first thing a reader finds.
+    // One per brand, next to that brand's tokens — each brand has its own
+    // palette, so a single root catalogue could only ever describe one of them.
     // No transformGroup: the doc shows source values and derives every
     // platform identifier from token.path itself.
     docs: {
-      buildPath: './',
-      options: { version: RELEASE_VERSION },
+      buildPath: `${path.relative(process.cwd(), brand.dir)}/`,
+      options: { version: RELEASE_VERSION, brand, mode },
       files: [
         {
           destination: 'DESIGN.md',
@@ -469,8 +568,26 @@ ${lines.join('\n')}
       ],
     },
   },
-});
+  };
+};
 
-// Build all platforms
-await sd.buildAllPlatforms();
-console.log('\n✅ All platforms built successfully!\n');
+// Build every brand × mode, or just the one named by --brand.
+const only = process.argv.includes('--brand') || process.env.BRAND ? [resolveBrandArg()] : null;
+const brands = only ?? loadAllBrands();
+
+if (brands.length === 0) {
+  console.error('❌ No brands found under brands/ — each needs a brand.json');
+  process.exit(1);
+}
+
+// Only `light` is built today. The resolver (brands.mjs) already layers any
+// mode, but every platform here writes one flat file per artifact, so building
+// a second mode would overwrite the first rather than sit beside it as
+// values-night/ or a dark ColorScheme. Emitting those is Phase 3 generator
+// work; until then, building only light is honest rather than lossy.
+for (const brand of brands) {
+  const sd = new StyleDictionary(configFor(brand, 'light'));
+  await sd.buildAllPlatforms();
+}
+
+console.log(`\n✅ Built ${brands.map((b) => b.id).join(', ')} successfully!\n`);

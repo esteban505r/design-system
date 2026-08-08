@@ -1,24 +1,54 @@
 #!/usr/bin/env node
 
 // ============================================================
-// tokens-to-figma.mjs (optional — verify / export from tokens/)
+// tokens-to-figma.mjs (the reverse direction — verify / export)
 // ============================================================
-// On branch figma-ssot, edit figma/tokens.json instead. Use this script
-// to diff generated output against SSOT:
-//   node tokens-to-figma.mjs --out /tmp/generated-figma.json
-//   diff figma/tokens.json /tmp/generated-figma.json
+// The brand's figma/tokens.json is the source of truth; edit that. This script
+// regenerates it from the token tree so the round trip can be diffed:
+//   node pipeline/tokens-to-figma.mjs --brand belcorp --out /tmp/generated.json
+//   diff brands/belcorp/figma/tokens.json /tmp/generated.json
+// That diff is what test/lossless.test.mjs asserts is empty.
 // ============================================================
 
 import fs from 'fs';
 import path from 'path';
 import { tokenPathToFigmaName } from './token-name-map.mjs';
+import {
+  CORE_TOKENS_DIR,
+  REPO_ROOT,
+  brandDistDir,
+  brandFigmaFile,
+  brandTokensDir,
+  resolveBrandArg,
+} from './brands.mjs';
 
 const args = process.argv.slice(2);
 const inFlag = args.indexOf('--in');
 const outFlag = args.indexOf('--out');
-const inputDir = inFlag !== -1 ? args[inFlag + 1] : 'tokens';
+const modeFlag = args.indexOf('--mode');
+const mode = modeFlag !== -1 ? args[modeFlag + 1] : 'light';
+
+let brand;
+try {
+  brand = resolveBrandArg(args);
+} catch (err) {
+  console.error(`\n❌ ${err instanceof Error ? err.message : err}\n`);
+  process.exit(1);
+}
+
+// A brand's export is assembled from both layers the resolver reads: the shared
+// core scales plus that brand's own values. Reading only one would silently
+// drop half the tokens and make the round-trip diff look like data loss.
+const inputDirs =
+  inFlag !== -1 ? [args[inFlag + 1]] : [CORE_TOKENS_DIR, brandTokensDir(brand, mode)];
+// Default is a throwaway under dist/ so verifying can never clobber the source
+// of truth; --to-ssot is the deliberate opt-in to overwrite it.
 const outputFile =
-  outFlag !== -1 ? args[outFlag + 1] : 'dist/figma/tokens.generated.json';
+  outFlag !== -1
+    ? args[outFlag + 1]
+    : args.includes('--to-ssot')
+      ? brandFigmaFile(brand)
+      : path.join(brandDistDir(brand), 'figma/tokens.generated.json');
 const collectionName = process.env.FIGMA_COLLECTION || 'Global/Mode 1';
 
 const FIGMA_EXTENSIONS = {
@@ -100,12 +130,14 @@ function addToken(tokenPath, token, target) {
   if (figmaToken) target[name] = figmaToken;
 }
 
-if (!fs.existsSync(inputDir)) {
-  console.error(`❌ Token directory not found: ${inputDir}`);
-  process.exit(1);
+for (const dir of inputDirs) {
+  if (!fs.existsSync(dir)) {
+    console.error(`❌ Token directory not found: ${path.relative(REPO_ROOT, dir)}`);
+    process.exit(1);
+  }
 }
 
-const leaves = readTokenFiles(path.resolve(inputDir));
+const leaves = inputDirs.flatMap((dir) => readTokenFiles(path.resolve(dir)));
 /** @type {Record<string, unknown>} */
 const collection = {};
 
@@ -148,15 +180,13 @@ fs.writeFileSync(outPath, JSON.stringify(output, null, 2) + '\n');
 const relative = path.relative(process.cwd(), outPath);
 console.log(`✅ Generated ${sortedNames.length} tokens → ${relative}`);
 
-const ssotPath = path.resolve('figma/tokens.json');
+const ssotPath = brandFigmaFile(brand);
 if (outPath === ssotPath) {
-  const distCopy = path.resolve('dist/figma/tokens.json');
+  const distCopy = path.join(brandDistDir(brand), 'figma/tokens.json');
   fs.mkdirSync(path.dirname(distCopy), { recursive: true });
   fs.copyFileSync(outPath, distCopy);
   console.log(`   Copied to ${path.relative(process.cwd(), distCopy)}`);
-}
-
-if (outPath !== ssotPath) {
-  console.log('   Compare with figma/tokens.json if verifying SSOT parity.');
+} else {
+  console.log(`   Compare with ${path.relative(REPO_ROOT, ssotPath)} to verify SSOT parity.`);
 }
 console.log('');

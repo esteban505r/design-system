@@ -1,0 +1,16 @@
+{
+  "id": "belcorp",
+  "name": "Belcorp",
+  "artifactId": "tokens-android-belcorp",
+  "npmSubpath": "belcorp",
+  "ownsCore": true,
+  "modes": ["light"],
+
+  "// androidNamespace": "R-class namespace of the AAR. Must stay unique per brand — two AARs sharing one namespace produce duplicate R classes. Pinned to the value already published for Belcorp; changing it breaks every consumer.",
+  "androidNamespace": "com.estebanruano.tokens",
+
+  "// composePackage": "Kotlin package of the generated DesignTokens object. Also pinned: the Android app imports com.estebanruano.designtokens.DesignTokens today.",
+  "composePackage": "com.estebanruano.designtokens",
+
+  "extensions": []
+}

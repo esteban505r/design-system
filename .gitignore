@@ -5,11 +5,10 @@ node_modules/
 .gradle/
 build/
 
-# Filled by Gradle from dist/android before each build (do not edit by hand)
-design-tokens-android/src/main/res/values/*.xml
-
-# Filled by Gradle from dist/compose before each build (do not edit by hand)
-design-tokens-android/src/main/kotlin/com/estebanruano/designtokens/DesignTokens.kt
+# Filled by Gradle from dist/<brand>/ before each build (do not edit by hand).
+# dist/ is the committed artifact; these are throwaway copies inside the module.
+platforms/android/*/src/main/res/values/*.xml
+platforms/android/*/src/main/kotlin/
 
 # pnpm
 .pnpm-debug.log*

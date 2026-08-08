@@ -7,16 +7,19 @@
   "type": "module",
   "files": [
     "VERSION",
-    "figma/tokens.json",
-    "dist/web",
-    "dist/json",
-    "dist/figma"
+    "brands/*/figma/tokens.json",
+    "dist/*/web",
+    "dist/*/json",
+    "dist/*/figma"
   ],
   "exports": {
-    ".": "./dist/web/tokens.js",
-    "./css": "./dist/web/tokens.css",
-    "./json": "./dist/json/tokens.json",
-    "./figma": "./figma/tokens.json"
+    ".": "./dist/belcorp/web/tokens.js",
+    "./css": "./dist/belcorp/web/tokens.css",
+    "./json": "./dist/belcorp/json/tokens.json",
+    "./figma": "./brands/belcorp/figma/tokens.json",
+    "./belcorp": "./dist/belcorp/web/tokens.js",
+    "./belcorp/css": "./dist/belcorp/web/tokens.css",
+    "./belcorp/json": "./dist/belcorp/json/tokens.json"
   },
   "sideEffects": [
     "**/*.css"
@@ -38,13 +41,14 @@
     "style-dictionary"
   ],
   "scripts": {
-    "sync:figma": "node figma-to-tokens.mjs && node sd.config.mjs",
+    "sync:figma": "node pipeline/figma-to-tokens.mjs && node pipeline/sd.config.mjs",
     "sync": "pnpm run sync:figma",
-    "build": "node sd.config.mjs",
-    "parse": "node figma-to-tokens.mjs",
-    "figma:export": "node tokens-to-figma.mjs --out figma/tokens.json",
-    "figma:verify": "node tokens-to-figma.mjs --out dist/figma/tokens.generated.json",
-    "version:set": "node set-release-version.mjs",
+    "build": "node pipeline/sd.config.mjs",
+    "parse": "node pipeline/figma-to-tokens.mjs",
+    "figma:export": "node pipeline/tokens-to-figma.mjs --to-ssot",
+    "figma:verify": "node pipeline/tokens-to-figma.mjs",
+    "version:set": "node pipeline/set-release-version.mjs",
+    "test": "node --test",
     "clean": "rm -rf dist/"
   },
   "author": "",
