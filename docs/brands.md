@@ -16,8 +16,14 @@ brands/<id>/
   DESIGN.md                     generated catalogue for this brand
 pipeline/                       the generator, shared by all brands
 platforms/android/<id>/         one Gradle module per brand (one line each)
+buildSrc/                       the convention plugin those one-liners apply
 dist/<id>/<platform>/           built artifacts
 ```
+
+A brand's Android module is literally `plugins { id("design-tokens-brand-module") }`. All the
+real build logic — namespace, the `dist/` copy tasks, publishing — lives once in
+`buildSrc/src/main/kotlin/design-tokens-brand-module.gradle.kts`, and the brand id is the
+module's directory name, so there is no property to pass or forget to update.
 
 ## How a token's value is resolved
 
@@ -42,8 +48,9 @@ Exactly one brand carries `"ownsCore": true`; its Figma export is what writes
 `core/tokens/`. Any other brand whose export disagrees with `core/` **fails the
 build**, naming the files that differ.
 
-That guard is not hypothetical. The Oter token set still on the `main` branch
-disagrees with Belcorp on four of the ten core tokens they share:
+That guard is not hypothetical. Belcorp's `core/` holds 43 tokens; the Oter token set still
+on the `main` branch defines 23 in the same categories, and of the **ten paths the two sets
+share it disagrees on four**:
 
 | Token | Oter | Belcorp |
 |---|---|---|

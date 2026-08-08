@@ -23,7 +23,8 @@ rootProject.name = "design-system-publish"
 //
 // Each module's project directory is platforms/android/<id>/, which holds only
 // a manifest and a three-line build file — all real logic lives in the shared
-// gradle/token-module.gradle.kts.
+// convention plugin at
+// buildSrc/src/main/kotlin/design-tokens-brand-module.gradle.kts.
 val brandIds = file("brands")
     .listFiles()
     ?.filter { it.isDirectory && File(it, "brand.json").exists() }

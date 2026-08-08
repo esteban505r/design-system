@@ -79,10 +79,24 @@ jobs:
               test -f "dist/$brand/android/$f" || {
                 echo "::error::Missing dist/$brand/android/$f — sync failed?"; exit 1; }
             done
-            grep -q 'name="font_size_h1"' "dist/$brand/android/dimens.xml" || {
-              echo "::error::dist/$brand/android/dimens.xml has no font_size_h1 (typography tokens missing)"
+            grep -q 'name="bds_font_size_h1"' "dist/$brand/android/dimens.xml" || {
+              echo "::error::dist/$brand/android/dimens.xml has no bds_font_size_h1 (typography tokens missing)"
               exit 1
             }
+            # Resource naming contract: colours are bare, everything else carries
+            # the bds_ prefix. A regression either way is a silent break for
+            # consumers, so assert both halves rather than trusting the generator.
+            for f in dimens.xml integers.xml strings.xml; do
+              if grep -o 'name="[^"]*"' "dist/$brand/android/$f" | grep -qv 'name="bds_'; then
+                echo "::error::Unprefixed non-colour resource in dist/$brand/android/$f — every dimen/integer/string must start with bds_"
+                grep -o 'name="[^"]*"' "dist/$brand/android/$f" | grep -v 'name="bds_'
+                exit 1
+              fi
+            done
+            if grep -q 'name="bds_' "dist/$brand/android/colors.xml"; then
+              echo "::error::Prefixed colour in dist/$brand/android/colors.xml — colours are deliberately bare (436 consumer references depend on it)"
+              exit 1
+            fi
             if grep -E '<(dimen|item)[^>]*>[^<]*pxpx' "dist/$brand/android/dimens.xml"; then
               echo "::error::Invalid Android dimen (e.g. 28pxpx) in $brand — fix figmaTokenToDtcg / sync and republish"
               exit 1

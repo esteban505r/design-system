@@ -32,7 +32,9 @@ Token edits happen in `brands/belcorp/figma/tokens.json` (flat Tokens Studio nam
 > is 43 colour tokens against 118 absorbed app one-offs, and the Android app binds to
 > primitives rather than roles — so a rebrand still needs a manual audit of call sites.
 > What design needs to author for the rule to become followable, and who owns which tier,
-> is in **[docs/foundations-and-semantics.md](docs/foundations-and-semantics.md)**.
+> is in **[docs/foundations-and-semantics.md](docs/foundations-and-semantics.md)**, and the
+> concrete first batch of roles — measured from two consumer apps — is in
+> **[docs/role-requests.md](docs/role-requests.md)**.
 
 v2.0.0 adopted **Belcorp Design System 5.0** (Figma: _Claude Design.fig_) — a breaking
 change from the v1 set that was seeded from the legacy app theme. v3.0.0 rebranded the
@@ -82,7 +84,11 @@ GITHUB_ACTOR=<user> GITHUB_TOKEN=<PAT write:packages> \
 ./gradlew :tokens-android-belcorp:publish
 ```
 
-Semver: **major** = token renamed/removed · **minor** = new tokens · **patch** = value change.
+Semver describes the **token contract**: **major** = token renamed/removed · **minor** = new
+tokens · **patch** = value change with no change to the set of names. It is not a statement
+about visual risk — a value change breaks no call site but repaints every consumer, which is
+why v3.0.0 (purple → orange) shipped as major. Bump by impact, not by the table alone; see
+[docs/releasing-android.md § 2.2](docs/releasing-android.md#22-bump-the-version).
 
 Full checklist, local `~/.m2` verification loop and rollback:
 [docs/releasing-android.md](docs/releasing-android.md).

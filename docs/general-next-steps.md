@@ -27,7 +27,7 @@ regenerates everything and fails the PR on any difference.
 3. Commit the Figma export, the token tree, **`dist/`** and **`package.json`** (CI enforces no drift on PRs).
 4. Merge to **`main`**.
 5. **Publish** when consumers need a new version:
-   - **Web:** GitHub Actions → **Publish web tokens (npm)** (Trusted Publishing; see main README).
+   - **Web:** GitHub Actions → **Publish web tokens (npm)** (Trusted Publishing; see [workflow-and-production.md](workflow-and-production.md)).
    - **Android Maven:** **Publish Android library** (GitHub Packages).
 
 See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Actions, publish workflows, and release checklists.
@@ -40,7 +40,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
   version. Write it with `pnpm run version:set -- --version x.y.z`. One version covers
   every brand.
 - **npm** and **GitHub Packages** reject duplicate versions — bump `VERSION` for each release.
-- Align semver bumps with the kind of change (see **Semver guidelines** in the README): renames/removals → major; new tokens → minor; value-only tweaks → patch.
+- Align semver bumps with the kind of change (see **Versioning** in the README): renames/removals → major; new tokens → minor; value-only tweaks → patch.
 
 ---
 
@@ -58,7 +58,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 - Use **JS** exports when you need typed constants in TypeScript or build scripts.
 - **Design system vs product UI:** this repo ships **tokens only**, not React/Vue components. Your product (or a separate internal package) owns component primitives; tokens feed **CSS variables**, **Tailwind theme extension**, or **CSS-in-JS** theme objects built from the same values.
 
-**Next steps:** wire tokens into your global stylesheet or design-provider; pin versions in `package.json`; optionally mirror CSS from a CDN for static sites (README has patterns).
+**Next steps:** wire tokens into your global stylesheet or design-provider; pin versions in `package.json` once the package publishes.
 
 ---
 
@@ -66,7 +66,7 @@ See **[workflow-and-production.md](workflow-and-production.md)** for GitHub Acti
 
 **Artifacts:** `dist/<brand>/android/*.xml` plus `dist/<brand>/compose/DesignTokens.kt`, packaged as **`com.estebanruano:tokens-android-<brand>`** on GitHub Packages.
 
-**Integration:** add Maven dependency; reference **`@color/`**, **`@dimen/`** from merged resources.
+**Integration:** add Maven dependency; reference **`@color/color_*`** and **`@dimen/bds_*`** (also `@integer/bds_*`, `@string/bds_*`) from merged resources. Colours are unprefixed; every non-colour resource carries the `bds_` prefix so it cannot be shadowed by an app-module resource of the same name — see the README for the rule and why colours are exempt.
 
 **Material 3:** map token resources to **`Theme.Material3.*`** / Compose **`ColorScheme`** — see [android-material3-next-steps.md](android-material3-next-steps.md).
 

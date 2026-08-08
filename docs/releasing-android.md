@@ -8,7 +8,8 @@ Somos Belcorp Android app consumes. Read this before changing a colour that ship
 | Document | Purpose |
 |----------|---------|
 | [figma-ssot.md](figma-ssot.md) | The `brands/belcorp/figma/tokens.json` source-of-truth pipeline |
-| [workflow-and-production.md](workflow-and-production.md) | The markdown-source pipeline and repo architecture |
+| [workflow-and-production.md](workflow-and-production.md) | Repo setup, GitHub Actions and the release path |
+| [brands.md](brands.md) | The multi-brand model — why the module is `:tokens-android-belcorp` |
 | [android-material3-next-steps.md](android-material3-next-steps.md) | Material 3 mapping for Compose |
 
 ---
@@ -18,23 +19,30 @@ Somos Belcorp Android app consumes. Read this before changing a colour that ship
 This is the single most common source of confusion, so it comes first.
 
 ```
-brands/belcorp/figma/tokens.json                        ← SOURCE OF TRUTH (edit this)
+brands/belcorp/figma/tokens.json         ← SOURCE OF TRUTH (edit this)
         │  pnpm run sync
         ▼
-tokens/**/*.json                         ← DTCG tokens (committed)
-        │  sd.config.mjs (Style Dictionary)
+core/tokens/**                           ← shared geometry, DTCG (committed)
+brands/belcorp/tokens/light/**           ← this brand's values, DTCG (committed)
+        │  pipeline/sd.config.mjs (Style Dictionary)
         ▼
 dist/belcorp/android/*.xml
-dist/belcorp/compose/DesignTokens.kt             ← generated, committed
-DESIGN.md                                ← generated token reference (repo root)
+dist/belcorp/compose/DesignTokens.kt     ← generated, committed
+brands/belcorp/DESIGN.md                 ← generated token reference
         │  Gradle Copy task (syncAndroidTokensFromDist / syncComposeTokensFromDist)
         │  ⚠️  runs on `preBuild` of :tokens-android-belcorp — NOT during `pnpm run sync`
         ▼
-platforms/android/belcorp/src/main/…         ← module sources baked into the AAR
+platforms/android/belcorp/src/main/…     ← module sources baked into the AAR
         │  :tokens-android-belcorp:publish
         ▼
 GitHub Packages  →  app's libs.versions.toml  →  app build  →  device
 ```
+
+The Gradle module is **`:tokens-android-belcorp`** — one module per brand, named from
+`artifactId` in `brands/belcorp/brand.json`. `settings.gradle.kts` discovers it from the
+directory; there is no `:design-tokens-android`. The shared build logic lives in
+`buildSrc/src/main/kotlin/design-tokens-brand-module.gradle.kts`, so every brand module's own
+`build.gradle.kts` is a single `plugins { }` block.
 
 **`pnpm run sync` regenerates `dist/` only.** It does *not* update the Android module's own
 sources. Those are populated by a Gradle `Copy` task wired to `preBuild`, which only fires when you
@@ -71,14 +79,16 @@ Every colour token must carry a `$value` and `$type`:
 }
 ```
 
-**Adding a *new* token requires two extra edits** — miss either one and the token is silently
-dropped with only a console warning:
+**Adding a *new* token requires two extra edits:**
 
 1. `pipeline/token-name-map.mjs` — map the flat Figma name to its token path.
    ```js
    'purple-900': ['color', 'purple', '900'],
    ```
-   Unmapped names are **skipped**, not defaulted.
+   **An unmapped name now fails the sync**, listing every offending token. It used to be
+   skipped with only a console warning, which meant a variable a designer added in Figma
+   could vanish from every platform unnoticed. `--allow-unmapped` restores the old
+   skip-with-warning behaviour, for deliberate migrations only.
 
 2. `pipeline/token-writer.mjs` — if the new path introduces a category that has no `subCategories` entry
    yet, add one so it lands in a real file instead of `color/other.json`.
@@ -92,7 +102,7 @@ dropped with only a console warning:
 `design-system-foundations.md` are mirrors kept in sync by the script — do not hand-edit them.
 
 ```bash
-pnpm run version:set -- --version 2.4.0
+pnpm run version:set -- --version 3.1.0
 ```
 
 Semver, applied to token *values* rather than API shape:
@@ -117,13 +127,34 @@ pnpm run sync
 Then check the generated output actually contains what you expect:
 
 ```bash
-grep -c 'name="' dist/belcorp/android/colors.xml         # resource count
-grep -c '^\s*val ' dist/belcorp/compose/DesignTokens.kt  # Compose token count
+grep -c 'name="' dist/belcorp/android/colors.xml         # 240 colours
+grep -c 'name="' dist/belcorp/android/dimens.xml         # 54 dimens
+grep -c 'name="' dist/belcorp/android/integers.xml       # 14 integers
+grep -c 'name="' dist/belcorp/android/strings.xml        # 9 strings
+grep -c '^\s*val ' dist/belcorp/compose/DesignTokens.kt  # Compose token count (308)
 grep 'color_primary_500' dist/belcorp/android/colors.xml # spot-check a value you changed
-head -10 DESIGN.md                               # version + token count
+head -10 brands/belcorp/DESIGN.md                        # version + token count
 ```
 
-`brands/<brand>/DESIGN.md` at the repo root is **automatically regenerated by this same build** —
+**Resource naming.** The 317 Android resource names split into **240 colours**, which are
+`color_*` and carry **no** prefix, and **77 non-colour** resources — 54 dimens, 14 integers,
+9 strings — which are **all `bds_`-prefixed** (`bds_font_size_h1`, `bds_radius_card`,
+`bds_motion_duration_fast`, `bds_elevation_1`).
+
+Library resources merge into the consuming app's namespace, and on a name clash **the app
+silently wins over the library** — no warning, no build failure, just a wrong value at
+runtime. Names like `spacing_4`, `radius_card` or `font_size_h1` are generic enough that any
+feature module would plausibly reinvent them, and they had zero references in either
+consumer, so prefixing them cost nothing. The 240 `color_*` names were left bare
+deliberately: they are specific enough that nobody reinvents them, and renaming them would
+have churned hundreds of call sites in the real consumer. Compose is unaffected —
+`DesignTokens.colorPrimary500` is already namespaced by object and package.
+
+The invariant is asserted in `test/generated-output.test.mjs`, not by `android.resourcePrefix`
+— AGP lints every resource against a single prefix, so setting it would flag all 240
+deliberately-bare colours.
+
+`brands/belcorp/DESIGN.md` is **automatically regenerated by this same build** —
 never edit it by hand. It lists every token with the exact identifier to type on
 each platform (Compose, Android XML, iOS, Flutter, CSS), so it is the reference
 to hand anyone asking "what do I call this colour". Tokens with no
@@ -189,8 +220,14 @@ also works and is explicit.
 A successful build is not proof the values reached the APK. Check the artifact:
 
 ```bash
-aapt2 dump resources app/build/outputs/apk/allCountriesDev/debug/app-allCountries-dev-debug.apk \
-  | grep -A1 'color/color_primary_500$'
+APK=app/build/outputs/apk/allCountriesDev/debug/app-allCountries-dev-debug.apk
+
+# a colour — bare name, no prefix
+aapt2 dump resources "$APK" | grep -A1 'color/color_primary_500$'
+
+# a dimen — bds_-prefixed. `dimen/font_size_h1` no longer exists; if you grep
+# for the unprefixed name you will conclude, wrongly, that nothing shipped.
+aapt2 dump resources "$APK" | grep -A1 'dimen/bds_font_size_h1$'
 ```
 
 **Why a Gradle property rather than editing the repository block**
@@ -218,31 +255,48 @@ grep -r 'color_primary_500' app/build/intermediates/*/merged*/ | head
 ### 2.5 Commit and publish
 
 ```bash
-git add brands/belcorp/figma/tokens.json tokens/ dist/ tokens-android-belcorp/ VERSION package.json \
-        brands/*/DESIGN.md design-system-foundations.md pipeline/
-git commit -m "feat(color): <what changed> (v2.4.0)"
+git add brands/ core/ dist/ VERSION package.json design-system-foundations.md pipeline/
+git commit -m "feat(color): <what changed> (v3.1.0)"
 git push origin belcorp
 ```
+
+(`brands/` covers the SSOT, the generated token tree and `DESIGN.md`; `core/` covers the
+shared geometry. The module sources under `platforms/android/<id>/src/` are **gitignored** —
+they are Gradle copies of `dist/`, not artifacts to commit.)
 
 Simpler and safer: `git add -A`. CI stages every file and fails on any diff after
 re-running `sync`, so forgetting a generated file — `brands/<brand>/DESIGN.md` included — blocks
 the PR rather than shipping a stale artifact.
 
-Publish is **manual and branch-scoped**:
+Publish is **manual**:
 
-> GitHub → **Actions** → **Publish Android library** → **Run workflow** → pick the branch
-> (`belcorp` for the Somos Belcorp palette).
+> GitHub → **Actions** → **Publish Android library** → **Run workflow** → pick the branch.
+
+Since brands became directories, the branch no longer selects a palette — **the workflow
+publishes every brand discovered under `brands/`**, in one run, at the single version in
+`VERSION`. Picking a branch now only chooses which commit to publish from.
 
 The workflow reads `VERSION` — there is no version input. It re-runs `pnpm run sync:figma` from a
 clean checkout and fails the build if:
 
 - `VERSION` is missing or not valid semver
-- `brands/belcorp/figma/tokens.json` is absent on that branch
-- any of `colors.xml` / `dimens.xml` / `integers.xml` / `strings.xml` is missing from `dist/belcorp/android`
-- `dimens.xml` contains malformed units (e.g. `28pxpx`)
-- `dist/belcorp/compose/DesignTokens.kt` is missing or contains invalid Kotlin (unquoted CSS, `rgba(`,
-  `cubic-bezier`) or the old rem-multiplied sizes
+- no `brands/*/figma/tokens.json` exists on that branch
+- for **any** brand, one of `colors.xml` / `dimens.xml` / `integers.xml` / `strings.xml` is
+  missing from `dist/<brand>/android`
+- a brand's `dimens.xml` is missing the typography dimen, or contains malformed units
+  (e.g. `28pxpx`)
+- a brand's `dist/<brand>/compose/DesignTokens.kt` is missing or contains invalid Kotlin
+  (unquoted CSS, `rgba(`, `cubic-bezier`) or the old rem-multiplied sizes
 - `package.json` version disagrees with `VERSION` after sync
+
+Validation runs per brand deliberately, so a broken brand cannot ride along with a healthy one.
+
+> **Known gap.** The typography check in `publish-android.yml` greps for
+> `name="font_size_h1"`, which no longer matches anything — the resource is
+> `bds_font_size_h1` since the prefix landed. Until that grep is updated the publish job will
+> fail on a correct `dist/`, so treat a `has no font_size_h1 (typography tokens missing)`
+> error as a workflow bug rather than a token problem, and verify against
+> § 2.3 before touching the tokens.
 
 Because the workflow re-syncs from source, **a hand-edited `dist/` will be silently overwritten** —
 another reason to only ever edit `brands/belcorp/figma/tokens.json`.
@@ -253,27 +307,82 @@ In the app repo:
 
 ```toml
 # gradle/libs.versions.toml
-design-system-tokens = "2.4.0"
+design-system-tokens = "3.0.0"
 ```
 
 Consumers need a GitHub PAT with `read:packages` in `~/.gradle/gradle.properties`:
 
 ```properties
 gpr.user=<github-username>
-gpr.token=<PAT with read:packages>
+gpr.key=<PAT with read:packages>
 ```
 
-CI falls back to `GITHUB_ACTOR` + `GITHUB_TOKEN`. See
-`docs/design-system/consuming-design-system.md` in the app repo.
+The property is **`gpr.key`**, not `gpr.token` — it is read by
+`project.findProperty("gpr.key")` in the consumer's repository block (see the snippet in the
+[README](../README.md)). A misspelled property is not an error; it simply resolves to null and
+you get an authentication failure that looks like an expired token.
+
+CI falls back to `GITHUB_ACTOR` + `GITHUB_TOKEN`. The full consumer-side repository block is
+in the [README](../README.md); the app repo also documents it in
+`docs/design-system/consuming-design-system.md`.
 
 ---
 
-## 3. Rollback
+## 3. Version history, immutability and rollback
 
-Published versions are immutable. To roll back, pin the app to the previous version:
+### 3.1 Published versions are immutable
+
+A version, once published to GitHub Packages, cannot be replaced. Re-publishing the same
+coordinate returns **HTTP 409 Conflict** and the workflow fails. This is a feature: a version
+that means two different things is unresolvable after the fact, and it is how you get an app
+showing stale colours that nobody can explain.
+
+The consequence for day-to-day work: **do not iterate against the registry.** Every remote
+publish permanently burns a version number. Iterate with `-PdesignSystemLocal` and
+`:tokens-android-belcorp:publishToMavenLocal` — the local Maven repository has no
+immutability rule, so you can republish the same version as many times as it takes to get a
+change right before it becomes permanent. That loop is § 2.4.
+
+### 3.2 Version history
+
+> **This is a listing of the local Maven cache, not a confirmed registry listing.** The
+> authoritative list is GitHub Packages, which requires a PAT with `read:packages`:
+>
+> ```bash
+> curl -su "$USER:$GH_PAT" \
+>   https://maven.pkg.github.com/esteban505r/design-system/com/estebanruano/tokens-android-belcorp/maven-metadata.xml
+> ```
+>
+> Without a valid token that returns `Your request could not be authenticated by the GitHub
+> Packages service`, which is what happened when this table was compiled. What follows is
+> `ls ~/.m2/repository/com/estebanruano/tokens-android-belcorp/` on one developer machine,
+> cross-referenced with the `VERSION` file at each release commit. **A version being absent
+> here does not mean it was never published, and a version being present does not prove it
+> was** — `publishToMavenLocal` writes to the same directory.
+
+| Version | Release commit | What changed |
+|---------|---------------|--------------|
+| 2.0.0 | `0b55d8a` | Belcorp Design System 5.0 token set — breaking; replaced the v1 set seeded from the legacy app theme |
+| 2.1.0 | `de67557` | Typed Compose `DesignTokens.kt` shipped inside the AAR |
+| 2.2.0 | `2a8915d` | Belcorp Android app palette absorbed |
+| 2.3.0 | `f229b32` | **Verification release** — every colour token set to red. Not a real palette |
+| 2.4.0 | `9e651b0` | Verification palette reworked to preserve perceptual lightness (§ 5) |
+| 2.5.0 | `ccfddad` | Real Belcorp palette restored |
+| 2.6.0 | `baf3f13` | Recurring Belcorp drawable colours absorbed |
+| 3.0.0 | `a68a00d` | **Breaking** — primary ramp rebranded from purple to orange (`#7D4DBE` → `#BE5B06`) |
+
+Two things to read out of that table. **2.0.0 is in git history but not in the local cache**,
+which is exactly why the caveat above matters. And **2.3.0 and 2.4.0 are deliberately wrong
+palettes** — verification releases, described in § 5. Never pin an app to either.
+
+Current `VERSION`: **3.0.0**.
+
+### 3.3 Rollback
+
+To roll back, pin the app to the previous *real* version:
 
 ```toml
-design-system-tokens = "2.3.0"
+design-system-tokens = "2.6.0"
 ```
 
 To roll forward instead, restore the old token values, bump to a **new** version, and publish that.
@@ -287,14 +396,15 @@ Never try to overwrite a bad release in place.
 |---------|-------|-----|
 | Colour changed in `dist/` but not in the app | Gradle copy task never ran | `./gradlew :tokens-android-belcorp:publishToMavenLocal` |
 | CI fails on a `brands/<brand>/DESIGN.md` diff | Tokens changed without re-running sync | `pnpm run sync` and commit — never hand-edit `brands/<brand>/DESIGN.md` |
-| New token missing from `DesignTokens.kt` | Not in `pipeline/token-name-map.mjs` | Add the mapping; re-run `pnpm run sync` and check for `⚠️` warnings |
+| Sync fails naming tokens with "no mapping" | Not in `pipeline/token-name-map.mjs` | Add the mapping and re-run `pnpm run sync`. `--allow-unmapped` downgrades it to a warning — only while migrating a set deliberately |
 | New token landed in `color/other.json` | No `subCategories` entry | Add it to `fileMap.color.subCategories` in `pipeline/token-writer.mjs` |
 | Publish fails with HTTP 409 | That version already exists | Bump `VERSION` — never re-publish |
-| App can't resolve the artifact | Missing/expired `gpr.token`, or the version is only in `~/.m2` | Check `gpr.user`/`gpr.token` in `~/.gradle/gradle.properties`; or build with `-PdesignSystemLocal` |
+| App can't resolve the artifact | Missing/expired/misspelled `gpr.key`, or the version is only in `~/.m2` | Check `gpr.user`/`gpr.key` in `~/.gradle/gradle.properties`; or build with `-PdesignSystemLocal` |
 | Works locally, fails for everyone else | `designSystemLocal=true` is set in your `~/.gradle/gradle.properties` and the version was never published | Publish it, or drop the version back to a published one |
 | Republished to `~/.m2` but the app sees the old values | Gradle cached the module metadata | `./gradlew --refresh-dependencies` |
 | App resolves an old version despite the bump | Gradle cached the module metadata | `./gradlew --refresh-dependencies` |
-| Publish workflow ran on the wrong palette | Ran against the wrong branch | Re-run and select `belcorp` |
+| Published the wrong token values | Ran against a branch whose `brands/*/figma/tokens.json` is not what you meant | Bump `VERSION` and re-run from the right commit — the published one cannot be replaced |
+| A `@dimen`/`@integer`/`@string` lookup resolves to nothing | Using the pre-`bds_` name | Every non-colour resource is `bds_`-prefixed; colours are not. See § 2.3 |
 
 ---
 
@@ -303,7 +413,7 @@ Never try to overwrite a bad release in place.
 To prove end-to-end propagation, it is useful to publish a version where every colour is obviously
 wrong — then confirm the app changes.
 
-**Do not flatten every token to the same value.** Setting all 204 colours to `#ff0000` makes the UI
+**Do not flatten every token to the same value.** Setting all 240 colours to `#ff0000` makes the UI
 one solid block: text disappears into its background, borders vanish, and overlays stop reading as
 overlays, so you cannot tell propagation from breakage.
 

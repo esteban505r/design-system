@@ -12,6 +12,7 @@ document says what is missing and why it matters.
 | Document | Purpose |
 |----------|---------|
 | [DESIGN.md](../brands/belcorp/DESIGN.md) | Every token as it exists right now (generated) |
+| [role-requests.md](role-requests.md) | The first batch of requested roles, and how to request more |
 | [figma-ssot.md](figma-ssot.md) | How `brands/belcorp/figma/tokens.json` becomes platform artifacts |
 | [brands.md](brands.md) | The multi-brand model — brands, modes and `core/` |
 | [releasing-android.md](releasing-android.md) | Shipping a change to an application |
@@ -93,6 +94,13 @@ migration could be proven to change nothing visually. That was the right call fo
 migration and is the wrong shape for a design system. Each of those 118 is a surface whose
 *role* nobody has named.
 
+**Some of them are not even new roles.** `app-border-subtle` (`#00000011`) sits in the escape
+hatch under the exact name the semantic layer would give it: the `border` family has `brand`,
+`default`, `disabled` and `strong`, and no `subtle`. Promoting it is a **move, not an
+addition** — the role was already named, it was just filed one tier too low. That makes it the
+cheapest retirement available, and it is this section's argument in a single token: the
+distance between 118 and 43 is not 118 new design decisions.
+
 **The Android app binds to primitives, not to the 43.** It reads `colorNeutral0` and
 `colorPrimary500`. So the app is fully tokenised — no hardcoded colour survives — but a
 rebrand still requires reviewing usages by hand, because the intent was never recorded.
@@ -103,7 +111,10 @@ Existing semantic families, for reference: `bg` (11), `status` (12), `text` (10)
 
 ## 5. What the design team needs to produce
 
-In rough priority order.
+In rough priority order. This section states the shape of the work in the abstract;
+**[role-requests.md](role-requests.md) is where it is operationalised** — it carries the
+concrete first batch of proposed role names, each derived from measured demand in two
+consumer applications, plus the process and the promotion filter for requesting more.
 
 **5.1 Complete the vocabulary.** The current 43 cover a flat page: one background, one
 surface, default borders. Real screens need more. The gaps visible from the app's one-offs:
@@ -115,7 +126,19 @@ surface, default borders. Real screens need more. The gaps visible from the app'
 - **On-colour text roles** — what text is legible on a brand surface, a status surface, an
   image. This is where contrast obligations live.
 - **Feature/domain colours** — the Camino Brillante level palette is a real, permanent
-  design domain. It deserves proper naming, not the `color.app.*` bucket.
+  design domain. It deserves proper naming, not the `color.app.*` bucket. This is bigger
+  than it looks: the SSOT already holds **24 `app-camino-*` entries** — `ambar`,
+  `ambar-deep`, `brillante`, `brillante-deep`, `club-card-bg`, `club-card-gold`,
+  `club-card-highlight`, `consultora`, `consultora-deep`, `coral`, `coral-deep`, `cristal`,
+  `cristal-light`, `diamante`, `diamante-light`, `first-level`, `gran-brillante`,
+  `gran-brillante-light`, `jade`, `perla-deep`, `rubi`, `rubi-light`, `topacio`,
+  `topacio-deep`. The second consumer (FFVV) models only six corresponding members, so its
+  set is a *subset* — a canonical `camino.*` has to be derived from the 24, not from FFVV.
+  Worse, `app-camino-diamante` collides with FFVV's `DiamondBG`, which would otherwise be
+  filed under a separate consultant-tier namespace. "Camino Brillante" and the tier ladder
+  may therefore be one concept under two programme names. **Reconcile the two before either
+  namespace is authored** — author both and the duplication is baked in permanently, to be
+  kept in sync by hand forever. See [role-requests.md](role-requests.md).
 
 **5.2 Populate the multi-brand model.** ~~Decide it~~ — the shape is settled: brands are
 **modes over one semantic vocabulary**, not separate token sets. A brand is a directory

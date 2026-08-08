@@ -12,7 +12,7 @@ For **all platforms** (web, iOS, Flutter, governance), see [general-next-steps.m
 
 | Layer | Owned by | Contents |
 |--------|-----------|----------|
-| **Tokens** | This `design-system` repo | `color_*`, `dimen/*`, etc. from `brands/<brand>/figma/tokens.json` → Style Dictionary → AAR |
+| **Tokens** | This `design-system` repo | `color_*`, `bds_*` dimens/integers/strings, etc. from `brands/<brand>/figma/tokens.json` → Style Dictionary → AAR |
 | **Brand / theme mapping** | Each product line (or a shared internal library) | Maps token resources → `Theme.Material3.*` XML and/or Compose `ColorScheme` / `Typography` / `Shapes` |
 | **M3 components** | AndroidX Material3 | `MaterialButton`, `TextField`, `NavigationBar`, Compose `Button`, `Card`, … |
 | **App-specific UI** | Individual apps | Screens, navigation, one-off layouts; uses theme + tokens for anything not covered by M3 defaults |
@@ -85,7 +85,7 @@ Think in **three rings** so multiple apps can share work without forking the tok
 ### Ring A — Token distribution (already here)
 
 - **Artifact:** `com.estebanruano:tokens-android-<brand>` (coordinates from `brands/<brand>/brand.json`).
-- **Rule:** only **semantic names** from tokens (`spacing_4`, `color_primary_500`); **no** app hex.
+- **Rule:** only **semantic names** from tokens (`bds_spacing_4`, `color_primary_500`); **no** app hex. Colours are unprefixed; every non-colour resource carries the `bds_` prefix (see the README).
 
 ### Ring B — Shared “shell” (recommended internal artifact)
 
@@ -136,7 +136,7 @@ Create **one** internal Android library (mono-repo module or separate versioned 
 
 1. **Lock dependency:** add `implementation("com.estebanruano:tokens-android-belcorp:…")` and verify `R.color.*` names in merged `res/values/colors.xml` from the AAR.
 2. **Write mapping doc** (could live next to this file): table token → M3 role for light/dark.
-3. **Implement theme** in Ring B (XML and/or Compose) using only `@color/color_*` / dimen resources.
+3. **Implement theme** in Ring B (XML and/or Compose) using only `@color/color_*` / `@dimen/bds_*` resources.
 4. **Audit one screen** end-to-end with M3 components and the new theme.
 5. **Define** dynamic-color policy per product.
 6. **Plan** Ring B library extraction before you copy-paste theme into a second app.

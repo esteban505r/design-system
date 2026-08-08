@@ -113,6 +113,60 @@ Flat names (`primary-500`, `space-4`, `type-h1`) map to nested token paths via
 > from every platform. The error names every offending token. Pass
 > `--allow-unmapped` only while migrating a set deliberately.
 
+### Exactly one token set — a multi-set export fails the build
+
+The export must contain **one** collection (`Global/Mode 1` above). If it contains more than
+one, the parse step throws, naming every candidate set with its token count:
+
+```
+Figma export has 2 token sets; expected exactly one. Found:
+"Global/Mode 1" (281 tokens), "Global/Mode 1/Global/Mode 1" (272 tokens).
+This usually means a bad Tokens Studio round-trip duplicated the collection.
+Re-export from Figma, or pass an explicit collection name
+(the collectionName option, or the FIGMA_COLLECTION env var).
+```
+
+The counts are what make the message useful: they tell you which set is the real one without
+opening the file.
+
+Those are real numbers. `resolveFigmaCollection` used to fall back to `keys[0]` whenever it
+found more than one set, and commit `7812c58` on the remote is exactly that file — alongside
+the genuine `"Global/Mode 1"` (281 leaves) it carries a duplicated
+`"Global/Mode 1/Global/Mode 1"` (272 leaves). Ingesting the wrong one would have dropped
+tokens **with no error at all**, because every name that survived is still present in
+`FIGMA_TO_TOKEN_PATH`, so the unmapped-name guard never fires. Silent token loss is the worst
+failure this pipeline can have, and nothing downstream would have caught it: not the parse
+step, not `pnpm test`, not the Android build. A hard failure is the only safe behaviour.
+
+**How to resolve it**
+
+1. **Re-export from Figma.** This is almost always the right fix — the duplication is an
+   artifact of the round-trip, not something design authored.
+2. If the file genuinely holds several collections and you know which one you want, name it:
+   `FIGMA_COLLECTION="Global/Mode 1" pnpm run parse` (or pass `collectionName`). That escape
+   hatch exists so the guard never becomes a wall.
+
+Confirm the fix by token count, not by the build going green:
+
+```bash
+node -e "const s=require('./brands/belcorp/figma/tokens.json');
+const k=Object.keys(s).filter(x=>!x.startsWith('\$'));
+console.log(k.map(n=>n+': '+Object.keys(s[n]).length))"
+# → [ 'Global/Mode 1: 317' ]
+```
+
+> **The CI drift advice does not apply here.** When the drift gate fails it prints
+> ``Run `pnpm run sync:figma` locally and commit `core/`, `brands/`, `dist/`, and
+> `package.json`.`` That advice is **wrong for any drift whose cause is upstream in the Figma
+> export.** Re-running sync against a damaged export does not repair it — it regenerates
+> every artifact *from* the damage and asks you to commit the result, which is precisely how
+> the loss above would have been made permanent. The drift gate was in fact the only check
+> that would have fired, and following its instructions would have defeated it.
+>
+> So before running sync to "fix drift", read the diff on `brands/*/figma/tokens.json`. If
+> the export itself is wrong, fix the export; sync is only the remedy when the SSOT is
+> correct and the generated files have fallen behind it.
+
 ### Mapping reference (Belcorp)
 
 | Figma name | Token path |
@@ -162,7 +216,8 @@ allow PR creation for workflows.
 |-------|-----|
 | Build fails naming unmapped tokens | Add each to `FIGMA_TO_TOKEN_PATH` in `pipeline/token-name-map.mjs` |
 | Build fails "disagrees with core/" | Two brands claim different values for a shared scale — see [brands.md](brands.md) |
-| CI drift | Run `pnpm run sync`, commit `core/`, `brands/`, `dist/` |
+| `Figma export has N token sets; expected exactly one` | A duplicated collection from a bad Tokens Studio round-trip. Re-export; only name a set explicitly if the file legitimately holds several — see above |
+| CI drift | Run `pnpm run sync`, commit `core/`, `brands/`, `dist/`, `package.json` — **but first check the export is not itself the cause**, see above |
 | `createPullRequest` not permitted | Enable PR creation for Actions (see repo settings above) |
 | Wrong collection name | Set `FIGMA_COLLECTION="Your Set"` when running the parse step |
 | Verify parity | `pnpm run figma:verify`, then diff the SSOT against `dist/<brand>/figma/tokens.generated.json`. `pnpm test` asserts this automatically. |

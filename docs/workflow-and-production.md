@@ -83,6 +83,13 @@ from what you committed. This is what keeps `dist/`, the token tree and every
 If CI tells you to run sync locally, do exactly that and commit the result —
 never hand-edit the file it complained about.
 
+> **One exception, and it matters.** That advice assumes the SSOT is correct and the
+> generated files have fallen behind it. If the drift was *caused* by a bad
+> `brands/*/figma/tokens.json` — a damaged Tokens Studio export, say — then re-running sync
+> regenerates every artifact from the damage and asks you to commit it. Read the diff on the
+> export before you sync. See
+> [figma-ssot.md § Exactly one token set](figma-ssot.md#exactly-one-token-set--a-multi-set-export-fails-the-build).
+
 ### 2.2 Publish workflows
 
 **Neither publish workflow takes inputs.** Both read the release version from the
@@ -98,9 +105,12 @@ git commit -am "chore(release): x.y.z"
 Because the version comes from a committed file rather than a form field, what
 gets published is always reproducible from the commit.
 
-**Android (`publish-android.yml`)** — publishes every brand module discovered
-under `platforms/android/`, at the version in `VERSION`. A **409 Conflict** means
-that version already exists in GitHub Packages; bump `VERSION` and re-run.
+**Android (`publish-android.yml`)** — publishes every brand module, at the version
+in `VERSION`. Modules are discovered from `brands/*/brand.json` by
+`settings.gradle.kts`, each requiring a matching `platforms/android/<id>/`
+directory; the job runs a bare `./gradlew publish`, with no module path. A **409
+Conflict** means that version already exists in GitHub Packages; bump `VERSION`
+and re-run.
 
 **Web (`publish-web.yml`)** — Node 22.14, npm ≥ 11.5.1, `id-token: write` for
 OIDC. The npm **Trusted Publisher** entry must match this repository and the
@@ -153,12 +163,19 @@ cheap; per-brand versions would multiply the release matrix for no real benefit.
 
 | Bump | Meaning |
 |---|---|
-| **Major** | A token was renamed or removed |
+| **Major** | A token was renamed or removed — it breaks `DesignTokens.*` call sites at compile time |
 | **Minor** | New tokens added |
-| **Patch** | A token value changed |
+| **Patch** | A token value changed, with no change to the set of names |
 
-A value change is a *visual* change in every consumer. Treat "patch" as a
-statement about the token contract, not about risk.
+That table describes the **token contract**, not risk: a value change is invisible to the
+compiler but is a visual change in every consumer.
+
+In practice releases have been bumped by visual impact rather than by contract, and the
+history says so — v2.5.0 restored the real palette (a value change, released as a **minor**)
+and v3.0.0 rebranded the primary ramp purple → orange (a value change, released as
+**major**). The operative guidance for anything that ships to an app is the fuller table in
+[releasing-android.md § 2.2](releasing-android.md#22-bump-the-version): a value change is
+minor at minimum, and major if it is a brand or primary colour.
 
 ---
 

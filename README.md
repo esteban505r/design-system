@@ -29,6 +29,8 @@ from what the pipeline produces.
 | **[brands/belcorp/DESIGN.md](brands/belcorp/DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Generated — start here, never edit it.** |
 | **[Brands](docs/brands.md)** | How brands, modes and `core/` fit together; how to add a brand |
 | **[Foundations & the semantic layer](docs/foundations-and-semantics.md)** | **Design team** — what design owns, why apps must bind to semantic roles rather than primitives, and what is still missing |
+| **[Role requests](docs/role-requests.md)** | **Design + app teams** — how an app asks for a new semantic role, and the first batch measured from two apps |
+| **[Consumers](docs/consumers.md)** | Who depends on this library, at what version, and how adoption is tracked |
 | **[Figma SSOT](docs/figma-ssot.md)** | How a Figma export becomes platform artifacts |
 | **[Releasing the Android library](docs/releasing-android.md)** | Shipping a new AAR — checklist, versioning, rollback |
 | [Workflow & production](docs/workflow-and-production.md) | Repo settings, branch protection, registry setup |
@@ -144,13 +146,26 @@ the generated files in `dist/belcorp/android/`: `colors.xml`, `dimens.xml`
 (spacing, radius **and font sizes in `sp`**), `integers.xml`, `strings.xml`.
 There is no `R.font_dimens` type — font sizes are normal `R.dimen` entries.
 
+**Colours are bare; every non-colour resource is prefixed `bds_`.** Of the 317
+resource names in the AAR, the 240 `color_*` are unprefixed and the other 77 —
+54 `@dimen`, 14 `@integer`, 9 `@string` — all carry the prefix. Library
+resources merge into the consuming app's namespace, and on a name clash the
+application module silently wins: no warning, no build failure, just a wrong
+value at runtime. (`android.nonTransitiveRClass` changes R-class generation, not
+the merge.) Generic names like `spacing_4` are the ones an app would plausibly
+reinvent, so they are namespaced; `color_*` names are specific enough that
+nobody reinvents them, and they are already referenced throughout the existing
+consumer's layouts, so renaming them would be a large migration for no
+measurable benefit. **Compose is unaffected** — the `DesignTokens` object and
+its package already namespace those names.
+
 **XML**
 
 ```xml
 <TextView
     android:textColor="@color/color_primary_500"
-    android:textSize="@dimen/font_size_h1"
-    android:padding="@dimen/spacing_4" />
+    android:textSize="@dimen/bds_font_size_h1"
+    android:padding="@dimen/bds_spacing_4" />
 ```
 
 **Compose** — the generated `DesignTokens` object is typed (`Color`, `Dp`, `TextUnit`),
@@ -170,13 +185,14 @@ Compose artifacts are `compileOnly` in the token module, so the AAR never forces
 a Compose version on you — your app's own Compose dependency is used.
 
 If you prefer resources in Compose, `colorResource(R.color.color_primary_500)`
-and `dimensionResource(R.dimen.spacing_4)` work as usual. Note
+and `dimensionResource(R.dimen.bds_spacing_4)` work as usual. Note
 `dimensionResource` returns `Dp`, so a font size needs
-`with(LocalDensity.current) { dimensionResource(R.dimen.font_size_h1).toSp() }`.
+`with(LocalDensity.current) { dimensionResource(R.dimen.bds_font_size_h1).toSp() }`.
 
 **Name clashes:** if your app defines the same resource name in its own
-`res/values/`, the app resource wins. A stable prefix in the token build would
-avoid this long-term.
+`res/values/`, the app resource wins. The `bds_` prefix closes that hole for
+every non-colour resource; `color_*` stays exposed, so do not redeclare a
+`color_*` name in your app.
 
 ### Web
 
