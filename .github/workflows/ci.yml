@@ -22,15 +22,18 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Regenerate outputs from figma/tokens.json (must match committed files)
+      - name: Regenerate outputs from each brand's Figma export (must match committed files)
         run: pnpm run sync:figma
+
+      - name: Unit tests
+        run: pnpm test
 
       - name: Fail if generated files drift
         run: |
           git add -A
           if ! git diff --staged --exit-code; then
-            echo "::error::Run \`pnpm run sync:figma\` locally and commit \`tokens/\`, \`dist/\`, \`DESIGN.md\`, and \`package.json\`."
-            echo "Source of truth: figma/tokens.json"
+            echo "::error::Run \`pnpm run sync:figma\` locally and commit \`core/\`, \`brands/\`, \`dist/\`, and \`package.json\`."
+            echo "Source of truth: brands/<brand>/figma/tokens.json"
             git diff --staged
             exit 1
           fi
@@ -40,5 +43,50 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Assemble Android library
-        run: chmod +x gradlew && ./gradlew :design-tokens-android:assembleRelease --no-daemon
+      # No module path: assembles every brand module settings.gradle.kts discovered.
+      - name: Assemble Android libraries (all brands)
+        run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+
+  # Android was the only platform CI ever compiled, which is why generated
+  # Swift and Dart shipped for months in a state that could not compile at all
+  # (an unnamed class, values scaled 16x, and raw CSS strings emitted as bare
+  # expressions). These jobs close that gap for the two platforms that had none.
+  flutter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Analyze generated Dart (all brands)
+        run: |
+          set -e
+          work="$(mktemp -d)"
+          flutter create --template=package "$work/tokencheck" >/dev/null
+          for f in dist/*/flutter/design_tokens.dart; do
+            brand=$(basename "$(dirname "$(dirname "$f")")")
+            echo "── $brand ──"
+            cp "$f" "$work/tokencheck/lib/design_tokens.dart"
+            (cd "$work/tokencheck" && flutter analyze --no-pub lib/design_tokens.dart)
+          done
+
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Type-check generated Swift (all brands)
+        run: |
+          set -e
+          # -typecheck (not -parse) so semantic errors are caught too: an
+          # unquoted string value parses fine but is an undefined identifier.
+          # One invocation per brand — each file declares the same type name.
+          for f in dist/*/ios/DesignTokens.swift; do
+            echo "── $f ──"
+            xcrun swiftc -typecheck \
+              -sdk "$(xcrun --sdk iphonesimulator --show-sdk-path)" \
+              -target arm64-apple-ios15.0-simulator \
+              "$f"
+          done

@@ -1,7 +1,7 @@
-# Regenerate tokens/ + dist/ when figma/tokens.json changes (Figma SSOT path).
+# Regenerate the token tree + dist/ when any brand's Figma export changes.
 #
 # Pipeline: pnpm run sync:figma
-#   figma/tokens.json → tokens/**/*.json → dist/** (platform outputs)
+#   brands/<brand>/figma/tokens.json → core/tokens/ + brands/<brand>/tokens/ → dist/<brand>/**
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
@@ -12,7 +12,7 @@ name: Sync tokens from Figma JSON
 on:
   push:
     paths:
-      - 'figma/tokens.json'
+      - 'brands/*/figma/tokens.json'
   workflow_dispatch:
 
 permissions:
@@ -38,7 +38,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Generate all outputs from figma/tokens.json
+      - name: Generate all outputs from every brand's Figma export
         run: pnpm run sync:figma
 
       - name: Commit generated files
@@ -50,7 +50,7 @@ jobs:
             echo "No changes after sync:figma — working tree already up to date."
             exit 0
           fi
-          git commit -m "chore(tokens): sync from figma/tokens.json"
+          git commit -m "chore(tokens): sync from brands/*/figma/tokens.json"
           git push
 
       - name: Open pull request (feature branches only)
@@ -66,13 +66,13 @@ jobs:
             {
               echo 'Auto-generated with `pnpm run sync:figma`:'
               echo ''
-              echo '- **Source:** `figma/tokens.json`'
-              echo '- **Outputs:** `tokens/`, `dist/` (web, Android, iOS, Flutter, Compose, Figma copy), `package.json` (version from `$metadata.version`)'
+              echo '- **Source:** `brands/<brand>/figma/tokens.json`'
+              echo '- **Outputs:** `core/tokens/`, `brands/*/tokens/`, `dist/<brand>/` (web, Android, iOS, Flutter, Compose, Figma copy), `package.json`'
               echo ''
               echo 'See [docs/figma-ssot.md](docs/figma-ssot.md).'
             } > "$PR_BODY_FILE"
             if ! gh pr create --base main --head "$BRANCH" \
-              --title "Design tokens: update from figma/tokens.json" \
+              --title "Design tokens: update from Figma" \
               --body-file "$PR_BODY_FILE"; then
               echo "::warning::Could not open a PR (GitHub blocked createPullRequest)."
               echo "Enable: Settings → Actions → General → Workflow permissions →"

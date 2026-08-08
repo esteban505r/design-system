@@ -56,10 +56,13 @@ jobs:
 
       - name: Verify token source
         run: |
-          test -f figma/tokens.json || {
-            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
+          shopt -s nullglob
+          sources=(brands/*/figma/tokens.json)
+          if [ ${#sources[@]} -eq 0 ]; then
+            echo "::error::No brands/*/figma/tokens.json (single source of truth) on this branch"
             exit 1
-          }
+          fi
+          printf 'Token sources: %s\n' "${sources[@]}"
 
       - name: Sync tokens before publish
         run: pnpm run sync:figma

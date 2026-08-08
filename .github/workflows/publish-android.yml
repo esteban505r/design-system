@@ -1,8 +1,9 @@
 # Manual publish: Actions → Publish Android library → Run workflow (choose the branch to release).
 # Publishes the Android library to GitHub Packages (Gradle/Maven).
 #
-# figma/tokens.json (SSOT) → pnpm run sync:figma → tokens/ + dist/android/*.xml → AAR
-# Gradle only packages dist/android/.
+# brands/<brand>/figma/tokens.json (SSOT) → pnpm run sync:figma
+#   → core/tokens/ + brands/<brand>/tokens/ → dist/<brand>/android/*.xml → one AAR per brand
+# Gradle only packages dist/<brand>/android/.
 #
 # Release version comes from the VERSION file (no workflow input):
 #   pnpm run version:set -- --version x.y.z   → commit → run this workflow.
@@ -53,50 +54,55 @@ jobs:
 
       - name: Verify token source
         run: |
-          test -f figma/tokens.json || {
-            echo "::error::figma/tokens.json (single source of truth) is missing on this branch"
+          set -e
+          shopt -s nullglob
+          sources=(brands/*/figma/tokens.json)
+          if [ ${#sources[@]} -eq 0 ]; then
+            echo "::error::No brands/*/figma/tokens.json (single source of truth) on this branch"
             exit 1
-          }
+          fi
+          printf 'Token sources: %s\n' "${sources[@]}"
 
       - name: Sync tokens before publish
         run: pnpm run sync:figma
 
-      - name: Verify Android dist before Gradle
+      # Every brand is validated, so a broken brand cannot ride along with a
+      # healthy one. `pnpm test` covers the same ground; these greps stay because
+      # they run against the freshly synced tree in the publish job itself.
+      - name: Verify each brand's Android and Compose dist before Gradle
         run: |
           set -e
-          for f in colors.xml dimens.xml integers.xml strings.xml; do
-            test -f "dist/android/$f" || { echo "::error::Missing dist/android/$f — sync failed?"; exit 1; }
-          done
-          grep -q 'name="font_size_h1"' dist/android/dimens.xml || {
-            echo "::error::dist/android/dimens.xml has no font_size_h1 (typography tokens missing)"
-            exit 1
-          }
-          if grep -E '<(dimen|item)[^>]*>[^<]*pxpx' dist/android/dimens.xml; then
-            echo "::error::Invalid Android dimen (e.g. 28pxpx) — fix figmaTokenToDtcg / sync and republish"
-            exit 1
-          fi
-          echo "dist/android resource counts:"
-          grep -c 'name="' dist/android/*.xml
+          for brandDir in brands/*/; do
+            brand=$(basename "$brandDir")
+            echo "── $brand ──"
+            for f in colors.xml dimens.xml integers.xml strings.xml; do
+              test -f "dist/$brand/android/$f" || {
+                echo "::error::Missing dist/$brand/android/$f — sync failed?"; exit 1; }
+            done
+            grep -q 'name="font_size_h1"' "dist/$brand/android/dimens.xml" || {
+              echo "::error::dist/$brand/android/dimens.xml has no font_size_h1 (typography tokens missing)"
+              exit 1
+            }
+            if grep -E '<(dimen|item)[^>]*>[^<]*pxpx' "dist/$brand/android/dimens.xml"; then
+              echo "::error::Invalid Android dimen (e.g. 28pxpx) in $brand — fix figmaTokenToDtcg / sync and republish"
+              exit 1
+            fi
+            grep -c 'name="' "dist/$brand"/android/*.xml
 
-      - name: Verify Compose dist before Gradle
-        run: |
-          set -e
-          test -f dist/compose/DesignTokens.kt || {
-            echo "::error::Missing dist/compose/DesignTokens.kt — sync failed?"
-            exit 1
-          }
-          # Guard against the pre-fix codegen bug where sizes were multiplied by 16.
-          if grep -E 'val spacing1 = 32\.dp\b|val radiusBadge = 159984\.dp\b' dist/compose/DesignTokens.kt; then
-            echo "::error::DesignTokens.kt has the remToDp-multiplied values — sd.config.mjs compose transform group is wrong"
-            exit 1
-          fi
-          # Reject legacy invalid Kotlin syntax that used to leak through (CSS strings, bare identifiers).
-          if grep -E 'val [A-Za-z0-9_]+ = [0-9]+px|rgba\(|cubic-bezier|val fontFamily[A-Za-z0-9_]+ = [A-Z]' dist/compose/DesignTokens.kt; then
-            echo "::error::DesignTokens.kt contains invalid Kotlin (unquoted CSS shadow/motion/family) — check compose/typed-object format"
-            exit 1
-          fi
-          echo "dist/compose token count:"
-          grep -c '^\s*val ' dist/compose/DesignTokens.kt
+            test -f "dist/$brand/compose/DesignTokens.kt" || {
+              echo "::error::Missing dist/$brand/compose/DesignTokens.kt — sync failed?"; exit 1; }
+            # Guard against the pre-fix codegen bug where sizes were multiplied by 16.
+            if grep -E 'val spacing1 = 32\.dp\b|val radiusBadge = 159984\.dp\b' "dist/$brand/compose/DesignTokens.kt"; then
+              echo "::error::$brand DesignTokens.kt has remToDp-multiplied values — the compose transform group is wrong"
+              exit 1
+            fi
+            # Reject invalid Kotlin that used to leak through (CSS strings, bare identifiers).
+            if grep -E 'val [A-Za-z0-9_]+ = [0-9]+px|rgba\(|cubic-bezier|val fontFamily[A-Za-z0-9_]+ = [A-Z]' "dist/$brand/compose/DesignTokens.kt"; then
+              echo "::error::$brand DesignTokens.kt contains invalid Kotlin — check the compose/typed-object format"
+              exit 1
+            fi
+            grep -c '^\s*val ' "dist/$brand/compose/DesignTokens.kt"
+          done
 
       - uses: actions/setup-java@v4
         with:
@@ -113,6 +119,7 @@ jobs:
             echo "::error::package.json=$PKG_VERSION but VERSION=$VERSION after sync (sync:figma should mirror VERSION)"
             exit 1
           fi
-          echo "Publishing design-tokens-android version ${VERSION}"
+          echo "Publishing every brand's token AAR at version ${VERSION}"
           chmod +x gradlew
-          ./gradlew :design-tokens-android:publish -PtokensVersion="$VERSION" --no-daemon
+          # No module path: `publish` runs in every brand module settings.gradle.kts discovered.
+          ./gradlew publish -PtokensVersion="$VERSION" --no-daemon
