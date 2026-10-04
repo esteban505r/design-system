@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Do not edit directly, this file was auto-generated.
+-->
+<resources>
+  <color name="color_bg_brand">#ffba0000</color>
+  <color name="color_bg_brand_subtle">#fff7e0e0</color>
+  <color name="color_bg_disabled">#fff6f6f6</color>
+  <color name="color_bg_error">#fffee2e2</color>
+  <color name="color_bg_info">#ffdbeafe</color>
+  <color name="color_bg_overlay">#66000000</color>
+  <color name="color_bg_page">#ffffffff</color>
+  <color name="color_bg_subtle">#fff6f6f6</color>
+  <color name="color_bg_success">#ffbbf7d0</color>
+  <color name="color_bg_surface">#ffffffff</color>
+  <color name="color_bg_warning">#fffef3c7</color>
+  <color name="color_border_brand">#ffba0000</color>
+  <color name="color_border_default">#ffefefef</color>
+  <color name="color_border_disabled">#ffefefef</color>
+  <color name="color_border_strong">#ffc4c4c4</color>
+  <color name="color_brand_esika">#ffba0000</color>
+  <color name="color_interactive_focus_ring">#ffc11a1a</color>
+  <color name="color_interactive_primary_active">#ff8c0000</color>
+  <color name="color_interactive_primary_default">#ffba0000</color>
+  <color name="color_interactive_primary_disabled">#ffefefef</color>
+  <color name="color_interactive_primary_hover">#ffa40000</color>
+  <color name="color_interactive_primary_text">#ffffffff</color>
+  <color name="color_status_error">#ffdc2626</color>
+  <color name="color_status_error_dark">#ffb91c1c</color>
+  <color name="color_status_error_light">#fffee2e2</color>
+  <color name="color_status_info">#ff2563eb</color>
+  <color name="color_status_info_dark">#ff1245d4</color>
+  <color name="color_status_info_light">#ffdbeafe</color>
+  <color name="color_status_success">#ff16a34a</color>
+  <color name="color_status_success_dark">#ff166534</color>
+  <color name="color_status_success_light">#ffbbf7d0</color>
+  <color name="color_status_warning">#ffffb90a</color>
+  <color name="color_status_warning_dark">#ff92400e</color>
+  <color name="color_status_warning_light">#fffef3c7</color>
+  <color name="color_text_brand">#ffba0000</color>
+  <color name="color_text_disabled">#ff949393</color>
+  <color name="color_text_error">#ffb91c1c</color>
+  <color name="color_text_info">#ff1245d4</color>
+  <color name="color_text_inverse">#ffffffff</color>
+  <color name="color_text_primary">#ff000000</color>
+  <color name="color_text_secondary">#ff545353</color>
+  <color name="color_text_success">#ff166534</color>
+  <color name="color_text_tertiary">#ff777676</color>
+  <color name="color_text_warning">#ff92400e</color>
+</resources>

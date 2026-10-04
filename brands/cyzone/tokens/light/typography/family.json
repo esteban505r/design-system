@@ -1,0 +1,10 @@
+{
+  "font": {
+    "family": {
+      "primary": {
+        "$value": "Red Hat Text",
+        "$type": "fontFamily"
+      }
+    }
+  }
+}

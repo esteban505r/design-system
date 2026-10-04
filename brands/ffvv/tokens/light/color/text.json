@@ -1,0 +1,22 @@
+{
+  "color": {
+    "text": {
+      "disabled": {
+        "$value": "#949393",
+        "$type": "color"
+      },
+      "primary": {
+        "$value": "#212121",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#777676",
+        "$type": "color"
+      },
+      "tertiary": {
+        "$value": "#858181",
+        "$type": "color"
+      }
+    }
+  }
+}

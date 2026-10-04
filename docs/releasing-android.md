@@ -3,13 +3,29 @@
 How to cut and ship a new version of `com.estebanruano:tokens-android-belcorp` — the AAR that the
 Somos Belcorp Android app consumes. Read this before changing a colour that ships to production.
 
+> **Two brands ship from this repo**, each as its own AAR: `tokens-android-belcorp`
+> and `tokens-android-ffvv`. Everything below applies to both — Belcorp is the
+> worked example because it is the one with a production consumer. Where a command
+> names `:tokens-android-belcorp`, dropping the module path runs it for **every**
+> brand, which is what the publish workflow does:
+>
+> ```bash
+> ./gradlew publish              # every brand, at the version in VERSION
+> ./gradlew publishToMavenLocal  # every brand, into ~/.m2
+> ```
+>
+> One `VERSION` covers all brands, so a release is one number and one run — a
+> brand-only change bumps everyone, which is cheap, where per-brand versions
+> would multiply the release matrix.
+
 **Related docs**
 
 | Document | Purpose |
 |----------|---------|
 | [figma-ssot.md](figma-ssot.md) | The `brands/belcorp/figma/tokens.json` source-of-truth pipeline |
 | [workflow-and-production.md](workflow-and-production.md) | Repo setup, GitHub Actions and the release path |
-| [brands.md](brands.md) | The multi-brand model — why the module is `:tokens-android-belcorp` |
+| [brands.md](brands.md) | The multi-brand model, the `core/` guard and the vocabulary contract |
+| [consumers.md](consumers.md) | Who depends on this, at what version, and who owns the bump |
 | [android-material3-next-steps.md](android-material3-next-steps.md) | Material 3 mapping for Compose |
 
 ---

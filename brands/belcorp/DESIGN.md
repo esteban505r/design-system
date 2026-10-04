@@ -21,7 +21,7 @@
 
 That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, so what you read here always matches the artifact the apps compile against.
 
-**Version:** 3.0.0  
+**Version:** 4.0.0  
 **Tokens:** 317  
 **By type:** color 240 · dimension 42 · fontSize 12 · shadow 5 · duration 5 · number 5 · fontWeight 4 · cubicBezier 3 · fontFamily 1
 
@@ -202,14 +202,14 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.bg.brand` | `#BE5B06` | `colorBgBrand` | `@color/color_bg_brand` | `--color-bg-brand` |
-| `color.bg.brand-subtle` | `#FEE4D6` | `colorBgBrandSubtle` | `@color/color_bg_brand_subtle` | `--color-bg-brand-subtle` |
-| `color.bg.disabled` | `#FDF2EC` | `colorBgDisabled` | `@color/color_bg_disabled` | `--color-bg-disabled` |
+| `color.bg.brand` | `#7D4DBE` | `colorBgBrand` | `@color/color_bg_brand` | `--color-bg-brand` |
+| `color.bg.brand-subtle` | `#F5F0FC` | `colorBgBrandSubtle` | `@color/color_bg_brand_subtle` | `--color-bg-brand-subtle` |
+| `color.bg.disabled` | `#F6F6F6` | `colorBgDisabled` | `@color/color_bg_disabled` | `--color-bg-disabled` |
 | `color.bg.error` | `#FEE2E2` | `colorBgError` | `@color/color_bg_error` | `--color-bg-error` |
 | `color.bg.info` | `#DBEAFE` | `colorBgInfo` | `@color/color_bg_info` | `--color-bg-info` |
-| `color.bg.overlay` | `#0F050099` | `colorBgOverlay` | `@color/color_bg_overlay` | `--color-bg-overlay` |
+| `color.bg.overlay` | `#00000066` | `colorBgOverlay` | `@color/color_bg_overlay` | `--color-bg-overlay` |
 | `color.bg.page` | `#FFFFFF` | `colorBgPage` | `@color/color_bg_page` | `--color-bg-page` |
-| `color.bg.subtle` | `#FFF9F5` | `colorBgSubtle` | `@color/color_bg_subtle` | `--color-bg-subtle` |
+| `color.bg.subtle` | `#F6F6F6` | `colorBgSubtle` | `@color/color_bg_subtle` | `--color-bg-subtle` |
 | `color.bg.success` | `#BBF7D0` | `colorBgSuccess` | `@color/color_bg_success` | `--color-bg-success` |
 | `color.bg.surface` | `#FFFFFF` | `colorBgSurface` | `@color/color_bg_surface` | `--color-bg-surface` |
 | `color.bg.warning` | `#FEF3C7` | `colorBgWarning` | `@color/color_bg_warning` | `--color-bg-warning` |
@@ -228,19 +228,19 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.border.brand` | `#BE5B06` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
-| `color.border.default` | `#F0E5DF` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
-| `color.border.disabled` | `#F0E5DF` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
-| `color.border.strong` | `#DDD3CD` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
+| `color.border.brand` | `#7D4DBE` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
+| `color.border.default` | `#EFEFEF` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
+| `color.border.disabled` | `#EFEFEF` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
+| `color.border.strong` | `#C4C4C4` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
 
 ## color · brand
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.brand.belcorp` | `#BE5B06` | `colorBrandBelcorp` | `@color/color_brand_belcorp` | `--color-brand-belcorp` |
-| `color.brand.cyzone` | `#A90061` | `colorBrandCyzone` | `@color/color_brand_cyzone` | `--color-brand-cyzone` |
-| `color.brand.esika` | `#E1251B` | `colorBrandEsika` | `@color/color_brand_esika` | `--color-brand-esika` |
-| `color.brand.lbel` | `#2E1A47` | `colorBrandLbel` | `@color/color_brand_lbel` | `--color-brand-lbel` |
+| `color.brand.belcorp` | `#7D4DBE` | `colorBrandBelcorp` | `@color/color_brand_belcorp` | `--color-brand-belcorp` |
+| `color.brand.cyzone` | `#AF0061` | `colorBrandCyzone` | `@color/color_brand_cyzone` | `--color-brand-cyzone` |
+| `color.brand.esika` | `#BA0000` | `colorBrandEsika` | `@color/color_brand_esika` | `--color-brand-esika` |
+| `color.brand.lbel` | `#40006B` | `colorBrandLbel` | `@color/color_brand_lbel` | `--color-brand-lbel` |
 
 ## color · brown
 
@@ -286,11 +286,11 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.interactive.focus-ring` | `#CD6516` | `colorInteractiveFocusRing` | `@color/color_interactive_focus_ring` | `--color-interactive-focus-ring` |
-| `color.interactive.primary.active` | `#7F3900` | `colorInteractivePrimaryActive` | `@color/color_interactive_primary_active` | `--color-interactive-primary-active` |
-| `color.interactive.primary.default` | `#BE5B06` | `colorInteractivePrimaryDefault` | `@color/color_interactive_primary_default` | `--color-interactive-primary-default` |
-| `color.interactive.primary.disabled` | `#F0E5DF` | `colorInteractivePrimaryDisabled` | `@color/color_interactive_primary_disabled` | `--color-interactive-primary-disabled` |
-| `color.interactive.primary.hover` | `#A34A00` | `colorInteractivePrimaryHover` | `@color/color_interactive_primary_hover` | `--color-interactive-primary-hover` |
+| `color.interactive.focus-ring` | `#8A5ACE` | `colorInteractiveFocusRing` | `@color/color_interactive_focus_ring` | `--color-interactive-focus-ring` |
+| `color.interactive.primary.active` | `#471F86` | `colorInteractivePrimaryActive` | `@color/color_interactive_primary_active` | `--color-interactive-primary-active` |
+| `color.interactive.primary.default` | `#7D4DBE` | `colorInteractivePrimaryDefault` | `@color/color_interactive_primary_default` | `--color-interactive-primary-default` |
+| `color.interactive.primary.disabled` | `#EFEFEF` | `colorInteractivePrimaryDisabled` | `@color/color_interactive_primary_disabled` | `--color-interactive-primary-disabled` |
+| `color.interactive.primary.hover` | `#6436AB` | `colorInteractivePrimaryHover` | `@color/color_interactive_primary_hover` | `--color-interactive-primary-hover` |
 | `color.interactive.primary.text` | `#FFFFFF` | `colorInteractivePrimaryText` | `@color/color_interactive_primary_text` | `--color-interactive-primary-text` |
 
 ## color · neutral
@@ -298,17 +298,17 @@ Every token below is listed with the exact identifier to type on each platform.
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
 | `color.neutral.0` | `#FFFFFF` | `colorNeutral0` | `@color/color_neutral_0` | `--color-neutral-0` |
-| `color.neutral.100` | `#FDF2EC` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
+| `color.neutral.100` | `#F6F6F6` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
 | `color.neutral.1000` | `#000000` | `colorNeutral1000` | `@color/color_neutral_1000` | `--color-neutral-1000` |
-| `color.neutral.200` | `#F0E5DF` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
-| `color.neutral.300` | `#DDD3CD` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
-| `color.neutral.400` | `#BBA9A9` | `colorNeutral400` | `@color/color_neutral_400` | `--color-neutral-400` |
-| `color.neutral.50` | `#FFF9F5` | `colorNeutral50` | `@color/color_neutral_50` | `--color-neutral-50` |
-| `color.neutral.500` | `#917C7C` | `colorNeutral500` | `@color/color_neutral_500` | `--color-neutral-500` |
-| `color.neutral.600` | `#776163` | `colorNeutral600` | `@color/color_neutral_600` | `--color-neutral-600` |
-| `color.neutral.700` | `#674E4F` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
-| `color.neutral.800` | `#4E3839` | `colorNeutral800` | `@color/color_neutral_800` | `--color-neutral-800` |
-| `color.neutral.900` | `#0F0500` | `colorNeutral900` | `@color/color_neutral_900` | `--color-neutral-900` |
+| `color.neutral.200` | `#EFEFEF` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
+| `color.neutral.300` | `#C4C4C4` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
+| `color.neutral.400` | `#949393` | `colorNeutral400` | `@color/color_neutral_400` | `--color-neutral-400` |
+| `color.neutral.50` | `#FBFBFB` | `colorNeutral50` | `@color/color_neutral_50` | `--color-neutral-50` |
+| `color.neutral.500` | `#777676` | `colorNeutral500` | `@color/color_neutral_500` | `--color-neutral-500` |
+| `color.neutral.600` | `#545353` | `colorNeutral600` | `@color/color_neutral_600` | `--color-neutral-600` |
+| `color.neutral.700` | `#3B3A3A` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
+| `color.neutral.800` | `#212121` | `colorNeutral800` | `@color/color_neutral_800` | `--color-neutral-800` |
+| `color.neutral.900` | `#111111` | `colorNeutral900` | `@color/color_neutral_900` | `--color-neutral-900` |
 
 ## color · orange
 
@@ -331,16 +331,16 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.primary.00` | `#FFF1EA` | `colorPrimary00` | `@color/color_primary_00` | `--color-primary-00` |
-| `color.primary.100` | `#FBC7AC` | `colorPrimary100` | `@color/color_primary_100` | `--color-primary-100` |
-| `color.primary.200` | `#EE9C6B` | `colorPrimary200` | `@color/color_primary_200` | `--color-primary-200` |
-| `color.primary.300` | `#DB7833` | `colorPrimary300` | `@color/color_primary_300` | `--color-primary-300` |
-| `color.primary.400` | `#CD6516` | `colorPrimary400` | `@color/color_primary_400` | `--color-primary-400` |
-| `color.primary.50` | `#FEE4D6` | `colorPrimary50` | `@color/color_primary_50` | `--color-primary-50` |
-| `color.primary.500` | `#BE5B06` | `colorPrimary500` | `@color/color_primary_500` | `--color-primary-500` |
-| `color.primary.600` | `#A34A00` | `colorPrimary600` | `@color/color_primary_600` | `--color-primary-600` |
-| `color.primary.700` | `#7F3900` | `colorPrimary700` | `@color/color_primary_700` | `--color-primary-700` |
-| `color.primary.800` | `#5F2A00` | `colorPrimary800` | `@color/color_primary_800` | `--color-primary-800` |
+| `color.primary.00` | `#F5F0FC` | `colorPrimary00` | `@color/color_primary_00` | `--color-primary-00` |
+| `color.primary.100` | `#D6C4F2` | `colorPrimary100` | `@color/color_primary_100` | `--color-primary-100` |
+| `color.primary.200` | `#B896E7` | `colorPrimary200` | `@color/color_primary_200` | `--color-primary-200` |
+| `color.primary.300` | `#9D6ED9` | `colorPrimary300` | `@color/color_primary_300` | `--color-primary-300` |
+| `color.primary.400` | `#8A5ACE` | `colorPrimary400` | `@color/color_primary_400` | `--color-primary-400` |
+| `color.primary.50` | `#EBE2F8` | `colorPrimary50` | `@color/color_primary_50` | `--color-primary-50` |
+| `color.primary.500` | `#7D4DBE` | `colorPrimary500` | `@color/color_primary_500` | `--color-primary-500` |
+| `color.primary.600` | `#6436AB` | `colorPrimary600` | `@color/color_primary_600` | `--color-primary-600` |
+| `color.primary.700` | `#471F86` | `colorPrimary700` | `@color/color_primary_700` | `--color-primary-700` |
+| `color.primary.800` | `#2D0F5E` | `colorPrimary800` | `@color/color_primary_800` | `--color-primary-800` |
 
 ## color · purple
 
@@ -370,16 +370,16 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.secondary.00` | `#FFFCFB` | `colorSecondary00` | `@color/color_secondary_00` | `--color-secondary-00` |
-| `color.secondary.100` | `#B1FCFF` | `colorSecondary100` | `@color/color_secondary_100` | `--color-secondary-100` |
-| `color.secondary.200` | `#5AFCFF` | `colorSecondary200` | `@color/color_secondary_200` | `--color-secondary-200` |
-| `color.secondary.300` | `#00F6F7` | `colorSecondary300` | `@color/color_secondary_300` | `--color-secondary-300` |
-| `color.secondary.400` | `#00EEEB` | `colorSecondary400` | `@color/color_secondary_400` | `--color-secondary-400` |
-| `color.secondary.50` | `#E6FDFF` | `colorSecondary50` | `@color/color_secondary_50` | `--color-secondary-50` |
-| `color.secondary.500` | `#00E7D9` | `colorSecondary500` | `@color/color_secondary_500` | `--color-secondary-500` |
-| `color.secondary.600` | `#00E0D1` | `colorSecondary600` | `@color/color_secondary_600` | `--color-secondary-600` |
-| `color.secondary.700` | `#00CAB7` | `colorSecondary700` | `@color/color_secondary_700` | `--color-secondary-700` |
-| `color.secondary.800` | `#00B5A6` | `colorSecondary800` | `@color/color_secondary_800` | `--color-secondary-800` |
+| `color.secondary.00` | `#FFFDF5` | `colorSecondary00` | `@color/color_secondary_00` | `--color-secondary-00` |
+| `color.secondary.100` | `#FFECB3` | `colorSecondary100` | `@color/color_secondary_100` | `--color-secondary-100` |
+| `color.secondary.200` | `#FFE082` | `colorSecondary200` | `@color/color_secondary_200` | `--color-secondary-200` |
+| `color.secondary.300` | `#FFD54F` | `colorSecondary300` | `@color/color_secondary_300` | `--color-secondary-300` |
+| `color.secondary.400` | `#FFCA28` | `colorSecondary400` | `@color/color_secondary_400` | `--color-secondary-400` |
+| `color.secondary.50` | `#FFF8E1` | `colorSecondary50` | `@color/color_secondary_50` | `--color-secondary-50` |
+| `color.secondary.500` | `#FFBD42` | `colorSecondary500` | `@color/color_secondary_500` | `--color-secondary-500` |
+| `color.secondary.600` | `#FFB300` | `colorSecondary600` | `@color/color_secondary_600` | `--color-secondary-600` |
+| `color.secondary.700` | `#E79B1D` | `colorSecondary700` | `@color/color_secondary_700` | `--color-secondary-700` |
+| `color.secondary.800` | `#C28B30` | `colorSecondary800` | `@color/color_secondary_800` | `--color-secondary-800` |
 
 ## color · status
 
@@ -392,26 +392,26 @@ Every token below is listed with the exact identifier to type on each platform.
 | `color.status.info-dark` | `#1245D4` | `colorStatusInfoDark` | `@color/color_status_info_dark` | `--color-status-info-dark` |
 | `color.status.info-light` | `#DBEAFE` | `colorStatusInfoLight` | `@color/color_status_info_light` | `--color-status-info-light` |
 | `color.status.success` | `#16A34A` | `colorStatusSuccess` | `@color/color_status_success` | `--color-status-success` |
-| `color.status.success-dark` | `#15803D` | `colorStatusSuccessDark` | `@color/color_status_success_dark` | `--color-status-success-dark` |
+| `color.status.success-dark` | `#166534` | `colorStatusSuccessDark` | `@color/color_status_success_dark` | `--color-status-success-dark` |
 | `color.status.success-light` | `#BBF7D0` | `colorStatusSuccessLight` | `@color/color_status_success_light` | `--color-status-success-light` |
 | `color.status.warning` | `#FFB90A` | `colorStatusWarning` | `@color/color_status_warning` | `--color-status-warning` |
-| `color.status.warning-dark` | `#BD750F` | `colorStatusWarningDark` | `@color/color_status_warning_dark` | `--color-status-warning-dark` |
+| `color.status.warning-dark` | `#92400E` | `colorStatusWarningDark` | `@color/color_status_warning_dark` | `--color-status-warning-dark` |
 | `color.status.warning-light` | `#FEF3C7` | `colorStatusWarningLight` | `@color/color_status_warning_light` | `--color-status-warning-light` |
 
 ## color · text
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.text.brand` | `#BE5B06` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
-| `color.text.disabled` | `#DDD3CD` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
+| `color.text.brand` | `#7D4DBE` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
+| `color.text.disabled` | `#949393` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
 | `color.text.error` | `#B91C1C` | `colorTextError` | `@color/color_text_error` | `--color-text-error` |
 | `color.text.info` | `#1245D4` | `colorTextInfo` | `@color/color_text_info` | `--color-text-info` |
 | `color.text.inverse` | `#FFFFFF` | `colorTextInverse` | `@color/color_text_inverse` | `--color-text-inverse` |
-| `color.text.primary` | `#0F0500` | `colorTextPrimary` | `@color/color_text_primary` | `--color-text-primary` |
-| `color.text.secondary` | `#776163` | `colorTextSecondary` | `@color/color_text_secondary` | `--color-text-secondary` |
-| `color.text.success` | `#15803D` | `colorTextSuccess` | `@color/color_text_success` | `--color-text-success` |
-| `color.text.tertiary` | `#BBA9A9` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
-| `color.text.warning` | `#BD750F` | `colorTextWarning` | `@color/color_text_warning` | `--color-text-warning` |
+| `color.text.primary` | `#000000` | `colorTextPrimary` | `@color/color_text_primary` | `--color-text-primary` |
+| `color.text.secondary` | `#545353` | `colorTextSecondary` | `@color/color_text_secondary` | `--color-text-secondary` |
+| `color.text.success` | `#166534` | `colorTextSuccess` | `@color/color_text_success` | `--color-text-success` |
+| `color.text.tertiary` | `#777676` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
+| `color.text.warning` | `#92400E` | `colorTextWarning` | `@color/color_text_warning` | `--color-text-warning` |
 
 ## color · yellow
 
@@ -424,9 +424,9 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `elevation.1` | `0px 1px 2px rgba(0, 0, 0, 0.05)` | — | `@string/bds_elevation_1` | `--elevation-1` |
-| `elevation.2` | `0px 2px 8px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_2` | `--elevation-2` |
-| `elevation.3` | `0px 4px 16px rgba(0, 0, 0, 0.10)` | — | `@string/bds_elevation_3` | `--elevation-3` |
+| `elevation.1` | `0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 2px 0px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_1` | `--elevation-1` |
+| `elevation.2` | `0px 4px 8px 0px rgba(0, 0, 0, 0.12), 0px 2px 4px 0px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_2` | `--elevation-2` |
+| `elevation.3` | `0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 4px 8px 0px rgba(0, 0, 0, 0.10)` | — | `@string/bds_elevation_3` | `--elevation-3` |
 | `elevation.4` | `0px 8px 32px rgba(0, 0, 0, 0.12)` | — | `@string/bds_elevation_4` | `--elevation-4` |
 | `elevation.5` | `0px 16px 48px rgba(0, 0, 0, 0.16)` | — | `@string/bds_elevation_5` | `--elevation-5` |
 
@@ -440,30 +440,30 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.line-height.body-lg` | `24px` | `fontLineHeightBodyLg` | `@dimen/bds_font_line_height_body_lg` | `--font-line-height-body-lg` |
-| `font.line-height.body-md` | `21px` | `fontLineHeightBodyMd` | `@dimen/bds_font_line_height_body_md` | `--font-line-height-body-md` |
-| `font.line-height.body-sm` | `18px` | `fontLineHeightBodySm` | `@dimen/bds_font_line_height_body_sm` | `--font-line-height-body-sm` |
-| `font.line-height.button` | `14px` | `fontLineHeightButton` | `@dimen/bds_font_line_height_button` | `--font-line-height-button` |
-| `font.line-height.display` | `72px` | `fontLineHeightDisplay` | `@dimen/bds_font_line_height_display` | `--font-line-height-display` |
-| `font.line-height.h1` | `40px` | `fontLineHeightH1` | `@dimen/bds_font_line_height_h1` | `--font-line-height-h1` |
-| `font.line-height.h2` | `32px` | `fontLineHeightH2` | `@dimen/bds_font_line_height_h2` | `--font-line-height-h2` |
-| `font.line-height.h3` | `24px` | `fontLineHeightH3` | `@dimen/bds_font_line_height_h3` | `--font-line-height-h3` |
-| `font.line-height.h4` | `20px` | `fontLineHeightH4` | `@dimen/bds_font_line_height_h4` | `--font-line-height-h4` |
-| `font.line-height.h5` | `16px` | `fontLineHeightH5` | `@dimen/bds_font_line_height_h5` | `--font-line-height-h5` |
-| `font.line-height.label` | `21px` | `fontLineHeightLabel` | `@dimen/bds_font_line_height_label` | `--font-line-height-label` |
-| `font.line-height.overline` | `12px` | `fontLineHeightOverline` | `@dimen/bds_font_line_height_overline` | `--font-line-height-overline` |
+| `font.line-height.body-lg` | `26px` | `fontLineHeightBodyLg` | `@dimen/bds_font_line_height_body_lg` | `--font-line-height-body-lg` |
+| `font.line-height.body-md` | `24px` | `fontLineHeightBodyMd` | `@dimen/bds_font_line_height_body_md` | `--font-line-height-body-md` |
+| `font.line-height.body-sm` | `20px` | `fontLineHeightBodySm` | `@dimen/bds_font_line_height_body_sm` | `--font-line-height-body-sm` |
+| `font.line-height.button` | `20px` | `fontLineHeightButton` | `@dimen/bds_font_line_height_button` | `--font-line-height-button` |
+| `font.line-height.display` | `80px` | `fontLineHeightDisplay` | `@dimen/bds_font_line_height_display` | `--font-line-height-display` |
+| `font.line-height.h1` | `44px` | `fontLineHeightH1` | `@dimen/bds_font_line_height_h1` | `--font-line-height-h1` |
+| `font.line-height.h2` | `38px` | `fontLineHeightH2` | `@dimen/bds_font_line_height_h2` | `--font-line-height-h2` |
+| `font.line-height.h3` | `32px` | `fontLineHeightH3` | `@dimen/bds_font_line_height_h3` | `--font-line-height-h3` |
+| `font.line-height.h4` | `28px` | `fontLineHeightH4` | `@dimen/bds_font_line_height_h4` | `--font-line-height-h4` |
+| `font.line-height.h5` | `24px` | `fontLineHeightH5` | `@dimen/bds_font_line_height_h5` | `--font-line-height-h5` |
+| `font.line-height.label` | `20px` | `fontLineHeightLabel` | `@dimen/bds_font_line_height_label` | `--font-line-height-label` |
+| `font.line-height.overline` | `16px` | `fontLineHeightOverline` | `@dimen/bds_font_line_height_overline` | `--font-line-height-overline` |
 
 ## font · size
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.size.body-lg` | `16px` | `fontSizeBodyLg` | `@dimen/bds_font_size_body_lg` | `--font-size-body-lg` |
-| `font.size.body-md` | `14px` | `fontSizeBodyMd` | `@dimen/bds_font_size_body_md` | `--font-size-body-md` |
-| `font.size.body-sm` | `12px` | `fontSizeBodySm` | `@dimen/bds_font_size_body_sm` | `--font-size-body-sm` |
+| `font.size.body-lg` | `18px` | `fontSizeBodyLg` | `@dimen/bds_font_size_body_lg` | `--font-size-body-lg` |
+| `font.size.body-md` | `16px` | `fontSizeBodyMd` | `@dimen/bds_font_size_body_md` | `--font-size-body-md` |
+| `font.size.body-sm` | `14px` | `fontSizeBodySm` | `@dimen/bds_font_size_body_sm` | `--font-size-body-sm` |
 | `font.size.button` | `14px` | `fontSizeButton` | `@dimen/bds_font_size_button` | `--font-size-button` |
 | `font.size.display` | `72px` | `fontSizeDisplay` | `@dimen/bds_font_size_display` | `--font-size-display` |
-| `font.size.h1` | `40px` | `fontSizeH1` | `@dimen/bds_font_size_h1` | `--font-size-h1` |
-| `font.size.h2` | `32px` | `fontSizeH2` | `@dimen/bds_font_size_h2` | `--font-size-h2` |
+| `font.size.h1` | `36px` | `fontSizeH1` | `@dimen/bds_font_size_h1` | `--font-size-h1` |
+| `font.size.h2` | `30px` | `fontSizeH2` | `@dimen/bds_font_size_h2` | `--font-size-h2` |
 | `font.size.h3` | `24px` | `fontSizeH3` | `@dimen/bds_font_size_h3` | `--font-size-h3` |
 | `font.size.h4` | `20px` | `fontSizeH4` | `@dimen/bds_font_size_h4` | `--font-size-h4` |
 | `font.size.h5` | `16px` | `fontSizeH5` | `@dimen/bds_font_size_h5` | `--font-size-h5` |

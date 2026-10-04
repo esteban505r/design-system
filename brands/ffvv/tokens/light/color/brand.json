@@ -1,0 +1,14 @@
+{
+  "color": {
+    "brand": {
+      "cyzone": {
+        "$value": "#A90061",
+        "$type": "color"
+      },
+      "esika": {
+        "$value": "#E22419",
+        "$type": "color"
+      }
+    }
+  }
+}

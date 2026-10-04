@@ -2,11 +2,11 @@
   "color": {
     "text": {
       "brand": {
-        "$value": "#BE5B06",
+        "$value": "#7D4DBE",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#DDD3CD",
+        "$value": "#949393",
         "$type": "color"
       },
       "error": {
@@ -22,23 +22,23 @@
         "$type": "color"
       },
       "primary": {
-        "$value": "#0F0500",
+        "$value": "#000000",
         "$type": "color"
       },
       "secondary": {
-        "$value": "#776163",
+        "$value": "#545353",
         "$type": "color"
       },
       "success": {
-        "$value": "#15803D",
+        "$value": "#166534",
         "$type": "color"
       },
       "tertiary": {
-        "$value": "#BBA9A9",
+        "$value": "#777676",
         "$type": "color"
       },
       "warning": {
-        "$value": "#BD750F",
+        "$value": "#92400E",
         "$type": "color"
       }
     }

@@ -101,8 +101,9 @@ t('dimension values agree across Compose, Swift and Dart', () => {
 
 t('known dimensions keep their 1:1 px scale', () => {
   // Anchors with hand-checked values. If a built-in rem transform sneaks back
-  // in, these become 16× larger.
-  const expected = { spacing4: 12, radiusMd: 8, fontSizeH1: 40 };
+  // in, these become 16× larger. spacing/radius come from core/, so every brand
+  // has them whatever its own token set contains.
+  const expected = { spacing4: 12, radiusMd: 8 };
   const compose = composeDimens(read(DIST.compose));
   const swift = swiftDimens(read(DIST.swift));
   const dart = dartDimens(read(DIST.dart));
@@ -119,7 +120,6 @@ t('android dimens.xml is well formed and unscaled', () => {
   // `28pxpx` — the malformed-unit signature the publish workflow greps for.
   assert.doesNotMatch(xml, /\d(px){2,}/, 'malformed duplicated unit');
   assert.match(xml, /<dimen name="bds_spacing_4">12dp<\/dimen>/);
-  assert.match(xml, /<dimen name="bds_font_size_h1">40sp<\/dimen>/);
 });
 
 // ── Android resource namespacing ───────────────────────────
@@ -146,10 +146,6 @@ t('android colours are deliberately NOT prefixed', () => {
   assert.ok(names.length > 0, `${rel(DIST.androidColors)} declares no resources`);
   const prefixed = names.filter((n) => n.startsWith(ANDROID_RES_PREFIX));
   assert.deepEqual(prefixed, [], `${rel(DIST.androidColors)} has bds_-prefixed colours`);
-  assert.ok(
-    names.includes('color_primary_500'),
-    `${rel(DIST.androidColors)} no longer declares color_primary_500`,
-  );
 });
 
 t('the XML prefix does not leak into the Compose object', () => {
@@ -157,7 +153,7 @@ t('the XML prefix does not leak into the Compose object', () => {
   // token.name — so Compose (how both Android consumers actually read tokens)
   // is untouched. DesignTokens.kt is already namespaced by object + package.
   const src = read(DIST.compose);
-  assert.match(src, /\bcolorPrimary500\b/);
+  assert.match(src, /\bval color[A-Z]\w* = Color\(/, 'no colour tokens to check');
   assert.doesNotMatch(src, /bds_/, `${rel(DIST.compose)} picked up the XML resource prefix`);
 });
 
@@ -195,7 +191,29 @@ t('swift imports the framework its values actually come from', () => {
 
 t('string-valued tokens are quoted', () => {
   // Unquoted, a font family emits as a bare identifier and does not compile.
-  assert.match(read(DIST.swift), /let fontFamilyPrimary = "[^"]+"/);
-  assert.match(read(DIST.dart), /const fontFamilyPrimary = "[^"]+"/);
+  // Only brands that ship a font family have one to check — FFVV is colour-only.
+  const swift = read(DIST.swift);
+  if (/let fontFamilyPrimary\b/.test(swift)) {
+    assert.match(swift, /let fontFamilyPrimary = "[^"]+"/);
+    assert.match(read(DIST.dart), /const fontFamilyPrimary = "[^"]+"/);
+  }
 });
+}
+
+// ── Belcorp's published contract ────────────────────────────
+// The tests above hold for every brand. These are specific to Belcorp because
+// they pin identifiers a shipped consumer already compiles against: renaming
+// any of them breaks app-consultoras-replatform-android at its next bump.
+const belcorp = brands.find((b) => b.id === 'belcorp');
+if (belcorp) {
+  const D = distFilesFor(belcorp);
+
+  test('[belcorp] the identifiers the live consumer references still exist', () => {
+    assert.match(read(D.compose), /\bcolorPrimary500\b/, 'Compose: colorPrimary500');
+    assert.ok(
+      resourceNames(read(D.androidColors)).includes('color_primary_500'),
+      'XML: @color/color_primary_500',
+    );
+    assert.match(read(D.androidDimens), /<dimen name="bds_font_size_h1">36sp<\/dimen>/);
+  });
 }

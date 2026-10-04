@@ -1,0 +1,30 @@
+{
+  "color": {
+    "bg": {
+      "brand-subtle": {
+        "$value": "#F6F6F6",
+        "$type": "color"
+      },
+      "error": {
+        "$value": "#FFC6C6",
+        "$type": "color"
+      },
+      "overlay": {
+        "$value": "#00000099",
+        "$type": "color"
+      },
+      "success": {
+        "$value": "#D2ECE2",
+        "$type": "color"
+      },
+      "surface": {
+        "$value": "#FFFFFF",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#FFEBB8",
+        "$type": "color"
+      }
+    }
+  }
+}

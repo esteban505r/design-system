@@ -1,0 +1,10 @@
+{
+  "color": {
+    "border": {
+      "default": {
+        "$value": "#C4C4C4",
+        "$type": "color"
+      }
+    }
+  }
+}

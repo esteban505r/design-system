@@ -4,7 +4,7 @@
 > **`brands/belcorp/figma/tokens.json` is the absolute single source of truth**; the token
 > tree and `dist/` are generated from it by `pnpm run sync`.
 
-**Version:** 3.0.0
+**Version:** 4.0.0
 
 > ## This document holds rules, not values
 >
@@ -38,7 +38,10 @@ Token edits happen in `brands/belcorp/figma/tokens.json` (flat Tokens Studio nam
 
 v2.0.0 adopted **Belcorp Design System 5.0** (Figma: _Claude Design.fig_) — a breaking
 change from the v1 set that was seeded from the legacy app theme. v3.0.0 rebranded the
-primary ramp from purple to orange.
+primary ramp from purple to orange. v4.0.0 re-synced to the **Fractal DS 5.0 — Core**
+Figma file: the multibrand primary returns to purple (`#7D4DBE`), secondary to gold
+(`#FFBD42`), and the typography, elevation and feedback values follow the DS 5.0 core
+scale. The `app-*` debt tokens are untouched — they are frozen and still being drained.
 
 ## What the token set covers
 
@@ -50,8 +53,8 @@ in **[`brands/belcorp/DESIGN.md`](brands/belcorp/DESIGN.md)**. The families:
 | Colour primitives | `primary`, `secondary`, `neutral` ramps, plus per-hue ramps | Brand |
 | Colour semantics | `text-*`, `bg-*`, `border-*`, `interactive-*`, `status-*` | Brand |
 | `color.app.*` | Absorbed app one-offs — **debt**, frozen, to be drained | Nobody |
-| Sub-brands | Belcorp, Ésika, L'Bel, Cyzone header/badge colours | Brand |
-| Typography | One family (Montserrat), four weights, a size and line-height scale | Brand |
+| Sub-brands | Belcorp (multibrand core), Ésika, L'Bel, Cyzone, FFVV — header/badge colours | Brand |
+| Typography | Multibrand Montserrat core + per-sub-brand typefaces (Work Sans, DM Sans, Red Hat Text placeholders) | Brand |
 | Elevation | Five soft, never-coloured shadow steps | Brand |
 | Spacing, radius, stroke | Geometry scales | **`core/`** — shared by every brand |
 | Motion, z-index | Durations, easings, the stacking ladder | **`core/`** — shared by every brand |

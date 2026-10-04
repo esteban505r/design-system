@@ -2,19 +2,19 @@
   "color": {
     "border": {
       "brand": {
-        "$value": "#BE5B06",
+        "$value": "#7D4DBE",
         "$type": "color"
       },
       "default": {
-        "$value": "#F0E5DF",
+        "$value": "#EFEFEF",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#F0E5DF",
+        "$value": "#EFEFEF",
         "$type": "color"
       },
       "strong": {
-        "$value": "#DDD3CD",
+        "$value": "#C4C4C4",
         "$type": "color"
       }
     }

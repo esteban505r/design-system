@@ -70,8 +70,20 @@ theme-safe, and both sets describing largely the same surfaces.
 
 ## 3. Already covered — free wins, zero design work
 
-These consumer members map onto semantic tokens that **already exist** in
-`brands/belcorp/figma/tokens.json` today. No request needed; both apps can migrate now.
+These consumer members map onto semantic tokens that **already exist**. No request needed;
+both apps can migrate now.
+
+> **Status: taken, for FFVV.** The mapping below was applied. `brands/ffvv/` now supplies
+> **18** of these role names, `ColorsRaw.kt` is deleted, and `Sem` reads the published
+> tokens. The remaining 65 members are fenced under `x.ffvv.*` until roles exist for them.
+>
+> One correction from doing it: this table reads as though FFVV could adopt Belcorp's
+> *values*. It cannot — FFVV's primary is the purple that v3.0.0 replaced, and exactly one
+> of its 82 colours matches a Belcorp token in value and meaning. What is shared is the
+> **role name**; FFVV supplies its own value for each. That is the whole multi-brand model,
+> and reading this table any other way produces a repaint. See [brands.md](brands.md).
+>
+> Consultoras' column below is still outstanding.
 
 ### FFVV `Sem.*`
 

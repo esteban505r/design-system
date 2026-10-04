@@ -1,0 +1,16 @@
+{
+  "color": {
+    "interactive": {
+      "primary": {
+        "default": {
+          "$value": "#7D4DBE",
+          "$type": "color"
+        },
+        "disabled": {
+          "$value": "#D9D9D9",
+          "$type": "color"
+        }
+      }
+    }
+  }
+}

@@ -46,6 +46,16 @@ what writes `core/`. Any other brand whose export disagrees with `core/` **fails
 the build**, naming the files that differ, rather than silently winning or losing.
 See [brands.md](brands.md).
 
+A brand that supplies no core-category tokens at all simply inherits `core/` and
+never trips the guard — that is FFVV's case, and it is the expected shape for a
+brand that has colour and type but no geometry system of its own.
+
+The reverse direction follows the same rule: **a brand's regenerated export
+contains exactly what that brand authors.** `pnpm run figma:verify` includes
+`core/` only for the brand that owns it. Including inherited scales for everyone
+would regenerate tokens that were never in that brand's Figma file, and the
+round-trip test would read them as spurious additions.
+
 ### `brands/<brand>/DESIGN.md` — generated, never authored
 
 It is written by the `docs` platform in `pipeline/sd.config.mjs`, which runs as
@@ -95,7 +105,7 @@ export's `$metadata.version` — see [releasing-android.md](releasing-android.md
 {
   "Global/Mode 1": {
     "primary-500": {
-      "$value": "#BE5B06",
+      "$value": "#7D4DBE",
       "$type": "color",
       "$extensions": { "com.figma.scopes": ["ALL_SCOPES"] }
     }

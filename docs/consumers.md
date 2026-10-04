@@ -15,10 +15,30 @@ command that produced it, so it can be re-measured rather than trusted.
 
 ## Inventory
 
+```mermaid
+flowchart LR
+    subgraph DS["design-system · one VERSION"]
+        CORE["core/tokens/"]
+        VB["brands/belcorp/"]
+        VE["brands/esika · lbel · cyzone/"]
+        VF["brands/ffvv/"]
+    end
+    CORE --> AB & AE & AF
+    VB --> AB["tokens-android-belcorp"]
+    VE --> AE["tokens-android-esika · lbel · cyzone"]
+    VF --> AF["tokens-android-ffvv"]
+    AB --> C1["app-consultoras-replatform-android<br/><i>colour-only · 48 primitive bindings</i>"]
+    AF --> C2["ffvv-android-replatform<br/><i>Sem retargeted · 0 primitive bindings</i>"]
+    DS -.->|"emitted, never consumed"| X1["iOS · Flutter · web"]
+```
+
+Both integrations are real and build; **neither is merged**, so the correct
+reading is "two integrations in review", not "two apps on tokens".
+
 | App | Platform | Artifact consumed | Version pinned | Integration status | Owns the bump |
 |---|---|---|---|---|---|
 | `tech-belcorp/app-consultoras-replatform-android` (`belcorp-somos`) | Android — Kotlin, Compose, Material 3 | `com.estebanruano:tokens-android-belcorp` (AAR, GitHub Packages) | `3.0.0` | **Unmerged.** Lives on branch `chore/design-tokens-standardization`, 15 commits / 412 files ahead of `origin/development` | **TBD** |
-| `tech-belcorp/ffvv-android-replatform` (`ffvv`) | Android — Kotlin, Compose, Material 3 | none | — | **Prospective.** Zero consumption today; hand-rolled semantic layer in-repo | **TBD** |
+| `tech-belcorp/ffvv-android-replatform` (`ffvv`) | Android — Kotlin, Compose, Material 3 | `com.estebanruano:tokens-android-ffvv` (AAR, GitHub Packages) | `3.0.0` | **Unmerged.** Lives on branch `chore/design-system-tokens`; `:capabilities` compiles against the AAR, `Raw` deleted, all 1,970 `Sem.` call sites unchanged | **TBD** |
 
 No iOS, Flutter, or web consumer exists. See [No other consumers](#no-other-consumers).
 
@@ -127,16 +147,57 @@ colours were standing in for — see
 
 ## Consumer 2 — `ffvv-android-replatform`
 
-**Not integrated.** No `com.estebanruano` coordinate appears in any build file,
-version catalog, or settings script:
+**Integrated on a branch, not yet merged.** Wired the same way as consumer 1 —
+`settings.gradle` (repository, `exclusiveContent`-scoped to `com.estebanruano`,
+credential chain), `gradle/libs.versions.toml` (version + coordinate),
+`capabilities/build.gradle` (`api libs.design.system.tokens`).
 
-```bash
-grep -rn "estebanruano\|tokens-android" --include=*.gradle --include=*.kts --include=*.toml . | grep -v "/build/"
-# baseline: no output
-```
+### It is a brand, not just a consumer
 
-It is listed here because it is the next consumer, and because what it has
-built in the meantime changes what integration should look like.
+This is the correction that shaped the integration. FFVV was assumed to consume
+Belcorp's tokens. Measured by hex, **1 of its 82 colours** genuinely matches a
+Belcorp token in value *and* meaning:
+
+| FFVV | Hex | Belcorp token | Verdict |
+|---|---|---|---|
+| `CyzoneBrand` | `#A90061` | `color.brand.cyzone` | real match |
+| `Red600` | `#E1251B` | `color.brand.esika` | FFVV's **error red**; Belcorp's **Ésika brand**. Same hex, opposite meaning |
+| `Green600` | `#08A66E` | `color.app.quiz-feedback-green` | FFVV's success green vs a Belcorp one-off |
+| `White` | `#FFFFFF` | `color.app.white-alpha-20` = `#ffffff33` | not a match once alpha is compared |
+
+FFVV's primary is `#7D4DBE` — the purple Belcorp shipped *before* v3.0.0 moved
+to orange `#BE5B06`. Retargeting `Raw` at Belcorp's `DesignTokens` would have
+repainted the app across 283 `Sem.ActionPrimary` call sites alone.
+
+So FFVV became `brands/ffvv/`, seeded from its own palette. Every one of its 83
+values is preserved byte-for-byte in the generated artifact — verified against
+`ColorsRaw.kt` before `Raw` was deleted — which is what makes the migration a
+retarget rather than a restyle.
+
+**A divergence worth fixing:** FFVV renders Ésika at `#E22419`, Belcorp at
+`#E1251B`. One company, one brand, two values, differing by an amount no review
+would catch by eye. Both are seeded as-is; reconciling them is a design call.
+
+**A bug found on the way:** `Raw.Purple1200 = Color(0xFF2D08654D)` has ten hex
+digits, one too many. Kotlin's `Color(Long)` keeps only the low 32 bits, so it
+renders as an 18%-alpha **dark green** (`#08654D`), not a purple. It backs
+`Sem.InspiraBG`. The token preserves the *rendered* value so nothing changes
+visually; the fix is a separate decision.
+
+### Corrections to the previous baseline
+
+Three claims in the 2026-08-07 measurement did not survive checking:
+
+1. ~~"The migration is retargeting 83 `Raw` values at `DesignTokens`."~~ The
+   premise assumed those values existed in the design system. 78 of 82 did not.
+2. ~~"The only consumer with real dark-mode wiring… blocked on emitting a second
+   mode."~~ `AppTheme(darkTheme: Boolean = false)` and **no caller passes
+   `isSystemInDarkTheme()`** — only a screenshot test passes `true`. `DarkColors`
+   is dead code that sets `surface = Sem.StateWarning`, a yellow surface. There
+   is no dark mode to preserve, so nothing was blocked on the pipeline.
+3. ~~"`Dimentions.kt` needs reconciling with `core/`."~~ It is ~100 named
+   literals (`dp_0`, `dp_117`, `dp_389`, `dp_991`) — a lookup table, not a scale.
+   FFVV had no geometry system, so it inherits `core/` outright.
 
 ### Toolchain
 
@@ -160,20 +221,25 @@ own version catalog pinning compose-bom 2025.01.01. This is not an obstacle:
 
 | File | Contents |
 |---|---|
-| `ColorsRaw.kt` | `object Raw` — 83 `val`s, all hardcoded `Color(0x…)` |
-| `ColorSemanthics.kt` | `object Sem` — 83 `val`s, each aliasing a `Raw` member by role (`ActionPrimary = Raw.Purple600`) |
-| `ColorThemes.kt` | `LightColors` + `DarkColors`, 14 Material 3 `ColorScheme` slots each, both built from `Sem` |
-| `AppTheme.kt` | branches on `darkTheme` to pick the scheme |
+| ~~`ColorsRaw.kt`~~ | **Deleted.** Was `object Raw` — 83 hardcoded `Color(0x…)`. This is the layer the AAR replaces |
+| `ColorSemanthics.kt` | `object Sem` — 83 `val`s, each now reading `DesignTokens.…` instead of `Raw.…`. Role names unchanged |
+| `ColorThemes.kt` | `LightColors` + `DarkColors`, 14 Material 3 `ColorScheme` slots each, both built from `Sem`. Untouched |
+| `AppTheme.kt` | branches on `darkTheme` to pick the scheme. Untouched |
 
-This is the primitive → semantic split this repo asks for, hand-rolled locally.
-It is also the only consumer with real dark-mode wiring. That makes ffvv the
-better integration target of the two: `Raw` is exactly the layer the AAR
-replaces, and `Sem` is exactly the layer that should survive. The migration is
-retargeting 83 `Raw` values at `DesignTokens`, not rewriting 1,961 call sites.
+This was the primitive → semantic split this repo asks for, hand-rolled locally,
+which is exactly why it was the better integration target: `Raw` is what the AAR
+replaces and `Sem` is what survives. The migration edited **one file**.
 
-It also makes ffvv a source of requirements: `DarkColors` needs a dark mode from
-the pipeline. Only `light` is built today (see [brands.md](brands.md)), so a
-faithful integration is blocked on emitting a second mode.
+**`Sem` is also the best semantic vocabulary in the estate** — 83 members in the
+right families (Surface 20, State 17, Text 10, Action 5, Marker 4, Overlay 2,
+Border 1) against Belcorp's 43. It is a source of requirements, not just a
+consumer: §4 of [role-requests.md](role-requests.md) is largely FFVV's evidence.
+
+The caveat is that **22 of the 83 are positional** — `TextInactive2`…`6`,
+`SurfaceThird/Four/Five`, `StateError2/3`. Those name a slot, not an intent, and
+they are the first candidates to collapse. After the migration only 18 members
+sit on shared roles; the other 65 are fenced under `x.ffvv.*`, and that ratio is
+the honest measure of the vocabulary gap.
 
 ### Adoption baseline
 

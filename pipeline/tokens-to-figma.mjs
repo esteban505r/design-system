@@ -36,11 +36,17 @@ try {
   process.exit(1);
 }
 
-// A brand's export is assembled from both layers the resolver reads: the shared
-// core scales plus that brand's own values. Reading only one would silently
-// drop half the tokens and make the round-trip diff look like data loss.
+// A brand's export must contain exactly what that brand authors, because this
+// is the inverse of the parse step and the two are diffed against each other.
+// Only the brand that owns core/ authors the shared scales; for anyone else
+// they are inherited, so including them here would regenerate tokens that were
+// never in that brand's Figma file and read as spurious additions.
 const inputDirs =
-  inFlag !== -1 ? [args[inFlag + 1]] : [CORE_TOKENS_DIR, brandTokensDir(brand, mode)];
+  inFlag !== -1
+    ? [args[inFlag + 1]]
+    : brand.ownsCore
+      ? [CORE_TOKENS_DIR, brandTokensDir(brand, mode)]
+      : [brandTokensDir(brand, mode)];
 // Default is a throwaway under dist/ so verifying can never clobber the source
 // of truth; --to-ssot is the deliberate opt-in to overwrite it.
 const outputFile =

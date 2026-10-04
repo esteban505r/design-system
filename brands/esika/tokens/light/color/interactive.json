@@ -1,0 +1,32 @@
+{
+  "color": {
+    "interactive": {
+      "focus-ring": {
+        "$value": "#C11A1A",
+        "$type": "color"
+      },
+      "primary": {
+        "active": {
+          "$value": "#8C0000",
+          "$type": "color"
+        },
+        "default": {
+          "$value": "#BA0000",
+          "$type": "color"
+        },
+        "disabled": {
+          "$value": "#EFEFEF",
+          "$type": "color"
+        },
+        "hover": {
+          "$value": "#A40000",
+          "$type": "color"
+        },
+        "text": {
+          "$value": "#FFFFFF",
+          "$type": "color"
+        }
+      }
+    }
+  }
+}

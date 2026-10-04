@@ -1,0 +1,18 @@
+{
+  "id": "cyzone",
+  "name": "Cyzone",
+  "artifactId": "tokens-android-cyzone",
+  "npmSubpath": "cyzone",
+
+  "// ownsCore": "Belcorp owns core/. Cyzone shares the DS 5.0 multibrand geometry and timing scales by inheritance — no disagreement to reconcile.",
+  "ownsCore": false,
+
+  "modes": ["light"],
+
+  "// androidNamespace": "Must differ from every other brand: two AARs sharing an R-class namespace produce duplicate R classes.",
+  "androidNamespace": "com.estebanruano.tokens.cyzone",
+  "composePackage": "com.estebanruano.designtokens.cyzone",
+
+  "// extensions": "Reserved x.cyzone.* namespace. DS 5.0 verifies only Cyzone's primary (#AF0061) and its brand typeface (Lasiver → Red Hat Text placeholder). Nothing has escaped the shared vocabulary yet.",
+  "extensions": []
+}

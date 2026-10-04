@@ -1,6 +1,6 @@
 {
   "name": "@estebanruano/design-tokens-belcorp",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "packageManager": "pnpm@10.33.4",
   "description": "SomosBelcorp design system tokens — figma/tokens.json is the single source of truth for Android and (future) iOS.",
@@ -19,7 +19,16 @@
     "./figma": "./brands/belcorp/figma/tokens.json",
     "./belcorp": "./dist/belcorp/web/tokens.js",
     "./belcorp/css": "./dist/belcorp/web/tokens.css",
-    "./belcorp/json": "./dist/belcorp/json/tokens.json"
+    "./belcorp/json": "./dist/belcorp/json/tokens.json",
+    "./esika": "./dist/esika/web/tokens.js",
+    "./esika/css": "./dist/esika/web/tokens.css",
+    "./esika/json": "./dist/esika/json/tokens.json",
+    "./lbel": "./dist/lbel/web/tokens.js",
+    "./lbel/css": "./dist/lbel/web/tokens.css",
+    "./lbel/json": "./dist/lbel/json/tokens.json",
+    "./cyzone": "./dist/cyzone/web/tokens.js",
+    "./cyzone/css": "./dist/cyzone/web/tokens.css",
+    "./cyzone/json": "./dist/cyzone/json/tokens.json"
   },
   "sideEffects": [
     "**/*.css"

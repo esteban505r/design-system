@@ -1,0 +1,18 @@
+{
+  "id": "esika",
+  "name": "Ésika",
+  "artifactId": "tokens-android-esika",
+  "npmSubpath": "esika",
+
+  "// ownsCore": "Belcorp owns core/. Ésika shares the DS 5.0 multibrand geometry and timing scales by inheritance — no disagreement to reconcile.",
+  "ownsCore": false,
+
+  "modes": ["light"],
+
+  "// androidNamespace": "Must differ from every other brand: two AARs sharing an R-class namespace produce duplicate R classes.",
+  "androidNamespace": "com.estebanruano.tokens.esika",
+  "composePackage": "com.estebanruano.designtokens.esika",
+
+  "// extensions": "Reserved x.esika.* namespace. DS 5.0 verifies only Ésika's primary (#BA0000) and its brand typeface (Sweet Sans Pro → Work Sans placeholder). Nothing has escaped the shared vocabulary yet.",
+  "extensions": []
+}

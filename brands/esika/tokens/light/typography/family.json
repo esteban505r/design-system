@@ -1,0 +1,10 @@
+{
+  "font": {
+    "family": {
+      "primary": {
+        "$value": "Work Sans",
+        "$type": "fontFamily"
+      }
+    }
+  }
+}

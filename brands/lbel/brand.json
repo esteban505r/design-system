@@ -1,0 +1,18 @@
+{
+  "id": "lbel",
+  "name": "L'Bel",
+  "artifactId": "tokens-android-lbel",
+  "npmSubpath": "lbel",
+
+  "// ownsCore": "Belcorp owns core/. L'Bel shares the DS 5.0 multibrand geometry and timing scales by inheritance — no disagreement to reconcile.",
+  "ownsCore": false,
+
+  "modes": ["light"],
+
+  "// androidNamespace": "Must differ from every other brand: two AARs sharing an R-class namespace produce duplicate R classes.",
+  "androidNamespace": "com.estebanruano.tokens.lbel",
+  "composePackage": "com.estebanruano.designtokens.lbel",
+
+  "// extensions": "Reserved x.lbel.* namespace. DS 5.0 verifies only L'Bel's primary (#40006B) and its brand typeface (Brown Pro → DM Sans placeholder). Nothing has escaped the shared vocabulary yet.",
+  "extensions": []
+}

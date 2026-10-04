@@ -1,0 +1,46 @@
+{
+  "color": {
+    "text": {
+      "brand": {
+        "$value": "#BA0000",
+        "$type": "color"
+      },
+      "disabled": {
+        "$value": "#949393",
+        "$type": "color"
+      },
+      "error": {
+        "$value": "#B91C1C",
+        "$type": "color"
+      },
+      "info": {
+        "$value": "#1245D4",
+        "$type": "color"
+      },
+      "inverse": {
+        "$value": "#FFFFFF",
+        "$type": "color"
+      },
+      "primary": {
+        "$value": "#000000",
+        "$type": "color"
+      },
+      "secondary": {
+        "$value": "#545353",
+        "$type": "color"
+      },
+      "success": {
+        "$value": "#166534",
+        "$type": "color"
+      },
+      "tertiary": {
+        "$value": "#777676",
+        "$type": "color"
+      },
+      "warning": {
+        "$value": "#92400E",
+        "$type": "color"
+      }
+    }
+  }
+}

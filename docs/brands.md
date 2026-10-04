@@ -4,6 +4,40 @@ This repository is **one mainline with brands as configuration**. Brands used to
 be separate git branches, which meant every pipeline fix had to be applied twice
 and the two branches drifted apart. They are now directories.
 
+## The brands
+
+| Brand | Owns `core/` | Colour tokens | Typeface (DS 5.0) | Consumer |
+|---|---|---|---|---|
+| `belcorp` | ✅ | 240 | Montserrat (multibrand core) | `app-consultoras-replatform-android` |
+| `esika` | — | 43 | Sweet Sans Pro → **Work Sans** (placeholder) | — |
+| `lbel` | — | 43 | Brown Pro → **DM Sans** (placeholder) | — |
+| `cyzone` | — | 43 | Lasiver → **Red Hat Text** (placeholder) | — |
+| `ffvv` | — | 83 | — | `ffvv-android-replatform` |
+
+`esika`, `lbel` and `cyzone` are the **sub-brands of Fractal DS 5.0** (the same
+Belcorp multibrand file). DS 5.0 verifies exactly one colour per sub-brand —
+their primary — and one typeface. Everything else in their sets is the shared
+multibrand core: the neutral/text/border/status values and the type scale are
+identical to `belcorp`; only the brand-colour roles (`bg-brand`, `text-brand`,
+`border-brand`, `interactive-primary-*`, `bg-brand-subtle`) and the font family
+differ. Hover/active/focus/brand-subtle tints are **derived** from the verified
+primary by mixing toward black/white, mirroring where the multibrand ramp steps
+sit — they are placeholders to be replaced when official per-brand palettes land.
+
+FFVV is the reason the multi-brand model earns its keep. It was assumed to be a
+second *consumer* of Belcorp's tokens; measuring it showed otherwise. Of its 82
+colours, **exactly one** (`#A90061`, Cyzone's brand red) matches a Belcorp token
+in both value and meaning. Its primary is `#7D4DBE` — the purple Belcorp shipped
+before v3.0.0 rebranded to orange `#BE5B06`.
+
+Pointing FFVV at Belcorp's tokens would therefore not have swapped a primitive
+layer; it would have repainted the app, across 283 call sites of
+`Sem.ActionPrimary` alone. It is a brand, not a consumer, and modelling it as
+one is what makes its integration a no-op.
+
+The same measurement caught a smaller divergence worth fixing: FFVV renders
+Ésika at `#E22419`, Belcorp at `#E1251B`. One company, one brand, two values.
+
 ## Layout
 
 ```
@@ -30,9 +64,26 @@ module's directory name, so there is no property to pass or forget to update.
 A token's **identity** is its path (`color.bg.brand`). Its **value** is a
 function of (brand, mode). Layers, later wins:
 
+```mermaid
+flowchart LR
+    subgraph L["Layers — later wins"]
+        direction TB
+        A["1 · core/tokens/<br/><i>one value for every brand and mode</i>"]
+        B["2 · brands/&lt;id&gt;/tokens/light/<br/><i>this brand's values</i>"]
+        C["3 · brands/&lt;id&gt;/tokens/&lt;mode&gt;/<br/><i>only what this mode changes</i>"]
+        A --> B --> C
+    end
+    C --> R["resolved value<br/>for (brand, mode)"]
+```
+
 1. `core/tokens/` — one value for every brand and mode
 2. `brands/<id>/tokens/light/` — the brand's own values
 3. `brands/<id>/tokens/<mode>/` — only what that mode changes
+
+The identity never varies. `color.text.primary` means the same thing in every
+brand and every mode; only the hex behind it moves. That is what lets one app
+binding serve N brands — and what makes a *primitive* binding
+(`color.primary.500`) a bug rather than a style preference.
 
 `light` sits beneath every other mode, so a dark file carries only the tokens
 that actually differ rather than restating the whole set.
@@ -62,6 +113,49 @@ share it disagrees on four**:
 Last-writer-wins would have made the built output depend on the order brands
 happen to be processed in. Failing is the only honest option — the disagreement
 is a design decision, not something a build can resolve.
+
+FFVV sets `ownsCore: false` and never trips the guard, because it supplies no
+core-category tokens at all. Its `Dimentions.kt` was ~100 named literals —
+`dp_0`, `dp_117`, `dp_389`, `dp_991` — which is a lookup table, not a scale.
+There was nothing to reconcile, so it simply inherits `core/`.
+
+## The vocabulary contract
+
+`core/vocabulary.mjs` declares which semantic roles an application may bind to.
+A role earns `REQUIRED` status only when **every** brand supplies a value — that
+is what makes it safe to depend on.
+
+```mermaid
+flowchart TD
+    BEL["Belcorp supplies<br/><b>43</b> semantic roles"] --> INT
+    ESK["Ésika / L'Bel / Cyzone<br/>supply <b>43</b> semantic roles<br/><i>same DS 5.0 layer</i>"] --> INT
+    FFV["FFVV supplies<br/><b>16</b> semantic roles"] --> INT
+    INT{{"intersection"}} --> REQ["<b>REQUIRED — 16</b><br/>an app may bind to these"]
+    BEL -.->|"27 not in every brand"| PRIV["brand-private<br/><i>not bindable by a multi-brand app</i>"]
+    REQ --> APP(["consuming app"])
+    PROP["<b>PROPOSED — 11</b><br/>requested + evidenced,<br/>not yet universal"] -.->|"once every brand supplies it"| REQ
+```
+
+`test/vocabulary.test.mjs` asserts `REQUIRED` **equals** that intersection, so
+neither side can drift: a brand losing a role fails the build, and every brand
+gaining one fails it too — with "promote this". There is no state in which the
+declared contract and the shipped tokens disagree, and the floor can only rise.
+
+Today that floor is **16 roles**. Belcorp supplies 43, FFVV 16 — so 27 of
+Belcorp's are not yet bindable by a multi-brand app. `PROPOSED` holds the 11
+roles both consumers have asked for, evidenced in
+[role-requests.md](role-requests.md).
+
+### Extensions: the `x.<brand>.` namespace
+
+A value a brand needs that the shared vocabulary cannot name goes under
+`x.<brand>.*`, declared in its `brand.json` with an owner and a review date.
+Two properties make this safe rather than a second escape hatch:
+
+- The prefix is visible at every call site, so `x.ffvv.surface-third` can never
+  be mistaken for a shared role.
+- The count is a metric. FFVV has **65** extensions against 18 shared roles;
+  that ratio *is* the size of the vocabulary gap, and it should only shrink.
 
 ## Adding a brand
 

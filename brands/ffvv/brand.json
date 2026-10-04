@@ -1,0 +1,37 @@
+{
+  "id": "ffvv",
+  "name": "FFVV",
+  "artifactId": "tokens-android-ffvv",
+  "npmSubpath": "ffvv",
+
+  "// ownsCore": "Belcorp owns core/. FFVV had no spacing, radius, motion or z-index scale of its own — Dimentions.kt is ~100 named literals (dp_117, dp_389, dp_991), not a scale — so there is nothing to reconcile and it simply adopts core/.",
+  "ownsCore": false,
+
+  "modes": ["light"],
+
+  "// androidNamespace": "Must differ from every other brand: two AARs sharing an R-class namespace produce duplicate R classes.",
+  "androidNamespace": "com.estebanruano.tokens.ffvv",
+  "composePackage": "com.estebanruano.designtokens.ffvv",
+
+  "// extensions": "Reserved x.ffvv.* namespace. Each entry is a value FFVV needs that the shared vocabulary cannot yet name. This list should only ever shrink — see docs/role-requests.md.",
+  "extensions": [
+    {
+      "path": "x.ffvv.tier.*",
+      "owner": "TBD — needs programme sign-off, not design sign-off",
+      "reason": "Consultant levels (diamond, gold, platinum, silver, bronce, pre-bronce). Consultoras models the same concept with 7 levels to FFVV's 6; the canonical set must be agreed before promotion.",
+      "review": "2026-12-01"
+    },
+    {
+      "path": "x.ffvv.camino.*",
+      "owner": "TBD — needs programme sign-off",
+      "reason": "Camino Brillante path colours (consultant, coral, ambar, perla, topacio, brigth). Collides by name with consultoras' app-camino-diamante; the overlap is real and must be reconciled.",
+      "review": "2026-12-01"
+    },
+    {
+      "path": "x.ffvv.*",
+      "owner": "TBD",
+      "reason": "Everything else FFVV needs that has no shared role yet: numbered escapes (state-error2/3, text-inactive2-6), surface layering (surface-third/four/five), selection states, gradients and single-app component colours. The numbered escapes are the first candidates to collapse.",
+      "review": "2026-12-01"
+    }
+  ]
+}

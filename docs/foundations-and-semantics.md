@@ -22,22 +22,26 @@ document says what is missing and why it matters.
 
 ## 1. The three tiers
 
+```mermaid
+flowchart TD
+    P["<b>PRIMITIVE</b><br/>primary-500 = #7D4DBE<br/><i>“a colour that exists in the palette”</i>"]
+    S["<b>SEMANTIC</b><br/>bg-brand → primary-500<br/><i>“the role this colour plays”</i>"]
+    C["<b>COMPONENT</b><br/>button-primary-bg → bg-brand<br/><i>“the one place this role is used”</i>"]
+    P --> S --> C
+    APP(["application"])
+    S ==>|"bind here"| APP
+    C -.->|"only when a role is too coarse"| APP
+    P -.->|"never — this is the rule"| APP
+
+    linkStyle 2 stroke:#2e7d32,stroke-width:3px
+    linkStyle 4 stroke:#c62828,stroke-width:2px
 ```
-PRIMITIVE          primary-500 = #BE5B06
-                   "a colour that exists in the palette"
-                   Owner: design. Apps must NOT reference these.
-     │
-     ▼
-SEMANTIC           bg-brand → primary-500
-                   "the role this colour plays"
-                   Owner: design. This is what applications consume.
-     │
-     ▼
-COMPONENT          button-primary-bg → bg-brand
-                   "the one place this role is used"
-                   Owner: design, optional. Use when a component needs to
-                   diverge without dragging the whole role with it.
-```
+
+| Tier | Owner | Apps may reference |
+|---|---|---|
+| Primitive | Design | **No** — for the semantic layer, showcases and documented exceptions |
+| **Semantic** | **Design** | **Yes — this is the contract** |
+| Component | Design (optional) | Yes, when a role is too coarse for one component |
 
 The distinction that matters: **a primitive answers "what colour is it", a semantic token
 answers "what is it for".** Only the second survives a rebrand.
@@ -140,16 +144,27 @@ surface, default borders. Real screens need more. The gaps visible from the app'
   namespace is authored** — author both and the duplication is baked in permanently, to be
   kept in sync by hand forever. See [role-requests.md](role-requests.md).
 
-**5.2 Populate the multi-brand model.** ~~Decide it~~ — the shape is settled: brands are
-**modes over one semantic vocabulary**, not separate token sets. A brand is a directory
-under `brands/`, supplying values for shared role names; `core/` holds the geometry every
-brand agrees on. See [brands.md](brands.md).
+**5.2 Raise the shared vocabulary.** ~~Decide the multi-brand model~~ — settled, and now
+real. Brands are **values over one set of shared role names**, not separate token sets. Two
+ship today: `belcorp` and `ffvv`, each a directory under `brands/`; `core/` holds the
+geometry both agree on. See [brands.md](brands.md).
 
-What remains is the design half, and it is the same work as 5.1: **the vocabulary those
-brands would share does not exist yet.** Ésika, Cyzone and L'Bel can only become brands
-once there are roles for them to supply values *for*. Adding them against today's 43
-semantic tokens would force each brand to redefine primitives instead, which is the
-separate-token-sets outcome wearing a different directory layout.
+The contract is executable: `core/vocabulary.mjs` lists the roles **every** brand supplies,
+and `pnpm test` fails if a brand drops one. That is what an application may bind to.
+
+**The number that matters is 16.** Belcorp supplies 43 semantic roles; FFVV supplies 16. The
+contract is the intersection, so a multi-brand app can rely on 16 — the other 27 of Belcorp's
+are, from the shared-vocabulary point of view, still brand-private.
+
+FFVV is the proof this shape was right rather than merely tidy. It was assumed to be a second
+consumer of Belcorp's tokens; measured by hex, **1 of its 82 colours** matched in both value
+and meaning, because it still runs the purple that v3.0.0 replaced. As a *consumer* it would
+have been repainted. As a *brand* it was a no-op.
+
+It also shows where the vocabulary is thin: of FFVV's 83 roles only 18 landed on shared names.
+The other 65 sit under `x.ffvv.*`, and that ratio is the gap. Ésika, Cyzone and L'Bel can
+become brands whenever design wants — the machinery is done — but each will land the same way
+until the roles in §5.1 exist for them to supply values *for*.
 
 **5.3 Name roles, not values.** A semantic token whose name describes appearance has not
 actually moved up a tier:
@@ -172,16 +187,23 @@ file. The pipeline preserves whatever structure Figma exports.
 
 Primitives are for the semantic layer to consume, plus showcases and documented
 exceptions. This is already stated as the golden rule in
-[design-system-foundations.md](../design-system-foundations.md); what is missing is a
-semantic layer complete enough to make it followable, and enforcement.
+[design-system-foundations.md](../design-system-foundations.md); what is still missing is a
+semantic layer complete enough to make it followable.
+
+**Which roles is now answerable, not a matter of judgement.** `core/vocabulary.mjs`
+declares them, and `test/vocabulary.test.mjs` holds the declaration to what the brands
+actually ship — in both directions. A brand dropping a role breaks the build; every brand
+gaining one is a prompt to promote it. The floor can only rise.
 
 Engineering side of the contract:
 
-- New UI binds to a semantic token. If no suitable role exists, that is a **request to
-  design**, not a licence to reach for a primitive.
+- New UI binds to a role in `REQUIRED`. If none fits, that is a **request to design** — see
+  [role-requests.md](role-requests.md) — not a licence to reach for a primitive.
+- A value that genuinely has no shared role goes under the brand's `x.<brand>.*` namespace,
+  declared in `brand.json` with an owner and a review date. Visible at every call site, and
+  counted: FFVV's 65 extensions against 18 shared roles *is* the size of the gap.
 - `color.app.*` is frozen. Nothing new goes in; entries leave as roles are named.
-- The existing primitive bindings in the Android app get migrated to semantic names as the
-  vocabulary lands.
+- The existing primitive bindings in the Android app get migrated to roles as they land.
 
 ## 7. Adding a semantic token
 

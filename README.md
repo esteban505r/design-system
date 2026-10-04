@@ -4,30 +4,78 @@ A **design-token pipeline**, not a component library. Design authors token value
 in Figma; this repo turns one export per brand into artifacts for Android, web,
 iOS and Flutter.
 
-```
-brands/<brand>/figma/tokens.json     ← the single source of truth (per brand)
-        │  pnpm run sync
-        ▼
-core/tokens/ + brands/<brand>/tokens/<mode>/     ← DTCG JSON (committed, generated)
-        │
-        ▼
-dist/<brand>/{android,compose,web,ios,flutter,json,figma}/
+```mermaid
+flowchart TD
+    subgraph SSOT["Authored in Figma — the only hand-edited files"]
+        FB["brands/belcorp/<br/>figma/tokens.json"]
+        FF["brands/ffvv/<br/>figma/tokens.json"]
+    end
+
+    FB -->|"owns core"| CORE
+    FB --> TB
+    FF -.->|"checked against core, never writes it"| CORE
+    FF --> TF
+
+    subgraph TREE["Generated DTCG — committed, never edited"]
+        CORE["core/tokens/<br/><i>spacing · radius · stroke<br/>z-index · motion</i>"]
+        TB["brands/belcorp/tokens/light/<br/><i>colour · type · elevation</i>"]
+        TF["brands/ffvv/tokens/light/<br/><i>colour</i>"]
+    end
+
+    CORE --> SD
+    TB --> SD
+    TF --> SD
+    SD["Style Dictionary<br/>pipeline/sd.config.mjs"]
+    SD --> DB["dist/belcorp/*"]
+    SD --> DF["dist/ffvv/*"]
+    DB --> AB["tokens-android-belcorp"]
+    DF --> AF["tokens-android-ffvv"]
 ```
 
-Today one brand ships: **Belcorp**, published as
-**`com.estebanruano:tokens-android-belcorp`** to GitHub Packages and consumed by
-`app-consultoras-replatform-android` (`:core:presentation:designsystem`).
+One command drives all of it: **`pnpm run sync`**.
+
+Geometry lives in `core/` because a rebrand changes colour and type, not the
+spacing scale. Colour and type live per brand because that is exactly what a
+brand *is*.
+
+Five brands ship, each as its own AAR on GitHub Packages — the four Belcorp
+multibrand identities (multibrand core + Ésika, L'Bel, Cyzone) plus FFVV:
+
+| Brand | Artifact | Consumer |
+|---|---|---|
+| Belcorp (multibrand core) | `com.estebanruano:tokens-android-belcorp` | `app-consultoras-replatform-android` |
+| Ésika | `com.estebanruano:tokens-android-esika` | — |
+| L'Bel | `com.estebanruano:tokens-android-lbel` | — |
+| Cyzone | `com.estebanruano:tokens-android-cyzone` | — |
+| FFVV | `com.estebanruano:tokens-android-ffvv` | `ffvv-android-replatform` |
+
+They share one pipeline, one `VERSION` and one set of role *names* — but not
+values. That distinction is the whole design: see [Brands](docs/brands.md).
 
 **Never edit `core/tokens/`, `brands/*/tokens/` or `dist/` by hand** — every one
 of those files is regenerated, and CI fails the PR if what you committed differs
 from what the pipeline produces.
 
+## What an app may rely on
+
+`core/vocabulary.mjs` is the contract: the semantic roles **every** brand
+supplies, and therefore the only ones an application can safely bind to. Today
+that is **16 roles**; 11 more are requested and evidenced in
+[role-requests.md](docs/role-requests.md).
+
+`pnpm test` enforces it in both directions — a brand dropping a role breaks the
+build, and every brand gaining one prompts promotion. The floor only rises.
+
+Bind to `color.text.primary`, not to `color.primary.500`. A primitive records
+what colour something is; a role records what it is *for*, and only the second
+survives a rebrand.
+
 ## Documentation
 
 | Guide | Audience |
 |-------|----------|
-| **[brands/belcorp/DESIGN.md](brands/belcorp/DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Generated — start here, never edit it.** |
-| **[Brands](docs/brands.md)** | How brands, modes and `core/` fit together; how to add a brand |
+| **[Belcorp DESIGN.md](brands/belcorp/DESIGN.md)** · **[FFVV DESIGN.md](brands/ffvv/DESIGN.md)** | **Every token, with the exact identifier to type on each platform. Generated per brand — start here, never edit them.** |
+| **[Brands](docs/brands.md)** | How brands, modes, `core/` and the vocabulary contract fit together; how to add a brand |
 | **[Foundations & the semantic layer](docs/foundations-and-semantics.md)** | **Design team** — what design owns, why apps must bind to semantic roles rather than primitives, and what is still missing |
 | **[Role requests](docs/role-requests.md)** | **Design + app teams** — how an app asks for a new semantic role, and the first batch measured from two apps |
 | **[Consumers](docs/consumers.md)** | Who depends on this library, at what version, and how adoption is tracked |
@@ -51,7 +99,7 @@ pnpm test
 | `pnpm run parse` | Figma export → the token tree, per brand |
 | `pnpm run build` | token tree → `dist/<brand>/**` and `brands/<brand>/DESIGN.md` |
 | `pnpm run figma:verify` | Regenerate the Figma export from the token tree and diff it against the SSOT |
-| `pnpm test` | Round-trip, name-map, core-ownership and generated-output guards |
+| `pnpm test` | Round-trip, name-map, core-ownership, vocabulary-contract and generated-output guards |
 
 Every command acts on all brands. Add `--brand <id>` to narrow:
 `node pipeline/sd.config.mjs --brand belcorp`.
@@ -128,11 +176,16 @@ repositories {
 }
 
 dependencies {
+    // One brand per app. `api` from exactly one module if other modules need it —
+    // that is what keeps the wiring to three files instead of one per feature.
     implementation("com.estebanruano:tokens-android-belcorp:3.0.0")
+    // or: com.estebanruano:tokens-android-ffvv
 }
 ```
 
 The artifact id and version come from `brands/<brand>/brand.json` and `VERSION`.
+Both brands are published from the same `VERSION`, so an app never has to
+reason about which brand is on which release.
 Authenticate locally by adding to `~/.gradle/gradle.properties` (never commit it):
 
 ```properties
