@@ -79,10 +79,16 @@ jobs:
               test -f "dist/$brand/android/$f" || {
                 echo "::error::Missing dist/$brand/android/$f — sync failed?"; exit 1; }
             done
-            grep -q 'name="bds_font_size_h1"' "dist/$brand/android/dimens.xml" || {
-              echo "::error::dist/$brand/android/dimens.xml has no bds_font_size_h1 (typography tokens missing)"
-              exit 1
-            }
+            # Typography is only required for brands that author a type scale.
+            # FFVV is colour-only — its SSOT has no type-/font- tokens, so its
+            # dimens.xml legitimately has no bds_font_size_h1. Gate the check on
+            # the SSOT rather than assuming every brand ships typography.
+            if grep -qE '"type-|"font-' "brands/$brand/figma/tokens.json"; then
+              grep -q 'name="bds_font_size_h1"' "dist/$brand/android/dimens.xml" || {
+                echo "::error::dist/$brand/android/dimens.xml has no bds_font_size_h1 (typography tokens missing)"
+                exit 1
+              }
+            fi
             # Resource naming contract: colours are bare, everything else carries
             # the bds_ prefix. A regression either way is a silent break for
             # consumers, so assert both halves rather than trusting the generator.
