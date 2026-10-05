@@ -218,8 +218,8 @@ its package already namespace those names.
 
 ```xml
 <TextView
-    android:textColor="@color/color_primary_500"
-    android:textSize="@dimen/bds_font_size_h1"
+    android:textColor="@color/color_text_default"
+    android:textSize="@dimen/bds_font_size_800"
     android:padding="@dimen/bds_spacing_4" />
 ```
 
@@ -231,18 +231,18 @@ import com.estebanruano.designtokens.DesignTokens
 
 Text(
     text = "Hola",
-    color = DesignTokens.colorPrimary500,
-    fontSize = DesignTokens.fontSizeH1,
+    color = DesignTokens.colorTextDefault,
+    fontSize = DesignTokens.fontSize800,
 )
 ```
 
 Compose artifacts are `compileOnly` in the token module, so the AAR never forces
 a Compose version on you — your app's own Compose dependency is used.
 
-If you prefer resources in Compose, `colorResource(R.color.color_primary_500)`
+If you prefer resources in Compose, `colorResource(R.color.color_text_default)`
 and `dimensionResource(R.dimen.bds_spacing_4)` work as usual. Note
 `dimensionResource` returns `Dp`, so a font size needs
-`with(LocalDensity.current) { dimensionResource(R.dimen.bds_font_size_h1).toSp() }`.
+`with(LocalDensity.current) { dimensionResource(R.dimen.bds_font_size_800).toSp() }`.
 
 **Name clashes:** if your app defines the same resource name in its own
 `res/values/`, the app resource wins. The `bds_` prefix closes that hole for

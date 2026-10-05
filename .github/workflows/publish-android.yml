@@ -79,13 +79,11 @@ jobs:
               test -f "dist/$brand/android/$f" || {
                 echo "::error::Missing dist/$brand/android/$f — sync failed?"; exit 1; }
             done
-            # Typography is only required for brands that author a type scale.
-            # FFVV is colour-only — its SSOT has no type-/font- tokens, so its
-            # dimens.xml legitimately has no bds_font_size_h1. Gate the check on
-            # the SSOT rather than assuming every brand ships typography.
+            # Typography is required when the brand's export contains font tokens.
+            # 5.0.0 names them from Figma (font/size/800 = 36), not font-size-h1.
             if grep -qE '"type-|"font-' "brands/$brand/figma/tokens.json"; then
-              grep -q 'name="bds_font_size_h1"' "dist/$brand/android/dimens.xml" || {
-                echo "::error::dist/$brand/android/dimens.xml has no bds_font_size_h1 (typography tokens missing)"
+              grep -q 'name="bds_font_size_800"' "dist/$brand/android/dimens.xml" || {
+                echo "::error::dist/$brand/android/dimens.xml has no bds_font_size_800 (typography tokens missing)"
                 exit 1
               }
             fi
@@ -112,7 +110,7 @@ jobs:
             test -f "dist/$brand/compose/DesignTokens.kt" || {
               echo "::error::Missing dist/$brand/compose/DesignTokens.kt — sync failed?"; exit 1; }
             # Guard against the pre-fix codegen bug where sizes were multiplied by 16.
-            if grep -E 'val spacing1 = 32\.dp\b|val radiusBadge = 159984\.dp\b' "dist/$brand/compose/DesignTokens.kt"; then
+            if grep -E 'val spacing4 = 256\.dp\b|val spacing1 = 32\.dp\b|val radiusBadge = 159984\.dp\b' "dist/$brand/compose/DesignTokens.kt"; then
               echo "::error::$brand DesignTokens.kt has remToDp-multiplied values — the compose transform group is wrong"
               exit 1
             fi
