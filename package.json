@@ -1,21 +1,21 @@
 {
-  "name": "@estebanruano/design-tokens-belcorp",
-  "version": "4.0.0",
-  "private": true,
+  "name": "design-tokens-belcorp",
+  "version": "5.0.0",
+  "private": false,
   "packageManager": "pnpm@10.33.4",
-  "description": "SomosBelcorp design system tokens — figma/tokens.json is the single source of truth for Android and (future) iOS.",
+  "description": "SomosBelcorp design system tokens — tokens.json is the Tokens Studio source of truth.",
   "type": "module",
   "files": [
     "VERSION",
+    "tokens.json",
     "brands/*/figma/tokens.json",
-    "dist/*/web",
-    "dist/*/json",
-    "dist/*/figma"
+    "dist/**"
   ],
   "exports": {
     ".": "./dist/belcorp/web/tokens.js",
     "./css": "./dist/belcorp/web/tokens.css",
     "./json": "./dist/belcorp/json/tokens.json",
+    "./tokens.json": "./tokens.json",
     "./figma": "./brands/belcorp/figma/tokens.json",
     "./belcorp": "./dist/belcorp/web/tokens.js",
     "./belcorp/css": "./dist/belcorp/web/tokens.css",
@@ -50,10 +50,12 @@
     "style-dictionary"
   ],
   "scripts": {
-    "sync:figma": "node pipeline/figma-to-tokens.mjs && node pipeline/sd.config.mjs",
+    "sync:figma": "node pipeline/studio-to-tokens.mjs && node pipeline/sd.config.mjs",
     "sync": "pnpm run sync:figma",
     "build": "node pipeline/sd.config.mjs",
-    "parse": "node pipeline/figma-to-tokens.mjs",
+    "parse": "node pipeline/studio-to-tokens.mjs",
+    "parse:figma": "node pipeline/figma-to-tokens.mjs",
+    "studio:emit": "node pipeline/studio-to-tokens.mjs --emit",
     "figma:export": "node pipeline/tokens-to-figma.mjs --to-ssot",
     "figma:verify": "node pipeline/tokens-to-figma.mjs",
     "version:set": "node pipeline/set-release-version.mjs",

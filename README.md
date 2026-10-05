@@ -1,20 +1,18 @@
 # Design System Tokens
 
 A **design-token pipeline**, not a component library. Design authors token values
-in Figma; this repo turns one export per brand into artifacts for Android, web,
-iOS and Flutter.
+in Tokens Studio; this repo turns one `tokens.json` into artifacts for Android,
+web, iOS and Flutter.
 
 ```mermaid
 flowchart TD
-    subgraph SSOT["Authored in Figma — the only hand-edited files"]
-        FB["brands/belcorp/<br/>figma/tokens.json"]
-        FF["brands/ffvv/<br/>figma/tokens.json"]
+    subgraph SSOT["Authored in Tokens Studio — the only hand-edited token file"]
+        TJ["tokens.json<br/><i>global + one set per brand</i>"]
     end
 
-    FB -->|"owns core"| CORE
-    FB --> TB
-    FF -.->|"checked against core, never writes it"| CORE
-    FF --> TF
+    TJ -->|"global set"| CORE
+    TJ --> TB
+    TJ --> TF
 
     subgraph TREE["Generated DTCG — committed, never edited"]
         CORE["core/tokens/<br/><i>spacing · radius · stroke<br/>z-index · motion</i>"]
@@ -53,8 +51,8 @@ They share one pipeline, one `VERSION` and one set of role *names* — but not
 values. That distinction is the whole design: see [Brands](docs/brands.md).
 
 **Never edit `core/tokens/`, `brands/*/tokens/` or `dist/` by hand** — every one
-of those files is regenerated, and CI fails the PR if what you committed differs
-from what the pipeline produces.
+of those files is regenerated from `tokens.json`, and CI fails the PR if what
+you committed differs from what the pipeline produces.
 
 ## What an app may rely on
 
@@ -89,14 +87,14 @@ survives a rebrand.
 
 ```bash
 pnpm install
-pnpm run sync     # parse every brand's Figma export, then build every platform
+pnpm run sync     # expand tokens.json, then build every platform
 pnpm test
 ```
 
 | Command | Does |
 |---------|------|
 | **`pnpm run sync`** | `parse` + `build` for every brand. This is the one you want. |
-| `pnpm run parse` | Figma export → the token tree, per brand |
+| `pnpm run parse` | `tokens.json` → the token tree, per brand |
 | `pnpm run build` | token tree → `dist/<brand>/**` and `brands/<brand>/DESIGN.md` |
 | `pnpm run figma:verify` | Regenerate the Figma export from the token tree and diff it against the SSOT |
 | `pnpm test` | Round-trip, name-map, core-ownership, vocabulary-contract and generated-output guards |
@@ -107,11 +105,12 @@ Every command acts on all brands. Add `--brand <id>` to narrow:
 ## Repository layout
 
 ```
+tokens.json               Tokens Studio source of truth (one file, every brand)
 core/tokens/              scales shared by every brand: spacing, radius, stroke,
                           z-index, motion
 brands/<id>/
   brand.json              identity, Maven/npm coordinates, declared modes
-  figma/tokens.json       this brand's source of truth
+  figma/tokens.json       generated flat export of this brand
   tokens/light/           generated DTCG: colour, typography, elevation
   DESIGN.md               generated token catalogue
 pipeline/                 the generator, shared by every brand
@@ -146,17 +145,20 @@ Bump for each release — GitHub Packages and npm both reject duplicate versions
 
 ## Changing a token
 
-1. Change the variable in **Figma** and export to
-   `brands/<brand>/figma/tokens.json` (Tokens Studio, or your Variables sync).
-2. If the name is new, map it in `pipeline/token-name-map.mjs`
-   (`FIGMA_TO_TOKEN_PATH`). **An unmapped name fails the build** and names
-   itself in the error — pass `--allow-unmapped` only while migrating.
-3. `pnpm run sync && pnpm test`.
-4. Commit the Figma export *and* the regenerated tree and `dist/`. CI re-runs the
+1. Change the token in **Tokens Studio** and push `tokens.json`.
+   Storage location is the **file** `tokens.json`, not a folder.
+   Put shared scales in the `global` set and brand colour, type, and elevation
+   in that brand's set (`belcorp`, `esika`, `lbel`, `cyzone`, `ffvv`).
+2. `pnpm run sync && pnpm test`.
+3. Commit `tokens.json` *and* the regenerated tree and `dist/`. CI re-runs the
    sync and fails on any drift.
 
-Pushing a change to `brands/*/figma/tokens.json` also triggers the **Sync tokens
-from Figma JSON** workflow, which does steps 3–4 and opens a PR.
+Pushing `tokens.json` also triggers the **Sync tokens from Figma JSON**
+workflow, which does steps 2–3 and opens a PR.
+
+A new token inside an existing group needs no name map. The flat per-brand
+export (`brands/<brand>/figma/tokens.json`) is generated, and a name that
+cannot be flattened still has to be added to `FIGMA_TO_TOKEN_PATH`.
 
 ## Using the tokens
 

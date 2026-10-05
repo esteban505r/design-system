@@ -15,6 +15,7 @@ import {
   syncPackageJsonVersion,
   writeTokensFromFigmaSource,
 } from './figma-collection-to-tokens.mjs';
+import { buildStudioDocument, writeStudioDocument } from './studio-document.mjs';
 import {
   CORE_TOKENS_DIR,
   REPO_ROOT,
@@ -100,4 +101,6 @@ for (const brand of brands) {
 }
 
 console.log(`\n✅ ${total} token file(s) written for ${brands.map((b) => b.id).join(', ')}`);
+const studioFile = writeStudioDocument(buildStudioDocument());
+console.log(`✅ Tokens Studio file updated: ${path.relative(REPO_ROOT, studioFile)}`);
 console.log(`\nNext: pnpm run build   (or pnpm run sync if you only needed parse)\n`);

@@ -1,15 +1,11 @@
 {
   "stroke": {
-    "lg": {
-      "$value": "4px",
-      "$type": "dimension"
-    },
-    "md": {
-      "$value": "2px",
-      "$type": "dimension"
-    },
-    "sm": {
+    "1": {
       "$value": "1px",
+      "$type": "dimension"
+    },
+    "2": {
+      "$value": "2px",
       "$type": "dimension"
     }
   }

@@ -1,7 +1,7 @@
 # Regenerate the token tree + dist/ when any brand's Figma export changes.
 #
 # Pipeline: pnpm run sync:figma
-#   brands/<brand>/figma/tokens.json → core/tokens/ + brands/<brand>/tokens/ → dist/<brand>/**
+#   tokens.json → core/tokens/ + brands/<brand>/tokens/ → dist/<brand>/**
 #
 # Requires: Settings → Actions → General → Workflow permissions:
 #   - Read and write
@@ -12,6 +12,7 @@ name: Sync tokens from Figma JSON
 on:
   push:
     paths:
+      - 'tokens.json'
       - 'brands/*/figma/tokens.json'
   workflow_dispatch:
 
@@ -38,7 +39,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Generate all outputs from every brand's Figma export
+      - name: Generate all outputs from tokens.json
         run: pnpm run sync:figma
 
       - name: Commit generated files
@@ -50,7 +51,7 @@ jobs:
             echo "No changes after sync:figma — working tree already up to date."
             exit 0
           fi
-          git commit -m "chore(tokens): sync from brands/*/figma/tokens.json"
+          git commit -m "chore(tokens): sync from tokens.json"
           git push
 
       - name: Open pull request (feature branches only)
@@ -66,7 +67,7 @@ jobs:
             {
               echo 'Auto-generated with `pnpm run sync:figma`:'
               echo ''
-              echo '- **Source:** `brands/<brand>/figma/tokens.json`'
+              echo '- **Source:** `tokens.json` (Tokens Studio single-file sync)'
               echo '- **Outputs:** `core/tokens/`, `brands/*/tokens/`, `dist/<brand>/` (web, Android, iOS, Flutter, Compose, Figma copy), `package.json`'
               echo ''
               echo 'See [docs/figma-ssot.md](docs/figma-ssot.md).'

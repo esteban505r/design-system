@@ -11,11 +11,9 @@ import path from 'node:path';
 import { REQUIRED, PROPOSED, missingRequired } from '../core/vocabulary.mjs';
 import { brandTokensDir, loadAllBrands } from '../pipeline/brands.mjs';
 
-/** Families that carry meaning rather than palette position. */
-const SEMANTIC_FAMILIES = ['text', 'bg', 'border', 'interactive', 'status'];
-
 /**
- * Every semantic role a brand supplies, as full token paths.
+ * Every colour token a brand supplies, as full token paths.
+ * Primitives live in core/; a brand directory holds the Figma semantic layer.
  * @param {import('../pipeline/brands.mjs').Brand} brand
  * @param {string} mode
  */
@@ -35,7 +33,7 @@ function suppliedRoles(brand, mode) {
   for (const file of fs.readdirSync(dir)) {
     const colour = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf-8')).color ?? {};
     for (const [family, node] of Object.entries(colour)) {
-      if (SEMANTIC_FAMILIES.includes(family)) walk(node, [family]);
+      walk(node, [family]);
     }
   }
   return roles;

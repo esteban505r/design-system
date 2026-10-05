@@ -5,7 +5,7 @@
 //      Style Dictionary emitted `public class {` / `class {` — files that do
 //      not compile.
 //   2. The built-in rem→px size transforms multiplying every dimension by
-//      basePxFontSize (16), so spacing-4 came out as 192 instead of 12.
+//      basePxFontSize (16), so spacing/4 came out as 256 instead of 16.
 //
 // Both were invisible to a human reading a 300-line generated file.
 
@@ -103,7 +103,7 @@ t('known dimensions keep their 1:1 px scale', () => {
   // Anchors with hand-checked values. If a built-in rem transform sneaks back
   // in, these become 16× larger. spacing/radius come from core/, so every brand
   // has them whatever its own token set contains.
-  const expected = { spacing4: 12, radiusMd: 8 };
+  const expected = { spacing4: 16, radiusMd: 8 };
   const compose = composeDimens(read(DIST.compose));
   const swift = swiftDimens(read(DIST.swift));
   const dart = dartDimens(read(DIST.dart));
@@ -119,7 +119,7 @@ t('android dimens.xml is well formed and unscaled', () => {
   const xml = read(DIST.androidDimens);
   // `28pxpx` — the malformed-unit signature the publish workflow greps for.
   assert.doesNotMatch(xml, /\d(px){2,}/, 'malformed duplicated unit');
-  assert.match(xml, /<dimen name="bds_spacing_4">12dp<\/dimen>/);
+  assert.match(xml, /<dimen name="bds_spacing_4">16dp<\/dimen>/);
 });
 
 // ── Android resource namespacing ───────────────────────────
@@ -208,12 +208,14 @@ const belcorp = brands.find((b) => b.id === 'belcorp');
 if (belcorp) {
   const D = distFilesFor(belcorp);
 
-  test('[belcorp] the identifiers the live consumer references still exist', () => {
-    assert.match(read(D.compose), /\bcolorPrimary500\b/, 'Compose: colorPrimary500');
+  test('[belcorp] Figma semantic identifiers are emitted', () => {
+    // 5.0.0 replaced the app-derived names (color_primary_500, bds_font_size_h1).
+    // Somos Belcorp and FFVV both bind to the Multibrand semantic layer.
+    assert.match(read(D.compose), /\bcolorTextDefault\b/, 'Compose: colorTextDefault');
     assert.ok(
-      resourceNames(read(D.androidColors)).includes('color_primary_500'),
-      'XML: @color/color_primary_500',
+      resourceNames(read(D.androidColors)).includes('color_text_default'),
+      'XML: @color/color_text_default',
     );
-    assert.match(read(D.androidDimens), /<dimen name="bds_font_size_h1">36sp<\/dimen>/);
+    assert.match(read(D.androidDimens), /<dimen name="bds_font_size_800">36sp<\/dimen>/);
   });
 }

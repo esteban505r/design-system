@@ -33,7 +33,7 @@ jobs:
           git add -A
           if ! git diff --staged --exit-code; then
             echo "::error::Run \`pnpm run sync:figma\` locally and commit \`core/\`, \`brands/\`, \`dist/\`, and \`package.json\`."
-            echo "Source of truth: brands/<brand>/figma/tokens.json"
+            echo "Source of truth: tokens.json"
             git diff --staged
             exit 1
           fi

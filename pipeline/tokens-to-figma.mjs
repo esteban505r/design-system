@@ -163,13 +163,26 @@ const metadata = {
   tokenSetOrder: ['global', collectionName],
 };
 
-const pkgPath = path.resolve('package.json');
-if (fs.existsSync(pkgPath)) {
+// --to-ssot rewrites the committed export. Keep its $metadata.version: releases
+// are driven by the VERSION file, and stamping package.json here would churn
+// every brand file on an otherwise identical expand from tokens.json.
+const ssotPathForVersion = brandFigmaFile(brand);
+if (args.includes('--to-ssot') && fs.existsSync(ssotPathForVersion)) {
   try {
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
-    if (pkg.version) metadata.version = pkg.version;
+    const existing = JSON.parse(fs.readFileSync(ssotPathForVersion, 'utf-8'));
+    if (existing.$metadata?.version) metadata.version = existing.$metadata.version;
   } catch {
     /* ignore */
+  }
+} else {
+  const pkgPath = path.resolve('package.json');
+  if (fs.existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'));
+      if (pkg.version) metadata.version = pkg.version;
+    } catch {
+      /* ignore */
+    }
   }
 }
 

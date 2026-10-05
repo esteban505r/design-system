@@ -2,19 +2,27 @@
   "color": {
     "border": {
       "brand": {
-        "$value": "#40006B",
+        "$value": "{color.brand.lbel.primary}",
         "$type": "color"
       },
       "default": {
-        "$value": "#EFEFEF",
+        "$value": "{color.neutral.200}",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#EFEFEF",
+        "$value": "{color.neutral.200}",
+        "$type": "color"
+      },
+      "inverse": {
+        "$value": "{color.neutral.0}",
         "$type": "color"
       },
       "strong": {
-        "$value": "#C4C4C4",
+        "$value": "{color.neutral.300}",
+        "$type": "color"
+      },
+      "subtle": {
+        "$value": "{color.neutral.100}",
         "$type": "color"
       }
     }

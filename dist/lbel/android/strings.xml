@@ -4,11 +4,11 @@
   Do not edit directly, this file was auto-generated.
 -->
 <resources>
-  <string name="bds_elevation_1" translatable="false">0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 2px 0px rgba(0, 0, 0, 0.08)</string>
-  <string name="bds_elevation_2" translatable="false">0px 4px 8px 0px rgba(0, 0, 0, 0.12), 0px 2px 4px 0px rgba(0, 0, 0, 0.08)</string>
-  <string name="bds_elevation_3" translatable="false">0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 4px 8px 0px rgba(0, 0, 0, 0.10)</string>
-  <string name="bds_motion_easing_default" translatable="false">cubic-bezier(0.4, 0, 0.2, 1)</string>
-  <string name="bds_motion_easing_in" translatable="false">cubic-bezier(0.4, 0, 1, 1)</string>
-  <string name="bds_motion_easing_out" translatable="false">cubic-bezier(0, 0, 0.2, 1)</string>
-  <string name="bds_font_family_primary" translatable="false">DM Sans</string>
+  <string name="bds_motion_easing_enter" translatable="false">cubic-bezier(0, 0, 0, 1)</string>
+  <string name="bds_motion_easing_exit" translatable="false">cubic-bezier(0.4, 0, 1, 1)</string>
+  <string name="bds_motion_easing_standard" translatable="false">cubic-bezier(0.2, 0, 0, 1)</string>
+  <string name="bds_font_family_accent" translatable="false">Ivar</string>
+  <string name="bds_font_family_base" translatable="false">DM Sans</string>
+  <string name="bds_font_family_body" translatable="false">Gotham</string>
+  <string name="bds_font_family_display" translatable="false">Sweet Sans Pro</string>
 </resources>

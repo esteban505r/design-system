@@ -1,0 +1,84 @@
+{
+  "layout": {
+    "breakpoint": {
+      "wide": {
+        "min": {
+          "$value": "1024px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "container": {
+      "content": {
+        "max": {
+          "$value": "1280px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "viewport": {
+      "min-supported": {
+        "$value": "320px",
+        "$type": "dimension"
+      },
+      "reference": {
+        "compact": {
+          "$value": "390px",
+          "$type": "dimension"
+        },
+        "wide": {
+          "$value": "1440px",
+          "$type": "dimension"
+        }
+      }
+    },
+    "compact": {
+      "content": {
+        "max-width": {
+          "$value": "{layout.container.content.max}",
+          "$type": "dimension"
+        }
+      },
+      "grid": {
+        "columns": {
+          "$value": 4,
+          "$type": "number"
+        },
+        "gutter": {
+          "$value": "{spacing.4}",
+          "$type": "dimension"
+        }
+      },
+      "page": {
+        "padding-inline": {
+          "$value": "{spacing.4}",
+          "$type": "dimension"
+        }
+      }
+    },
+    "wide": {
+      "content": {
+        "max-width": {
+          "$value": "{layout.container.content.max}",
+          "$type": "dimension"
+        }
+      },
+      "grid": {
+        "columns": {
+          "$value": 12,
+          "$type": "number"
+        },
+        "gutter": {
+          "$value": "{spacing.5}",
+          "$type": "dimension"
+        }
+      },
+      "page": {
+        "padding-inline": {
+          "$value": "{spacing.9}",
+          "$type": "dimension"
+        }
+      }
+    }
+  }
+}

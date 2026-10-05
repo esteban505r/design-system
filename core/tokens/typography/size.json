@@ -1,0 +1,54 @@
+{
+  "font": {
+    "size": {
+      "100": {
+        "$value": "12px",
+        "$type": "fontSize"
+      },
+      "200": {
+        "$value": "14px",
+        "$type": "fontSize"
+      },
+      "300": {
+        "$value": "16px",
+        "$type": "fontSize"
+      },
+      "400": {
+        "$value": "18px",
+        "$type": "fontSize"
+      },
+      "500": {
+        "$value": "20px",
+        "$type": "fontSize"
+      },
+      "600": {
+        "$value": "24px",
+        "$type": "fontSize"
+      },
+      "700": {
+        "$value": "30px",
+        "$type": "fontSize"
+      },
+      "800": {
+        "$value": "36px",
+        "$type": "fontSize"
+      },
+      "900": {
+        "$value": "48px",
+        "$type": "fontSize"
+      },
+      "1000": {
+        "$value": "60px",
+        "$type": "fontSize"
+      },
+      "1100": {
+        "$value": "72px",
+        "$type": "fontSize"
+      },
+      "050": {
+        "$value": "10px",
+        "$type": "fontSize"
+      }
+    }
+  }
+}

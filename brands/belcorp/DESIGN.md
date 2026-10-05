@@ -3,27 +3,27 @@
 > ## 🤖 Automatically generated — do not edit
 >
 > This file is written by `pipeline/sd.config.mjs` (the `markdown/design-doc`
-> format) from **`brands/belcorp/figma/tokens.json`**, the single source of truth. Any edit you
+> format) from **`tokens.json`**, the single source of truth. Any edit you
 > make here is overwritten the next time it regenerates.
 >
 > **To change a value:** change the token in Figma, export to
-> `brands/belcorp/figma/tokens.json`, then run `pnpm run sync`.
+> `tokens.json`, then run `pnpm run sync`.
 
 ### When this file regenerates
 
 | When | What triggers it |
 |---|---|
-| `pnpm run sync` (or `sync:figma`) | Manually, after editing `brands/belcorp/figma/tokens.json` |
+| `pnpm run sync` (or `sync:figma`) | Manually, after editing `tokens.json` |
 | `pnpm run build` | Style Dictionary rebuild — the `docs` platform runs with every other platform |
-| **Sync tokens from Figma JSON** workflow | A push touching `brands/belcorp/figma/tokens.json`, or manual dispatch |
+| **Sync tokens from Figma JSON** workflow | A push touching `tokens.json`, or manual dispatch |
 | **Publish Android library** / **Publish web** | Both re-run `sync:figma` from a clean checkout before publishing |
 | **CI**, on every PR to `main` or `belcorp` | Re-runs `sync:figma` and **fails the build if this file differs** from what was committed |
 
 That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, so what you read here always matches the artifact the apps compile against.
 
-**Version:** 4.0.0  
-**Tokens:** 317  
-**By type:** color 240 · dimension 42 · fontSize 12 · shadow 5 · duration 5 · number 5 · fontWeight 4 · cubicBezier 3 · fontFamily 1
+**Version:** 5.0.0  
+**Tokens:** 766  
+**By type:** color 439 · dimension 283 · number 14 · fontSize 12 · duration 7 · fontFamily 4 · fontWeight 4 · cubicBezier 3
 
 ## How to reference a token
 
@@ -31,444 +31,1330 @@ Every token below is listed with the exact identifier to type on each platform.
 
 | Platform | Import | Example |
 |---|---|---|
-| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorPrimary500` |
-| Android XML | AAR resources | `@color/color_primary_500`, `@dimen/bds_spacing_4` |
-| iOS (Swift) | `DesignTokens` | `DesignTokens.colorPrimary500` |
-| Flutter | `design_tokens.dart` | `DesignTokens.colorPrimary500` |
-| Web (CSS) | `tokens.css` | `var(--color-primary-500)` |
-| Web (JS) | `tokens.js` | `ColorPrimary500` |
+| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorTextDefault` |
+| Android XML | AAR resources | `@color/color_text_default`, `@dimen/bds_spacing_4` |
+| iOS (Swift) | `DesignTokens` | `DesignTokens.colorTextDefault` |
+| Flutter | `design_tokens.dart` | `DesignTokens.colorTextDefault` |
+| Web (CSS) | `tokens.css` | `var(--color-text-default)` |
+| Web (JS) | `tokens.js` | `ColorTextDefault` |
 
 > **Android XML naming.** Every non-colour resource — `@dimen`, `@integer`, `@string` — is prefixed `bds_`. Names like `spacing_4` or `radius_md` are generic enough that an application module could define its own, and when an app and a library declare the same resource name AGP silently resolves to the app's value. Colours are **not** prefixed: `color_*` is already distinctive and is referenced throughout the consuming apps. The exact identifier for each token is in the **Android XML** column below — copy it from there.
 
 ## Contents
 
-- [color · app](#color--app) — 118
-- [color · bg](#color--bg) — 11
-- [color · blue](#color--blue) — 5
-- [color · border](#color--border) — 4
-- [color · brand](#color--brand) — 4
-- [color · brown](#color--brown) — 1
-- [color · burgundy](#color--burgundy) — 1
-- [color · cyan](#color--cyan) — 1
-- [color · gray](#color--gray) — 10
-- [color · green](#color--green) — 2
-- [color · interactive](#color--interactive) — 6
-- [color · neutral](#color--neutral) — 12
-- [color · orange](#color--orange) — 1
-- [color · pink](#color--pink) — 6
-- [color · primary](#color--primary) — 10
-- [color · purple](#color--purple) — 9
-- [color · red](#color--red) — 5
-- [color · secondary](#color--secondary) — 10
-- [color · status](#color--status) — 12
-- [color · text](#color--text) — 10
-- [color · yellow](#color--yellow) — 2
-- [elevation](#elevation) — 5
-- [font · family](#font--family) — 1
+- [color · action](#color--action) — 29
+- [color · alert](#color--alert) — 15
+- [color · alpha](#color--alpha) — 7
+- [color · badge](#color--badge) — 2
+- [color · border](#color--border) — 6
+- [color · bottom-sheet](#color--bottom-sheet) — 4
+- [color · brand](#color--brand) — 40
+- [color · breadcrumb-item](#color--breadcrumb-item) — 4
+- [color · breadcrumb-separator](#color--breadcrumb-separator) — 1
+- [color · card](#color--card) — 4
+- [color · checkbox](#color--checkbox) — 16
+- [color · data](#color--data) — 4
+- [color · data-table](#color--data-table) — 2
+- [color · dialog](#color--dialog) — 4
+- [color · disclosure](#color--disclosure) — 13
+- [color · drawer](#color--drawer) — 2
+- [color · feedback](#color--feedback) — 24
+- [color · field](#color--field) — 19
+- [color · filter-chip](#color--filter-chip) — 16
+- [color · focus](#color--focus) — 2
+- [color · highlight](#color--highlight) — 4
+- [color · icon](#color--icon) — 9
+- [color · loader](#color--loader) — 3
+- [color · menu](#color--menu) — 2
+- [color · menu-item](#color--menu-item) — 15
+- [color · navigation-item](#color--navigation-item) — 7
+- [color · neutral](#color--neutral) — 11
+- [color · overlay](#color--overlay) — 2
+- [color · pagination-control](#color--pagination-control) — 8
+- [color · pagination-gap](#color--pagination-gap) — 1
+- [color · pagination-page](#color--pagination-page) — 8
+- [color · popover](#color--popover) — 4
+- [color · product-card](#color--product-card) — 10
+- [color · progress-bar](#color--progress-bar) — 6
+- [color · promotion](#color--promotion) — 3
+- [color · radio](#color--radio) — 13
+- [color · segmented](#color--segmented) — 13
+- [color · select-menu](#color--select-menu) — 2
+- [color · select-option](#color--select-option) — 5
+- [color · skeleton](#color--skeleton) — 1
+- [color · state](#color--state) — 9
+- [color · state-message](#color--state-message) — 2
+- [color · status-tag](#color--status-tag) — 12
+- [color · step-item](#color--step-item) — 14
+- [color · surface](#color--surface) — 8
+- [color · switch](#color--switch) — 13
+- [color · table-cell](#color--table-cell) — 2
+- [color · table-row](#color--table-row) — 5
+- [color · tabs](#color--tabs) — 9
+- [color · text](#color--text) — 7
+- [color · toast](#color--toast) — 15
+- [color · tooltip](#color--tooltip) — 2
+- [component · accordion](#component--accordion) — 1
+- [component · alert](#component--alert) — 5
+- [component · badge](#component--badge) — 4
+- [component · bottom-sheet](#component--bottom-sheet) — 6
+- [component · breadcrumb](#component--breadcrumb) — 1
+- [component · breadcrumb-item](#component--breadcrumb-item) — 4
+- [component · button](#component--button) — 6
+- [component · card](#component--card) — 4
+- [component · checkbox](#component--checkbox) — 13
+- [component · control](#component--control) — 3
+- [component · data-table](#component--data-table) — 2
+- [component · dialog](#component--dialog) — 7
+- [component · disclosure](#component--disclosure) — 6
+- [component · drawer](#component--drawer) — 6
+- [component · field](#component--field) — 7
+- [component · filter-chip](#component--filter-chip) — 7
+- [component · icon](#component--icon) — 4
+- [component · loader](#component--loader) — 6
+- [component · menu](#component--menu) — 5
+- [component · menu-item](#component--menu-item) — 8
+- [component · navigation](#component--navigation) — 1
+- [component · navigation-group](#component--navigation-group) — 2
+- [component · navigation-item](#component--navigation-item) — 5
+- [component · pagination](#component--pagination) — 1
+- [component · pagination-control](#component--pagination-control) — 5
+- [component · pagination-page](#component--pagination-page) — 3
+- [component · popover](#component--popover) — 5
+- [component · product-card](#component--product-card) — 6
+- [component · progress-bar](#component--progress-bar) — 2
+- [component · radio](#component--radio) — 14
+- [component · radius](#component--radius) — 4
+- [component · segmented](#component--segmented) — 9
+- [component · select-menu](#component--select-menu) — 3
+- [component · select-option](#component--select-option) — 5
+- [component · skeleton](#component--skeleton) — 2
+- [component · state-message](#component--state-message) — 4
+- [component · status-tag](#component--status-tag) — 4
+- [component · step-item](#component--step-item) — 6
+- [component · stepper](#component--stepper) — 1
+- [component · switch](#component--switch) — 14
+- [component · table-cell](#component--table-cell) — 2
+- [component · table-row](#component--table-row) — 2
+- [component · tabs](#component--tabs) — 6
+- [component · textarea](#component--textarea) — 2
+- [component · toast](#component--toast) — 6
+- [component · tooltip](#component--tooltip) — 5
+- [font · family](#font--family) — 4
 - [font · line-height](#font--line-height) — 12
 - [font · size](#font--size) — 12
 - [font · weight](#font--weight) — 4
-- [motion · duration](#motion--duration) — 5
+- [icon · size](#icon--size) — 4
+- [icon · stroke](#icon--stroke) — 4
+- [layout · breakpoint](#layout--breakpoint) — 1
+- [layout · compact](#layout--compact) — 4
+- [layout · container](#layout--container) — 1
+- [layout · viewport](#layout--viewport) — 3
+- [layout · wide](#layout--wide) — 4
+- [motion · duration](#motion--duration) — 7
 - [motion · easing](#motion--easing) — 3
-- [radius](#radius) — 13
-- [spacing](#spacing) — 14
-- [stroke](#stroke) — 3
-- [z-index](#z-index) — 5
+- [radius](#radius) — 6
+- [size](#size) — 11
+- [spacing](#spacing) — 9
+- [stroke](#stroke) — 2
+- [z-index](#z-index) — 6
+- [z-index · level](#z-index--level) — 6
 
-## color · app
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.app.black.alpha-40` | `#00000066` | `colorAppBlackAlpha40` | `@color/color_app_black_alpha_40` | `--color-app-black-alpha-40` |
-| `color.app.blue.50-light` | `#FFF6F1` | `colorAppBlue50Light` | `@color/color_app_blue_50_light` | `--color-app-blue-50-light` |
-| `color.app.blue.alpha-50` | `#C23F2F80` | `colorAppBlueAlpha50` | `@color/color_app_blue_alpha_50` | `--color-app-blue-alpha-50` |
-| `color.app.border-subtle` | `#00000011` | `colorAppBorderSubtle` | `@color/color_app_border_subtle` | `--color-app-border-subtle` |
-| `color.app.brand-tint-05` | `#BE5B060D` | `colorAppBrandTint05` | `@color/color_app_brand_tint_05` | `--color-app-brand-tint-05` |
-| `color.app.camino-ambar` | `#59A354` | `colorAppCaminoAmbar` | `@color/color_app_camino_ambar` | `--color-app-camino-ambar` |
-| `color.app.camino-ambar-deep` | `#18712C` | `colorAppCaminoAmbarDeep` | `@color/color_app_camino_ambar_deep` | `--color-app-camino-ambar-deep` |
-| `color.app.camino-brillante` | `#605852` | `colorAppCaminoBrillante` | `@color/color_app_camino_brillante` | `--color-app-camino-brillante` |
-| `color.app.camino-brillante-deep` | `#27201C` | `colorAppCaminoBrillanteDeep` | `@color/color_app_camino_brillante_deep` | `--color-app-camino-brillante-deep` |
-| `color.app.camino-club-card-bg` | `#FFFCFA` | `colorAppCaminoClubCardBg` | `@color/color_app_camino_club_card_bg` | `--color-app-camino-club-card-bg` |
-| `color.app.camino-club-card-gold` | `#00AB93` | `colorAppCaminoClubCardGold` | `@color/color_app_camino_club_card_gold` | `--color-app-camino-club-card-gold` |
-| `color.app.camino-club-card-highlight` | `#CAFAFF` | `colorAppCaminoClubCardHighlight` | `@color/color_app_camino_club_card_highlight` | `--color-app-camino-club-card-highlight` |
-| `color.app.camino-consultora` | `#AB551B` | `colorAppCaminoConsultora` | `@color/color_app_camino_consultora` | `--color-app-camino-consultora` |
-| `color.app.camino-consultora-deep` | `#5E2900` | `colorAppCaminoConsultoraDeep` | `@color/color_app_camino_consultora_deep` | `--color-app-camino-consultora-deep` |
-| `color.app.camino-coral` | `#00CCB4` | `colorAppCaminoCoral` | `@color/color_app_camino_coral` | `--color-app-camino-coral` |
-| `color.app.camino-coral-deep` | `#007667` | `colorAppCaminoCoralDeep` | `@color/color_app_camino_coral_deep` | `--color-app-camino-coral-deep` |
-| `color.app.camino-cristal` | `#B791C4` | `colorAppCaminoCristal` | `@color/color_app_camino_cristal` | `--color-app-camino-cristal` |
-| `color.app.camino-cristal-light` | `#D9C8F5` | `colorAppCaminoCristalLight` | `@color/color_app_camino_cristal_light` | `--color-app-camino-cristal-light` |
-| `color.app.camino-diamante` | `#AF666B` | `colorAppCaminoDiamante` | `@color/color_app_camino_diamante` | `--color-app-camino-diamante` |
-| `color.app.camino-diamante-light` | `#CA8A8F` | `colorAppCaminoDiamanteLight` | `@color/color_app_camino_diamante_light` | `--color-app-camino-diamante-light` |
-| `color.app.camino-first-level` | `#00883C` | `colorAppCaminoFirstLevel` | `@color/color_app_camino_first_level` | `--color-app-camino-first-level` |
-| `color.app.camino-gran-brillante` | `#00B2A7` | `colorAppCaminoGranBrillante` | `@color/color_app_camino_gran_brillante` | `--color-app-camino-gran-brillante` |
-| `color.app.camino-gran-brillante-light` | `#00DDE7` | `colorAppCaminoGranBrillanteLight` | `@color/color_app_camino_gran_brillante_light` | `--color-app-camino-gran-brillante-light` |
-| `color.app.camino-jade` | `#98ACE3` | `colorAppCaminoJade` | `@color/color_app_camino_jade` | `--color-app-camino-jade` |
-| `color.app.camino-perla-deep` | `#454908` | `colorAppCaminoPerlaDeep` | `@color/color_app_camino_perla_deep` | `--color-app-camino-perla-deep` |
-| `color.app.camino-rubi` | `#4E8C29` | `colorAppCaminoRubi` | `@color/color_app_camino_rubi` | `--color-app-camino-rubi` |
-| `color.app.camino-rubi-light` | `#88A55D` | `colorAppCaminoRubiLight` | `@color/color_app_camino_rubi_light` | `--color-app-camino-rubi-light` |
-| `color.app.camino-topacio` | `#AD6475` | `colorAppCaminoTopacio` | `@color/color_app_camino_topacio` | `--color-app-camino-topacio` |
-| `color.app.camino-topacio-deep` | `#6C3D46` | `colorAppCaminoTopacioDeep` | `@color/color_app_camino_topacio_deep` | `--color-app-camino-topacio-deep` |
-| `color.app.campaign-purple` | `#D65B0D` | `colorAppCampaignPurple` | `@color/color_app_campaign_purple` | `--color-app-campaign-purple` |
-| `color.app.check-campaign-purple` | `#D1651F` | `colorAppCheckCampaignPurple` | `@color/color_app_check_campaign_purple` | `--color-app-check-campaign-purple` |
-| `color.app.divider-dotted` | `#9B918C` | `colorAppDividerDotted` | `@color/color_app_divider_dotted` | `--color-app-divider-dotted` |
-| `color.app.divider-onboarding` | `#251E19` | `colorAppDividerOnboarding` | `@color/color_app_divider_onboarding` | `--color-app-divider-onboarding` |
-| `color.app.divider-solid-dark` | `#180F08` | `colorAppDividerSolidDark` | `@color/color_app_divider_solid_dark` | `--color-app-divider-solid-dark` |
-| `color.app.dream-survey-bg` | `#FFE1D6` | `colorAppDreamSurveyBg` | `@color/color_app_dream_survey_bg` | `--color-app-dream-survey-bg` |
-| `color.app.earnings-pink-bg` | `#FEF2EC` | `colorAppEarningsPinkBg` | `@color/color_app_earnings_pink_bg` | `--color-app-earnings-pink-bg` |
-| `color.app.ecatalogue-blue` | `#C23F2F` | `colorAppEcatalogueBlue` | `@color/color_app_ecatalogue_blue` | `--color-app-ecatalogue-blue` |
-| `color.app.event-tag-gold` | `#00ABA1` | `colorAppEventTagGold` | `@color/color_app_event_tag_gold` | `--color-app-event-tag-gold` |
-| `color.app.gana-plus-indigo` | `#A84300` | `colorAppGanaPlusIndigo` | `@color/color_app_gana_plus_indigo` | `--color-app-gana-plus-indigo` |
-| `color.app.gana-plus-purple` | `#BA6100` | `colorAppGanaPlusPurple` | `@color/color_app_gana_plus_purple` | `--color-app-gana-plus-purple` |
-| `color.app.gray.300-light` | `#CDC2BC` | `colorAppGray300Light` | `@color/color_app_gray_300_light` | `--color-app-gray-300-light` |
-| `color.app.gray.50-warm` | `#FFF4EE` | `colorAppGray50Warm` | `@color/color_app_gray_50_warm` | `--color-app-gray-50-warm` |
-| `color.app.gray.600-warm` | `#7E746F` | `colorAppGray600Warm` | `@color/color_app_gray_600_warm` | `--color-app-gray-600-warm` |
-| `color.app.green.alpha-20` | `#98ACE333` | `colorAppGreenAlpha20` | `@color/color_app_green_alpha_20` | `--color-app-green-alpha-20` |
-| `color.app.header-purple-deep` | `#833600` | `colorAppHeaderPurpleDeep` | `@color/color_app_header_purple_deep` | `--color-app-header-purple-deep` |
-| `color.app.header-purple-light` | `#FFE8DF` | `colorAppHeaderPurpleLight` | `@color/color_app_header_purple_light` | `--color-app-header-purple-light` |
-| `color.app.header-text-dark` | `#27201B` | `colorAppHeaderTextDark` | `@color/color_app_header_text_dark` | `--color-app-header-text-dark` |
-| `color.app.highlight-arrow` | `#E6B6F1` | `colorAppHighlightArrow` | `@color/color_app_highlight_arrow` | `--color-app-highlight-arrow` |
-| `color.app.icon-burgundy` | `#75712A` | `colorAppIconBurgundy` | `@color/color_app_icon_burgundy` | `--color-app-icon-burgundy` |
-| `color.app.learning-path-bg` | `#FFDECF` | `colorAppLearningPathBg` | `@color/color_app_learning_path_bg` | `--color-app-learning-path-bg` |
-| `color.app.learning-path-dark` | `#642B00` | `colorAppLearningPathDark` | `@color/color_app_learning_path_dark` | `--color-app-learning-path-dark` |
-| `color.app.learning-path-lilac` | `#FFC8AC` | `colorAppLearningPathLilac` | `@color/color_app_learning_path_lilac` | `--color-app-learning-path-lilac` |
-| `color.app.learning-path-pink` | `#FBE1C0` | `colorAppLearningPathPink` | `@color/color_app_learning_path_pink` | `--color-app-learning-path-pink` |
-| `color.app.learning-path-purple` | `#AE4F00` | `colorAppLearningPathPurple` | `@color/color_app_learning_path_purple` | `--color-app-learning-path-purple` |
-| `color.app.modifier-indigo` | `#F36006` | `colorAppModifierIndigo` | `@color/color_app_modifier_indigo` | `--color-app-modifier-indigo` |
-| `color.app.modifier-lilac` | `#FFCDB8` | `colorAppModifierLilac` | `@color/color_app_modifier_lilac` | `--color-app-modifier-lilac` |
-| `color.app.offer-of-the-day-gold` | `#00CBCB` | `colorAppOfferOfTheDayGold` | `@color/color_app_offer_of_the_day_gold` | `--color-app-offer-of-the-day-gold` |
-| `color.app.payment-blue` | `#CD6870` | `colorAppPaymentBlue` | `@color/color_app_payment_blue` | `--color-app-payment-blue` |
-| `color.app.pdp-bg` | `#FEF3ED` | `colorAppPdpBg` | `@color/color_app_pdp_bg` | `--color-app-pdp-bg` |
-| `color.app.period-purple` | `#A16300` | `colorAppPeriodPurple` | `@color/color_app_period_purple` | `--color-app-period-purple` |
-| `color.app.pink.50-dark` | `#F7EEDC` | `colorAppPink50Dark` | `@color/color_app_pink_50_dark` | `--color-app-pink-50-dark` |
-| `color.app.points-amber` | `#00D5BB` | `colorAppPointsAmber` | `@color/color_app_points_amber` | `--color-app-points-amber` |
-| `color.app.points-orange` | `#00BD71` | `colorAppPointsOrange` | `@color/color_app_points_orange` | `--color-app-points-orange` |
-| `color.app.points-teal` | `#C2BAFF` | `colorAppPointsTeal` | `@color/color_app_points_teal` | `--color-app-points-teal` |
-| `color.app.purple-deep-action` | `#A44700` | `colorAppPurpleDeepAction` | `@color/color_app_purple_deep_action` | `--color-app-purple-deep-action` |
-| `color.app.purple.100-message` | `#FEE7D7` | `colorAppPurple100Message` | `@color/color_app_purple_100_message` | `--color-app-purple-100-message` |
-| `color.app.purple.100-quiz` | `#FFE9DF` | `colorAppPurple100Quiz` | `@color/color_app_purple_100_quiz` | `--color-app-purple-100-quiz` |
-| `color.app.purple.200-alpha-15` | `#FAA98226` | `colorAppPurple200Alpha15` | `@color/color_app_purple_200_alpha_15` | `--color-app-purple-200-alpha-15` |
-| `color.app.purple.200-gradient` | `#FCC6B1` | `colorAppPurple200Gradient` | `@color/color_app_purple_200_gradient` | `--color-app-purple-200-gradient` |
-| `color.app.purple.200-light` | `#FFCCB3` | `colorAppPurple200Light` | `@color/color_app_purple_200_light` | `--color-app-purple-200-light` |
-| `color.app.purple.200-mid` | `#FFCEB8` | `colorAppPurple200Mid` | `@color/color_app_purple_200_mid` | `--color-app-purple-200-mid` |
-| `color.app.purple.300-end` | `#F07900` | `colorAppPurple300End` | `@color/color_app_purple_300_end` | `--color-app-purple-300-end` |
-| `color.app.purple.300-scrim` | `#FAA982` | `colorAppPurple300Scrim` | `@color/color_app_purple_300_scrim` | `--color-app-purple-300-scrim` |
-| `color.app.purple.400-light` | `#DB8B5B` | `colorAppPurple400Light` | `@color/color_app_purple_400_light` | `--color-app-purple-400-light` |
-| `color.app.purple.50-bottom` | `#FFEFE8` | `colorAppPurple50Bottom` | `@color/color_app_purple_50_bottom` | `--color-app-purple-50-bottom` |
-| `color.app.purple.50-tip` | `#FFF2EA` | `colorAppPurple50Tip` | `@color/color_app_purple_50_tip` | `--color-app-purple-50-tip` |
-| `color.app.purple.500-action` | `#C4642A` | `colorAppPurple500Action` | `@color/color_app_purple_500_action` | `--color-app-purple-500-action` |
-| `color.app.purple.500-animation` | `#A76600` | `colorAppPurple500Animation` | `@color/color_app_purple_500_animation` | `--color-app-purple-500-animation` |
-| `color.app.purple.500-light` | `#D0773D` | `colorAppPurple500Light` | `@color/color_app_purple_500_light` | `--color-app-purple-500-light` |
-| `color.app.purple.600-consultora` | `#BE6100` | `colorAppPurple600Consultora` | `@color/color_app_purple_600_consultora` | `--color-app-purple-600-consultora` |
-| `color.app.purple.600-gana` | `#965E00` | `colorAppPurple600Gana` | `@color/color_app_purple_600_gana` | `--color-app-purple-600-gana` |
-| `color.app.purple.600-light` | `#C66722` | `colorAppPurple600Light` | `@color/color_app_purple_600_light` | `--color-app-purple-600-light` |
-| `color.app.purple.600-mid` | `#AC592B` | `colorAppPurple600Mid` | `@color/color_app_purple_600_mid` | `--color-app-purple-600-mid` |
-| `color.app.purple.700-alpha-50` | `#BE5B0680` | `colorAppPurple700Alpha50` | `@color/color_app_purple_700_alpha_50` | `--color-app-purple-700-alpha-50` |
-| `color.app.purple.700-light` | `#B35400` | `colorAppPurple700Light` | `@color/color_app_purple_700_light` | `--color-app-purple-700-light` |
-| `color.app.purple.800-alpha-20` | `#A34A0033` | `colorAppPurple800Alpha20` | `@color/color_app_purple_800_alpha_20` | `--color-app-purple-800-alpha-20` |
-| `color.app.purple.800-animation` | `#754E00` | `colorAppPurple800Animation` | `@color/color_app_purple_800_animation` | `--color-app-purple-800-animation` |
-| `color.app.purple.900-brillante` | `#7A3B04` | `colorAppPurple900Brillante` | `@color/color_app_purple_900_brillante` | `--color-app-purple-900-brillante` |
-| `color.app.purple.900-dark` | `#5B4133` | `colorAppPurple900Dark` | `@color/color_app_purple_900_dark` | `--color-app-purple-900-dark` |
-| `color.app.quiz-answer-correct` | `#00B2F0` | `colorAppQuizAnswerCorrect` | `@color/color_app_quiz_answer_correct` | `--color-app-quiz-answer-correct` |
-| `color.app.quiz-feedback-bg` | `#E0D4FF` | `colorAppQuizFeedbackBg` | `@color/color_app_quiz_feedback_bg` | `--color-app-quiz-feedback-bg` |
-| `color.app.quiz-feedback-green` | `#08A66E` | `colorAppQuizFeedbackGreen` | `@color/color_app_quiz_feedback_green` | `--color-app-quiz-feedback-green` |
-| `color.app.quiz-message-text` | `#4B423E` | `colorAppQuizMessageText` | `@color/color_app_quiz_message_text` | `--color-app-quiz-message-text` |
-| `color.app.quiz-progress-completed` | `#EB9A6F` | `colorAppQuizProgressCompleted` | `@color/color_app_quiz_progress_completed` | `--color-app-quiz-progress-completed` |
-| `color.app.quiz-progress-track` | `#E9DED8` | `colorAppQuizProgressTrack` | `@color/color_app_quiz_progress_track` | `--color-app-quiz-progress-track` |
-| `color.app.red.alpha-50` | `#00984080` | `colorAppRedAlpha50` | `@color/color_app_red_alpha_50` | `--color-app-red-alpha-50` |
-| `color.app.referrals-bg` | `#FEF3ED` | `colorAppReferralsBg` | `@color/color_app_referrals_bg` | `--color-app-referrals-bg` |
-| `color.app.refresh-green` | `#6EB7FF` | `colorAppRefreshGreen` | `@color/color_app_refresh_green` | `--color-app-refresh-green` |
-| `color.app.scrim-30` | `#0000004D` | `colorAppScrim30` | `@color/color_app_scrim_30` | `--color-app-scrim-30` |
-| `color.app.scrim-50` | `#00000080` | `colorAppScrim50` | `@color/color_app_scrim_50` | `--color-app-scrim-50` |
-| `color.app.shadow-15` | `#00000026` | `colorAppShadow15` | `@color/color_app_shadow_15` | `--color-app-shadow-15` |
-| `color.app.shimmer-highlight` | `#E9DED8` | `colorAppShimmerHighlight` | `@color/color_app_shimmer_highlight` | `--color-app-shimmer-highlight` |
-| `color.app.star-animated-lilac` | `#FC8A3A` | `colorAppStarAnimatedLilac` | `@color/color_app_star_animated_lilac` | `--color-app-star-animated-lilac` |
-| `color.app.star-animated-magenta` | `#A79700` | `colorAppStarAnimatedMagenta` | `@color/color_app_star_animated_magenta` | `--color-app-star-animated-magenta` |
-| `color.app.star-animated-violet` | `#C87400` | `colorAppStarAnimatedViolet` | `@color/color_app_star_animated_violet` | `--color-app-star-animated-violet` |
-| `color.app.stars-proximity-pink` | `#F7B954` | `colorAppStarsProximityPink` | `@color/color_app_stars_proximity_pink` | `--color-app-stars-proximity-pink` |
-| `color.app.stat-text-gray` | `#685F5A` | `colorAppStatTextGray` | `@color/color_app_stat_text_gray` | `--color-app-stat-text-gray` |
-| `color.app.tab-fallback-accent` | `#C15200` | `colorAppTabFallbackAccent` | `@color/color_app_tab_fallback_accent` | `--color-app-tab-fallback-accent` |
-| `color.app.tab-unselected` | `#FFDBCB` | `colorAppTabUnselected` | `@color/color_app_tab_unselected` | `--color-app-tab-unselected` |
-| `color.app.tooltip-purple` | `#D75600` | `colorAppTooltipPurple` | `@color/color_app_tooltip_purple` | `--color-app-tooltip-purple` |
-| `color.app.tracker-bg` | `#FFFDFB` | `colorAppTrackerBg` | `@color/color_app_tracker_bg` | `--color-app-tracker-bg` |
-| `color.app.unbeatable-dark` | `#854214` | `colorAppUnbeatableDark` | `@color/color_app_unbeatable_dark` | `--color-app-unbeatable-dark` |
-| `color.app.unbeatable-purple` | `#BE5A00` | `colorAppUnbeatablePurple` | `@color/color_app_unbeatable_purple` | `--color-app-unbeatable-purple` |
-| `color.app.video-control-icon` | `#ECE1DB` | `colorAppVideoControlIcon` | `@color/color_app_video_control_icon` | `--color-app-video-control-icon` |
-| `color.app.video-controls-bg` | `#462D25` | `colorAppVideoControlsBg` | `@color/color_app_video_controls_bg` | `--color-app-video-controls-bg` |
-| `color.app.white-alpha-20` | `#FFFFFF33` | `colorAppWhiteAlpha20` | `@color/color_app_white_alpha_20` | `--color-app-white-alpha-20` |
-| `color.app.white.alpha-75` | `#FFFFFFBF` | `colorAppWhiteAlpha75` | `@color/color_app_white_alpha_75` | `--color-app-white-alpha-75` |
-| `color.app.yellow.alpha-50` | `#00ABA180` | `colorAppYellowAlpha50` | `@color/color_app_yellow_alpha_50` | `--color-app-yellow-alpha-50` |
-
-## color · bg
+## color · action
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.bg.brand` | `#7D4DBE` | `colorBgBrand` | `@color/color_bg_brand` | `--color-bg-brand` |
-| `color.bg.brand-subtle` | `#F5F0FC` | `colorBgBrandSubtle` | `@color/color_bg_brand_subtle` | `--color-bg-brand-subtle` |
-| `color.bg.disabled` | `#F6F6F6` | `colorBgDisabled` | `@color/color_bg_disabled` | `--color-bg-disabled` |
-| `color.bg.error` | `#FEE2E2` | `colorBgError` | `@color/color_bg_error` | `--color-bg-error` |
-| `color.bg.info` | `#DBEAFE` | `colorBgInfo` | `@color/color_bg_info` | `--color-bg-info` |
-| `color.bg.overlay` | `#00000066` | `colorBgOverlay` | `@color/color_bg_overlay` | `--color-bg-overlay` |
-| `color.bg.page` | `#FFFFFF` | `colorBgPage` | `@color/color_bg_page` | `--color-bg-page` |
-| `color.bg.subtle` | `#F6F6F6` | `colorBgSubtle` | `@color/color_bg_subtle` | `--color-bg-subtle` |
-| `color.bg.success` | `#BBF7D0` | `colorBgSuccess` | `@color/color_bg_success` | `--color-bg-success` |
-| `color.bg.surface` | `#FFFFFF` | `colorBgSurface` | `@color/color_bg_surface` | `--color-bg-surface` |
-| `color.bg.warning` | `#FEF3C7` | `colorBgWarning` | `@color/color_bg_warning` | `--color-bg-warning` |
+| `color.action.destructive.background.default` | `{color.feedback.error.default}` | `colorActionDestructiveBackgroundDefault` | `@color/color_action_destructive_background_default` | `--color-action-destructive-background-default` |
+| `color.action.destructive.background.disabled` | `{color.neutral.200}` | `colorActionDestructiveBackgroundDisabled` | `@color/color_action_destructive_background_disabled` | `--color-action-destructive-background-disabled` |
+| `color.action.destructive.background.hover` | `{color.feedback.error.dark}` | `colorActionDestructiveBackgroundHover` | `@color/color_action_destructive_background_hover` | `--color-action-destructive-background-hover` |
+| `color.action.destructive.background.pressed` | `{color.feedback.error.dark}` | `colorActionDestructiveBackgroundPressed` | `@color/color_action_destructive_background_pressed` | `--color-action-destructive-background-pressed` |
+| `color.action.destructive.border.default` | `{color.feedback.error.default}` | `colorActionDestructiveBorderDefault` | `@color/color_action_destructive_border_default` | `--color-action-destructive-border-default` |
+| `color.action.destructive.border.disabled` | `{color.neutral.300}` | `colorActionDestructiveBorderDisabled` | `@color/color_action_destructive_border_disabled` | `--color-action-destructive-border-disabled` |
+| `color.action.destructive.content.default` | `{color.neutral.0}` | `colorActionDestructiveContentDefault` | `@color/color_action_destructive_content_default` | `--color-action-destructive-content-default` |
+| `color.action.destructive.content.disabled` | `{color.neutral.400}` | `colorActionDestructiveContentDisabled` | `@color/color_action_destructive_content_disabled` | `--color-action-destructive-content-disabled` |
+| `color.action.link.content.default` | `{color.brand.multibrand.primary.500}` | `colorActionLinkContentDefault` | `@color/color_action_link_content_default` | `--color-action-link-content-default` |
+| `color.action.link.content.disabled` | `{color.neutral.400}` | `colorActionLinkContentDisabled` | `@color/color_action_link_content_disabled` | `--color-action-link-content-disabled` |
+| `color.action.link.content.visited` | `{color.brand.multibrand.primary.700}` | `colorActionLinkContentVisited` | `@color/color_action_link_content_visited` | `--color-action-link-content-visited` |
+| `color.action.primary.background.default` | `{color.brand.multibrand.primary.500}` | `colorActionPrimaryBackgroundDefault` | `@color/color_action_primary_background_default` | `--color-action-primary-background-default` |
+| `color.action.primary.background.disabled` | `{color.neutral.200}` | `colorActionPrimaryBackgroundDisabled` | `@color/color_action_primary_background_disabled` | `--color-action-primary-background-disabled` |
+| `color.action.primary.content.default` | `{color.neutral.0}` | `colorActionPrimaryContentDefault` | `@color/color_action_primary_content_default` | `--color-action-primary-content-default` |
+| `color.action.primary.content.disabled` | `{color.neutral.400}` | `colorActionPrimaryContentDisabled` | `@color/color_action_primary_content_disabled` | `--color-action-primary-content-disabled` |
+| `color.action.primary.state.hover` | `{color.state.on-brand.hover}` | `colorActionPrimaryStateHover` | `@color/color_action_primary_state_hover` | `--color-action-primary-state-hover` |
+| `color.action.primary.state.pressed` | `{color.state.on-brand.pressed}` | `colorActionPrimaryStatePressed` | `@color/color_action_primary_state_pressed` | `--color-action-primary-state-pressed` |
+| `color.action.secondary.background.default` | `{color.alpha.transparent}` | `colorActionSecondaryBackgroundDefault` | `@color/color_action_secondary_background_default` | `--color-action-secondary-background-default` |
+| `color.action.secondary.background.disabled` | `{color.alpha.transparent}` | `colorActionSecondaryBackgroundDisabled` | `@color/color_action_secondary_background_disabled` | `--color-action-secondary-background-disabled` |
+| `color.action.secondary.border.default` | `{color.neutral.200}` | `colorActionSecondaryBorderDefault` | `@color/color_action_secondary_border_default` | `--color-action-secondary-border-default` |
+| `color.action.secondary.border.disabled` | `{color.neutral.300}` | `colorActionSecondaryBorderDisabled` | `@color/color_action_secondary_border_disabled` | `--color-action-secondary-border-disabled` |
+| `color.action.secondary.content.default` | `{color.neutral.1000}` | `colorActionSecondaryContentDefault` | `@color/color_action_secondary_content_default` | `--color-action-secondary-content-default` |
+| `color.action.secondary.content.disabled` | `{color.neutral.400}` | `colorActionSecondaryContentDisabled` | `@color/color_action_secondary_content_disabled` | `--color-action-secondary-content-disabled` |
+| `color.action.secondary.state.hover` | `{color.state.on-surface.hover}` | `colorActionSecondaryStateHover` | `@color/color_action_secondary_state_hover` | `--color-action-secondary-state-hover` |
+| `color.action.secondary.state.pressed` | `{color.state.on-surface.pressed}` | `colorActionSecondaryStatePressed` | `@color/color_action_secondary_state_pressed` | `--color-action-secondary-state-pressed` |
+| `color.action.tertiary.content.default` | `{color.brand.multibrand.primary.500}` | `colorActionTertiaryContentDefault` | `@color/color_action_tertiary_content_default` | `--color-action-tertiary-content-default` |
+| `color.action.tertiary.content.disabled` | `{color.neutral.400}` | `colorActionTertiaryContentDisabled` | `@color/color_action_tertiary_content_disabled` | `--color-action-tertiary-content-disabled` |
+| `color.action.tertiary.state.hover` | `{color.state.on-surface.hover}` | `colorActionTertiaryStateHover` | `@color/color_action_tertiary_state_hover` | `--color-action-tertiary-state-hover` |
+| `color.action.tertiary.state.pressed` | `{color.state.on-surface.pressed}` | `colorActionTertiaryStatePressed` | `@color/color_action_tertiary_state_pressed` | `--color-action-tertiary-state-pressed` |
 
-## color · blue
+## color · alert
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.blue.100` | `#FDE5EE` | `colorBlue100` | `@color/color_blue_100` | `--color-blue-100` |
-| `color.blue.300` | `#F1BAC4` | `colorBlue300` | `@color/color_blue_300` | `--color-blue-300` |
-| `color.blue.50` | `#FFF6F0` | `colorBlue50` | `@color/color_blue_50` | `--color-blue-50` |
-| `color.blue.600` | `#CB82A5` | `colorBlue600` | `@color/color_blue_600` | `--color-blue-600` |
-| `color.blue.700` | `#CD676E` | `colorBlue700` | `@color/color_blue_700` | `--color-blue-700` |
+| `color.alert.background.error` | `{color.feedback.error.background}` | `colorAlertBackgroundError` | `@color/color_alert_background_error` | `--color-alert-background-error` |
+| `color.alert.background.info` | `{color.feedback.info.background}` | `colorAlertBackgroundInfo` | `@color/color_alert_background_info` | `--color-alert-background-info` |
+| `color.alert.background.neutral` | `{color.surface.subtle}` | `colorAlertBackgroundNeutral` | `@color/color_alert_background_neutral` | `--color-alert-background-neutral` |
+| `color.alert.background.success` | `{color.feedback.success.background}` | `colorAlertBackgroundSuccess` | `@color/color_alert_background_success` | `--color-alert-background-success` |
+| `color.alert.background.warning` | `{color.feedback.warning.background}` | `colorAlertBackgroundWarning` | `@color/color_alert_background_warning` | `--color-alert-background-warning` |
+| `color.alert.border.error` | `{color.feedback.error.border}` | `colorAlertBorderError` | `@color/color_alert_border_error` | `--color-alert-border-error` |
+| `color.alert.border.info` | `{color.feedback.info.border}` | `colorAlertBorderInfo` | `@color/color_alert_border_info` | `--color-alert-border-info` |
+| `color.alert.border.neutral` | `{color.border.default}` | `colorAlertBorderNeutral` | `@color/color_alert_border_neutral` | `--color-alert-border-neutral` |
+| `color.alert.border.success` | `{color.feedback.success.border}` | `colorAlertBorderSuccess` | `@color/color_alert_border_success` | `--color-alert-border-success` |
+| `color.alert.border.warning` | `{color.feedback.warning.border}` | `colorAlertBorderWarning` | `@color/color_alert_border_warning` | `--color-alert-border-warning` |
+| `color.alert.content.error` | `{color.feedback.error.content}` | `colorAlertContentError` | `@color/color_alert_content_error` | `--color-alert-content-error` |
+| `color.alert.content.info` | `{color.feedback.info.content}` | `colorAlertContentInfo` | `@color/color_alert_content_info` | `--color-alert-content-info` |
+| `color.alert.content.neutral` | `{color.text.subtle}` | `colorAlertContentNeutral` | `@color/color_alert_content_neutral` | `--color-alert-content-neutral` |
+| `color.alert.content.success` | `{color.feedback.success.content}` | `colorAlertContentSuccess` | `@color/color_alert_content_success` | `--color-alert-content-success` |
+| `color.alert.content.warning` | `{color.feedback.warning.content}` | `colorAlertContentWarning` | `@color/color_alert_content_warning` | `--color-alert-content-warning` |
+
+## color · alpha
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.alpha.black.08` | `#00000014` | `colorAlphaBlack08` | `@color/color_alpha_black_08` | `--color-alpha-black-08` |
+| `color.alpha.black.12` | `#0000001f` | `colorAlphaBlack12` | `@color/color_alpha_black_12` | `--color-alpha-black-12` |
+| `color.alpha.black.40` | `#00000066` | `colorAlphaBlack40` | `@color/color_alpha_black_40` | `--color-alpha-black-40` |
+| `color.alpha.black.60` | `#00000099` | `colorAlphaBlack60` | `@color/color_alpha_black_60` | `--color-alpha-black-60` |
+| `color.alpha.transparent` | `#ffffff00` | `colorAlphaTransparent` | `@color/color_alpha_transparent` | `--color-alpha-transparent` |
+| `color.alpha.white.08` | `#ffffff14` | `colorAlphaWhite08` | `@color/color_alpha_white_08` | `--color-alpha-white-08` |
+| `color.alpha.white.12` | `#ffffff1f` | `colorAlphaWhite12` | `@color/color_alpha_white_12` | `--color-alpha-white-12` |
+
+## color · badge
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.badge.background` | `{color.feedback.error.default}` | `colorBadgeBackground` | `@color/color_badge_background` | `--color-badge-background` |
+| `color.badge.content` | `{color.text.inverse}` | `colorBadgeContent` | `@color/color_badge_content` | `--color-badge-content` |
 
 ## color · border
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.border.brand` | `#7D4DBE` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
-| `color.border.default` | `#EFEFEF` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
-| `color.border.disabled` | `#EFEFEF` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
-| `color.border.strong` | `#C4C4C4` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
+| `color.border.brand` | `{color.brand.multibrand.primary.500}` | `colorBorderBrand` | `@color/color_border_brand` | `--color-border-brand` |
+| `color.border.default` | `{color.neutral.200}` | `colorBorderDefault` | `@color/color_border_default` | `--color-border-default` |
+| `color.border.disabled` | `{color.neutral.200}` | `colorBorderDisabled` | `@color/color_border_disabled` | `--color-border-disabled` |
+| `color.border.inverse` | `{color.neutral.0}` | `colorBorderInverse` | `@color/color_border_inverse` | `--color-border-inverse` |
+| `color.border.strong` | `{color.neutral.300}` | `colorBorderStrong` | `@color/color_border_strong` | `--color-border-strong` |
+| `color.border.subtle` | `{color.neutral.100}` | `colorBorderSubtle` | `@color/color_border_subtle` | `--color-border-subtle` |
+
+## color · bottom-sheet
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.bottom-sheet.background` | `{color.surface.raised}` | `colorBottomSheetBackground` | `@color/color_bottom_sheet_background` | `--color-bottom-sheet-background` |
+| `color.bottom-sheet.body` | `{color.text.default}` | `colorBottomSheetBody` | `@color/color_bottom_sheet_body` | `--color-bottom-sheet-body` |
+| `color.bottom-sheet.support` | `{color.text.subtle}` | `colorBottomSheetSupport` | `@color/color_bottom_sheet_support` | `--color-bottom-sheet-support` |
+| `color.bottom-sheet.title` | `{color.text.default}` | `colorBottomSheetTitle` | `@color/color_bottom_sheet_title` | `--color-bottom-sheet-title` |
 
 ## color · brand
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.brand.belcorp` | `#7D4DBE` | `colorBrandBelcorp` | `@color/color_brand_belcorp` | `--color-brand-belcorp` |
-| `color.brand.cyzone` | `#AF0061` | `colorBrandCyzone` | `@color/color_brand_cyzone` | `--color-brand-cyzone` |
-| `color.brand.esika` | `#BA0000` | `colorBrandEsika` | `@color/color_brand_esika` | `--color-brand-esika` |
-| `color.brand.lbel` | `#40006B` | `colorBrandLbel` | `@color/color_brand_lbel` | `--color-brand-lbel` |
+| `color.brand.cyzone.magenta` | `#af0061` | `colorBrandCyzoneMagenta` | `@color/color_brand_cyzone_magenta` | `--color-brand-cyzone-magenta` |
+| `color.brand.cyzone.primary` | `#af0061` | `colorBrandCyzonePrimary` | `@color/color_brand_cyzone_primary` | `--color-brand-cyzone-primary` |
+| `color.brand.esika.apple-red` | `#ba0000` | `colorBrandEsikaAppleRed` | `@color/color_brand_esika_apple_red` | `--color-brand-esika-apple-red` |
+| `color.brand.esika.beige` | `#ffd5b6` | `colorBrandEsikaBeige` | `@color/color_brand_esika_beige` | `--color-brand-esika-beige` |
+| `color.brand.esika.berry-red` | `#590015` | `colorBrandEsikaBerryRed` | `@color/color_brand_esika_berry_red` | `--color-brand-esika-berry-red` |
+| `color.brand.esika.bright-yellow` | `#f0ff00` | `colorBrandEsikaBrightYellow` | `@color/color_brand_esika_bright_yellow` | `--color-brand-esika-bright-yellow` |
+| `color.brand.esika.cherry-red` | `#880000` | `colorBrandEsikaCherryRed` | `@color/color_brand_esika_cherry_red` | `--color-brand-esika-cherry-red` |
+| `color.brand.esika.plum` | `#3c000f` | `colorBrandEsikaPlum` | `@color/color_brand_esika_plum` | `--color-brand-esika-plum` |
+| `color.brand.esika.primary` | `#ff0000` | `colorBrandEsikaPrimary` | `@color/color_brand_esika_primary` | `--color-brand-esika-primary` |
+| `color.brand.lbel.gold.dark` | `#b08e4a` | `colorBrandLbelGoldDark` | `@color/color_brand_lbel_gold_dark` | `--color-brand-lbel-gold-dark` |
+| `color.brand.lbel.gold.light` | `#e0c079` | `colorBrandLbelGoldLight` | `@color/color_brand_lbel_gold_light` | `--color-brand-lbel-gold-light` |
+| `color.brand.lbel.primary` | `#40006b` | `colorBrandLbelPrimary` | `@color/color_brand_lbel_primary` | `--color-brand-lbel-primary` |
+| `color.brand.lbel.purple.100` | `#dccdff` | `colorBrandLbelPurple100` | `@color/color_brand_lbel_purple_100` | `--color-brand-lbel-purple-100` |
+| `color.brand.lbel.purple.200` | `#bea5f5` | `colorBrandLbelPurple200` | `@color/color_brand_lbel_purple_200` | `--color-brand-lbel-purple-200` |
+| `color.brand.lbel.purple.300` | `#9b7edb` | `colorBrandLbelPurple300` | `@color/color_brand_lbel_purple_300` | `--color-brand-lbel-purple-300` |
+| `color.brand.lbel.purple.400` | `#7d4dbe` | `colorBrandLbelPurple400` | `@color/color_brand_lbel_purple_400` | `--color-brand-lbel-purple-400` |
+| `color.brand.lbel.purple.primary` | `#40006b` | `colorBrandLbelPurplePrimary` | `@color/color_brand_lbel_purple_primary` | `--color-brand-lbel-purple-primary` |
+| `color.brand.multibrand.cyzone.primary` | `#af0061` | `colorBrandMultibrandCyzonePrimary` | `@color/color_brand_multibrand_cyzone_primary` | `--color-brand-multibrand-cyzone-primary` |
+| `color.brand.multibrand.esika.primary` | `#e1251b` | `colorBrandMultibrandEsikaPrimary` | `@color/color_brand_multibrand_esika_primary` | `--color-brand-multibrand-esika-primary` |
+| `color.brand.multibrand.lbel.primary` | `#40006b` | `colorBrandMultibrandLbelPrimary` | `@color/color_brand_multibrand_lbel_primary` | `--color-brand-multibrand-lbel-primary` |
+| `color.brand.multibrand.primary.00` | `#f5f0fc` | `colorBrandMultibrandPrimary00` | `@color/color_brand_multibrand_primary_00` | `--color-brand-multibrand-primary-00` |
+| `color.brand.multibrand.primary.100` | `#d6c4f2` | `colorBrandMultibrandPrimary100` | `@color/color_brand_multibrand_primary_100` | `--color-brand-multibrand-primary-100` |
+| `color.brand.multibrand.primary.200` | `#b896e7` | `colorBrandMultibrandPrimary200` | `@color/color_brand_multibrand_primary_200` | `--color-brand-multibrand-primary-200` |
+| `color.brand.multibrand.primary.300` | `#9d6ed9` | `colorBrandMultibrandPrimary300` | `@color/color_brand_multibrand_primary_300` | `--color-brand-multibrand-primary-300` |
+| `color.brand.multibrand.primary.400` | `#8a5ace` | `colorBrandMultibrandPrimary400` | `@color/color_brand_multibrand_primary_400` | `--color-brand-multibrand-primary-400` |
+| `color.brand.multibrand.primary.50` | `#ebe2f8` | `colorBrandMultibrandPrimary50` | `@color/color_brand_multibrand_primary_50` | `--color-brand-multibrand-primary-50` |
+| `color.brand.multibrand.primary.500` | `#7d4dbe` | `colorBrandMultibrandPrimary500` | `@color/color_brand_multibrand_primary_500` | `--color-brand-multibrand-primary-500` |
+| `color.brand.multibrand.primary.600` | `#6436ab` | `colorBrandMultibrandPrimary600` | `@color/color_brand_multibrand_primary_600` | `--color-brand-multibrand-primary-600` |
+| `color.brand.multibrand.primary.700` | `#471f86` | `colorBrandMultibrandPrimary700` | `@color/color_brand_multibrand_primary_700` | `--color-brand-multibrand-primary-700` |
+| `color.brand.multibrand.primary.800` | `#2d0f5e` | `colorBrandMultibrandPrimary800` | `@color/color_brand_multibrand_primary_800` | `--color-brand-multibrand-primary-800` |
+| `color.brand.multibrand.secondary.00` | `#fffdf5` | `colorBrandMultibrandSecondary00` | `@color/color_brand_multibrand_secondary_00` | `--color-brand-multibrand-secondary-00` |
+| `color.brand.multibrand.secondary.100` | `#ffecb3` | `colorBrandMultibrandSecondary100` | `@color/color_brand_multibrand_secondary_100` | `--color-brand-multibrand-secondary-100` |
+| `color.brand.multibrand.secondary.200` | `#ffe082` | `colorBrandMultibrandSecondary200` | `@color/color_brand_multibrand_secondary_200` | `--color-brand-multibrand-secondary-200` |
+| `color.brand.multibrand.secondary.300` | `#ffd54f` | `colorBrandMultibrandSecondary300` | `@color/color_brand_multibrand_secondary_300` | `--color-brand-multibrand-secondary-300` |
+| `color.brand.multibrand.secondary.400` | `#ffca28` | `colorBrandMultibrandSecondary400` | `@color/color_brand_multibrand_secondary_400` | `--color-brand-multibrand-secondary-400` |
+| `color.brand.multibrand.secondary.50` | `#fff8e1` | `colorBrandMultibrandSecondary50` | `@color/color_brand_multibrand_secondary_50` | `--color-brand-multibrand-secondary-50` |
+| `color.brand.multibrand.secondary.500` | `#ffbd42` | `colorBrandMultibrandSecondary500` | `@color/color_brand_multibrand_secondary_500` | `--color-brand-multibrand-secondary-500` |
+| `color.brand.multibrand.secondary.600` | `#ffb300` | `colorBrandMultibrandSecondary600` | `@color/color_brand_multibrand_secondary_600` | `--color-brand-multibrand-secondary-600` |
+| `color.brand.multibrand.secondary.700` | `#e79b1d` | `colorBrandMultibrandSecondary700` | `@color/color_brand_multibrand_secondary_700` | `--color-brand-multibrand-secondary-700` |
+| `color.brand.multibrand.secondary.800` | `#c28b30` | `colorBrandMultibrandSecondary800` | `@color/color_brand_multibrand_secondary_800` | `--color-brand-multibrand-secondary-800` |
 
-## color · brown
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.brown.600` | `#457972` | `colorBrown600` | `@color/color_brown_600` | `--color-brown-600` |
-
-## color · burgundy
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.burgundy.800` | `#473B00` | `colorBurgundy800` | `@color/color_burgundy_800` | `--color-burgundy-800` |
-
-## color · cyan
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.cyan.500` | `#D092C5` | `colorCyan500` | `@color/color_cyan_500` | `--color-cyan-500` |
-
-## color · gray
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.gray.100` | `#F8EDE7` | `colorGray100` | `@color/color_gray_100` | `--color-gray-100` |
-| `color.gray.200` | `#E2D7D1` | `colorGray200` | `@color/color_gray_200` | `--color-gray-200` |
-| `color.gray.300` | `#D5CAC4` | `colorGray300` | `@color/color_gray_300` | `--color-gray-300` |
-| `color.gray.400` | `#C6BBB5` | `colorGray400` | `@color/color_gray_400` | `--color-gray-400` |
-| `color.gray.50` | `#FBF0EA` | `colorGray50` | `@color/color_gray_50` | `--color-gray-50` |
-| `color.gray.500` | `#988F89` | `colorGray500` | `@color/color_gray_500` | `--color-gray-500` |
-| `color.gray.600` | `#786E69` | `colorGray600` | `@color/color_gray_600` | `--color-gray-600` |
-| `color.gray.700` | `#5A524D` | `colorGray700` | `@color/color_gray_700` | `--color-gray-700` |
-| `color.gray.800` | `#413934` | `colorGray800` | `@color/color_gray_800` | `--color-gray-800` |
-| `color.gray.850` | `#3B332E` | `colorGray850` | `@color/color_gray_850` | `--color-gray-850` |
-
-## color · green
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.green.50` | `#F9EEE8` | `colorGreen50` | `@color/color_green_50` | `--color-green-50` |
-| `color.green.700` | `#2587CF` | `colorGreen700` | `@color/color_green_700` | `--color-green-700` |
-
-## color · interactive
+## color · breadcrumb-item
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.interactive.focus-ring` | `#8A5ACE` | `colorInteractiveFocusRing` | `@color/color_interactive_focus_ring` | `--color-interactive-focus-ring` |
-| `color.interactive.primary.active` | `#471F86` | `colorInteractivePrimaryActive` | `@color/color_interactive_primary_active` | `--color-interactive-primary-active` |
-| `color.interactive.primary.default` | `#7D4DBE` | `colorInteractivePrimaryDefault` | `@color/color_interactive_primary_default` | `--color-interactive-primary-default` |
-| `color.interactive.primary.disabled` | `#EFEFEF` | `colorInteractivePrimaryDisabled` | `@color/color_interactive_primary_disabled` | `--color-interactive-primary-disabled` |
-| `color.interactive.primary.hover` | `#6436AB` | `colorInteractivePrimaryHover` | `@color/color_interactive_primary_hover` | `--color-interactive-primary-hover` |
-| `color.interactive.primary.text` | `#FFFFFF` | `colorInteractivePrimaryText` | `@color/color_interactive_primary_text` | `--color-interactive-primary-text` |
+| `color.breadcrumb-item.background.default` | `{color.surface.default}` | `colorBreadcrumbItemBackgroundDefault` | `@color/color_breadcrumb_item_background_default` | `--color-breadcrumb-item-background-default` |
+| `color.breadcrumb-item.content.current` | `{color.text.default}` | `colorBreadcrumbItemContentCurrent` | `@color/color_breadcrumb_item_content_current` | `--color-breadcrumb-item-content-current` |
+| `color.breadcrumb-item.content.link` | `{color.text.brand}` | `colorBreadcrumbItemContentLink` | `@color/color_breadcrumb_item_content_link` | `--color-breadcrumb-item-content-link` |
+| `color.breadcrumb-item.focus.outer` | `{color.focus.ring.outer}` | `colorBreadcrumbItemFocusOuter` | `@color/color_breadcrumb_item_focus_outer` | `--color-breadcrumb-item-focus-outer` |
+
+## color · breadcrumb-separator
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.breadcrumb-separator.content` | `{color.text.disabled}` | `colorBreadcrumbSeparatorContent` | `@color/color_breadcrumb_separator_content` | `--color-breadcrumb-separator-content` |
+
+## color · card
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.card.background.default` | `{color.surface.default}` | `colorCardBackgroundDefault` | `@color/color_card_background_default` | `--color-card-background-default` |
+| `color.card.background.elevated` | `{color.surface.raised}` | `colorCardBackgroundElevated` | `@color/color_card_background_elevated` | `--color-card-background-elevated` |
+| `color.card.background.outlined` | `{color.surface.default}` | `colorCardBackgroundOutlined` | `@color/color_card_background_outlined` | `--color-card-background-outlined` |
+| `color.card.border.outlined` | `{color.border.default}` | `colorCardBorderOutlined` | `@color/color_card_border_outlined` | `--color-card-border-outlined` |
+
+## color · checkbox
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.checkbox.control.background.default` | `{color.surface.default}` | `colorCheckboxControlBackgroundDefault` | `@color/color_checkbox_control_background_default` | `--color-checkbox-control-background-default` |
+| `color.checkbox.control.background.disabled` | `{color.surface.disabled}` | `colorCheckboxControlBackgroundDisabled` | `@color/color_checkbox_control_background_disabled` | `--color-checkbox-control-background-disabled` |
+| `color.checkbox.control.background.selected` | `{color.action.primary.background.default}` | `colorCheckboxControlBackgroundSelected` | `@color/color_checkbox_control_background_selected` | `--color-checkbox-control-background-selected` |
+| `color.checkbox.control.background.selected-disabled` | `{color.action.primary.background.disabled}` | `colorCheckboxControlBackgroundSelectedDisabled` | `@color/color_checkbox_control_background_selected_disabled` | `--color-checkbox-control-background-selected-disabled` |
+| `color.checkbox.control.border.default` | `{color.border.strong}` | `colorCheckboxControlBorderDefault` | `@color/color_checkbox_control_border_default` | `--color-checkbox-control-border-default` |
+| `color.checkbox.control.border.disabled` | `{color.border.subtle}` | `colorCheckboxControlBorderDisabled` | `@color/color_checkbox_control_border_disabled` | `--color-checkbox-control-border-disabled` |
+| `color.checkbox.control.border.selected` | `{color.border.brand}` | `colorCheckboxControlBorderSelected` | `@color/color_checkbox_control_border_selected` | `--color-checkbox-control-border-selected` |
+| `color.checkbox.control.mark.default` | `{color.icon.inverse}` | `colorCheckboxControlMarkDefault` | `@color/color_checkbox_control_mark_default` | `--color-checkbox-control-mark-default` |
+| `color.checkbox.control.mark.disabled` | `{color.icon.inverse}` | `colorCheckboxControlMarkDisabled` | `@color/color_checkbox_control_mark_disabled` | `--color-checkbox-control-mark-disabled` |
+| `color.checkbox.focus.ring` | `{color.focus.ring.outer}` | `colorCheckboxFocusRing` | `@color/color_checkbox_focus_ring` | `--color-checkbox-focus-ring` |
+| `color.checkbox.group.label.default` | `{color.text.default}` | `colorCheckboxGroupLabelDefault` | `@color/color_checkbox_group_label_default` | `--color-checkbox-group-label-default` |
+| `color.checkbox.group.support.default` | `{color.field.support.default}` | `colorCheckboxGroupSupportDefault` | `@color/color_checkbox_group_support_default` | `--color-checkbox-group-support-default` |
+| `color.checkbox.group.support.error` | `{color.field.support.error}` | `colorCheckboxGroupSupportError` | `@color/color_checkbox_group_support_error` | `--color-checkbox-group-support-error` |
+| `color.checkbox.label.default` | `{color.text.default}` | `colorCheckboxLabelDefault` | `@color/color_checkbox_label_default` | `--color-checkbox-label-default` |
+| `color.checkbox.label.disabled` | `{color.text.disabled}` | `colorCheckboxLabelDisabled` | `@color/color_checkbox_label_disabled` | `--color-checkbox-label-disabled` |
+| `color.checkbox.state.hover` | `{color.state.on-surface.hover}` | `colorCheckboxStateHover` | `@color/color_checkbox_state_hover` | `--color-checkbox-state-hover` |
+
+## color · data
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.data.series.1` | `{color.brand.multibrand.primary.500}` | `colorDataSeries1` | `@color/color_data_series_1` | `--color-data-series-1` |
+| `color.data.series.2` | `{color.brand.multibrand.secondary.500}` | `colorDataSeries2` | `@color/color_data_series_2` | `--color-data-series-2` |
+| `color.data.series.3` | `{color.feedback.info.default}` | `colorDataSeries3` | `@color/color_data_series_3` | `--color-data-series-3` |
+| `color.data.series.4` | `{color.neutral.600}` | `colorDataSeries4` | `@color/color_data_series_4` | `--color-data-series-4` |
+
+## color · data-table
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.data-table.background` | `{color.surface.default}` | `colorDataTableBackground` | `@color/color_data_table_background` | `--color-data-table-background` |
+| `color.data-table.border` | `{color.border.default}` | `colorDataTableBorder` | `@color/color_data_table_border` | `--color-data-table-border` |
+
+## color · dialog
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.dialog.background` | `{color.surface.raised}` | `colorDialogBackground` | `@color/color_dialog_background` | `--color-dialog-background` |
+| `color.dialog.body` | `{color.text.default}` | `colorDialogBody` | `@color/color_dialog_body` | `--color-dialog-body` |
+| `color.dialog.support` | `{color.text.subtle}` | `colorDialogSupport` | `@color/color_dialog_support` | `--color-dialog-support` |
+| `color.dialog.title` | `{color.text.default}` | `colorDialogTitle` | `@color/color_dialog_title` | `--color-dialog-title` |
+
+## color · disclosure
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.disclosure.background.default` | `{color.surface.default}` | `colorDisclosureBackgroundDefault` | `@color/color_disclosure_background_default` | `--color-disclosure-background-default` |
+| `color.disclosure.background.disabled` | `{color.surface.default}` | `colorDisclosureBackgroundDisabled` | `@color/color_disclosure_background_disabled` | `--color-disclosure-background-disabled` |
+| `color.disclosure.background.focus` | `{color.surface.default}` | `colorDisclosureBackgroundFocus` | `@color/color_disclosure_background_focus` | `--color-disclosure-background-focus` |
+| `color.disclosure.background.hover` | `{color.state.on-surface.hover}` | `colorDisclosureBackgroundHover` | `@color/color_disclosure_background_hover` | `--color-disclosure-background-hover` |
+| `color.disclosure.background.pressed` | `{color.state.on-surface.pressed}` | `colorDisclosureBackgroundPressed` | `@color/color_disclosure_background_pressed` | `--color-disclosure-background-pressed` |
+| `color.disclosure.body` | `{color.text.default}` | `colorDisclosureBody` | `@color/color_disclosure_body` | `--color-disclosure-body` |
+| `color.disclosure.divider` | `{color.border.default}` | `colorDisclosureDivider` | `@color/color_disclosure_divider` | `--color-disclosure-divider` |
+| `color.disclosure.focus.inner` | `{color.focus.ring.inner}` | `colorDisclosureFocusInner` | `@color/color_disclosure_focus_inner` | `--color-disclosure-focus-inner` |
+| `color.disclosure.focus.outer` | `{color.focus.ring.outer}` | `colorDisclosureFocusOuter` | `@color/color_disclosure_focus_outer` | `--color-disclosure-focus-outer` |
+| `color.disclosure.icon.default` | `{color.icon.default}` | `colorDisclosureIconDefault` | `@color/color_disclosure_icon_default` | `--color-disclosure-icon-default` |
+| `color.disclosure.icon.disabled` | `{color.icon.disabled}` | `colorDisclosureIconDisabled` | `@color/color_disclosure_icon_disabled` | `--color-disclosure-icon-disabled` |
+| `color.disclosure.title.default` | `{color.text.default}` | `colorDisclosureTitleDefault` | `@color/color_disclosure_title_default` | `--color-disclosure-title-default` |
+| `color.disclosure.title.disabled` | `{color.text.disabled}` | `colorDisclosureTitleDisabled` | `@color/color_disclosure_title_disabled` | `--color-disclosure-title-disabled` |
+
+## color · drawer
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.drawer.background` | `{color.surface.raised}` | `colorDrawerBackground` | `@color/color_drawer_background` | `--color-drawer-background` |
+| `color.drawer.title` | `{color.text.default}` | `colorDrawerTitle` | `@color/color_drawer_title` | `--color-drawer-title` |
+
+## color · feedback
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.feedback.error.background` | `{color.feedback.error.light}` | `colorFeedbackErrorBackground` | `@color/color_feedback_error_background` | `--color-feedback-error-background` |
+| `color.feedback.error.border` | `{color.feedback.error.default}` | `colorFeedbackErrorBorder` | `@color/color_feedback_error_border` | `--color-feedback-error-border` |
+| `color.feedback.error.content` | `{color.feedback.error.dark}` | `colorFeedbackErrorContent` | `@color/color_feedback_error_content` | `--color-feedback-error-content` |
+| `color.feedback.error.dark` | `#b91c1c` | `colorFeedbackErrorDark` | `@color/color_feedback_error_dark` | `--color-feedback-error-dark` |
+| `color.feedback.error.default` | `#dc2626` | `colorFeedbackErrorDefault` | `@color/color_feedback_error_default` | `--color-feedback-error-default` |
+| `color.feedback.error.light` | `#fee2e2` | `colorFeedbackErrorLight` | `@color/color_feedback_error_light` | `--color-feedback-error-light` |
+| `color.feedback.info.background` | `{color.feedback.info.light}` | `colorFeedbackInfoBackground` | `@color/color_feedback_info_background` | `--color-feedback-info-background` |
+| `color.feedback.info.border` | `{color.feedback.info.default}` | `colorFeedbackInfoBorder` | `@color/color_feedback_info_border` | `--color-feedback-info-border` |
+| `color.feedback.info.content` | `{color.feedback.info.dark}` | `colorFeedbackInfoContent` | `@color/color_feedback_info_content` | `--color-feedback-info-content` |
+| `color.feedback.info.dark` | `#1245d4` | `colorFeedbackInfoDark` | `@color/color_feedback_info_dark` | `--color-feedback-info-dark` |
+| `color.feedback.info.default` | `#2563eb` | `colorFeedbackInfoDefault` | `@color/color_feedback_info_default` | `--color-feedback-info-default` |
+| `color.feedback.info.light` | `#dbeafe` | `colorFeedbackInfoLight` | `@color/color_feedback_info_light` | `--color-feedback-info-light` |
+| `color.feedback.success.background` | `{color.feedback.success.light}` | `colorFeedbackSuccessBackground` | `@color/color_feedback_success_background` | `--color-feedback-success-background` |
+| `color.feedback.success.border` | `{color.feedback.success.default}` | `colorFeedbackSuccessBorder` | `@color/color_feedback_success_border` | `--color-feedback-success-border` |
+| `color.feedback.success.content` | `{color.feedback.success.dark}` | `colorFeedbackSuccessContent` | `@color/color_feedback_success_content` | `--color-feedback-success-content` |
+| `color.feedback.success.dark` | `#166534` | `colorFeedbackSuccessDark` | `@color/color_feedback_success_dark` | `--color-feedback-success-dark` |
+| `color.feedback.success.default` | `#16a34a` | `colorFeedbackSuccessDefault` | `@color/color_feedback_success_default` | `--color-feedback-success-default` |
+| `color.feedback.success.light` | `#bbf7d0` | `colorFeedbackSuccessLight` | `@color/color_feedback_success_light` | `--color-feedback-success-light` |
+| `color.feedback.warning.background` | `{color.feedback.warning.light}` | `colorFeedbackWarningBackground` | `@color/color_feedback_warning_background` | `--color-feedback-warning-background` |
+| `color.feedback.warning.border` | `{color.feedback.warning.default}` | `colorFeedbackWarningBorder` | `@color/color_feedback_warning_border` | `--color-feedback-warning-border` |
+| `color.feedback.warning.content` | `{color.feedback.warning.dark}` | `colorFeedbackWarningContent` | `@color/color_feedback_warning_content` | `--color-feedback-warning-content` |
+| `color.feedback.warning.dark` | `#92400e` | `colorFeedbackWarningDark` | `@color/color_feedback_warning_dark` | `--color-feedback-warning-dark` |
+| `color.feedback.warning.default` | `#ffb90a` | `colorFeedbackWarningDefault` | `@color/color_feedback_warning_default` | `--color-feedback-warning-default` |
+| `color.feedback.warning.light` | `#fef3c7` | `colorFeedbackWarningLight` | `@color/color_feedback_warning_light` | `--color-feedback-warning-light` |
+
+## color · field
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.field.background.default` | `{color.surface.default}` | `colorFieldBackgroundDefault` | `@color/color_field_background_default` | `--color-field-background-default` |
+| `color.field.background.disabled` | `{color.surface.disabled}` | `colorFieldBackgroundDisabled` | `@color/color_field_background_disabled` | `--color-field-background-disabled` |
+| `color.field.border.default` | `{color.border.default}` | `colorFieldBorderDefault` | `@color/color_field_border_default` | `--color-field-border-default` |
+| `color.field.border.disabled` | `{color.border.disabled}` | `colorFieldBorderDisabled` | `@color/color_field_border_disabled` | `--color-field-border-disabled` |
+| `color.field.border.error` | `{color.feedback.error.border}` | `colorFieldBorderError` | `@color/color_field_border_error` | `--color-field-border-error` |
+| `color.field.border.focus` | `{color.border.brand}` | `colorFieldBorderFocus` | `@color/color_field_border_focus` | `--color-field-border-focus` |
+| `color.field.border.hover` | `{color.border.strong}` | `colorFieldBorderHover` | `@color/color_field_border_hover` | `--color-field-border-hover` |
+| `color.field.border.success` | `{color.feedback.success.border}` | `colorFieldBorderSuccess` | `@color/color_field_border_success` | `--color-field-border-success` |
+| `color.field.content.default` | `{color.text.default}` | `colorFieldContentDefault` | `@color/color_field_content_default` | `--color-field-content-default` |
+| `color.field.content.disabled` | `{color.text.disabled}` | `colorFieldContentDisabled` | `@color/color_field_content_disabled` | `--color-field-content-disabled` |
+| `color.field.content.placeholder` | `{color.text.placeholder}` | `colorFieldContentPlaceholder` | `@color/color_field_content_placeholder` | `--color-field-content-placeholder` |
+| `color.field.icon.default` | `{color.icon.default}` | `colorFieldIconDefault` | `@color/color_field_icon_default` | `--color-field-icon-default` |
+| `color.field.icon.disabled` | `{color.icon.disabled}` | `colorFieldIconDisabled` | `@color/color_field_icon_disabled` | `--color-field-icon-disabled` |
+| `color.field.label.default` | `{color.text.default}` | `colorFieldLabelDefault` | `@color/color_field_label_default` | `--color-field-label-default` |
+| `color.field.label.disabled` | `{color.text.disabled}` | `colorFieldLabelDisabled` | `@color/color_field_label_disabled` | `--color-field-label-disabled` |
+| `color.field.support.default` | `{color.text.subtle}` | `colorFieldSupportDefault` | `@color/color_field_support_default` | `--color-field-support-default` |
+| `color.field.support.disabled` | `{color.text.disabled}` | `colorFieldSupportDisabled` | `@color/color_field_support_disabled` | `--color-field-support-disabled` |
+| `color.field.support.error` | `{color.feedback.error.content}` | `colorFieldSupportError` | `@color/color_field_support_error` | `--color-field-support-error` |
+| `color.field.support.success` | `{color.feedback.success.content}` | `colorFieldSupportSuccess` | `@color/color_field_support_success` | `--color-field-support-success` |
+
+## color · filter-chip
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.filter-chip.background.default` | `{color.surface.raised}` | `colorFilterChipBackgroundDefault` | `@color/color_filter_chip_background_default` | `--color-filter-chip-background-default` |
+| `color.filter-chip.background.disabled` | `{color.surface.disabled}` | `colorFilterChipBackgroundDisabled` | `@color/color_filter_chip_background_disabled` | `--color-filter-chip-background-disabled` |
+| `color.filter-chip.background.hover` | `{color.state.on-surface.hover}` | `colorFilterChipBackgroundHover` | `@color/color_filter_chip_background_hover` | `--color-filter-chip-background-hover` |
+| `color.filter-chip.background.selected` | `{color.state.selected.background}` | `colorFilterChipBackgroundSelected` | `@color/color_filter_chip_background_selected` | `--color-filter-chip-background-selected` |
+| `color.filter-chip.background.selected-disabled` | `{color.action.primary.background.disabled}` | `colorFilterChipBackgroundSelectedDisabled` | `@color/color_filter_chip_background_selected_disabled` | `--color-filter-chip-background-selected-disabled` |
+| `color.filter-chip.background.selected-hover` | `{color.state.on-brand.hover}` | `colorFilterChipBackgroundSelectedHover` | `@color/color_filter_chip_background_selected_hover` | `--color-filter-chip-background-selected-hover` |
+| `color.filter-chip.border.default` | `{color.border.default}` | `colorFilterChipBorderDefault` | `@color/color_filter_chip_border_default` | `--color-filter-chip-border-default` |
+| `color.filter-chip.border.disabled` | `{color.border.disabled}` | `colorFilterChipBorderDisabled` | `@color/color_filter_chip_border_disabled` | `--color-filter-chip-border-disabled` |
+| `color.filter-chip.border.selected` | `{color.state.selected.border}` | `colorFilterChipBorderSelected` | `@color/color_filter_chip_border_selected` | `--color-filter-chip-border-selected` |
+| `color.filter-chip.border.selected-disabled` | `{color.border.disabled}` | `colorFilterChipBorderSelectedDisabled` | `@color/color_filter_chip_border_selected_disabled` | `--color-filter-chip-border-selected-disabled` |
+| `color.filter-chip.content.default` | `{color.text.default}` | `colorFilterChipContentDefault` | `@color/color_filter_chip_content_default` | `--color-filter-chip-content-default` |
+| `color.filter-chip.content.disabled` | `{color.text.disabled}` | `colorFilterChipContentDisabled` | `@color/color_filter_chip_content_disabled` | `--color-filter-chip-content-disabled` |
+| `color.filter-chip.content.selected` | `{color.state.selected.content}` | `colorFilterChipContentSelected` | `@color/color_filter_chip_content_selected` | `--color-filter-chip-content-selected` |
+| `color.filter-chip.content.selected-disabled` | `{color.text.disabled}` | `colorFilterChipContentSelectedDisabled` | `@color/color_filter_chip_content_selected_disabled` | `--color-filter-chip-content-selected-disabled` |
+| `color.filter-chip.focus.inner` | `{color.focus.ring.inner}` | `colorFilterChipFocusInner` | `@color/color_filter_chip_focus_inner` | `--color-filter-chip-focus-inner` |
+| `color.filter-chip.focus.outer` | `{color.focus.ring.outer}` | `colorFilterChipFocusOuter` | `@color/color_filter_chip_focus_outer` | `--color-filter-chip-focus-outer` |
+
+## color · focus
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.focus.ring.inner` | `{color.neutral.0}` | `colorFocusRingInner` | `@color/color_focus_ring_inner` | `--color-focus-ring-inner` |
+| `color.focus.ring.outer` | `{color.brand.multibrand.primary.400}` | `colorFocusRingOuter` | `@color/color_focus_ring_outer` | `--color-focus-ring-outer` |
+
+## color · highlight
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.highlight.background.default` | `{color.brand.multibrand.secondary.500}` | `colorHighlightBackgroundDefault` | `@color/color_highlight_background_default` | `--color-highlight-background-default` |
+| `color.highlight.background.subtle` | `{color.brand.multibrand.secondary.50}` | `colorHighlightBackgroundSubtle` | `@color/color_highlight_background_subtle` | `--color-highlight-background-subtle` |
+| `color.highlight.border` | `{color.brand.multibrand.secondary.600}` | `colorHighlightBorder` | `@color/color_highlight_border` | `--color-highlight-border` |
+| `color.highlight.content` | `{color.neutral.900}` | `colorHighlightContent` | `@color/color_highlight_content` | `--color-highlight-content` |
+
+## color · icon
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.icon.brand` | `{color.brand.multibrand.primary.500}` | `colorIconBrand` | `@color/color_icon_brand` | `--color-icon-brand` |
+| `color.icon.default` | `{color.neutral.1000}` | `colorIconDefault` | `@color/color_icon_default` | `--color-icon-default` |
+| `color.icon.disabled` | `{color.neutral.400}` | `colorIconDisabled` | `@color/color_icon_disabled` | `--color-icon-disabled` |
+| `color.icon.error` | `{color.feedback.error.content}` | `colorIconError` | `@color/color_icon_error` | `--color-icon-error` |
+| `color.icon.info` | `{color.feedback.info.content}` | `colorIconInfo` | `@color/color_icon_info` | `--color-icon-info` |
+| `color.icon.inverse` | `{color.neutral.0}` | `colorIconInverse` | `@color/color_icon_inverse` | `--color-icon-inverse` |
+| `color.icon.subtle` | `{color.neutral.600}` | `colorIconSubtle` | `@color/color_icon_subtle` | `--color-icon-subtle` |
+| `color.icon.success` | `{color.feedback.success.content}` | `colorIconSuccess` | `@color/color_icon_success` | `--color-icon-success` |
+| `color.icon.warning` | `{color.feedback.warning.content}` | `colorIconWarning` | `@color/color_icon_warning` | `--color-icon-warning` |
+
+## color · loader
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.loader.content.brand` | `{color.icon.brand}` | `colorLoaderContentBrand` | `@color/color_loader_content_brand` | `--color-loader-content-brand` |
+| `color.loader.content.default` | `{color.icon.default}` | `colorLoaderContentDefault` | `@color/color_loader_content_default` | `--color-loader-content-default` |
+| `color.loader.content.inverse` | `{color.icon.inverse}` | `colorLoaderContentInverse` | `@color/color_loader_content_inverse` | `--color-loader-content-inverse` |
+
+## color · menu
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.menu.background` | `{color.surface.raised}` | `colorMenuBackground` | `@color/color_menu_background` | `--color-menu-background` |
+| `color.menu.border` | `{color.border.default}` | `colorMenuBorder` | `@color/color_menu_border` | `--color-menu-border` |
+
+## color · menu-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.menu-item.background.default` | `{color.surface.raised}` | `colorMenuItemBackgroundDefault` | `@color/color_menu_item_background_default` | `--color-menu-item-background-default` |
+| `color.menu-item.background.destructive-hover` | `{color.feedback.error.background}` | `colorMenuItemBackgroundDestructiveHover` | `@color/color_menu_item_background_destructive_hover` | `--color-menu-item-background-destructive-hover` |
+| `color.menu-item.background.destructive-pressed` | `{color.feedback.error.background}` | `colorMenuItemBackgroundDestructivePressed` | `@color/color_menu_item_background_destructive_pressed` | `--color-menu-item-background-destructive-pressed` |
+| `color.menu-item.background.focus` | `{color.state.on-surface.hover}` | `colorMenuItemBackgroundFocus` | `@color/color_menu_item_background_focus` | `--color-menu-item-background-focus` |
+| `color.menu-item.background.hover` | `{color.state.on-surface.hover}` | `colorMenuItemBackgroundHover` | `@color/color_menu_item_background_hover` | `--color-menu-item-background-hover` |
+| `color.menu-item.background.pressed` | `{color.state.on-surface.pressed}` | `colorMenuItemBackgroundPressed` | `@color/color_menu_item_background_pressed` | `--color-menu-item-background-pressed` |
+| `color.menu-item.content.default` | `{color.text.default}` | `colorMenuItemContentDefault` | `@color/color_menu_item_content_default` | `--color-menu-item-content-default` |
+| `color.menu-item.content.destructive` | `{color.feedback.error.content}` | `colorMenuItemContentDestructive` | `@color/color_menu_item_content_destructive` | `--color-menu-item-content-destructive` |
+| `color.menu-item.content.disabled` | `{color.text.disabled}` | `colorMenuItemContentDisabled` | `@color/color_menu_item_content_disabled` | `--color-menu-item-content-disabled` |
+| `color.menu-item.content.subtle` | `{color.text.subtle}` | `colorMenuItemContentSubtle` | `@color/color_menu_item_content_subtle` | `--color-menu-item-content-subtle` |
+| `color.menu-item.divider` | `{color.border.subtle}` | `colorMenuItemDivider` | `@color/color_menu_item_divider` | `--color-menu-item-divider` |
+| `color.menu-item.focus-ring` | `{color.focus.ring.outer}` | `colorMenuItemFocusRing` | `@color/color_menu_item_focus_ring` | `--color-menu-item-focus-ring` |
+| `color.menu-item.icon.default` | `{color.icon.default}` | `colorMenuItemIconDefault` | `@color/color_menu_item_icon_default` | `--color-menu-item-icon-default` |
+| `color.menu-item.icon.destructive` | `{color.feedback.error.content}` | `colorMenuItemIconDestructive` | `@color/color_menu_item_icon_destructive` | `--color-menu-item-icon-destructive` |
+| `color.menu-item.icon.disabled` | `{color.icon.disabled}` | `colorMenuItemIconDisabled` | `@color/color_menu_item_icon_disabled` | `--color-menu-item-icon-disabled` |
+
+## color · navigation-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.navigation-item.background.default` | `{color.surface.default}` | `colorNavigationItemBackgroundDefault` | `@color/color_navigation_item_background_default` | `--color-navigation-item-background-default` |
+| `color.navigation-item.background.hover` | `{color.state.on-surface.hover}` | `colorNavigationItemBackgroundHover` | `@color/color_navigation_item_background_hover` | `--color-navigation-item-background-hover` |
+| `color.navigation-item.background.selected` | `{color.surface.brand-subtle}` | `colorNavigationItemBackgroundSelected` | `@color/color_navigation_item_background_selected` | `--color-navigation-item-background-selected` |
+| `color.navigation-item.content.default` | `{color.text.default}` | `colorNavigationItemContentDefault` | `@color/color_navigation_item_content_default` | `--color-navigation-item-content-default` |
+| `color.navigation-item.content.disabled` | `{color.text.disabled}` | `colorNavigationItemContentDisabled` | `@color/color_navigation_item_content_disabled` | `--color-navigation-item-content-disabled` |
+| `color.navigation-item.content.selected` | `{color.text.brand}` | `colorNavigationItemContentSelected` | `@color/color_navigation_item_content_selected` | `--color-navigation-item-content-selected` |
+| `color.navigation-item.focus.outer` | `{color.focus.ring.outer}` | `colorNavigationItemFocusOuter` | `@color/color_navigation_item_focus_outer` | `--color-navigation-item-focus-outer` |
 
 ## color · neutral
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.neutral.0` | `#FFFFFF` | `colorNeutral0` | `@color/color_neutral_0` | `--color-neutral-0` |
-| `color.neutral.100` | `#F6F6F6` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
+| `color.neutral.0` | `#ffffff` | `colorNeutral0` | `@color/color_neutral_0` | `--color-neutral-0` |
+| `color.neutral.100` | `#f6f6f6` | `colorNeutral100` | `@color/color_neutral_100` | `--color-neutral-100` |
 | `color.neutral.1000` | `#000000` | `colorNeutral1000` | `@color/color_neutral_1000` | `--color-neutral-1000` |
-| `color.neutral.200` | `#EFEFEF` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
-| `color.neutral.300` | `#C4C4C4` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
+| `color.neutral.200` | `#efefef` | `colorNeutral200` | `@color/color_neutral_200` | `--color-neutral-200` |
+| `color.neutral.300` | `#c4c4c4` | `colorNeutral300` | `@color/color_neutral_300` | `--color-neutral-300` |
 | `color.neutral.400` | `#949393` | `colorNeutral400` | `@color/color_neutral_400` | `--color-neutral-400` |
-| `color.neutral.50` | `#FBFBFB` | `colorNeutral50` | `@color/color_neutral_50` | `--color-neutral-50` |
 | `color.neutral.500` | `#777676` | `colorNeutral500` | `@color/color_neutral_500` | `--color-neutral-500` |
 | `color.neutral.600` | `#545353` | `colorNeutral600` | `@color/color_neutral_600` | `--color-neutral-600` |
-| `color.neutral.700` | `#3B3A3A` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
+| `color.neutral.700` | `#3b3a3a` | `colorNeutral700` | `@color/color_neutral_700` | `--color-neutral-700` |
 | `color.neutral.800` | `#212121` | `colorNeutral800` | `@color/color_neutral_800` | `--color-neutral-800` |
 | `color.neutral.900` | `#111111` | `colorNeutral900` | `@color/color_neutral_900` | `--color-neutral-900` |
 
-## color · orange
+## color · overlay
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.orange.500` | `#00D8C1` | `colorOrange500` | `@color/color_orange_500` | `--color-orange-500` |
+| `color.overlay.scrim` | `{color.alpha.black.40}` | `colorOverlayScrim` | `@color/color_overlay_scrim` | `--color-overlay-scrim` |
+| `color.overlay.strong` | `{color.alpha.black.60}` | `colorOverlayStrong` | `@color/color_overlay_strong` | `--color-overlay-strong` |
 
-## color · pink
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.pink.100` | `#FFD6A1` | `colorPink100` | `@color/color_pink_100` | `--color-pink-100` |
-| `color.pink.200` | `#F8D9AF` | `colorPink200` | `@color/color_pink_200` | `--color-pink-200` |
-| `color.pink.400` | `#C29E00` | `colorPink400` | `@color/color_pink_400` | `--color-pink-400` |
-| `color.pink.50` | `#FFF2E7` | `colorPink50` | `@color/color_pink_50` | `--color-pink-50` |
-| `color.pink.500` | `#D08500` | `colorPink500` | `@color/color_pink_500` | `--color-pink-500` |
-| `color.pink.700` | `#6B7E00` | `colorPink700` | `@color/color_pink_700` | `--color-pink-700` |
-
-## color · primary
+## color · pagination-control
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.primary.00` | `#F5F0FC` | `colorPrimary00` | `@color/color_primary_00` | `--color-primary-00` |
-| `color.primary.100` | `#D6C4F2` | `colorPrimary100` | `@color/color_primary_100` | `--color-primary-100` |
-| `color.primary.200` | `#B896E7` | `colorPrimary200` | `@color/color_primary_200` | `--color-primary-200` |
-| `color.primary.300` | `#9D6ED9` | `colorPrimary300` | `@color/color_primary_300` | `--color-primary-300` |
-| `color.primary.400` | `#8A5ACE` | `colorPrimary400` | `@color/color_primary_400` | `--color-primary-400` |
-| `color.primary.50` | `#EBE2F8` | `colorPrimary50` | `@color/color_primary_50` | `--color-primary-50` |
-| `color.primary.500` | `#7D4DBE` | `colorPrimary500` | `@color/color_primary_500` | `--color-primary-500` |
-| `color.primary.600` | `#6436AB` | `colorPrimary600` | `@color/color_primary_600` | `--color-primary-600` |
-| `color.primary.700` | `#471F86` | `colorPrimary700` | `@color/color_primary_700` | `--color-primary-700` |
-| `color.primary.800` | `#2D0F5E` | `colorPrimary800` | `@color/color_primary_800` | `--color-primary-800` |
+| `color.pagination-control.background.default` | `{color.surface.default}` | `colorPaginationControlBackgroundDefault` | `@color/color_pagination_control_background_default` | `--color-pagination-control-background-default` |
+| `color.pagination-control.background.hover` | `{color.state.on-surface.hover}` | `colorPaginationControlBackgroundHover` | `@color/color_pagination_control_background_hover` | `--color-pagination-control-background-hover` |
+| `color.pagination-control.background.pressed` | `{color.state.on-surface.pressed}` | `colorPaginationControlBackgroundPressed` | `@color/color_pagination_control_background_pressed` | `--color-pagination-control-background-pressed` |
+| `color.pagination-control.content.default` | `{color.text.default}` | `colorPaginationControlContentDefault` | `@color/color_pagination_control_content_default` | `--color-pagination-control-content-default` |
+| `color.pagination-control.content.disabled` | `{color.text.disabled}` | `colorPaginationControlContentDisabled` | `@color/color_pagination_control_content_disabled` | `--color-pagination-control-content-disabled` |
+| `color.pagination-control.focus.outer` | `{color.focus.ring.outer}` | `colorPaginationControlFocusOuter` | `@color/color_pagination_control_focus_outer` | `--color-pagination-control-focus-outer` |
+| `color.pagination-control.icon.default` | `{color.icon.default}` | `colorPaginationControlIconDefault` | `@color/color_pagination_control_icon_default` | `--color-pagination-control-icon-default` |
+| `color.pagination-control.icon.disabled` | `{color.icon.disabled}` | `colorPaginationControlIconDisabled` | `@color/color_pagination_control_icon_disabled` | `--color-pagination-control-icon-disabled` |
 
-## color · purple
+## color · pagination-gap
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.purple.100` | `#FFEAE2` | `colorPurple100` | `@color/color_purple_100` | `--color-purple-100` |
-| `color.purple.200` | `#FFD4BF` | `colorPurple200` | `@color/color_purple_200` | `--color-purple-200` |
-| `color.purple.300` | `#F3C2AA` | `colorPurple300` | `@color/color_purple_300` | `--color-purple-300` |
-| `color.purple.400` | `#D16100` | `colorPurple400` | `@color/color_purple_400` | `--color-purple-400` |
-| `color.purple.50` | `#F6ECE6` | `colorPurple50` | `@color/color_purple_50` | `--color-purple-50` |
-| `color.purple.500` | `#B05600` | `colorPurple500` | `@color/color_purple_500` | `--color-purple-500` |
-| `color.purple.600` | `#915100` | `colorPurple600` | `@color/color_purple_600` | `--color-purple-600` |
-| `color.purple.900` | `#5E2A00` | `colorPurple900` | `@color/color_purple_900` | `--color-purple-900` |
-| `color.purple.950` | `#5E2900` | `colorPurple950` | `@color/color_purple_950` | `--color-purple-950` |
+| `color.pagination-gap.content` | `{color.text.disabled}` | `colorPaginationGapContent` | `@color/color_pagination_gap_content` | `--color-pagination-gap-content` |
 
-## color · red
+## color · pagination-page
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.red.100` | `#E8EFE0` | `colorRed100` | `@color/color_red_100` | `--color-red-100` |
-| `color.red.400` | `#58B236` | `colorRed400` | `@color/color_red_400` | `--color-red-400` |
-| `color.red.50` | `#D9EBD3` | `colorRed50` | `@color/color_red_50` | `--color-red-50` |
-| `color.red.600` | `#008C41` | `colorRed600` | `@color/color_red_600` | `--color-red-600` |
-| `color.red.700` | `#00822F` | `colorRed700` | `@color/color_red_700` | `--color-red-700` |
+| `color.pagination-page.background.current` | `{color.surface.brand-subtle}` | `colorPaginationPageBackgroundCurrent` | `@color/color_pagination_page_background_current` | `--color-pagination-page-background-current` |
+| `color.pagination-page.background.default` | `{color.surface.default}` | `colorPaginationPageBackgroundDefault` | `@color/color_pagination_page_background_default` | `--color-pagination-page-background-default` |
+| `color.pagination-page.background.hover` | `{color.state.on-surface.hover}` | `colorPaginationPageBackgroundHover` | `@color/color_pagination_page_background_hover` | `--color-pagination-page-background-hover` |
+| `color.pagination-page.background.pressed` | `{color.state.on-surface.pressed}` | `colorPaginationPageBackgroundPressed` | `@color/color_pagination_page_background_pressed` | `--color-pagination-page-background-pressed` |
+| `color.pagination-page.content.current` | `{color.text.brand}` | `colorPaginationPageContentCurrent` | `@color/color_pagination_page_content_current` | `--color-pagination-page-content-current` |
+| `color.pagination-page.content.default` | `{color.text.default}` | `colorPaginationPageContentDefault` | `@color/color_pagination_page_content_default` | `--color-pagination-page-content-default` |
+| `color.pagination-page.content.disabled` | `{color.text.disabled}` | `colorPaginationPageContentDisabled` | `@color/color_pagination_page_content_disabled` | `--color-pagination-page-content-disabled` |
+| `color.pagination-page.focus.outer` | `{color.focus.ring.outer}` | `colorPaginationPageFocusOuter` | `@color/color_pagination_page_focus_outer` | `--color-pagination-page-focus-outer` |
 
-## color · secondary
-
-| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
-|---|---|---|---|---|
-| `color.secondary.00` | `#FFFDF5` | `colorSecondary00` | `@color/color_secondary_00` | `--color-secondary-00` |
-| `color.secondary.100` | `#FFECB3` | `colorSecondary100` | `@color/color_secondary_100` | `--color-secondary-100` |
-| `color.secondary.200` | `#FFE082` | `colorSecondary200` | `@color/color_secondary_200` | `--color-secondary-200` |
-| `color.secondary.300` | `#FFD54F` | `colorSecondary300` | `@color/color_secondary_300` | `--color-secondary-300` |
-| `color.secondary.400` | `#FFCA28` | `colorSecondary400` | `@color/color_secondary_400` | `--color-secondary-400` |
-| `color.secondary.50` | `#FFF8E1` | `colorSecondary50` | `@color/color_secondary_50` | `--color-secondary-50` |
-| `color.secondary.500` | `#FFBD42` | `colorSecondary500` | `@color/color_secondary_500` | `--color-secondary-500` |
-| `color.secondary.600` | `#FFB300` | `colorSecondary600` | `@color/color_secondary_600` | `--color-secondary-600` |
-| `color.secondary.700` | `#E79B1D` | `colorSecondary700` | `@color/color_secondary_700` | `--color-secondary-700` |
-| `color.secondary.800` | `#C28B30` | `colorSecondary800` | `@color/color_secondary_800` | `--color-secondary-800` |
-
-## color · status
+## color · popover
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.status.error` | `#DC2626` | `colorStatusError` | `@color/color_status_error` | `--color-status-error` |
-| `color.status.error-dark` | `#B91C1C` | `colorStatusErrorDark` | `@color/color_status_error_dark` | `--color-status-error-dark` |
-| `color.status.error-light` | `#FEE2E2` | `colorStatusErrorLight` | `@color/color_status_error_light` | `--color-status-error-light` |
-| `color.status.info` | `#2563EB` | `colorStatusInfo` | `@color/color_status_info` | `--color-status-info` |
-| `color.status.info-dark` | `#1245D4` | `colorStatusInfoDark` | `@color/color_status_info_dark` | `--color-status-info-dark` |
-| `color.status.info-light` | `#DBEAFE` | `colorStatusInfoLight` | `@color/color_status_info_light` | `--color-status-info-light` |
-| `color.status.success` | `#16A34A` | `colorStatusSuccess` | `@color/color_status_success` | `--color-status-success` |
-| `color.status.success-dark` | `#166534` | `colorStatusSuccessDark` | `@color/color_status_success_dark` | `--color-status-success-dark` |
-| `color.status.success-light` | `#BBF7D0` | `colorStatusSuccessLight` | `@color/color_status_success_light` | `--color-status-success-light` |
-| `color.status.warning` | `#FFB90A` | `colorStatusWarning` | `@color/color_status_warning` | `--color-status-warning` |
-| `color.status.warning-dark` | `#92400E` | `colorStatusWarningDark` | `@color/color_status_warning_dark` | `--color-status-warning-dark` |
-| `color.status.warning-light` | `#FEF3C7` | `colorStatusWarningLight` | `@color/color_status_warning_light` | `--color-status-warning-light` |
+| `color.popover.background` | `{color.surface.raised}` | `colorPopoverBackground` | `@color/color_popover_background` | `--color-popover-background` |
+| `color.popover.body` | `{color.text.subtle}` | `colorPopoverBody` | `@color/color_popover_body` | `--color-popover-body` |
+| `color.popover.border` | `{color.border.default}` | `colorPopoverBorder` | `@color/color_popover_border` | `--color-popover-border` |
+| `color.popover.title` | `{color.text.default}` | `colorPopoverTitle` | `@color/color_popover_title` | `--color-popover-title` |
+
+## color · product-card
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.product-card.background.available` | `{color.surface.default}` | `colorProductCardBackgroundAvailable` | `@color/color_product_card_background_available` | `--color-product-card-background-available` |
+| `color.product-card.background.out-of-stock` | `{color.surface.default}` | `colorProductCardBackgroundOutOfStock` | `@color/color_product_card_background_out_of_stock` | `--color-product-card-background-out-of-stock` |
+| `color.product-card.brand` | `{color.text.subtle}` | `colorProductCardBrand` | `@color/color_product_card_brand` | `--color-product-card-brand` |
+| `color.product-card.focus.outer` | `{color.focus.ring.outer}` | `colorProductCardFocusOuter` | `@color/color_product_card_focus_outer` | `--color-product-card-focus-outer` |
+| `color.product-card.media.background` | `{color.surface.subtle}` | `colorProductCardMediaBackground` | `@color/color_product_card_media_background` | `--color-product-card-media-background` |
+| `color.product-card.name.available` | `{color.text.default}` | `colorProductCardNameAvailable` | `@color/color_product_card_name_available` | `--color-product-card-name-available` |
+| `color.product-card.name.out-of-stock` | `{color.text.disabled}` | `colorProductCardNameOutOfStock` | `@color/color_product_card_name_out_of_stock` | `--color-product-card-name-out-of-stock` |
+| `color.product-card.previous-price` | `{color.text.subtle}` | `colorProductCardPreviousPrice` | `@color/color_product_card_previous_price` | `--color-product-card-previous-price` |
+| `color.product-card.price.available` | `{color.text.default}` | `colorProductCardPriceAvailable` | `@color/color_product_card_price_available` | `--color-product-card-price-available` |
+| `color.product-card.price.out-of-stock` | `{color.text.disabled}` | `colorProductCardPriceOutOfStock` | `@color/color_product_card_price_out_of_stock` | `--color-product-card-price-out-of-stock` |
+
+## color · progress-bar
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.progress-bar.fill.brand` | `{color.surface.brand}` | `colorProgressBarFillBrand` | `@color/color_progress_bar_fill_brand` | `--color-progress-bar-fill-brand` |
+| `color.progress-bar.fill.error` | `{color.feedback.error.content}` | `colorProgressBarFillError` | `@color/color_progress_bar_fill_error` | `--color-progress-bar-fill-error` |
+| `color.progress-bar.fill.success` | `{color.feedback.success.content}` | `colorProgressBarFillSuccess` | `@color/color_progress_bar_fill_success` | `--color-progress-bar-fill-success` |
+| `color.progress-bar.track.brand` | `{color.surface.brand-subtle}` | `colorProgressBarTrackBrand` | `@color/color_progress_bar_track_brand` | `--color-progress-bar-track-brand` |
+| `color.progress-bar.track.error` | `{color.feedback.error.background}` | `colorProgressBarTrackError` | `@color/color_progress_bar_track_error` | `--color-progress-bar-track-error` |
+| `color.progress-bar.track.success` | `{color.feedback.success.background}` | `colorProgressBarTrackSuccess` | `@color/color_progress_bar_track_success` | `--color-progress-bar-track-success` |
+
+## color · promotion
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.promotion.discount.background` | `{color.brand.multibrand.secondary.500}` | `colorPromotionDiscountBackground` | `@color/color_promotion_discount_background` | `--color-promotion-discount-background` |
+| `color.promotion.discount.border` | `{color.brand.multibrand.secondary.700}` | `colorPromotionDiscountBorder` | `@color/color_promotion_discount_border` | `--color-promotion-discount-border` |
+| `color.promotion.discount.content` | `{color.neutral.900}` | `colorPromotionDiscountContent` | `@color/color_promotion_discount_content` | `--color-promotion-discount-content` |
+
+## color · radio
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.radio.control.border.default` | `{color.border.strong}` | `colorRadioControlBorderDefault` | `@color/color_radio_control_border_default` | `--color-radio-control-border-default` |
+| `color.radio.control.border.disabled` | `{color.border.subtle}` | `colorRadioControlBorderDisabled` | `@color/color_radio_control_border_disabled` | `--color-radio-control-border-disabled` |
+| `color.radio.control.border.hover` | `{color.border.brand}` | `colorRadioControlBorderHover` | `@color/color_radio_control_border_hover` | `--color-radio-control-border-hover` |
+| `color.radio.control.border.selected` | `{color.border.brand}` | `colorRadioControlBorderSelected` | `@color/color_radio_control_border_selected` | `--color-radio-control-border-selected` |
+| `color.radio.control.dot.disabled` | `{color.icon.disabled}` | `colorRadioControlDotDisabled` | `@color/color_radio_control_dot_disabled` | `--color-radio-control-dot-disabled` |
+| `color.radio.control.dot.selected` | `{color.icon.brand}` | `colorRadioControlDotSelected` | `@color/color_radio_control_dot_selected` | `--color-radio-control-dot-selected` |
+| `color.radio.focus.ring` | `{color.focus.ring.outer}` | `colorRadioFocusRing` | `@color/color_radio_focus_ring` | `--color-radio-focus-ring` |
+| `color.radio.group.label.default` | `{color.text.default}` | `colorRadioGroupLabelDefault` | `@color/color_radio_group_label_default` | `--color-radio-group-label-default` |
+| `color.radio.group.support.default` | `{color.text.subtle}` | `colorRadioGroupSupportDefault` | `@color/color_radio_group_support_default` | `--color-radio-group-support-default` |
+| `color.radio.group.support.error` | `{color.feedback.error.content}` | `colorRadioGroupSupportError` | `@color/color_radio_group_support_error` | `--color-radio-group-support-error` |
+| `color.radio.label.default` | `{color.text.default}` | `colorRadioLabelDefault` | `@color/color_radio_label_default` | `--color-radio-label-default` |
+| `color.radio.label.disabled` | `{color.text.disabled}` | `colorRadioLabelDisabled` | `@color/color_radio_label_disabled` | `--color-radio-label-disabled` |
+| `color.radio.state.hover` | `{color.state.on-surface.hover}` | `colorRadioStateHover` | `@color/color_radio_state_hover` | `--color-radio-state-hover` |
+
+## color · segmented
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.segmented.background` | `{color.surface.subtle}` | `colorSegmentedBackground` | `@color/color_segmented_background` | `--color-segmented-background` |
+| `color.segmented.focus.inner` | `{color.focus.ring.inner}` | `colorSegmentedFocusInner` | `@color/color_segmented_focus_inner` | `--color-segmented-focus-inner` |
+| `color.segmented.focus.ring` | `{color.focus.ring.outer}` | `colorSegmentedFocusRing` | `@color/color_segmented_focus_ring` | `--color-segmented-focus-ring` |
+| `color.segmented.item.background.default` | `{color.surface.subtle}` | `colorSegmentedItemBackgroundDefault` | `@color/color_segmented_item_background_default` | `--color-segmented-item-background-default` |
+| `color.segmented.item.background.disabled` | `{color.surface.disabled}` | `colorSegmentedItemBackgroundDisabled` | `@color/color_segmented_item_background_disabled` | `--color-segmented-item-background-disabled` |
+| `color.segmented.item.background.hover` | `{color.surface.raised}` | `colorSegmentedItemBackgroundHover` | `@color/color_segmented_item_background_hover` | `--color-segmented-item-background-hover` |
+| `color.segmented.item.background.selected` | `{color.action.primary.background.default}` | `colorSegmentedItemBackgroundSelected` | `@color/color_segmented_item_background_selected` | `--color-segmented-item-background-selected` |
+| `color.segmented.item.background.selected-disabled` | `{color.action.primary.background.disabled}` | `colorSegmentedItemBackgroundSelectedDisabled` | `@color/color_segmented_item_background_selected_disabled` | `--color-segmented-item-background-selected-disabled` |
+| `color.segmented.item.content.default` | `{color.text.default}` | `colorSegmentedItemContentDefault` | `@color/color_segmented_item_content_default` | `--color-segmented-item-content-default` |
+| `color.segmented.item.content.disabled` | `{color.text.disabled}` | `colorSegmentedItemContentDisabled` | `@color/color_segmented_item_content_disabled` | `--color-segmented-item-content-disabled` |
+| `color.segmented.item.content.selected` | `{color.text.inverse}` | `colorSegmentedItemContentSelected` | `@color/color_segmented_item_content_selected` | `--color-segmented-item-content-selected` |
+| `color.segmented.item.content.selected-disabled` | `{color.text.disabled}` | `colorSegmentedItemContentSelectedDisabled` | `@color/color_segmented_item_content_selected_disabled` | `--color-segmented-item-content-selected-disabled` |
+| `color.segmented.item.state.selected-hover` | `{color.state.on-brand.hover}` | `colorSegmentedItemStateSelectedHover` | `@color/color_segmented_item_state_selected_hover` | `--color-segmented-item-state-selected-hover` |
+
+## color · select-menu
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.select-menu.background` | `{color.surface.raised}` | `colorSelectMenuBackground` | `@color/color_select_menu_background` | `--color-select-menu-background` |
+| `color.select-menu.border` | `{color.border.default}` | `colorSelectMenuBorder` | `@color/color_select_menu_border` | `--color-select-menu-border` |
+
+## color · select-option
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.select-option.background.default` | `{color.surface.raised}` | `colorSelectOptionBackgroundDefault` | `@color/color_select_option_background_default` | `--color-select-option-background-default` |
+| `color.select-option.background.hover` | `{color.surface.subtle}` | `colorSelectOptionBackgroundHover` | `@color/color_select_option_background_hover` | `--color-select-option-background-hover` |
+| `color.select-option.content.default` | `{color.text.default}` | `colorSelectOptionContentDefault` | `@color/color_select_option_content_default` | `--color-select-option-content-default` |
+| `color.select-option.content.disabled` | `{color.text.disabled}` | `colorSelectOptionContentDisabled` | `@color/color_select_option_content_disabled` | `--color-select-option-content-disabled` |
+| `color.select-option.icon.selected` | `{color.icon.brand}` | `colorSelectOptionIconSelected` | `@color/color_select_option_icon_selected` | `--color-select-option-icon-selected` |
+
+## color · skeleton
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.skeleton.background` | `{color.surface.subtle}` | `colorSkeletonBackground` | `@color/color_skeleton_background` | `--color-skeleton-background` |
+
+## color · state
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.state.on-brand.hover` | `{color.alpha.white.08}` | `colorStateOnBrandHover` | `@color/color_state_on_brand_hover` | `--color-state-on-brand-hover` |
+| `color.state.on-brand.pressed` | `{color.alpha.white.12}` | `colorStateOnBrandPressed` | `@color/color_state_on_brand_pressed` | `--color-state-on-brand-pressed` |
+| `color.state.on-inverse.hover` | `{color.alpha.white.08}` | `colorStateOnInverseHover` | `@color/color_state_on_inverse_hover` | `--color-state-on-inverse-hover` |
+| `color.state.on-inverse.pressed` | `{color.alpha.white.12}` | `colorStateOnInversePressed` | `@color/color_state_on_inverse_pressed` | `--color-state-on-inverse-pressed` |
+| `color.state.on-surface.hover` | `{color.alpha.black.08}` | `colorStateOnSurfaceHover` | `@color/color_state_on_surface_hover` | `--color-state-on-surface-hover` |
+| `color.state.on-surface.pressed` | `{color.alpha.black.12}` | `colorStateOnSurfacePressed` | `@color/color_state_on_surface_pressed` | `--color-state-on-surface-pressed` |
+| `color.state.selected.background` | `{color.brand.multibrand.primary.50}` | `colorStateSelectedBackground` | `@color/color_state_selected_background` | `--color-state-selected-background` |
+| `color.state.selected.border` | `{color.brand.multibrand.primary.500}` | `colorStateSelectedBorder` | `@color/color_state_selected_border` | `--color-state-selected-border` |
+| `color.state.selected.content` | `{color.brand.multibrand.primary.700}` | `colorStateSelectedContent` | `@color/color_state_selected_content` | `--color-state-selected-content` |
+
+## color · state-message
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.state-message.description` | `{color.text.subtle}` | `colorStateMessageDescription` | `@color/color_state_message_description` | `--color-state-message-description` |
+| `color.state-message.title` | `{color.text.default}` | `colorStateMessageTitle` | `@color/color_state_message_title` | `--color-state-message-title` |
+
+## color · status-tag
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.status-tag.background.brand` | `{color.surface.brand-subtle}` | `colorStatusTagBackgroundBrand` | `@color/color_status_tag_background_brand` | `--color-status-tag-background-brand` |
+| `color.status-tag.background.error` | `{color.feedback.error.background}` | `colorStatusTagBackgroundError` | `@color/color_status_tag_background_error` | `--color-status-tag-background-error` |
+| `color.status-tag.background.info` | `{color.feedback.info.background}` | `colorStatusTagBackgroundInfo` | `@color/color_status_tag_background_info` | `--color-status-tag-background-info` |
+| `color.status-tag.background.neutral` | `{color.surface.subtle}` | `colorStatusTagBackgroundNeutral` | `@color/color_status_tag_background_neutral` | `--color-status-tag-background-neutral` |
+| `color.status-tag.background.success` | `{color.feedback.success.background}` | `colorStatusTagBackgroundSuccess` | `@color/color_status_tag_background_success` | `--color-status-tag-background-success` |
+| `color.status-tag.background.warning` | `{color.feedback.warning.background}` | `colorStatusTagBackgroundWarning` | `@color/color_status_tag_background_warning` | `--color-status-tag-background-warning` |
+| `color.status-tag.content.brand` | `{color.text.brand}` | `colorStatusTagContentBrand` | `@color/color_status_tag_content_brand` | `--color-status-tag-content-brand` |
+| `color.status-tag.content.error` | `{color.feedback.error.content}` | `colorStatusTagContentError` | `@color/color_status_tag_content_error` | `--color-status-tag-content-error` |
+| `color.status-tag.content.info` | `{color.feedback.info.content}` | `colorStatusTagContentInfo` | `@color/color_status_tag_content_info` | `--color-status-tag-content-info` |
+| `color.status-tag.content.neutral` | `{color.text.subtle}` | `colorStatusTagContentNeutral` | `@color/color_status_tag_content_neutral` | `--color-status-tag-content-neutral` |
+| `color.status-tag.content.success` | `{color.feedback.success.content}` | `colorStatusTagContentSuccess` | `@color/color_status_tag_content_success` | `--color-status-tag-content-success` |
+| `color.status-tag.content.warning` | `{color.feedback.warning.content}` | `colorStatusTagContentWarning` | `@color/color_status_tag_content_warning` | `--color-status-tag-content-warning` |
+
+## color · step-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.step-item.connector.complete` | `{color.surface.brand}` | `colorStepItemConnectorComplete` | `@color/color_step_item_connector_complete` | `--color-step-item-connector-complete` |
+| `color.step-item.connector.current` | `{color.border.default}` | `colorStepItemConnectorCurrent` | `@color/color_step_item_connector_current` | `--color-step-item-connector-current` |
+| `color.step-item.connector.upcoming` | `{color.border.default}` | `colorStepItemConnectorUpcoming` | `@color/color_step_item_connector_upcoming` | `--color-step-item-connector-upcoming` |
+| `color.step-item.label.complete` | `{color.text.default}` | `colorStepItemLabelComplete` | `@color/color_step_item_label_complete` | `--color-step-item-label-complete` |
+| `color.step-item.label.current` | `{color.text.brand}` | `colorStepItemLabelCurrent` | `@color/color_step_item_label_current` | `--color-step-item-label-current` |
+| `color.step-item.label.upcoming` | `{color.text.subtle}` | `colorStepItemLabelUpcoming` | `@color/color_step_item_label_upcoming` | `--color-step-item-label-upcoming` |
+| `color.step-item.marker.background.complete` | `{color.surface.brand}` | `colorStepItemMarkerBackgroundComplete` | `@color/color_step_item_marker_background_complete` | `--color-step-item-marker-background-complete` |
+| `color.step-item.marker.background.current` | `{color.surface.brand-subtle}` | `colorStepItemMarkerBackgroundCurrent` | `@color/color_step_item_marker_background_current` | `--color-step-item-marker-background-current` |
+| `color.step-item.marker.background.upcoming` | `{color.surface.default}` | `colorStepItemMarkerBackgroundUpcoming` | `@color/color_step_item_marker_background_upcoming` | `--color-step-item-marker-background-upcoming` |
+| `color.step-item.marker.border.current` | `{color.border.brand}` | `colorStepItemMarkerBorderCurrent` | `@color/color_step_item_marker_border_current` | `--color-step-item-marker-border-current` |
+| `color.step-item.marker.border.upcoming` | `{color.border.default}` | `colorStepItemMarkerBorderUpcoming` | `@color/color_step_item_marker_border_upcoming` | `--color-step-item-marker-border-upcoming` |
+| `color.step-item.marker.content.complete` | `{color.action.primary.content.default}` | `colorStepItemMarkerContentComplete` | `@color/color_step_item_marker_content_complete` | `--color-step-item-marker-content-complete` |
+| `color.step-item.marker.content.current` | `{color.text.brand}` | `colorStepItemMarkerContentCurrent` | `@color/color_step_item_marker_content_current` | `--color-step-item-marker-content-current` |
+| `color.step-item.marker.content.upcoming` | `{color.text.subtle}` | `colorStepItemMarkerContentUpcoming` | `@color/color_step_item_marker_content_upcoming` | `--color-step-item-marker-content-upcoming` |
+
+## color · surface
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.surface.brand` | `{color.brand.multibrand.primary.500}` | `colorSurfaceBrand` | `@color/color_surface_brand` | `--color-surface-brand` |
+| `color.surface.brand-subtle` | `{color.brand.multibrand.primary.50}` | `colorSurfaceBrandSubtle` | `@color/color_surface_brand_subtle` | `--color-surface-brand-subtle` |
+| `color.surface.default` | `{color.neutral.0}` | `colorSurfaceDefault` | `@color/color_surface_default` | `--color-surface-default` |
+| `color.surface.disabled` | `{color.neutral.100}` | `colorSurfaceDisabled` | `@color/color_surface_disabled` | `--color-surface-disabled` |
+| `color.surface.inverse` | `{color.neutral.1000}` | `colorSurfaceInverse` | `@color/color_surface_inverse` | `--color-surface-inverse` |
+| `color.surface.page` | `{color.neutral.100}` | `colorSurfacePage` | `@color/color_surface_page` | `--color-surface-page` |
+| `color.surface.raised` | `{color.neutral.0}` | `colorSurfaceRaised` | `@color/color_surface_raised` | `--color-surface-raised` |
+| `color.surface.subtle` | `{color.neutral.100}` | `colorSurfaceSubtle` | `@color/color_surface_subtle` | `--color-surface-subtle` |
+
+## color · switch
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.switch.focus.ring` | `{color.focus.ring.outer}` | `colorSwitchFocusRing` | `@color/color_switch_focus_ring` | `--color-switch-focus-ring` |
+| `color.switch.label.default` | `{color.text.default}` | `colorSwitchLabelDefault` | `@color/color_switch_label_default` | `--color-switch-label-default` |
+| `color.switch.label.disabled` | `{color.text.disabled}` | `colorSwitchLabelDisabled` | `@color/color_switch_label_disabled` | `--color-switch-label-disabled` |
+| `color.switch.state.off-hover` | `{color.state.on-surface.hover}` | `colorSwitchStateOffHover` | `@color/color_switch_state_off_hover` | `--color-switch-state-off-hover` |
+| `color.switch.state.on-hover` | `{color.state.on-brand.hover}` | `colorSwitchStateOnHover` | `@color/color_switch_state_on_hover` | `--color-switch-state-on-hover` |
+| `color.switch.support.default` | `{color.text.subtle}` | `colorSwitchSupportDefault` | `@color/color_switch_support_default` | `--color-switch-support-default` |
+| `color.switch.support.disabled` | `{color.text.disabled}` | `colorSwitchSupportDisabled` | `@color/color_switch_support_disabled` | `--color-switch-support-disabled` |
+| `color.switch.thumb.background.default` | `{color.surface.default}` | `colorSwitchThumbBackgroundDefault` | `@color/color_switch_thumb_background_default` | `--color-switch-thumb-background-default` |
+| `color.switch.thumb.background.disabled` | `{color.surface.default}` | `colorSwitchThumbBackgroundDisabled` | `@color/color_switch_thumb_background_disabled` | `--color-switch-thumb-background-disabled` |
+| `color.switch.track.background.off` | `{color.border.default}` | `colorSwitchTrackBackgroundOff` | `@color/color_switch_track_background_off` | `--color-switch-track-background-off` |
+| `color.switch.track.background.off-disabled` | `{color.surface.disabled}` | `colorSwitchTrackBackgroundOffDisabled` | `@color/color_switch_track_background_off_disabled` | `--color-switch-track-background-off-disabled` |
+| `color.switch.track.background.on` | `{color.action.primary.background.default}` | `colorSwitchTrackBackgroundOn` | `@color/color_switch_track_background_on` | `--color-switch-track-background-on` |
+| `color.switch.track.background.on-disabled` | `{color.action.primary.background.disabled}` | `colorSwitchTrackBackgroundOnDisabled` | `@color/color_switch_track_background_on_disabled` | `--color-switch-track-background-on-disabled` |
+
+## color · table-cell
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.table-cell.text.data` | `{color.text.default}` | `colorTableCellTextData` | `@color/color_table_cell_text_data` | `--color-table-cell-text-data` |
+| `color.table-cell.text.header` | `{color.text.default}` | `colorTableCellTextHeader` | `@color/color_table_cell_text_header` | `--color-table-cell-text-header` |
+
+## color · table-row
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.table-row.background.default` | `{color.surface.default}` | `colorTableRowBackgroundDefault` | `@color/color_table_row_background_default` | `--color-table-row-background-default` |
+| `color.table-row.background.header` | `{color.surface.subtle}` | `colorTableRowBackgroundHeader` | `@color/color_table_row_background_header` | `--color-table-row-background-header` |
+| `color.table-row.background.hover` | `{color.state.on-surface.hover}` | `colorTableRowBackgroundHover` | `@color/color_table_row_background_hover` | `--color-table-row-background-hover` |
+| `color.table-row.background.selected` | `{color.surface.brand-subtle}` | `colorTableRowBackgroundSelected` | `@color/color_table_row_background_selected` | `--color-table-row-background-selected` |
+| `color.table-row.divider` | `{color.border.subtle}` | `colorTableRowDivider` | `@color/color_table_row_divider` | `--color-table-row-divider` |
+
+## color · tabs
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `color.tabs.container.divider` | `{color.border.subtle}` | `colorTabsContainerDivider` | `@color/color_tabs_container_divider` | `--color-tabs-container-divider` |
+| `color.tabs.focus.inner` | `{color.focus.ring.inner}` | `colorTabsFocusInner` | `@color/color_tabs_focus_inner` | `--color-tabs-focus-inner` |
+| `color.tabs.focus.outer` | `{color.focus.ring.outer}` | `colorTabsFocusOuter` | `@color/color_tabs_focus_outer` | `--color-tabs-focus-outer` |
+| `color.tabs.item.background.hover` | `{color.state.on-surface.hover}` | `colorTabsItemBackgroundHover` | `@color/color_tabs_item_background_hover` | `--color-tabs-item-background-hover` |
+| `color.tabs.item.content.active` | `{color.text.brand}` | `colorTabsItemContentActive` | `@color/color_tabs_item_content_active` | `--color-tabs-item-content-active` |
+| `color.tabs.item.content.default` | `{color.text.subtle}` | `colorTabsItemContentDefault` | `@color/color_tabs_item_content_default` | `--color-tabs-item-content-default` |
+| `color.tabs.item.content.disabled` | `{color.text.disabled}` | `colorTabsItemContentDisabled` | `@color/color_tabs_item_content_disabled` | `--color-tabs-item-content-disabled` |
+| `color.tabs.item.indicator` | `{color.border.brand}` | `colorTabsItemIndicator` | `@color/color_tabs_item_indicator` | `--color-tabs-item-indicator` |
+| `color.tabs.item.indicator-disabled` | `{color.border.disabled}` | `colorTabsItemIndicatorDisabled` | `@color/color_tabs_item_indicator_disabled` | `--color-tabs-item-indicator-disabled` |
 
 ## color · text
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.text.brand` | `#7D4DBE` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
-| `color.text.disabled` | `#949393` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
-| `color.text.error` | `#B91C1C` | `colorTextError` | `@color/color_text_error` | `--color-text-error` |
-| `color.text.info` | `#1245D4` | `colorTextInfo` | `@color/color_text_info` | `--color-text-info` |
-| `color.text.inverse` | `#FFFFFF` | `colorTextInverse` | `@color/color_text_inverse` | `--color-text-inverse` |
-| `color.text.primary` | `#000000` | `colorTextPrimary` | `@color/color_text_primary` | `--color-text-primary` |
-| `color.text.secondary` | `#545353` | `colorTextSecondary` | `@color/color_text_secondary` | `--color-text-secondary` |
-| `color.text.success` | `#166534` | `colorTextSuccess` | `@color/color_text_success` | `--color-text-success` |
-| `color.text.tertiary` | `#777676` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
-| `color.text.warning` | `#92400E` | `colorTextWarning` | `@color/color_text_warning` | `--color-text-warning` |
+| `color.text.brand` | `{color.brand.multibrand.primary.500}` | `colorTextBrand` | `@color/color_text_brand` | `--color-text-brand` |
+| `color.text.default` | `{color.neutral.1000}` | `colorTextDefault` | `@color/color_text_default` | `--color-text-default` |
+| `color.text.disabled` | `{color.neutral.400}` | `colorTextDisabled` | `@color/color_text_disabled` | `--color-text-disabled` |
+| `color.text.inverse` | `{color.neutral.0}` | `colorTextInverse` | `@color/color_text_inverse` | `--color-text-inverse` |
+| `color.text.placeholder` | `{color.neutral.500}` | `colorTextPlaceholder` | `@color/color_text_placeholder` | `--color-text-placeholder` |
+| `color.text.subtle` | `{color.neutral.600}` | `colorTextSubtle` | `@color/color_text_subtle` | `--color-text-subtle` |
+| `color.text.tertiary` | `{color.neutral.400}` | `colorTextTertiary` | `@color/color_text_tertiary` | `--color-text-tertiary` |
 
-## color · yellow
+## color · toast
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `color.yellow.50` | `#EAFEFE` | `colorYellow50` | `@color/color_yellow_50` | `--color-yellow-50` |
-| `color.yellow.500` | `#00EEE8` | `colorYellow500` | `@color/color_yellow_500` | `--color-yellow-500` |
+| `color.toast.background.error` | `{color.feedback.error.background}` | `colorToastBackgroundError` | `@color/color_toast_background_error` | `--color-toast-background-error` |
+| `color.toast.background.info` | `{color.feedback.info.background}` | `colorToastBackgroundInfo` | `@color/color_toast_background_info` | `--color-toast-background-info` |
+| `color.toast.background.neutral` | `{color.surface.subtle}` | `colorToastBackgroundNeutral` | `@color/color_toast_background_neutral` | `--color-toast-background-neutral` |
+| `color.toast.background.success` | `{color.feedback.success.background}` | `colorToastBackgroundSuccess` | `@color/color_toast_background_success` | `--color-toast-background-success` |
+| `color.toast.background.warning` | `{color.feedback.warning.background}` | `colorToastBackgroundWarning` | `@color/color_toast_background_warning` | `--color-toast-background-warning` |
+| `color.toast.border.error` | `{color.feedback.error.border}` | `colorToastBorderError` | `@color/color_toast_border_error` | `--color-toast-border-error` |
+| `color.toast.border.info` | `{color.feedback.info.border}` | `colorToastBorderInfo` | `@color/color_toast_border_info` | `--color-toast-border-info` |
+| `color.toast.border.neutral` | `{color.border.default}` | `colorToastBorderNeutral` | `@color/color_toast_border_neutral` | `--color-toast-border-neutral` |
+| `color.toast.border.success` | `{color.feedback.success.border}` | `colorToastBorderSuccess` | `@color/color_toast_border_success` | `--color-toast-border-success` |
+| `color.toast.border.warning` | `{color.feedback.warning.border}` | `colorToastBorderWarning` | `@color/color_toast_border_warning` | `--color-toast-border-warning` |
+| `color.toast.content.error` | `{color.feedback.error.content}` | `colorToastContentError` | `@color/color_toast_content_error` | `--color-toast-content-error` |
+| `color.toast.content.info` | `{color.feedback.info.content}` | `colorToastContentInfo` | `@color/color_toast_content_info` | `--color-toast-content-info` |
+| `color.toast.content.neutral` | `{color.text.subtle}` | `colorToastContentNeutral` | `@color/color_toast_content_neutral` | `--color-toast-content-neutral` |
+| `color.toast.content.success` | `{color.feedback.success.content}` | `colorToastContentSuccess` | `@color/color_toast_content_success` | `--color-toast-content-success` |
+| `color.toast.content.warning` | `{color.feedback.warning.content}` | `colorToastContentWarning` | `@color/color_toast_content_warning` | `--color-toast-content-warning` |
 
-## elevation
+## color · tooltip
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `elevation.1` | `0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 2px 0px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_1` | `--elevation-1` |
-| `elevation.2` | `0px 4px 8px 0px rgba(0, 0, 0, 0.12), 0px 2px 4px 0px rgba(0, 0, 0, 0.08)` | — | `@string/bds_elevation_2` | `--elevation-2` |
-| `elevation.3` | `0px 12px 24px 0px rgba(0, 0, 0, 0.14), 0px 4px 8px 0px rgba(0, 0, 0, 0.10)` | — | `@string/bds_elevation_3` | `--elevation-3` |
-| `elevation.4` | `0px 8px 32px rgba(0, 0, 0, 0.12)` | — | `@string/bds_elevation_4` | `--elevation-4` |
-| `elevation.5` | `0px 16px 48px rgba(0, 0, 0, 0.16)` | — | `@string/bds_elevation_5` | `--elevation-5` |
+| `color.tooltip.background` | `{color.surface.inverse}` | `colorTooltipBackground` | `@color/color_tooltip_background` | `--color-tooltip-background` |
+| `color.tooltip.content` | `{color.text.inverse}` | `colorTooltipContent` | `@color/color_tooltip_content` | `--color-tooltip-content` |
+
+## component · accordion
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.accordion.gap` | `{spacing.2}` | `componentAccordionGap` | `@dimen/bds_component_accordion_gap` | `--component-accordion-gap` |
+
+## component · alert
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.alert.min-height` | `{spacing.8}` | `componentAlertMinHeight` | `@dimen/bds_component_alert_min_height` | `--component-alert-min-height` |
+| `component.alert.padding-block` | `{spacing.3}` | `componentAlertPaddingBlock` | `@dimen/bds_component_alert_padding_block` | `--component-alert-padding-block` |
+| `component.alert.padding-inline` | `{spacing.4}` | `componentAlertPaddingInline` | `@dimen/bds_component_alert_padding_inline` | `--component-alert-padding-inline` |
+| `component.alert.radius` | `{radius.md}` | `componentAlertRadius` | `@dimen/bds_component_alert_radius` | `--component-alert-radius` |
+| `component.alert.stroke` | `{stroke.1}` | `componentAlertStroke` | `@dimen/bds_component_alert_stroke` | `--component-alert-stroke` |
+
+## component · badge
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.badge.height` | `{size.16}` | `componentBadgeHeight` | `@dimen/bds_component_badge_height` | `--component-badge-height` |
+| `component.badge.min-width` | `{size.16}` | `componentBadgeMinWidth` | `@dimen/bds_component_badge_min_width` | `--component-badge-min-width` |
+| `component.badge.padding-inline` | `{spacing.1}` | `componentBadgePaddingInline` | `@dimen/bds_component_badge_padding_inline` | `--component-badge-padding-inline` |
+| `component.badge.radius` | `{radius.full}` | `componentBadgeRadius` | `@dimen/bds_component_badge_radius` | `--component-badge-radius` |
+
+## component · bottom-sheet
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.bottom-sheet.actions-gap` | `{spacing.2}` | `componentBottomSheetActionsGap` | `@dimen/bds_component_bottom_sheet_actions_gap` | `--component-bottom-sheet-actions-gap` |
+| `component.bottom-sheet.gap` | `{spacing.4}` | `componentBottomSheetGap` | `@dimen/bds_component_bottom_sheet_gap` | `--component-bottom-sheet-gap` |
+| `component.bottom-sheet.header-gap` | `{spacing.2}` | `componentBottomSheetHeaderGap` | `@dimen/bds_component_bottom_sheet_header_gap` | `--component-bottom-sheet-header-gap` |
+| `component.bottom-sheet.min-height` | `160px` | `componentBottomSheetMinHeight` | `@dimen/bds_component_bottom_sheet_min_height` | `--component-bottom-sheet-min-height` |
+| `component.bottom-sheet.padding` | `{spacing.4}` | `componentBottomSheetPadding` | `@dimen/bds_component_bottom_sheet_padding` | `--component-bottom-sheet-padding` |
+| `component.bottom-sheet.radius` | `{component.radius.overlay}` | `componentBottomSheetRadius` | `@dimen/bds_component_bottom_sheet_radius` | `--component-bottom-sheet-radius` |
+
+## component · breadcrumb
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.breadcrumb.gap` | `{spacing.1}` | `componentBreadcrumbGap` | `@dimen/bds_component_breadcrumb_gap` | `--component-breadcrumb-gap` |
+
+## component · breadcrumb-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.breadcrumb-item.focus-stroke` | `{stroke.2}` | `componentBreadcrumbItemFocusStroke` | `@dimen/bds_component_breadcrumb_item_focus_stroke` | `--component-breadcrumb-item-focus-stroke` |
+| `component.breadcrumb-item.min-height` | `{size.32}` | `componentBreadcrumbItemMinHeight` | `@dimen/bds_component_breadcrumb_item_min_height` | `--component-breadcrumb-item-min-height` |
+| `component.breadcrumb-item.padding-inline` | `{spacing.1}` | `componentBreadcrumbItemPaddingInline` | `@dimen/bds_component_breadcrumb_item_padding_inline` | `--component-breadcrumb-item-padding-inline` |
+| `component.breadcrumb-item.radius` | `{radius.sm}` | `componentBreadcrumbItemRadius` | `@dimen/bds_component_breadcrumb_item_radius` | `--component-breadcrumb-item-radius` |
+
+## component · button
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.button.gap.lg` | `{spacing.2}` | `componentButtonGapLg` | `@dimen/bds_component_button_gap_lg` | `--component-button-gap-lg` |
+| `component.button.gap.md` | `{spacing.2}` | `componentButtonGapMd` | `@dimen/bds_component_button_gap_md` | `--component-button-gap-md` |
+| `component.button.gap.sm` | `{spacing.1}` | `componentButtonGapSm` | `@dimen/bds_component_button_gap_sm` | `--component-button-gap-sm` |
+| `component.button.padding-inline.lg` | `{spacing.5}` | `componentButtonPaddingInlineLg` | `@dimen/bds_component_button_padding_inline_lg` | `--component-button-padding-inline-lg` |
+| `component.button.padding-inline.md` | `{spacing.4}` | `componentButtonPaddingInlineMd` | `@dimen/bds_component_button_padding_inline_md` | `--component-button-padding-inline-md` |
+| `component.button.padding-inline.sm` | `{spacing.3}` | `componentButtonPaddingInlineSm` | `@dimen/bds_component_button_padding_inline_sm` | `--component-button-padding-inline-sm` |
+
+## component · card
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.card.gap` | `{spacing.3}` | `componentCardGap` | `@dimen/bds_component_card_gap` | `--component-card-gap` |
+| `component.card.padding` | `{spacing.4}` | `componentCardPadding` | `@dimen/bds_component_card_padding` | `--component-card-padding` |
+| `component.card.radius` | `{component.radius.surface}` | `componentCardRadius` | `@dimen/bds_component_card_radius` | `--component-card-radius` |
+| `component.card.stroke` | `{stroke.1}` | `componentCardStroke` | `@dimen/bds_component_card_stroke` | `--component-card-stroke` |
+
+## component · checkbox
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.checkbox.control.radius` | `{radius.sm}` | `componentCheckboxControlRadius` | `@dimen/bds_component_checkbox_control_radius` | `--component-checkbox-control-radius` |
+| `component.checkbox.control.size.lg` | `{component.radio.control.size.lg}` | `componentCheckboxControlSizeLg` | `@dimen/bds_component_checkbox_control_size_lg` | `--component-checkbox-control-size-lg` |
+| `component.checkbox.control.size.md` | `{component.radio.control.size.md}` | `componentCheckboxControlSizeMd` | `@dimen/bds_component_checkbox_control_size_md` | `--component-checkbox-control-size-md` |
+| `component.checkbox.control.stroke` | `{stroke.2}` | `componentCheckboxControlStroke` | `@dimen/bds_component_checkbox_control_stroke` | `--component-checkbox-control-stroke` |
+| `component.checkbox.focus.stroke` | `{stroke.2}` | `componentCheckboxFocusStroke` | `@dimen/bds_component_checkbox_focus_stroke` | `--component-checkbox-focus-stroke` |
+| `component.checkbox.group.gap` | `{component.radio.group.gap}` | `componentCheckboxGroupGap` | `@dimen/bds_component_checkbox_group_gap` | `--component-checkbox-group-gap` |
+| `component.checkbox.group.label-gap` | `{component.radio.group.label-gap}` | `componentCheckboxGroupLabelGap` | `@dimen/bds_component_checkbox_group_label_gap` | `--component-checkbox-group-label-gap` |
+| `component.checkbox.item.gap` | `{component.radio.item.gap}` | `componentCheckboxItemGap` | `@dimen/bds_component_checkbox_item_gap` | `--component-checkbox-item-gap` |
+| `component.checkbox.item.min-height.lg` | `{component.radio.item.min-height.lg}` | `componentCheckboxItemMinHeightLg` | `@dimen/bds_component_checkbox_item_min_height_lg` | `--component-checkbox-item-min-height-lg` |
+| `component.checkbox.item.min-height.md` | `{component.radio.item.min-height.md}` | `componentCheckboxItemMinHeightMd` | `@dimen/bds_component_checkbox_item_min_height_md` | `--component-checkbox-item-min-height-md` |
+| `component.checkbox.item.padding-block.lg` | `{component.radio.item.padding-block.lg}` | `componentCheckboxItemPaddingBlockLg` | `@dimen/bds_component_checkbox_item_padding_block_lg` | `--component-checkbox-item-padding-block-lg` |
+| `component.checkbox.item.padding-block.md` | `{component.radio.item.padding-block.md}` | `componentCheckboxItemPaddingBlockMd` | `@dimen/bds_component_checkbox_item_padding_block_md` | `--component-checkbox-item-padding-block-md` |
+| `component.checkbox.item.padding-inline` | `{component.radio.item.padding-inline}` | `componentCheckboxItemPaddingInline` | `@dimen/bds_component_checkbox_item_padding_inline` | `--component-checkbox-item-padding-inline` |
+
+## component · control
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.control.size.lg` | `{size.48}` | `componentControlSizeLg` | `@dimen/bds_component_control_size_lg` | `--component-control-size-lg` |
+| `component.control.size.md` | `{size.40}` | `componentControlSizeMd` | `@dimen/bds_component_control_size_md` | `--component-control-size-md` |
+| `component.control.size.sm` | `{size.32}` | `componentControlSizeSm` | `@dimen/bds_component_control_size_sm` | `--component-control-size-sm` |
+
+## component · data-table
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.data-table.radius` | `{component.radius.surface}` | `componentDataTableRadius` | `@dimen/bds_component_data_table_radius` | `--component-data-table-radius` |
+| `component.data-table.stroke` | `{stroke.1}` | `componentDataTableStroke` | `@dimen/bds_component_data_table_stroke` | `--component-data-table-stroke` |
+
+## component · dialog
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.dialog.actions-gap` | `{spacing.2}` | `componentDialogActionsGap` | `@dimen/bds_component_dialog_actions_gap` | `--component-dialog-actions-gap` |
+| `component.dialog.gap` | `{spacing.4}` | `componentDialogGap` | `@dimen/bds_component_dialog_gap` | `--component-dialog-gap` |
+| `component.dialog.header-gap` | `{spacing.2}` | `componentDialogHeaderGap` | `@dimen/bds_component_dialog_header_gap` | `--component-dialog-header-gap` |
+| `component.dialog.max-width` | `600px` | `componentDialogMaxWidth` | `@dimen/bds_component_dialog_max_width` | `--component-dialog-max-width` |
+| `component.dialog.min-width` | `320px` | `componentDialogMinWidth` | `@dimen/bds_component_dialog_min_width` | `--component-dialog-min-width` |
+| `component.dialog.padding` | `{spacing.5}` | `componentDialogPadding` | `@dimen/bds_component_dialog_padding` | `--component-dialog-padding` |
+| `component.dialog.radius` | `{component.radius.overlay}` | `componentDialogRadius` | `@dimen/bds_component_dialog_radius` | `--component-dialog-radius` |
+
+## component · disclosure
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.disclosure.content-gap` | `{spacing.2}` | `componentDisclosureContentGap` | `@dimen/bds_component_disclosure_content_gap` | `--component-disclosure-content-gap` |
+| `component.disclosure.focus-stroke` | `{stroke.2}` | `componentDisclosureFocusStroke` | `@dimen/bds_component_disclosure_focus_stroke` | `--component-disclosure-focus-stroke` |
+| `component.disclosure.min-height` | `{component.control.size.lg}` | `componentDisclosureMinHeight` | `@dimen/bds_component_disclosure_min_height` | `--component-disclosure-min-height` |
+| `component.disclosure.padding-block` | `{spacing.3}` | `componentDisclosurePaddingBlock` | `@dimen/bds_component_disclosure_padding_block` | `--component-disclosure-padding-block` |
+| `component.disclosure.padding-inline` | `{spacing.4}` | `componentDisclosurePaddingInline` | `@dimen/bds_component_disclosure_padding_inline` | `--component-disclosure-padding-inline` |
+| `component.disclosure.radius` | `{radius.md}` | `componentDisclosureRadius` | `@dimen/bds_component_disclosure_radius` | `--component-disclosure-radius` |
+
+## component · drawer
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.drawer.actions-gap` | `{spacing.2}` | `componentDrawerActionsGap` | `@dimen/bds_component_drawer_actions_gap` | `--component-drawer-actions-gap` |
+| `component.drawer.gap` | `{spacing.4}` | `componentDrawerGap` | `@dimen/bds_component_drawer_gap` | `--component-drawer-gap` |
+| `component.drawer.header-gap` | `{spacing.2}` | `componentDrawerHeaderGap` | `@dimen/bds_component_drawer_header_gap` | `--component-drawer-header-gap` |
+| `component.drawer.padding` | `{spacing.4}` | `componentDrawerPadding` | `@dimen/bds_component_drawer_padding` | `--component-drawer-padding` |
+| `component.drawer.radius` | `{radius.none}` | `componentDrawerRadius` | `@dimen/bds_component_drawer_radius` | `--component-drawer-radius` |
+| `component.drawer.width` | `380px` | `componentDrawerWidth` | `@dimen/bds_component_drawer_width` | `--component-drawer-width` |
+
+## component · field
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.field.content-gap.lg` | `{spacing.2}` | `componentFieldContentGapLg` | `@dimen/bds_component_field_content_gap_lg` | `--component-field-content-gap-lg` |
+| `component.field.content-gap.md` | `{spacing.2}` | `componentFieldContentGapMd` | `@dimen/bds_component_field_content_gap_md` | `--component-field-content-gap-md` |
+| `component.field.height.lg` | `{component.control.size.lg}` | `componentFieldHeightLg` | `@dimen/bds_component_field_height_lg` | `--component-field-height-lg` |
+| `component.field.height.md` | `{component.control.size.md}` | `componentFieldHeightMd` | `@dimen/bds_component_field_height_md` | `--component-field-height-md` |
+| `component.field.padding-inline.lg` | `{spacing.4}` | `componentFieldPaddingInlineLg` | `@dimen/bds_component_field_padding_inline_lg` | `--component-field-padding-inline-lg` |
+| `component.field.padding-inline.md` | `{spacing.3}` | `componentFieldPaddingInlineMd` | `@dimen/bds_component_field_padding_inline_md` | `--component-field-padding-inline-md` |
+| `component.field.stack-gap` | `{spacing.1}` | `componentFieldStackGap` | `@dimen/bds_component_field_stack_gap` | `--component-field-stack-gap` |
+
+## component · filter-chip
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.filter-chip.focus.stroke` | `{stroke.2}` | `componentFilterChipFocusStroke` | `@dimen/bds_component_filter_chip_focus_stroke` | `--component-filter-chip-focus-stroke` |
+| `component.filter-chip.height.md` | `{component.control.size.md}` | `componentFilterChipHeightMd` | `@dimen/bds_component_filter_chip_height_md` | `--component-filter-chip-height-md` |
+| `component.filter-chip.height.sm` | `{size.32}` | `componentFilterChipHeightSm` | `@dimen/bds_component_filter_chip_height_sm` | `--component-filter-chip-height-sm` |
+| `component.filter-chip.padding-inline.md` | `{spacing.4}` | `componentFilterChipPaddingInlineMd` | `@dimen/bds_component_filter_chip_padding_inline_md` | `--component-filter-chip-padding-inline-md` |
+| `component.filter-chip.padding-inline.sm` | `{spacing.3}` | `componentFilterChipPaddingInlineSm` | `@dimen/bds_component_filter_chip_padding_inline_sm` | `--component-filter-chip-padding-inline-sm` |
+| `component.filter-chip.radius` | `{radius.full}` | `componentFilterChipRadius` | `@dimen/bds_component_filter_chip_radius` | `--component-filter-chip-radius` |
+| `component.filter-chip.stroke` | `{stroke.1}` | `componentFilterChipStroke` | `@dimen/bds_component_filter_chip_stroke` | `--component-filter-chip-stroke` |
+
+## component · icon
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.icon.size.16` | `{size.16}` | `componentIconSize16` | `@dimen/bds_component_icon_size_16` | `--component-icon-size-16` |
+| `component.icon.size.20` | `{size.20}` | `componentIconSize20` | `@dimen/bds_component_icon_size_20` | `--component-icon-size-20` |
+| `component.icon.size.24` | `{size.24}` | `componentIconSize24` | `@dimen/bds_component_icon_size_24` | `--component-icon-size-24` |
+| `component.icon.size.32` | `{size.32}` | `componentIconSize32` | `@dimen/bds_component_icon_size_32` | `--component-icon-size-32` |
+
+## component · loader
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.loader.size.lg` | `{size.24}` | `componentLoaderSizeLg` | `@dimen/bds_component_loader_size_lg` | `--component-loader-size-lg` |
+| `component.loader.size.md` | `{size.20}` | `componentLoaderSizeMd` | `@dimen/bds_component_loader_size_md` | `--component-loader-size-md` |
+| `component.loader.size.sm` | `{size.16}` | `componentLoaderSizeSm` | `@dimen/bds_component_loader_size_sm` | `--component-loader-size-sm` |
+| `component.loader.stroke-width.lg` | `{stroke.2}` | `componentLoaderStrokeWidthLg` | `@dimen/bds_component_loader_stroke_width_lg` | `--component-loader-stroke-width-lg` |
+| `component.loader.stroke-width.md` | `1.75px` | `componentLoaderStrokeWidthMd` | `@dimen/bds_component_loader_stroke_width_md` | `--component-loader-stroke-width-md` |
+| `component.loader.stroke-width.sm` | `1.5px` | `componentLoaderStrokeWidthSm` | `@dimen/bds_component_loader_stroke_width_sm` | `--component-loader-stroke-width-sm` |
+
+## component · menu
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.menu.max-width` | `320px` | `componentMenuMaxWidth` | `@dimen/bds_component_menu_max_width` | `--component-menu-max-width` |
+| `component.menu.min-width` | `160px` | `componentMenuMinWidth` | `@dimen/bds_component_menu_min_width` | `--component-menu-min-width` |
+| `component.menu.padding` | `{spacing.2}` | `componentMenuPadding` | `@dimen/bds_component_menu_padding` | `--component-menu-padding` |
+| `component.menu.radius` | `{radius.lg}` | `componentMenuRadius` | `@dimen/bds_component_menu_radius` | `--component-menu-radius` |
+| `component.menu.stroke` | `{stroke.1}` | `componentMenuStroke` | `@dimen/bds_component_menu_stroke` | `--component-menu-stroke` |
+
+## component · menu-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.menu-item.content-gap` | `{spacing.1}` | `componentMenuItemContentGap` | `@dimen/bds_component_menu_item_content_gap` | `--component-menu-item-content-gap` |
+| `component.menu-item.divider-stroke` | `{stroke.1}` | `componentMenuItemDividerStroke` | `@dimen/bds_component_menu_item_divider_stroke` | `--component-menu-item-divider-stroke` |
+| `component.menu-item.focus-stroke` | `{stroke.2}` | `componentMenuItemFocusStroke` | `@dimen/bds_component_menu_item_focus_stroke` | `--component-menu-item-focus-stroke` |
+| `component.menu-item.gap` | `{spacing.3}` | `componentMenuItemGap` | `@dimen/bds_component_menu_item_gap` | `--component-menu-item-gap` |
+| `component.menu-item.min-height` | `{component.control.size.lg}` | `componentMenuItemMinHeight` | `@dimen/bds_component_menu_item_min_height` | `--component-menu-item-min-height` |
+| `component.menu-item.padding-block` | `{spacing.2}` | `componentMenuItemPaddingBlock` | `@dimen/bds_component_menu_item_padding_block` | `--component-menu-item-padding-block` |
+| `component.menu-item.padding-inline` | `{spacing.3}` | `componentMenuItemPaddingInline` | `@dimen/bds_component_menu_item_padding_inline` | `--component-menu-item-padding-inline` |
+| `component.menu-item.radius` | `{radius.md}` | `componentMenuItemRadius` | `@dimen/bds_component_menu_item_radius` | `--component-menu-item-radius` |
+
+## component · navigation
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.navigation.gap` | `{spacing.2}` | `componentNavigationGap` | `@dimen/bds_component_navigation_gap` | `--component-navigation-gap` |
+
+## component · navigation-group
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.navigation-group.gap` | `{spacing.1}` | `componentNavigationGroupGap` | `@dimen/bds_component_navigation_group_gap` | `--component-navigation-group-gap` |
+| `component.navigation-group.label-gap` | `{spacing.2}` | `componentNavigationGroupLabelGap` | `@dimen/bds_component_navigation_group_label_gap` | `--component-navigation-group-label-gap` |
+
+## component · navigation-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.navigation-item.focus-stroke` | `{stroke.2}` | `componentNavigationItemFocusStroke` | `@dimen/bds_component_navigation_item_focus_stroke` | `--component-navigation-item-focus-stroke` |
+| `component.navigation-item.gap` | `{spacing.2}` | `componentNavigationItemGap` | `@dimen/bds_component_navigation_item_gap` | `--component-navigation-item-gap` |
+| `component.navigation-item.min-height` | `{component.control.size.lg}` | `componentNavigationItemMinHeight` | `@dimen/bds_component_navigation_item_min_height` | `--component-navigation-item-min-height` |
+| `component.navigation-item.padding-inline` | `{spacing.3}` | `componentNavigationItemPaddingInline` | `@dimen/bds_component_navigation_item_padding_inline` | `--component-navigation-item-padding-inline` |
+| `component.navigation-item.radius` | `{radius.md}` | `componentNavigationItemRadius` | `@dimen/bds_component_navigation_item_radius` | `--component-navigation-item-radius` |
+
+## component · pagination
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.pagination.gap` | `{spacing.2}` | `componentPaginationGap` | `@dimen/bds_component_pagination_gap` | `--component-pagination-gap` |
+
+## component · pagination-control
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.pagination-control.focus-stroke` | `{stroke.2}` | `componentPaginationControlFocusStroke` | `@dimen/bds_component_pagination_control_focus_stroke` | `--component-pagination-control-focus-stroke` |
+| `component.pagination-control.gap` | `{spacing.1}` | `componentPaginationControlGap` | `@dimen/bds_component_pagination_control_gap` | `--component-pagination-control-gap` |
+| `component.pagination-control.min-height` | `{component.control.size.md}` | `componentPaginationControlMinHeight` | `@dimen/bds_component_pagination_control_min_height` | `--component-pagination-control-min-height` |
+| `component.pagination-control.padding-inline` | `{spacing.2}` | `componentPaginationControlPaddingInline` | `@dimen/bds_component_pagination_control_padding_inline` | `--component-pagination-control-padding-inline` |
+| `component.pagination-control.radius` | `{radius.md}` | `componentPaginationControlRadius` | `@dimen/bds_component_pagination_control_radius` | `--component-pagination-control-radius` |
+
+## component · pagination-page
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.pagination-page.focus-stroke` | `{stroke.2}` | `componentPaginationPageFocusStroke` | `@dimen/bds_component_pagination_page_focus_stroke` | `--component-pagination-page-focus-stroke` |
+| `component.pagination-page.radius` | `{radius.md}` | `componentPaginationPageRadius` | `@dimen/bds_component_pagination_page_radius` | `--component-pagination-page-radius` |
+| `component.pagination-page.size` | `{component.control.size.md}` | `componentPaginationPageSize` | `@dimen/bds_component_pagination_page_size` | `--component-pagination-page-size` |
+
+## component · popover
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.popover.gap` | `{spacing.2}` | `componentPopoverGap` | `@dimen/bds_component_popover_gap` | `--component-popover-gap` |
+| `component.popover.max-width` | `320px` | `componentPopoverMaxWidth` | `@dimen/bds_component_popover_max_width` | `--component-popover-max-width` |
+| `component.popover.padding` | `{spacing.4}` | `componentPopoverPadding` | `@dimen/bds_component_popover_padding` | `--component-popover-padding` |
+| `component.popover.radius` | `{radius.lg}` | `componentPopoverRadius` | `@dimen/bds_component_popover_radius` | `--component-popover-radius` |
+| `component.popover.stroke` | `{stroke.1}` | `componentPopoverStroke` | `@dimen/bds_component_popover_stroke` | `--component-popover-stroke` |
+
+## component · product-card
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.product-card.content-gap` | `{spacing.1}` | `componentProductCardContentGap` | `@dimen/bds_component_product_card_content_gap` | `--component-product-card-content-gap` |
+| `component.product-card.focus-stroke` | `{stroke.2}` | `componentProductCardFocusStroke` | `@dimen/bds_component_product_card_focus_stroke` | `--component-product-card-focus-stroke` |
+| `component.product-card.gap` | `{spacing.2}` | `componentProductCardGap` | `@dimen/bds_component_product_card_gap` | `--component-product-card-gap` |
+| `component.product-card.media-radius` | `{radius.md}` | `componentProductCardMediaRadius` | `@dimen/bds_component_product_card_media_radius` | `--component-product-card-media-radius` |
+| `component.product-card.padding` | `{spacing.3}` | `componentProductCardPadding` | `@dimen/bds_component_product_card_padding` | `--component-product-card-padding` |
+| `component.product-card.radius` | `{component.radius.surface}` | `componentProductCardRadius` | `@dimen/bds_component_product_card_radius` | `--component-product-card-radius` |
+
+## component · progress-bar
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.progress-bar.height` | `{spacing.2}` | `componentProgressBarHeight` | `@dimen/bds_component_progress_bar_height` | `--component-progress-bar-height` |
+| `component.progress-bar.radius` | `{radius.full}` | `componentProgressBarRadius` | `@dimen/bds_component_progress_bar_radius` | `--component-progress-bar-radius` |
+
+## component · radio
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.radio.control.dot.lg` | `{size.12}` | `componentRadioControlDotLg` | `@dimen/bds_component_radio_control_dot_lg` | `--component-radio-control-dot-lg` |
+| `component.radio.control.dot.md` | `{size.10}` | `componentRadioControlDotMd` | `@dimen/bds_component_radio_control_dot_md` | `--component-radio-control-dot-md` |
+| `component.radio.control.size.lg` | `{component.icon.size.24}` | `componentRadioControlSizeLg` | `@dimen/bds_component_radio_control_size_lg` | `--component-radio-control-size-lg` |
+| `component.radio.control.size.md` | `{component.icon.size.20}` | `componentRadioControlSizeMd` | `@dimen/bds_component_radio_control_size_md` | `--component-radio-control-size-md` |
+| `component.radio.control.stroke` | `{stroke.2}` | `componentRadioControlStroke` | `@dimen/bds_component_radio_control_stroke` | `--component-radio-control-stroke` |
+| `component.radio.focus.stroke` | `{stroke.2}` | `componentRadioFocusStroke` | `@dimen/bds_component_radio_focus_stroke` | `--component-radio-focus-stroke` |
+| `component.radio.group.gap` | `{spacing.1}` | `componentRadioGroupGap` | `@dimen/bds_component_radio_group_gap` | `--component-radio-group-gap` |
+| `component.radio.group.label-gap` | `{spacing.2}` | `componentRadioGroupLabelGap` | `@dimen/bds_component_radio_group_label_gap` | `--component-radio-group-label-gap` |
+| `component.radio.item.gap` | `{spacing.2}` | `componentRadioItemGap` | `@dimen/bds_component_radio_item_gap` | `--component-radio-item-gap` |
+| `component.radio.item.min-height.lg` | `{component.control.size.lg}` | `componentRadioItemMinHeightLg` | `@dimen/bds_component_radio_item_min_height_lg` | `--component-radio-item-min-height-lg` |
+| `component.radio.item.min-height.md` | `{component.control.size.md}` | `componentRadioItemMinHeightMd` | `@dimen/bds_component_radio_item_min_height_md` | `--component-radio-item-min-height-md` |
+| `component.radio.item.padding-block.lg` | `{size.12}` | `componentRadioItemPaddingBlockLg` | `@dimen/bds_component_radio_item_padding_block_lg` | `--component-radio-item-padding-block-lg` |
+| `component.radio.item.padding-block.md` | `{size.10}` | `componentRadioItemPaddingBlockMd` | `@dimen/bds_component_radio_item_padding_block_md` | `--component-radio-item-padding-block-md` |
+| `component.radio.item.padding-inline` | `{spacing.2}` | `componentRadioItemPaddingInline` | `@dimen/bds_component_radio_item_padding_inline` | `--component-radio-item-padding-inline` |
+
+## component · radius
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.radius.control` | `{radius.md}` | `componentRadiusControl` | `@dimen/bds_component_radius_control` | `--component-radius-control` |
+| `component.radius.overlay` | `{radius.xl}` | `componentRadiusOverlay` | `@dimen/bds_component_radius_overlay` | `--component-radius-overlay` |
+| `component.radius.round` | `{radius.full}` | `componentRadiusRound` | `@dimen/bds_component_radius_round` | `--component-radius-round` |
+| `component.radius.surface` | `{radius.lg}` | `componentRadiusSurface` | `@dimen/bds_component_radius_surface` | `--component-radius-surface` |
+
+## component · segmented
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.segmented.container.gap` | `{spacing.1}` | `componentSegmentedContainerGap` | `@dimen/bds_component_segmented_container_gap` | `--component-segmented-container-gap` |
+| `component.segmented.container.padding` | `{spacing.1}` | `componentSegmentedContainerPadding` | `@dimen/bds_component_segmented_container_padding` | `--component-segmented-container-padding` |
+| `component.segmented.container.radius` | `{radius.lg}` | `componentSegmentedContainerRadius` | `@dimen/bds_component_segmented_container_radius` | `--component-segmented-container-radius` |
+| `component.segmented.focus.stroke` | `{stroke.2}` | `componentSegmentedFocusStroke` | `@dimen/bds_component_segmented_focus_stroke` | `--component-segmented-focus-stroke` |
+| `component.segmented.item.height.lg` | `{component.control.size.lg}` | `componentSegmentedItemHeightLg` | `@dimen/bds_component_segmented_item_height_lg` | `--component-segmented-item-height-lg` |
+| `component.segmented.item.height.md` | `{component.control.size.md}` | `componentSegmentedItemHeightMd` | `@dimen/bds_component_segmented_item_height_md` | `--component-segmented-item-height-md` |
+| `component.segmented.item.padding-inline.lg` | `{spacing.4}` | `componentSegmentedItemPaddingInlineLg` | `@dimen/bds_component_segmented_item_padding_inline_lg` | `--component-segmented-item-padding-inline-lg` |
+| `component.segmented.item.padding-inline.md` | `{spacing.3}` | `componentSegmentedItemPaddingInlineMd` | `@dimen/bds_component_segmented_item_padding_inline_md` | `--component-segmented-item-padding-inline-md` |
+| `component.segmented.item.radius` | `{radius.md}` | `componentSegmentedItemRadius` | `@dimen/bds_component_segmented_item_radius` | `--component-segmented-item-radius` |
+
+## component · select-menu
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.select-menu.gap` | `{spacing.1}` | `componentSelectMenuGap` | `@dimen/bds_component_select_menu_gap` | `--component-select-menu-gap` |
+| `component.select-menu.padding` | `{spacing.1}` | `componentSelectMenuPadding` | `@dimen/bds_component_select_menu_padding` | `--component-select-menu-padding` |
+| `component.select-menu.radius` | `{component.radius.overlay}` | `componentSelectMenuRadius` | `@dimen/bds_component_select_menu_radius` | `--component-select-menu-radius` |
+
+## component · select-option
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.select-option.gap` | `{spacing.2}` | `componentSelectOptionGap` | `@dimen/bds_component_select_option_gap` | `--component-select-option-gap` |
+| `component.select-option.height.lg` | `{component.control.size.lg}` | `componentSelectOptionHeightLg` | `@dimen/bds_component_select_option_height_lg` | `--component-select-option-height-lg` |
+| `component.select-option.height.md` | `{component.control.size.md}` | `componentSelectOptionHeightMd` | `@dimen/bds_component_select_option_height_md` | `--component-select-option-height-md` |
+| `component.select-option.padding-inline.lg` | `{spacing.4}` | `componentSelectOptionPaddingInlineLg` | `@dimen/bds_component_select_option_padding_inline_lg` | `--component-select-option-padding-inline-lg` |
+| `component.select-option.padding-inline.md` | `{spacing.3}` | `componentSelectOptionPaddingInlineMd` | `@dimen/bds_component_select_option_padding_inline_md` | `--component-select-option-padding-inline-md` |
+
+## component · skeleton
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.skeleton.radius.block` | `{radius.md}` | `componentSkeletonRadiusBlock` | `@dimen/bds_component_skeleton_radius_block` | `--component-skeleton-radius-block` |
+| `component.skeleton.radius.circle` | `{radius.full}` | `componentSkeletonRadiusCircle` | `@dimen/bds_component_skeleton_radius_circle` | `--component-skeleton-radius-circle` |
+
+## component · state-message
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.state-message.actions-gap` | `{spacing.2}` | `componentStateMessageActionsGap` | `@dimen/bds_component_state_message_actions_gap` | `--component-state-message-actions-gap` |
+| `component.state-message.content-gap` | `{spacing.2}` | `componentStateMessageContentGap` | `@dimen/bds_component_state_message_content_gap` | `--component-state-message-content-gap` |
+| `component.state-message.max-width` | `480px` | `componentStateMessageMaxWidth` | `@dimen/bds_component_state_message_max_width` | `--component-state-message-max-width` |
+| `component.state-message.visual-gap` | `{spacing.4}` | `componentStateMessageVisualGap` | `@dimen/bds_component_state_message_visual_gap` | `--component-state-message-visual-gap` |
+
+## component · status-tag
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.status-tag.height.md` | `{size.24}` | `componentStatusTagHeightMd` | `@dimen/bds_component_status_tag_height_md` | `--component-status-tag-height-md` |
+| `component.status-tag.height.sm` | `{size.20}` | `componentStatusTagHeightSm` | `@dimen/bds_component_status_tag_height_sm` | `--component-status-tag-height-sm` |
+| `component.status-tag.padding-inline` | `{spacing.2}` | `componentStatusTagPaddingInline` | `@dimen/bds_component_status_tag_padding_inline` | `--component-status-tag-padding-inline` |
+| `component.status-tag.radius` | `{radius.full}` | `componentStatusTagRadius` | `@dimen/bds_component_status_tag_radius` | `--component-status-tag-radius` |
+
+## component · step-item
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.step-item.connector-thickness` | `{stroke.2}` | `componentStepItemConnectorThickness` | `@dimen/bds_component_step_item_connector_thickness` | `--component-step-item-connector-thickness` |
+| `component.step-item.content-gap` | `{spacing.2}` | `componentStepItemContentGap` | `@dimen/bds_component_step_item_content_gap` | `--component-step-item-content-gap` |
+| `component.step-item.marker-gap` | `{spacing.2}` | `componentStepItemMarkerGap` | `@dimen/bds_component_step_item_marker_gap` | `--component-step-item-marker-gap` |
+| `component.step-item.marker-stroke` | `{stroke.1}` | `componentStepItemMarkerStroke` | `@dimen/bds_component_step_item_marker_stroke` | `--component-step-item-marker-stroke` |
+| `component.step-item.marker.radius` | `{radius.full}` | `componentStepItemMarkerRadius` | `@dimen/bds_component_step_item_marker_radius` | `--component-step-item-marker-radius` |
+| `component.step-item.marker.size` | `{size.24}` | `componentStepItemMarkerSize` | `@dimen/bds_component_step_item_marker_size` | `--component-step-item-marker-size` |
+
+## component · stepper
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.stepper.gap` | `0px` | `componentStepperGap` | `@dimen/bds_component_stepper_gap` | `--component-stepper-gap` |
+
+## component · switch
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.switch.focus.stroke` | `{stroke.2}` | `componentSwitchFocusStroke` | `@dimen/bds_component_switch_focus_stroke` | `--component-switch-focus-stroke` |
+| `component.switch.item.gap` | `{spacing.3}` | `componentSwitchItemGap` | `@dimen/bds_component_switch_item_gap` | `--component-switch-item-gap` |
+| `component.switch.item.min-height.lg` | `{component.control.size.lg}` | `componentSwitchItemMinHeightLg` | `@dimen/bds_component_switch_item_min_height_lg` | `--component-switch-item-min-height-lg` |
+| `component.switch.item.min-height.md` | `{component.control.size.md}` | `componentSwitchItemMinHeightMd` | `@dimen/bds_component_switch_item_min_height_md` | `--component-switch-item-min-height-md` |
+| `component.switch.item.stack-gap` | `{spacing.1}` | `componentSwitchItemStackGap` | `@dimen/bds_component_switch_item_stack_gap` | `--component-switch-item-stack-gap` |
+| `component.switch.thumb.radius` | `{component.radius.round}` | `componentSwitchThumbRadius` | `@dimen/bds_component_switch_thumb_radius` | `--component-switch-thumb-radius` |
+| `component.switch.thumb.size.lg` | `{size.20}` | `componentSwitchThumbSizeLg` | `@dimen/bds_component_switch_thumb_size_lg` | `--component-switch-thumb-size-lg` |
+| `component.switch.thumb.size.md` | `{size.16}` | `componentSwitchThumbSizeMd` | `@dimen/bds_component_switch_thumb_size_md` | `--component-switch-thumb-size-md` |
+| `component.switch.track.height.lg` | `{size.28}` | `componentSwitchTrackHeightLg` | `@dimen/bds_component_switch_track_height_lg` | `--component-switch-track-height-lg` |
+| `component.switch.track.height.md` | `{size.24}` | `componentSwitchTrackHeightMd` | `@dimen/bds_component_switch_track_height_md` | `--component-switch-track-height-md` |
+| `component.switch.track.inset` | `{spacing.1}` | `componentSwitchTrackInset` | `@dimen/bds_component_switch_track_inset` | `--component-switch-track-inset` |
+| `component.switch.track.radius` | `{component.radius.round}` | `componentSwitchTrackRadius` | `@dimen/bds_component_switch_track_radius` | `--component-switch-track-radius` |
+| `component.switch.track.width.lg` | `{component.control.size.lg}` | `componentSwitchTrackWidthLg` | `@dimen/bds_component_switch_track_width_lg` | `--component-switch-track-width-lg` |
+| `component.switch.track.width.md` | `{component.control.size.md}` | `componentSwitchTrackWidthMd` | `@dimen/bds_component_switch_track_width_md` | `--component-switch-track-width-md` |
+
+## component · table-cell
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.table-cell.padding-block` | `{spacing.2}` | `componentTableCellPaddingBlock` | `@dimen/bds_component_table_cell_padding_block` | `--component-table-cell-padding-block` |
+| `component.table-cell.padding-inline` | `{spacing.3}` | `componentTableCellPaddingInline` | `@dimen/bds_component_table_cell_padding_inline` | `--component-table-cell-padding-inline` |
+
+## component · table-row
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.table-row.divider-stroke` | `{stroke.1}` | `componentTableRowDividerStroke` | `@dimen/bds_component_table_row_divider_stroke` | `--component-table-row-divider-stroke` |
+| `component.table-row.min-height` | `{component.control.size.md}` | `componentTableRowMinHeight` | `@dimen/bds_component_table_row_min_height` | `--component-table-row-min-height` |
+
+## component · tabs
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.tabs.container.divider-thickness` | `{stroke.1}` | `componentTabsContainerDividerThickness` | `@dimen/bds_component_tabs_container_divider_thickness` | `--component-tabs-container-divider-thickness` |
+| `component.tabs.focus.stroke` | `{stroke.2}` | `componentTabsFocusStroke` | `@dimen/bds_component_tabs_focus_stroke` | `--component-tabs-focus-stroke` |
+| `component.tabs.item.height.lg` | `{component.control.size.lg}` | `componentTabsItemHeightLg` | `@dimen/bds_component_tabs_item_height_lg` | `--component-tabs-item-height-lg` |
+| `component.tabs.item.height.md` | `{component.control.size.md}` | `componentTabsItemHeightMd` | `@dimen/bds_component_tabs_item_height_md` | `--component-tabs-item-height-md` |
+| `component.tabs.item.indicator-thickness` | `{stroke.2}` | `componentTabsItemIndicatorThickness` | `@dimen/bds_component_tabs_item_indicator_thickness` | `--component-tabs-item-indicator-thickness` |
+| `component.tabs.item.padding-inline` | `{spacing.4}` | `componentTabsItemPaddingInline` | `@dimen/bds_component_tabs_item_padding_inline` | `--component-tabs-item-padding-inline` |
+
+## component · textarea
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.textarea.min-height.lg` | `{size.128}` | `componentTextareaMinHeightLg` | `@dimen/bds_component_textarea_min_height_lg` | `--component-textarea-min-height-lg` |
+| `component.textarea.min-height.md` | `{size.96}` | `componentTextareaMinHeightMd` | `@dimen/bds_component_textarea_min_height_md` | `--component-textarea-min-height-md` |
+
+## component · toast
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.toast.max-width` | `320px` | `componentToastMaxWidth` | `@dimen/bds_component_toast_max_width` | `--component-toast-max-width` |
+| `component.toast.min-height` | `{component.control.size.lg}` | `componentToastMinHeight` | `@dimen/bds_component_toast_min_height` | `--component-toast-min-height` |
+| `component.toast.padding-block` | `{spacing.3}` | `componentToastPaddingBlock` | `@dimen/bds_component_toast_padding_block` | `--component-toast-padding-block` |
+| `component.toast.padding-inline` | `{spacing.4}` | `componentToastPaddingInline` | `@dimen/bds_component_toast_padding_inline` | `--component-toast-padding-inline` |
+| `component.toast.radius` | `{radius.md}` | `componentToastRadius` | `@dimen/bds_component_toast_radius` | `--component-toast-radius` |
+| `component.toast.stroke` | `{stroke.1}` | `componentToastStroke` | `@dimen/bds_component_toast_stroke` | `--component-toast-stroke` |
+
+## component · tooltip
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `component.tooltip.max-width` | `240px` | `componentTooltipMaxWidth` | `@dimen/bds_component_tooltip_max_width` | `--component-tooltip-max-width` |
+| `component.tooltip.min-height` | `{size.32}` | `componentTooltipMinHeight` | `@dimen/bds_component_tooltip_min_height` | `--component-tooltip-min-height` |
+| `component.tooltip.padding-block` | `{spacing.2}` | `componentTooltipPaddingBlock` | `@dimen/bds_component_tooltip_padding_block` | `--component-tooltip-padding-block` |
+| `component.tooltip.padding-inline` | `{spacing.2}` | `componentTooltipPaddingInline` | `@dimen/bds_component_tooltip_padding_inline` | `--component-tooltip-padding-inline` |
+| `component.tooltip.radius` | `{radius.md}` | `componentTooltipRadius` | `@dimen/bds_component_tooltip_radius` | `--component-tooltip-radius` |
 
 ## font · family
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.family.primary` | `Montserrat` | — | `@string/bds_font_family_primary` | `--font-family-primary` |
+| `font.family.accent` | `Montserrat` | — | `@string/bds_font_family_accent` | `--font-family-accent` |
+| `font.family.base` | `Montserrat` | — | `@string/bds_font_family_base` | `--font-family-base` |
+| `font.family.body` | `Montserrat` | — | `@string/bds_font_family_body` | `--font-family-body` |
+| `font.family.display` | `Montserrat` | — | `@string/bds_font_family_display` | `--font-family-display` |
 
 ## font · line-height
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.line-height.body-lg` | `26px` | `fontLineHeightBodyLg` | `@dimen/bds_font_line_height_body_lg` | `--font-line-height-body-lg` |
-| `font.line-height.body-md` | `24px` | `fontLineHeightBodyMd` | `@dimen/bds_font_line_height_body_md` | `--font-line-height-body-md` |
-| `font.line-height.body-sm` | `20px` | `fontLineHeightBodySm` | `@dimen/bds_font_line_height_body_sm` | `--font-line-height-body-sm` |
-| `font.line-height.button` | `20px` | `fontLineHeightButton` | `@dimen/bds_font_line_height_button` | `--font-line-height-button` |
-| `font.line-height.display` | `80px` | `fontLineHeightDisplay` | `@dimen/bds_font_line_height_display` | `--font-line-height-display` |
-| `font.line-height.h1` | `44px` | `fontLineHeightH1` | `@dimen/bds_font_line_height_h1` | `--font-line-height-h1` |
-| `font.line-height.h2` | `38px` | `fontLineHeightH2` | `@dimen/bds_font_line_height_h2` | `--font-line-height-h2` |
-| `font.line-height.h3` | `32px` | `fontLineHeightH3` | `@dimen/bds_font_line_height_h3` | `--font-line-height-h3` |
-| `font.line-height.h4` | `28px` | `fontLineHeightH4` | `@dimen/bds_font_line_height_h4` | `--font-line-height-h4` |
-| `font.line-height.h5` | `24px` | `fontLineHeightH5` | `@dimen/bds_font_line_height_h5` | `--font-line-height-h5` |
-| `font.line-height.label` | `20px` | `fontLineHeightLabel` | `@dimen/bds_font_line_height_label` | `--font-line-height-label` |
-| `font.line-height.overline` | `16px` | `fontLineHeightOverline` | `@dimen/bds_font_line_height_overline` | `--font-line-height-overline` |
+| `font.line-height.050` | `12px` | `fontLineHeight050` | `@dimen/bds_font_line_height_050` | `--font-line-height-050` |
+| `font.line-height.100` | `16px` | `fontLineHeight100` | `@dimen/bds_font_line_height_100` | `--font-line-height-100` |
+| `font.line-height.1000` | `68px` | `fontLineHeight1000` | `@dimen/bds_font_line_height_1000` | `--font-line-height-1000` |
+| `font.line-height.1100` | `80px` | `fontLineHeight1100` | `@dimen/bds_font_line_height_1100` | `--font-line-height-1100` |
+| `font.line-height.200` | `20px` | `fontLineHeight200` | `@dimen/bds_font_line_height_200` | `--font-line-height-200` |
+| `font.line-height.300` | `24px` | `fontLineHeight300` | `@dimen/bds_font_line_height_300` | `--font-line-height-300` |
+| `font.line-height.400` | `26px` | `fontLineHeight400` | `@dimen/bds_font_line_height_400` | `--font-line-height-400` |
+| `font.line-height.500` | `28px` | `fontLineHeight500` | `@dimen/bds_font_line_height_500` | `--font-line-height-500` |
+| `font.line-height.600` | `32px` | `fontLineHeight600` | `@dimen/bds_font_line_height_600` | `--font-line-height-600` |
+| `font.line-height.700` | `38px` | `fontLineHeight700` | `@dimen/bds_font_line_height_700` | `--font-line-height-700` |
+| `font.line-height.800` | `44px` | `fontLineHeight800` | `@dimen/bds_font_line_height_800` | `--font-line-height-800` |
+| `font.line-height.900` | `56px` | `fontLineHeight900` | `@dimen/bds_font_line_height_900` | `--font-line-height-900` |
 
 ## font · size
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `font.size.body-lg` | `18px` | `fontSizeBodyLg` | `@dimen/bds_font_size_body_lg` | `--font-size-body-lg` |
-| `font.size.body-md` | `16px` | `fontSizeBodyMd` | `@dimen/bds_font_size_body_md` | `--font-size-body-md` |
-| `font.size.body-sm` | `14px` | `fontSizeBodySm` | `@dimen/bds_font_size_body_sm` | `--font-size-body-sm` |
-| `font.size.button` | `14px` | `fontSizeButton` | `@dimen/bds_font_size_button` | `--font-size-button` |
-| `font.size.display` | `72px` | `fontSizeDisplay` | `@dimen/bds_font_size_display` | `--font-size-display` |
-| `font.size.h1` | `36px` | `fontSizeH1` | `@dimen/bds_font_size_h1` | `--font-size-h1` |
-| `font.size.h2` | `30px` | `fontSizeH2` | `@dimen/bds_font_size_h2` | `--font-size-h2` |
-| `font.size.h3` | `24px` | `fontSizeH3` | `@dimen/bds_font_size_h3` | `--font-size-h3` |
-| `font.size.h4` | `20px` | `fontSizeH4` | `@dimen/bds_font_size_h4` | `--font-size-h4` |
-| `font.size.h5` | `16px` | `fontSizeH5` | `@dimen/bds_font_size_h5` | `--font-size-h5` |
-| `font.size.label` | `14px` | `fontSizeLabel` | `@dimen/bds_font_size_label` | `--font-size-label` |
-| `font.size.overline` | `12px` | `fontSizeOverline` | `@dimen/bds_font_size_overline` | `--font-size-overline` |
+| `font.size.050` | `10px` | `fontSize050` | `@dimen/bds_font_size_050` | `--font-size-050` |
+| `font.size.100` | `12px` | `fontSize100` | `@dimen/bds_font_size_100` | `--font-size-100` |
+| `font.size.1000` | `60px` | `fontSize1000` | `@dimen/bds_font_size_1000` | `--font-size-1000` |
+| `font.size.1100` | `72px` | `fontSize1100` | `@dimen/bds_font_size_1100` | `--font-size-1100` |
+| `font.size.200` | `14px` | `fontSize200` | `@dimen/bds_font_size_200` | `--font-size-200` |
+| `font.size.300` | `16px` | `fontSize300` | `@dimen/bds_font_size_300` | `--font-size-300` |
+| `font.size.400` | `18px` | `fontSize400` | `@dimen/bds_font_size_400` | `--font-size-400` |
+| `font.size.500` | `20px` | `fontSize500` | `@dimen/bds_font_size_500` | `--font-size-500` |
+| `font.size.600` | `24px` | `fontSize600` | `@dimen/bds_font_size_600` | `--font-size-600` |
+| `font.size.700` | `30px` | `fontSize700` | `@dimen/bds_font_size_700` | `--font-size-700` |
+| `font.size.800` | `36px` | `fontSize800` | `@dimen/bds_font_size_800` | `--font-size-800` |
+| `font.size.900` | `48px` | `fontSize900` | `@dimen/bds_font_size_900` | `--font-size-900` |
 
 ## font · weight
 
@@ -479,78 +1365,151 @@ Every token below is listed with the exact identifier to type on each platform.
 | `font.weight.regular` | `400` | `fontWeightRegular` | `@integer/bds_font_weight_regular` | `--font-weight-regular` |
 | `font.weight.semibold` | `600` | `fontWeightSemibold` | `@integer/bds_font_weight_semibold` | `--font-weight-semibold` |
 
+## icon · size
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `icon.size.16` | `{component.icon.size.16}` | `iconSize16` | `@dimen/bds_icon_size_16` | `--icon-size-16` |
+| `icon.size.20` | `{component.icon.size.20}` | `iconSize20` | `@dimen/bds_icon_size_20` | `--icon-size-20` |
+| `icon.size.24` | `{component.icon.size.24}` | `iconSize24` | `@dimen/bds_icon_size_24` | `--icon-size-24` |
+| `icon.size.32` | `{component.icon.size.32}` | `iconSize32` | `@dimen/bds_icon_size_32` | `--icon-size-32` |
+
+## icon · stroke
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `icon.stroke.16` | `1.5px` | `iconStroke16` | `@dimen/bds_icon_stroke_16` | `--icon-stroke-16` |
+| `icon.stroke.20` | `1.75px` | `iconStroke20` | `@dimen/bds_icon_stroke_20` | `--icon-stroke-20` |
+| `icon.stroke.24` | `2px` | `iconStroke24` | `@dimen/bds_icon_stroke_24` | `--icon-stroke-24` |
+| `icon.stroke.32` | `2px` | `iconStroke32` | `@dimen/bds_icon_stroke_32` | `--icon-stroke-32` |
+
+## layout · breakpoint
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `layout.breakpoint.wide.min` | `1024px` | `layoutBreakpointWideMin` | `@dimen/bds_layout_breakpoint_wide_min` | `--layout-breakpoint-wide-min` |
+
+## layout · compact
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `layout.compact.content.max-width` | `{layout.container.content.max}` | `layoutCompactContentMaxWidth` | `@dimen/bds_layout_compact_content_max_width` | `--layout-compact-content-max-width` |
+| `layout.compact.grid.columns` | `4` | `layoutCompactGridColumns` | `@integer/bds_layout_compact_grid_columns` | `--layout-compact-grid-columns` |
+| `layout.compact.grid.gutter` | `{spacing.4}` | `layoutCompactGridGutter` | `@dimen/bds_layout_compact_grid_gutter` | `--layout-compact-grid-gutter` |
+| `layout.compact.page.padding-inline` | `{spacing.4}` | `layoutCompactPagePaddingInline` | `@dimen/bds_layout_compact_page_padding_inline` | `--layout-compact-page-padding-inline` |
+
+## layout · container
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `layout.container.content.max` | `1280px` | `layoutContainerContentMax` | `@dimen/bds_layout_container_content_max` | `--layout-container-content-max` |
+
+## layout · viewport
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `layout.viewport.min-supported` | `320px` | `layoutViewportMinSupported` | `@dimen/bds_layout_viewport_min_supported` | `--layout-viewport-min-supported` |
+| `layout.viewport.reference.compact` | `390px` | `layoutViewportReferenceCompact` | `@dimen/bds_layout_viewport_reference_compact` | `--layout-viewport-reference-compact` |
+| `layout.viewport.reference.wide` | `1440px` | `layoutViewportReferenceWide` | `@dimen/bds_layout_viewport_reference_wide` | `--layout-viewport-reference-wide` |
+
+## layout · wide
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `layout.wide.content.max-width` | `{layout.container.content.max}` | `layoutWideContentMaxWidth` | `@dimen/bds_layout_wide_content_max_width` | `--layout-wide-content-max-width` |
+| `layout.wide.grid.columns` | `12` | `layoutWideGridColumns` | `@integer/bds_layout_wide_grid_columns` | `--layout-wide-grid-columns` |
+| `layout.wide.grid.gutter` | `{spacing.5}` | `layoutWideGridGutter` | `@dimen/bds_layout_wide_grid_gutter` | `--layout-wide-grid-gutter` |
+| `layout.wide.page.padding-inline` | `{spacing.9}` | `layoutWidePagePaddingInline` | `@dimen/bds_layout_wide_page_padding_inline` | `--layout-wide-page-padding-inline` |
+
 ## motion · duration
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `motion.duration.fast` | `100ms` | `motionDurationFast` | `@integer/bds_motion_duration_fast` | `--motion-duration-fast` |
-| `motion.duration.instant` | `0ms` | `motionDurationInstant` | `@integer/bds_motion_duration_instant` | `--motion-duration-instant` |
-| `motion.duration.normal` | `200ms` | `motionDurationNormal` | `@integer/bds_motion_duration_normal` | `--motion-duration-normal` |
-| `motion.duration.slow` | `300ms` | `motionDurationSlow` | `@integer/bds_motion_duration_slow` | `--motion-duration-slow` |
-| `motion.duration.slower` | `500ms` | `motionDurationSlower` | `@integer/bds_motion_duration_slower` | `--motion-duration-slower` |
+| `motion.duration.contextual` | `{motion.duration.moderate}` | `motionDurationContextual` | `@integer/bds_motion_duration_contextual` | `--motion-duration-contextual` |
+| `motion.duration.expand` | `{motion.duration.moderate}` | `motionDurationExpand` | `@integer/bds_motion_duration_expand` | `--motion-duration-expand` |
+| `motion.duration.fast` | `120ms` | `motionDurationFast` | `@integer/bds_motion_duration_fast` | `--motion-duration-fast` |
+| `motion.duration.feedback` | `{motion.duration.fast}` | `motionDurationFeedback` | `@integer/bds_motion_duration_feedback` | `--motion-duration-feedback` |
+| `motion.duration.moderate` | `200ms` | `motionDurationModerate` | `@integer/bds_motion_duration_moderate` | `--motion-duration-moderate` |
+| `motion.duration.overlay` | `{motion.duration.slow}` | `motionDurationOverlay` | `@integer/bds_motion_duration_overlay` | `--motion-duration-overlay` |
+| `motion.duration.slow` | `320ms` | `motionDurationSlow` | `@integer/bds_motion_duration_slow` | `--motion-duration-slow` |
 
 ## motion · easing
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `motion.easing.default` | `cubic-bezier(0.4, 0, 0.2, 1)` | — | `@string/bds_motion_easing_default` | `--motion-easing-default` |
-| `motion.easing.in` | `cubic-bezier(0.4, 0, 1, 1)` | — | `@string/bds_motion_easing_in` | `--motion-easing-in` |
-| `motion.easing.out` | `cubic-bezier(0, 0, 0.2, 1)` | — | `@string/bds_motion_easing_out` | `--motion-easing-out` |
+| `motion.easing.enter` | `cubic-bezier(0, 0, 0, 1)` | — | `@string/bds_motion_easing_enter` | `--motion-easing-enter` |
+| `motion.easing.exit` | `cubic-bezier(0.4, 0, 1, 1)` | — | `@string/bds_motion_easing_exit` | `--motion-easing-exit` |
+| `motion.easing.standard` | `cubic-bezier(0.2, 0, 0, 1)` | — | `@string/bds_motion_easing_standard` | `--motion-easing-standard` |
 
 ## radius
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `radius.2xl` | `24px` | `radius2xl` | `@dimen/bds_radius_2xl` | `--radius-2xl` |
-| `radius.badge` | `9999px` | `radiusBadge` | `@dimen/bds_radius_badge` | `--radius-badge` |
-| `radius.button` | `8px` | `radiusButton` | `@dimen/bds_radius_button` | `--radius-button` |
-| `radius.card` | `12px` | `radiusCard` | `@dimen/bds_radius_card` | `--radius-card` |
 | `radius.full` | `9999px` | `radiusFull` | `@dimen/bds_radius_full` | `--radius-full` |
-| `radius.input` | `8px` | `radiusInput` | `@dimen/bds_radius_input` | `--radius-input` |
 | `radius.lg` | `12px` | `radiusLg` | `@dimen/bds_radius_lg` | `--radius-lg` |
 | `radius.md` | `8px` | `radiusMd` | `@dimen/bds_radius_md` | `--radius-md` |
-| `radius.modal` | `16px` | `radiusModal` | `@dimen/bds_radius_modal` | `--radius-modal` |
 | `radius.none` | `0px` | `radiusNone` | `@dimen/bds_radius_none` | `--radius-none` |
 | `radius.sm` | `4px` | `radiusSm` | `@dimen/bds_radius_sm` | `--radius-sm` |
 | `radius.xl` | `16px` | `radiusXl` | `@dimen/bds_radius_xl` | `--radius-xl` |
-| `radius.xs` | `2px` | `radiusXs` | `@dimen/bds_radius_xs` | `--radius-xs` |
+
+## size
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `size.10` | `10px` | `size10` | `@dimen/bds_size_10` | `--size-10` |
+| `size.12` | `12px` | `size12` | `@dimen/bds_size_12` | `--size-12` |
+| `size.128` | `128px` | `size128` | `@dimen/bds_size_128` | `--size-128` |
+| `size.16` | `16px` | `size16` | `@dimen/bds_size_16` | `--size-16` |
+| `size.20` | `20px` | `size20` | `@dimen/bds_size_20` | `--size-20` |
+| `size.24` | `24px` | `size24` | `@dimen/bds_size_24` | `--size-24` |
+| `size.28` | `28px` | `size28` | `@dimen/bds_size_28` | `--size-28` |
+| `size.32` | `32px` | `size32` | `@dimen/bds_size_32` | `--size-32` |
+| `size.40` | `40px` | `size40` | `@dimen/bds_size_40` | `--size-40` |
+| `size.48` | `48px` | `size48` | `@dimen/bds_size_48` | `--size-48` |
+| `size.96` | `96px` | `size96` | `@dimen/bds_size_96` | `--size-96` |
 
 ## spacing
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `spacing.1` | `2px` | `spacing1` | `@dimen/bds_spacing_1` | `--spacing-1` |
-| `spacing.10` | `48px` | `spacing10` | `@dimen/bds_spacing_10` | `--spacing-10` |
-| `spacing.11` | `56px` | `spacing11` | `@dimen/bds_spacing_11` | `--spacing-11` |
-| `spacing.12` | `64px` | `spacing12` | `@dimen/bds_spacing_12` | `--spacing-12` |
-| `spacing.13` | `96px` | `spacing13` | `@dimen/bds_spacing_13` | `--spacing-13` |
-| `spacing.14` | `128px` | `spacing14` | `@dimen/bds_spacing_14` | `--spacing-14` |
-| `spacing.2` | `4px` | `spacing2` | `@dimen/bds_spacing_2` | `--spacing-2` |
-| `spacing.3` | `8px` | `spacing3` | `@dimen/bds_spacing_3` | `--spacing-3` |
-| `spacing.4` | `12px` | `spacing4` | `@dimen/bds_spacing_4` | `--spacing-4` |
-| `spacing.5` | `16px` | `spacing5` | `@dimen/bds_spacing_5` | `--spacing-5` |
-| `spacing.6` | `20px` | `spacing6` | `@dimen/bds_spacing_6` | `--spacing-6` |
-| `spacing.7` | `24px` | `spacing7` | `@dimen/bds_spacing_7` | `--spacing-7` |
-| `spacing.8` | `32px` | `spacing8` | `@dimen/bds_spacing_8` | `--spacing-8` |
-| `spacing.9` | `40px` | `spacing9` | `@dimen/bds_spacing_9` | `--spacing-9` |
+| `spacing.1` | `4px` | `spacing1` | `@dimen/bds_spacing_1` | `--spacing-1` |
+| `spacing.2` | `8px` | `spacing2` | `@dimen/bds_spacing_2` | `--spacing-2` |
+| `spacing.3` | `12px` | `spacing3` | `@dimen/bds_spacing_3` | `--spacing-3` |
+| `spacing.4` | `16px` | `spacing4` | `@dimen/bds_spacing_4` | `--spacing-4` |
+| `spacing.5` | `24px` | `spacing5` | `@dimen/bds_spacing_5` | `--spacing-5` |
+| `spacing.6` | `32px` | `spacing6` | `@dimen/bds_spacing_6` | `--spacing-6` |
+| `spacing.7` | `40px` | `spacing7` | `@dimen/bds_spacing_7` | `--spacing-7` |
+| `spacing.8` | `48px` | `spacing8` | `@dimen/bds_spacing_8` | `--spacing-8` |
+| `spacing.9` | `64px` | `spacing9` | `@dimen/bds_spacing_9` | `--spacing-9` |
 
 ## stroke
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `stroke.lg` | `4px` | `strokeLg` | `@dimen/bds_stroke_lg` | `--stroke-lg` |
-| `stroke.md` | `2px` | `strokeMd` | `@dimen/bds_stroke_md` | `--stroke-md` |
-| `stroke.sm` | `1px` | `strokeSm` | `@dimen/bds_stroke_sm` | `--stroke-sm` |
+| `stroke.1` | `1px` | `stroke1` | `@dimen/bds_stroke_1` | `--stroke-1` |
+| `stroke.2` | `2px` | `stroke2` | `@dimen/bds_stroke_2` | `--stroke-2` |
 
 ## z-index
 
 | Token | Value | Compose / iOS / Flutter | Android XML | CSS |
 |---|---|---|---|---|
-| `z-index.base` | `0` | `zIndexBase` | `@integer/bds_z_index_base` | `--z-index-base` |
-| `z-index.modal` | `200` | `zIndexModal` | `@integer/bds_z_index_modal` | `--z-index-modal` |
-| `z-index.overlay` | `100` | `zIndexOverlay` | `@integer/bds_z_index_overlay` | `--z-index-overlay` |
-| `z-index.raised` | `10` | `zIndexRaised` | `@integer/bds_z_index_raised` | `--z-index-raised` |
-| `z-index.toast` | `300` | `zIndexToast` | `@integer/bds_z_index_toast` | `--z-index-toast` |
+| `z-index.content` | `{z-index.level.0}` | `zIndexContent` | `@integer/bds_z_index_content` | `--z-index-content` |
+| `z-index.contextual` | `{z-index.level.300}` | `zIndexContextual` | `@integer/bds_z_index_contextual` | `--z-index-contextual` |
+| `z-index.modal` | `{z-index.level.400}` | `zIndexModal` | `@integer/bds_z_index_modal` | `--z-index-modal` |
+| `z-index.navigation` | `{z-index.level.200}` | `zIndexNavigation` | `@integer/bds_z_index_navigation` | `--z-index-navigation` |
+| `z-index.notification` | `{z-index.level.500}` | `zIndexNotification` | `@integer/bds_z_index_notification` | `--z-index-notification` |
+| `z-index.sticky` | `{z-index.level.100}` | `zIndexSticky` | `@integer/bds_z_index_sticky` | `--z-index-sticky` |
+
+## z-index · level
+
+| Token | Value | Compose / iOS / Flutter | Android XML | CSS |
+|---|---|---|---|---|
+| `z-index.level.0` | `0` | `zIndexLevel0` | `@integer/bds_z_index_level_0` | `--z-index-level-0` |
+| `z-index.level.100` | `100` | `zIndexLevel100` | `@integer/bds_z_index_level_100` | `--z-index-level-100` |
+| `z-index.level.200` | `200` | `zIndexLevel200` | `@integer/bds_z_index_level_200` | `--z-index-level-200` |
+| `z-index.level.300` | `300` | `zIndexLevel300` | `@integer/bds_z_index_level_300` | `--z-index-level-300` |
+| `z-index.level.400` | `400` | `zIndexLevel400` | `@integer/bds_z_index_level_400` | `--z-index-level-400` |
+| `z-index.level.500` | `500` | `zIndexLevel500` | `@integer/bds_z_index_level_500` | `--z-index-level-500` |
 
 ---
 

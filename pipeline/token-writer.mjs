@@ -92,16 +92,28 @@ export function writeTokensFromTree(merged, outputDir = 'tokens') {
     }
 
     if (mapping.split) {
+      /** @type {Record<string, unknown>} */
+      const defaultGroup = {};
+      const defaultFile = mapping.subCategories._default;
       for (const [subKey, subData] of Object.entries(
         /** @type {Record<string, unknown>} */ (data),
       )) {
-        const subFile = mapping.subCategories[subKey] || mapping.subCategories._default;
+        const subFile = mapping.subCategories[subKey] || defaultFile;
+        if (subFile && subFile === defaultFile && !mapping.subCategories[subKey]) {
+          defaultGroup[subKey] = subData;
+          continue;
+        }
         if (subFile) {
           const filePath = path.join(outputDir, subFile);
           const wrapper = { [category]: { [subKey]: subData } };
           writeTokenFile(filePath, wrapper, writtenPaths);
           filesWritten++;
         }
+      }
+      if (defaultFile && Object.keys(defaultGroup).length > 0) {
+        const filePath = path.join(outputDir, defaultFile);
+        writeTokenFile(filePath, { [category]: defaultGroup }, writtenPaths);
+        filesWritten++;
       }
     } else {
       const filePath = path.join(outputDir, mapping.file);
@@ -112,6 +124,32 @@ export function writeTokensFromTree(merged, outputDir = 'tokens') {
 
   pruneObsoleteTokenFiles(outputDir, writtenPaths);
   return { filesWritten, writtenPaths };
+}
+
+/**
+ * Delete token JSON that this write did not produce, so a replaced source
+ * (for example dropping app-only colours) does not leave the old files behind
+ * for Style Dictionary to keep emitting.
+ *
+ * @param {string} outputDir
+ * @param {Set<string>} writtenPaths absolute paths
+ */
+export function pruneUnwrittenTokenFiles(outputDir, writtenPaths) {
+  const root = path.resolve(outputDir);
+  if (!fs.existsSync(root)) return;
+  /** @param {string} dir */
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(full);
+        if (fs.readdirSync(full).length === 0) fs.rmdirSync(full);
+      } else if (entry.name.endsWith('.json') && !writtenPaths.has(full)) {
+        fs.unlinkSync(full);
+      }
+    }
+  };
+  walk(root);
 }
 
 /**

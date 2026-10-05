@@ -1,8 +1,28 @@
 {
   "color": {
     "border": {
+      "brand": {
+        "$value": "{color.brand.multibrand.primary.500}",
+        "$type": "color"
+      },
       "default": {
-        "$value": "#C4C4C4",
+        "$value": "{color.neutral.200}",
+        "$type": "color"
+      },
+      "disabled": {
+        "$value": "{color.neutral.200}",
+        "$type": "color"
+      },
+      "inverse": {
+        "$value": "{color.neutral.0}",
+        "$type": "color"
+      },
+      "strong": {
+        "$value": "{color.neutral.300}",
+        "$type": "color"
+      },
+      "subtle": {
+        "$value": "{color.neutral.100}",
         "$type": "color"
       }
     }

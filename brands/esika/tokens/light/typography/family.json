@@ -1,8 +1,20 @@
 {
   "font": {
     "family": {
-      "primary": {
+      "accent": {
+        "$value": "Hellix",
+        "$type": "fontFamily"
+      },
+      "base": {
         "$value": "Work Sans",
+        "$type": "fontFamily"
+      },
+      "body": {
+        "$value": "Hellix",
+        "$type": "fontFamily"
+      },
+      "display": {
+        "$value": "Hellix",
         "$type": "fontFamily"
       }
     }

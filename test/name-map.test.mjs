@@ -4,13 +4,11 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
 import {
   FIGMA_TO_TOKEN_PATH,
   tokenPathToFigmaName,
   figmaTokenToDtcg,
 } from '../pipeline/token-name-map.mjs';
-import { brandFigmaFile, loadAllBrands } from '../pipeline/brands.mjs';
 
 test('tokenPathToFigmaName inverts FIGMA_TO_TOKEN_PATH', () => {
   const broken = [];
@@ -34,20 +32,9 @@ test('token paths are unique — no two Figma names claim the same path', () => 
   assert.deepEqual(collisions, []);
 });
 
-// The map is shared across brands by design: it translates a flat Figma name to
-// a token path, which is brand-agnostic. Every brand's export must be covered.
-for (const brand of loadAllBrands()) {
-  test(`[${brand.id}] every token in the SSOT has a mapping`, () => {
-    const ssot = JSON.parse(fs.readFileSync(brandFigmaFile(brand), 'utf-8'));
-    const collection = ssot['Global/Mode 1'] ?? {};
-    const unmapped = Object.keys(collection).filter((name) => !FIGMA_TO_TOKEN_PATH[name]);
-    assert.deepEqual(
-      unmapped,
-      [],
-      'add these to FIGMA_TO_TOKEN_PATH — unmapped tokens never reach any platform',
-    );
-  });
-}
+// Nested Figma variables (tokens.json) are the source of truth. The legacy map
+// still has to round-trip the old flat names; new paths are emitted with
+// tokenPathToFigmaName's fallback and do not need an entry here.
 
 test('figmaTokenToDtcg assigns the right $type by name prefix', () => {
   const cases = [

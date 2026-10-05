@@ -1,8 +1,20 @@
 {
   "font": {
     "family": {
-      "primary": {
+      "accent": {
+        "$value": "Ivar",
+        "$type": "fontFamily"
+      },
+      "base": {
         "$value": "DM Sans",
+        "$type": "fontFamily"
+      },
+      "body": {
+        "$value": "Gotham",
+        "$type": "fontFamily"
+      },
+      "display": {
+        "$value": "Sweet Sans Pro",
         "$type": "fontFamily"
       }
     }

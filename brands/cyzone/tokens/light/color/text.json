@@ -2,43 +2,31 @@
   "color": {
     "text": {
       "brand": {
-        "$value": "#AF0061",
+        "$value": "{color.brand.cyzone.primary}",
+        "$type": "color"
+      },
+      "default": {
+        "$value": "{color.neutral.1000}",
         "$type": "color"
       },
       "disabled": {
-        "$value": "#949393",
-        "$type": "color"
-      },
-      "error": {
-        "$value": "#B91C1C",
-        "$type": "color"
-      },
-      "info": {
-        "$value": "#1245D4",
+        "$value": "{color.neutral.400}",
         "$type": "color"
       },
       "inverse": {
-        "$value": "#FFFFFF",
+        "$value": "{color.neutral.0}",
         "$type": "color"
       },
-      "primary": {
-        "$value": "#000000",
+      "placeholder": {
+        "$value": "{color.neutral.500}",
         "$type": "color"
       },
-      "secondary": {
-        "$value": "#545353",
-        "$type": "color"
-      },
-      "success": {
-        "$value": "#166534",
+      "subtle": {
+        "$value": "{color.neutral.600}",
         "$type": "color"
       },
       "tertiary": {
-        "$value": "#777676",
-        "$type": "color"
-      },
-      "warning": {
-        "$value": "#92400E",
+        "$value": "{color.neutral.400}",
         "$type": "color"
       }
     }

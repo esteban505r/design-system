@@ -1,0 +1,18 @@
+{
+  "component": {
+    "radius": {
+      "control": {
+        "$value": "{radius.none}",
+        "$type": "dimension"
+      },
+      "overlay": {
+        "$value": "{radius.none}",
+        "$type": "dimension"
+      },
+      "surface": {
+        "$value": "{radius.none}",
+        "$type": "dimension"
+      }
+    }
+  }
+}

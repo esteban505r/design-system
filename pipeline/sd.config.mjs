@@ -374,8 +374,7 @@ ${lines.join('\n')}
       'markdown/design-doc': async ({ dictionary, options }) => {
         const version = options.version ?? '0.0.0';
         const brandName = options.brand?.name ?? 'Design System';
-        const brandId = options.brand?.id ?? 'brand';
-        const figmaPath = `brands/${brandId}/figma/tokens.json`;
+        const figmaPath = 'tokens.json';
         const all = dictionary.allTokens;
 
         const byGroup = new Map();
@@ -428,13 +427,13 @@ ${lines.join('\n')}
         out.push('| Platform | Import | Example |');
         out.push('|---|---|---|');
         out.push(
-          '| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorPrimary500` |',
+          '| Compose | `com.estebanruano.designtokens.DesignTokens` | `DesignTokens.colorTextDefault` |',
         );
-        out.push('| Android XML | AAR resources | `@color/color_primary_500`, `@dimen/bds_spacing_4` |');
-        out.push('| iOS (Swift) | `DesignTokens` | `DesignTokens.colorPrimary500` |');
-        out.push('| Flutter | `design_tokens.dart` | `DesignTokens.colorPrimary500` |');
-        out.push('| Web (CSS) | `tokens.css` | `var(--color-primary-500)` |');
-        out.push('| Web (JS) | `tokens.js` | `ColorPrimary500` |\n');
+        out.push('| Android XML | AAR resources | `@color/color_text_default`, `@dimen/bds_spacing_4` |');
+        out.push('| iOS (Swift) | `DesignTokens` | `DesignTokens.colorTextDefault` |');
+        out.push('| Flutter | `design_tokens.dart` | `DesignTokens.colorTextDefault` |');
+        out.push('| Web (CSS) | `tokens.css` | `var(--color-text-default)` |');
+        out.push('| Web (JS) | `tokens.js` | `ColorTextDefault` |\n');
         out.push(
           `> **Android XML naming.** Every non-colour resource — \`@dimen\`, \`@integer\`, ` +
             `\`@string\` — is prefixed \`${ANDROID_RES_PREFIX}\`. Names like \`spacing_4\` or ` +
@@ -611,6 +610,9 @@ ${lines.join('\n')}
     // No transformGroup: the doc shows source values and derives every
     // platform identifier from token.path itself.
     docs: {
+      // Name tokens so the catalogue build does not warn about last-segment
+      // collisions. The markdown itself is derived from token.path.
+      transforms: ['name/camel'],
       buildPath: `${path.relative(process.cwd(), brand.dir)}/`,
       options: { version: RELEASE_VERSION, brand, mode },
       files: [

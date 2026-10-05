@@ -2,23 +2,31 @@
   "motion": {
     "duration": {
       "fast": {
-        "$value": "100ms",
+        "$value": "120ms",
         "$type": "duration"
       },
-      "instant": {
-        "$value": "0ms",
-        "$type": "duration"
-      },
-      "normal": {
+      "moderate": {
         "$value": "200ms",
         "$type": "duration"
       },
       "slow": {
-        "$value": "300ms",
+        "$value": "320ms",
         "$type": "duration"
       },
-      "slower": {
-        "$value": "500ms",
+      "contextual": {
+        "$value": "{motion.duration.moderate}",
+        "$type": "duration"
+      },
+      "expand": {
+        "$value": "{motion.duration.moderate}",
+        "$type": "duration"
+      },
+      "feedback": {
+        "$value": "{motion.duration.fast}",
+        "$type": "duration"
+      },
+      "overlay": {
+        "$value": "{motion.duration.slow}",
         "$type": "duration"
       }
     }

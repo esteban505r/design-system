@@ -6,37 +6,21 @@ and the two branches drifted apart. They are now directories.
 
 ## The brands
 
-| Brand | Owns `core/` | Colour tokens | Typeface (DS 5.0) | Consumer |
+| Brand | Owns `core/` | Semantic colours | Typeface | Figma mode |
 |---|---|---|---|---|
-| `belcorp` | ✅ | 240 | Montserrat (multibrand core) | `app-consultoras-replatform-android` |
-| `esika` | — | 43 | Sweet Sans Pro → **Work Sans** (placeholder) | — |
-| `lbel` | — | 43 | Brown Pro → **DM Sans** (placeholder) | — |
-| `cyzone` | — | 43 | Lasiver → **Red Hat Text** (placeholder) | — |
-| `ffvv` | — | 83 | — | `ffvv-android-replatform` |
+| `belcorp` | ✅ | 369 | Montserrat | Multibrand (Somos Belcorp) |
+| `ffvv` | — | 369 | Montserrat | Multibrand (same semantics as Somos Belcorp) |
+| `esika` | — | 369 | Hellix, Work Sans | Ésika |
+| `lbel` | — | 369 | Ivar, DM Sans, Gotham, Sweet Sans Pro | L'Bel |
+| `cyzone` | — | 369 | Golden Youth Caps, Red Hat Text, Lasiver, Sorren | Cyzone |
 
-`esika`, `lbel` and `cyzone` are the **sub-brands of Fractal DS 5.0** (the same
-Belcorp multibrand file). DS 5.0 verifies exactly one colour per sub-brand —
-their primary — and one typeface. Everything else in their sets is the shared
-multibrand core: the neutral/text/border/status values and the type scale are
-identical to `belcorp`; only the brand-colour roles (`bg-brand`, `text-brand`,
-`border-brand`, `interactive-primary-*`, `bg-brand-subtle`) and the font family
-differ. Hover/active/focus/brand-subtle tints are **derived** from the verified
-primary by mixing toward black/white, mirroring where the multibrand ramp steps
-sit — they are placeholders to be replaced when official per-brand palettes land.
+Colour semantics come from Fractal DS 5.0. **Multibrand is the shared layer for
+Somos Belcorp and FFVV** — same roles, same values. Ésika, L'Bel and Cyzone are
+modes of the same file: they keep that semantic set and override the brand
+colours, the typefaces, and three radii (`control`, `overlay`, `surface`).
 
-FFVV is the reason the multi-brand model earns its keep. It was assumed to be a
-second *consumer* of Belcorp's tokens; measuring it showed otherwise. Of its 82
-colours, **exactly one** (`#A90061`, Cyzone's brand red) matches a Belcorp token
-in both value and meaning. Its primary is `#7D4DBE` — the purple Belcorp shipped
-before v3.0.0 rebranded to orange `#BE5B06`.
-
-Pointing FFVV at Belcorp's tokens would therefore not have swapped a primitive
-layer; it would have repainted the app, across 283 call sites of
-`Sem.ActionPrimary` alone. It is a brand, not a consumer, and modelling it as
-one is what makes its integration a no-op.
-
-The same measurement caught a smaller divergence worth fixing: FFVV renders
-Ésika at `#E22419`, Belcorp at `#E1251B`. One company, one brand, two values.
+App-only colours (consultant levels, Camino Brillante, one-off component
+colours) stay in the apps. They are not tokens in this repository.
 
 ## Layout
 
@@ -45,7 +29,7 @@ core/tokens/                    scales shared by every brand: spacing, radius,
                                 stroke, z-index, motion
 brands/<id>/
   brand.json                    identity, coordinates, declared modes
-  figma/tokens.json             this brand's source of truth (Tokens Studio export)
+  figma/tokens.json             generated flat export (the source of truth is /tokens.json)
   tokens/light/                 generated DTCG: colour, typography, elevation
   DESIGN.md                     generated catalogue for this brand
 pipeline/                       the generator, shared by all brands
@@ -127,13 +111,10 @@ is what makes it safe to depend on.
 
 ```mermaid
 flowchart TD
-    BEL["Belcorp supplies<br/><b>43</b> semantic roles"] --> INT
-    ESK["Ésika / L'Bel / Cyzone<br/>supply <b>43</b> semantic roles<br/><i>same DS 5.0 layer</i>"] --> INT
-    FFV["FFVV supplies<br/><b>16</b> semantic roles"] --> INT
-    INT{{"intersection"}} --> REQ["<b>REQUIRED — 16</b><br/>an app may bind to these"]
-    BEL -.->|"27 not in every brand"| PRIV["brand-private<br/><i>not bindable by a multi-brand app</i>"]
+    BEL["Somos Belcorp and FFVV<br/><b>Multibrand</b>"] --> INT
+    SUB["Ésika / L'Bel / Cyzone<br/>same roles, brand overrides"] --> INT
+    INT{{"intersection"}} --> REQ["<b>REQUIRED — 369</b><br/>an app may bind to these"]
     REQ --> APP(["consuming app"])
-    PROP["<b>PROPOSED — 11</b><br/>requested + evidenced,<br/>not yet universal"] -.->|"once every brand supplies it"| REQ
 ```
 
 `test/vocabulary.test.mjs` asserts `REQUIRED` **equals** that intersection, so
@@ -141,21 +122,8 @@ neither side can drift: a brand losing a role fails the build, and every brand
 gaining one fails it too — with "promote this". There is no state in which the
 declared contract and the shipped tokens disagree, and the floor can only rise.
 
-Today that floor is **16 roles**. Belcorp supplies 43, FFVV 16 — so 27 of
-Belcorp's are not yet bindable by a multi-brand app. `PROPOSED` holds the 11
-roles both consumers have asked for, evidenced in
-[role-requests.md](role-requests.md).
-
-### Extensions: the `x.<brand>.` namespace
-
-A value a brand needs that the shared vocabulary cannot name goes under
-`x.<brand>.*`, declared in its `brand.json` with an owner and a review date.
-Two properties make this safe rather than a second escape hatch:
-
-- The prefix is visible at every call site, so `x.ffvv.surface-third` can never
-  be mistaken for a shared role.
-- The count is a metric. FFVV has **65** extensions against 18 shared roles;
-  that ratio *is* the size of the vocabulary gap, and it should only shrink.
+Today that floor is **369 colour roles**, and every brand supplies all of them.
+`PROPOSED` is empty. App-specific colours are not proposed roles of this system.
 
 ## Adding a brand
 

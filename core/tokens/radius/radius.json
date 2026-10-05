@@ -1,27 +1,7 @@
 {
   "radius": {
-    "2xl": {
-      "$value": "24px",
-      "$type": "dimension"
-    },
-    "badge": {
-      "$value": "9999px",
-      "$type": "dimension"
-    },
-    "button": {
-      "$value": "8px",
-      "$type": "dimension"
-    },
-    "card": {
-      "$value": "12px",
-      "$type": "dimension"
-    },
     "full": {
       "$value": "9999px",
-      "$type": "dimension"
-    },
-    "input": {
-      "$value": "8px",
       "$type": "dimension"
     },
     "lg": {
@@ -30,10 +10,6 @@
     },
     "md": {
       "$value": "8px",
-      "$type": "dimension"
-    },
-    "modal": {
-      "$value": "16px",
       "$type": "dimension"
     },
     "none": {
@@ -46,10 +22,6 @@
     },
     "xl": {
       "$value": "16px",
-      "$type": "dimension"
-    },
-    "xs": {
-      "$value": "2px",
       "$type": "dimension"
     }
   }

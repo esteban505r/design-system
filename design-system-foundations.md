@@ -1,10 +1,10 @@
 # Belcorp Design System — Foundations
 
 > Centralized design tokens for Belcorp (DS 5.0) — consultant app on Android today, iOS next.
-> **`brands/belcorp/figma/tokens.json` is the absolute single source of truth**; the token
-> tree and `dist/` are generated from it by `pnpm run sync`.
+> **`tokens.json` is the absolute single source of truth** (one Tokens Studio file for every
+> brand). The token tree and `dist/` are generated from it by `pnpm run sync`.
 
-**Version:** 4.0.0
+**Version:** 5.0.0
 
 > ## This document holds rules, not values
 >
@@ -25,7 +25,7 @@
 numbers, radii, stroke widths, or duration integers in component code. Components consume
 semantic tokens (`text-*`, `bg-*`, `border-*`, `interactive-*`); primitives (`primary-500`,
 `neutral-200`, …) are for the semantic layer, showcases, and documented exceptions only.
-Token edits happen in `brands/belcorp/figma/tokens.json` (flat Tokens Studio names) followed by
+Token edits happen in `tokens.json` (Tokens Studio, storage type **file**) followed by
 `pnpm run sync`.
 
 > **This rule is not currently met, and closing it is design-led work.** The semantic layer

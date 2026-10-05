@@ -1,20 +1,36 @@
 # Figma as the single source of truth
 
-Token **values** are authored in Figma and exported to
-**`brands/<brand>/figma/tokens.json`** (Tokens Studio / Figma Variables format).
-Everything else in this repo is generated from those files.
+Token **values** are authored in Tokens Studio and synced to **`tokens.json`**
+at the repository root. That is one file for every brand. Tokens Studio's
+folder sync (a JSON file per token set) is a Pro feature and is not the layout
+this repo uses.
+
+In the plugin, set the GitHub storage location to **file** and the path to:
+
+```
+tokens.json
+```
+
+Set the token format to **W3C DTCG** (`$value` / `$type`). The document has one
+token set named `global` (spacing, radius, stroke, z-index, motion) and one set
+per brand (`belcorp`, `esika`, `lbel`, `cyzone`, `ffvv`). A theme enables
+`global` plus that brand. Groups inside a set are nested JSON, not extra files.
+
+`brands/<brand>/figma/tokens.json` is still produced, as a flat export of that
+brand. It is generated. Edit `tokens.json`.
 
 ---
 
 ## Pipeline
 
 ```
-brands/<brand>/figma/tokens.json         ← SSOT (commit this file)
+tokens.json                              ← SSOT (Tokens Studio file sync)
         │
-        │  pnpm run parse  (pipeline/figma-to-tokens.mjs)
+        │  pnpm run parse  (pipeline/studio-to-tokens.mjs)
         ▼
-core/tokens/**                           ← shared scales, if this brand owns core
-brands/<brand>/tokens/<mode>/**          ← this brand's colour, type, elevation
+core/tokens/**                           ← shared scales, from the "global" set
+brands/<brand>/tokens/<mode>/**          ← that brand's colour, type, elevation
+brands/<brand>/figma/tokens.json         ← flat export, generated
         │
         │  pnpm run build  (pipeline/sd.config.mjs)
         ▼
@@ -80,9 +96,9 @@ compile against.
 
 ### Designers
 
-1. Change variables in **Figma** (Tokens Studio).
-2. **Export** to `brands/<brand>/figma/tokens.json` (Plugins → export JSON, or Tokens Studio git sync).
-3. Commit and push that file.
+1. Change tokens in **Tokens Studio**.
+2. **Push** to GitHub. Storage location is the file `tokens.json`, not a folder.
+3. Commit and push that file if the plugin did not push it itself.
 4. **Sync tokens from Figma JSON** runs `pnpm run sync` and opens or updates a PR.
 
 ### Engineers (local)

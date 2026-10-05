@@ -1,0 +1,40 @@
+{
+  "icon": {
+    "size": {
+      "16": {
+        "$value": "{component.icon.size.16}",
+        "$type": "dimension"
+      },
+      "20": {
+        "$value": "{component.icon.size.20}",
+        "$type": "dimension"
+      },
+      "24": {
+        "$value": "{component.icon.size.24}",
+        "$type": "dimension"
+      },
+      "32": {
+        "$value": "{component.icon.size.32}",
+        "$type": "dimension"
+      }
+    },
+    "stroke": {
+      "16": {
+        "$value": "1.5px",
+        "$type": "dimension"
+      },
+      "20": {
+        "$value": "1.75px",
+        "$type": "dimension"
+      },
+      "24": {
+        "$value": "2px",
+        "$type": "dimension"
+      },
+      "32": {
+        "$value": "2px",
+        "$type": "dimension"
+      }
+    }
+  }
+}
