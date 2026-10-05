@@ -22,6 +22,7 @@ import { pruneUnwrittenTokenFiles, writeTokensFromTree } from './token-writer.mj
 export const STUDIO_FILE = path.join(REPO_ROOT, 'tokens.json');
 
 const GLOBAL_SET = 'global';
+const PRIMITIVE_COLOR_SET = 'Color / Primitive/Value';
 
 /**
  * Deep-merge DTCG JSON files under `dir` into one tree.
@@ -120,6 +121,10 @@ export function applyStudioDocument(doc, dest = {}) {
 
   const globalTree = asTree(doc[GLOBAL_SET], GLOBAL_SET);
   normalizeStudioTypes(globalTree);
+  // Editing a Figma color variable updates `Color / Primitive/Value` on push.
+  // The `global` set is a second copy and can stay on the previous hex.
+  // Take the primitive collection's $value in memory. Do not write tokens.json.
+  applyPrimitiveColorValues(globalTree, doc[PRIMITIVE_COLOR_SET]);
   // Primitives live in global. Multibrand, Ésika, L'Bel and Cyzone are the
   // Figma modes; a sub-brand set only carries what that mode overrides.
   const coreDir = dest.coreDir ?? CORE_TOKENS_DIR;
@@ -206,6 +211,45 @@ function asTree(value, setName) {
     throw new Error(`Token set "${setName}" must be an object of tokens`);
   }
   return /** @type {Record<string, unknown>} */ (value);
+}
+
+/**
+ * Copy `$value` from the Figma color-primitive collection onto the matching
+ * token under `global.color`. Paths that exist on only one side are left alone.
+ * Mutates `globalTree` only.
+ *
+ * @param {Record<string, unknown>} globalTree
+ * @param {unknown} primitiveSet
+ */
+export function applyPrimitiveColorValues(globalTree, primitiveSet) {
+  const color = globalTree?.color;
+  if (!color || typeof color !== 'object' || !primitiveSet || typeof primitiveSet !== 'object') {
+    return;
+  }
+  overlayTokenValues(
+    /** @type {Record<string, unknown>} */ (color),
+    /** @type {Record<string, unknown>} */ (primitiveSet),
+  );
+}
+
+/**
+ * @param {Record<string, unknown>} target
+ * @param {Record<string, unknown>} source
+ */
+function overlayTokenValues(target, source) {
+  if ('$value' in source && '$value' in target) {
+    target.$value = source.$value;
+    return;
+  }
+  for (const [key, value] of Object.entries(source)) {
+    if (key.startsWith('$') || !value || typeof value !== 'object') continue;
+    const next = target[key];
+    if (!next || typeof next !== 'object') continue;
+    overlayTokenValues(
+      /** @type {Record<string, unknown>} */ (next),
+      /** @type {Record<string, unknown>} */ (value),
+    );
+  }
 }
 
 /** Tokens Studio writes the plural DTCG names. Style Dictionary expects the singular ones. */

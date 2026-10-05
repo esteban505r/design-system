@@ -11,6 +11,7 @@ import path from 'node:path';
 import { CORE_TOKENS_DIR, REPO_ROOT, brandTokensDir, loadAllBrands } from '../pipeline/brands.mjs';
 import {
   STUDIO_FILE,
+  applyPrimitiveColorValues,
   applyStudioDocument,
   buildStudioDocument,
 } from '../pipeline/studio-document.mjs';
@@ -40,6 +41,11 @@ test('tokens.json brand sets match the token tree', () => {
   // Those are not brand sets. Tokens Studio also pluralizes fontSize/fontFamily.
   for (const key of [ 'global', ...brands.map((brand) => brand.id) ]) {
     normalizeTypes(disk[key]);
+  }
+  // Figma variable edits land in `Color / Primitive/Value`. Expand prefers those
+  // values, so the folder tree matches global only after that overlay.
+  applyPrimitiveColorValues(disk.global, disk['Color / Primitive/Value']);
+  for (const key of [ 'global', ...brands.map((brand) => brand.id) ]) {
     assert.deepEqual(disk[key], built[key], key);
   }
   for (const brand of brands) {

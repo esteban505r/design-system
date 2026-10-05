@@ -21,7 +21,7 @@
 
 That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, so what you read here always matches the artifact the apps compile against.
 
-**Version:** 6.0.1  
+**Version:** 6.0.2  
 **Tokens:** 766  
 **By type:** color 439 · dimension 283 · number 14 · fontSize 12 · duration 7 · fontFamily 4 · fontWeight 4 · cubicBezier 3
 
@@ -283,7 +283,7 @@ Every token below is listed with the exact identifier to type on each platform.
 | `color.brand.multibrand.primary.300` | `#9d6ed9` | `colorBrandMultibrandPrimary300` | `@color/color_brand_multibrand_primary_300` | `--color-brand-multibrand-primary-300` |
 | `color.brand.multibrand.primary.400` | `#8a5ace` | `colorBrandMultibrandPrimary400` | `@color/color_brand_multibrand_primary_400` | `--color-brand-multibrand-primary-400` |
 | `color.brand.multibrand.primary.50` | `#ebe2f8` | `colorBrandMultibrandPrimary50` | `@color/color_brand_multibrand_primary_50` | `--color-brand-multibrand-primary-50` |
-| `color.brand.multibrand.primary.500` | `#7d4dbe` | `colorBrandMultibrandPrimary500` | `@color/color_brand_multibrand_primary_500` | `--color-brand-multibrand-primary-500` |
+| `color.brand.multibrand.primary.500` | `#be4da9` | `colorBrandMultibrandPrimary500` | `@color/color_brand_multibrand_primary_500` | `--color-brand-multibrand-primary-500` |
 | `color.brand.multibrand.primary.600` | `#6436ab` | `colorBrandMultibrandPrimary600` | `@color/color_brand_multibrand_primary_600` | `--color-brand-multibrand-primary-600` |
 | `color.brand.multibrand.primary.700` | `#471f86` | `colorBrandMultibrandPrimary700` | `@color/color_brand_multibrand_primary_700` | `--color-brand-multibrand-primary-700` |
 | `color.brand.multibrand.primary.800` | `#2d0f5e` | `colorBrandMultibrandPrimary800` | `@color/color_brand_multibrand_primary_800` | `--color-brand-multibrand-primary-800` |

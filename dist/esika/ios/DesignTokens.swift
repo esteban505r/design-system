@@ -98,7 +98,7 @@ public class DesignTokens {
     public static let colorBrandMultibrandPrimary300 = UIColor(red: 0.616, green: 0.431, blue: 0.851, alpha: 1)
     public static let colorBrandMultibrandPrimary400 = UIColor(red: 0.541, green: 0.353, blue: 0.808, alpha: 1)
     public static let colorBrandMultibrandPrimary50 = UIColor(red: 0.922, green: 0.886, blue: 0.973, alpha: 1)
-    public static let colorBrandMultibrandPrimary500 = UIColor(red: 0.490, green: 0.302, blue: 0.745, alpha: 1)
+    public static let colorBrandMultibrandPrimary500 = UIColor(red: 0.745, green: 0.302, blue: 0.663, alpha: 1)
     public static let colorBrandMultibrandPrimary600 = UIColor(red: 0.392, green: 0.212, blue: 0.671, alpha: 1)
     public static let colorBrandMultibrandPrimary700 = UIColor(red: 0.278, green: 0.122, blue: 0.525, alpha: 1)
     public static let colorBrandMultibrandPrimary800 = UIColor(red: 0.176, green: 0.059, blue: 0.369, alpha: 1)

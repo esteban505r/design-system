@@ -41,7 +41,7 @@ object DesignTokens {
     val colorBrandMultibrandPrimary200 = Color(0xffb896e7)
     val colorBrandMultibrandPrimary300 = Color(0xff9d6ed9)
     val colorBrandMultibrandPrimary400 = Color(0xff8a5ace)
-    val colorBrandMultibrandPrimary500 = Color(0xff7d4dbe)
+    val colorBrandMultibrandPrimary500 = Color(0xffbe4da9)
     val colorBrandMultibrandPrimary600 = Color(0xff6436ab)
     val colorBrandMultibrandPrimary700 = Color(0xff471f86)
     val colorBrandMultibrandPrimary800 = Color(0xff2d0f5e)
