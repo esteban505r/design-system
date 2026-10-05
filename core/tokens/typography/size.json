@@ -2,52 +2,52 @@
   "font": {
     "size": {
       "100": {
-        "$value": "12px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "12px"
       },
       "200": {
-        "$value": "14px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "14px"
       },
       "300": {
-        "$value": "16px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "16px"
       },
       "400": {
-        "$value": "18px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "18px"
       },
       "500": {
-        "$value": "20px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "20px"
       },
       "600": {
-        "$value": "24px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "24px"
       },
       "700": {
-        "$value": "30px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "30px"
       },
       "800": {
-        "$value": "36px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "36px"
       },
       "900": {
-        "$value": "48px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "48px"
       },
       "1000": {
-        "$value": "60px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "60px"
       },
       "1100": {
-        "$value": "72px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "72px"
       },
       "050": {
-        "$value": "10px",
-        "$type": "fontSize"
+        "$type": "fontSize",
+        "$value": "10px"
       }
     }
   }

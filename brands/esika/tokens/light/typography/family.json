@@ -2,20 +2,20 @@
   "font": {
     "family": {
       "accent": {
-        "$value": "Hellix",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Hellix"
       },
       "base": {
-        "$value": "Work Sans",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Work Sans"
       },
       "body": {
-        "$value": "Hellix",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Hellix"
       },
       "display": {
-        "$value": "Hellix",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Hellix"
       }
     }
   }

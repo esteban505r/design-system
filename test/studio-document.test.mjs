@@ -33,20 +33,30 @@ function jsonFiles(dir) {
   return found.sort();
 }
 
-test('tokens.json matches the token tree and lists one set per brand', () => {
+test('tokens.json brand sets match the token tree', () => {
   const disk = JSON.parse(fs.readFileSync(STUDIO_FILE, 'utf-8'));
   const built = buildStudioDocument();
-  assert.deepEqual(disk, built);
-
-  assert.deepEqual(disk.$metadata.tokenSetOrder, ['global', ...brands.map((b) => b.id)]);
-  assert.equal(disk.$themes.length, brands.length);
-  for (const theme of disk.$themes) {
-    const enabled = Object.entries(theme.selectedTokenSets)
-      .filter(([, state]) => state === 'enabled')
-      .map(([name]) => name);
-    assert.deepEqual(enabled, ['global', theme.id.replace(/-light$/, '')]);
+  // The plugin keeps Figma variable collections in the same file (`Color / Semantic/Multibrand`).
+  // Those are not brand sets. Tokens Studio also pluralizes fontSize/fontFamily.
+  for (const key of [ 'global', ...brands.map((brand) => brand.id) ]) {
+    normalizeTypes(disk[key]);
+    assert.deepEqual(disk[key], built[key], key);
+  }
+  for (const brand of brands) {
+    const theme = disk.$themes.find((item) => item.id === `${brand.id}-light`);
+    assert.ok(theme, `missing theme for ${brand.id}`);
   }
 });
+
+function normalizeTypes(node) {
+  if (!node || typeof node !== 'object') return;
+  if (node.$type === 'fontSizes') node.$type = 'fontSize';
+  if (node.$type === 'fontFamilies') node.$type = 'fontFamily';
+  if (node.$type === 'fontWeights') node.$type = 'fontWeight';
+  for (const [key, value] of Object.entries(node)) {
+    if (!key.startsWith('$')) normalizeTypes(value);
+  }
+}
 
 test('expanding tokens.json reproduces the folder tree', () => {
   const doc = JSON.parse(fs.readFileSync(STUDIO_FILE, 'utf-8'));

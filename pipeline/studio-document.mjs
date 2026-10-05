@@ -98,7 +98,12 @@ export function applyStudioDocument(doc, dest = {}) {
   const brands = dest.brands ?? loadAllBrands();
   const known = new Set(brands.map((brand) => brand.id));
   const sets = Object.keys(doc).filter((key) => !key.startsWith('$'));
-  const unknown = sets.filter((key) => key !== GLOBAL_SET && !known.has(key));
+  // Tokens Studio also stores each Figma variable collection (`Color / Semantic/Multibrand`).
+  // Those stay in the file the plugin pushes. The brand sets are what we expand.
+  const figmaCollections = sets.filter((key) => key.includes(' / '));
+  const unknown = sets.filter(
+    (key) => key !== GLOBAL_SET && !known.has(key) && !figmaCollections.includes(key),
+  );
   if (unknown.length > 0) {
     throw new Error(
       `tokens.json has token set(s) with no brand: ${unknown.join(', ')}.\n` +
@@ -114,6 +119,7 @@ export function applyStudioDocument(doc, dest = {}) {
   }
 
   const globalTree = asTree(doc[GLOBAL_SET], GLOBAL_SET);
+  normalizeStudioTypes(globalTree);
   // Primitives live in global. Multibrand, Ésika, L'Bel and Cyzone are the
   // Figma modes; a sub-brand set only carries what that mode overrides.
   const coreDir = dest.coreDir ?? CORE_TOKENS_DIR;
@@ -129,6 +135,7 @@ export function applyStudioDocument(doc, dest = {}) {
       );
     }
     const tree = asTree(doc[brand.id], brand.id);
+    normalizeStudioTypes(tree);
     const split = splitCoreAndBrand(tree);
     const shared = Object.keys(split.core);
     if (shared.length > 0) {
@@ -143,7 +150,7 @@ export function applyStudioDocument(doc, dest = {}) {
     filesWritten += brandWrite.filesWritten;
   }
 
-  return { filesWritten, sets };
+  return { filesWritten, sets: [GLOBAL_SET, ...brands.map((brand) => brand.id)] };
 }
 
 /**
@@ -199,4 +206,24 @@ function asTree(value, setName) {
     throw new Error(`Token set "${setName}" must be an object of tokens`);
   }
   return /** @type {Record<string, unknown>} */ (value);
+}
+
+/** Tokens Studio writes the plural DTCG names. Style Dictionary expects the singular ones. */
+const STUDIO_TYPE_ALIASES = {
+  fontSizes: 'fontSize',
+  fontFamilies: 'fontFamily',
+  fontWeights: 'fontWeight',
+};
+
+/**
+ * @param {unknown} node
+ */
+function normalizeStudioTypes(node) {
+  if (!node || typeof node !== 'object') return;
+  if (typeof node.$type === 'string' && STUDIO_TYPE_ALIASES[node.$type]) {
+    node.$type = STUDIO_TYPE_ALIASES[node.$type];
+  }
+  for (const [key, value] of Object.entries(node)) {
+    if (!key.startsWith('$')) normalizeStudioTypes(value);
+  }
 }

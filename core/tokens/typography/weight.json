@@ -2,20 +2,20 @@
   "font": {
     "weight": {
       "regular": {
-        "$value": 400,
-        "$type": "fontWeight"
+        "$type": "fontWeight",
+        "$value": 400
       },
       "medium": {
-        "$value": 500,
-        "$type": "fontWeight"
+        "$type": "fontWeight",
+        "$value": 500
       },
       "semibold": {
-        "$value": 600,
-        "$type": "fontWeight"
+        "$type": "fontWeight",
+        "$value": 600
       },
       "bold": {
-        "$value": 700,
-        "$type": "fontWeight"
+        "$type": "fontWeight",
+        "$value": 700
       }
     }
   }

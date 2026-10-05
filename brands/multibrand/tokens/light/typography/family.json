@@ -2,20 +2,20 @@
   "font": {
     "family": {
       "accent": {
-        "$value": "Montserrat",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Montserrat"
       },
       "base": {
-        "$value": "Montserrat",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Montserrat"
       },
       "body": {
-        "$value": "Montserrat",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Montserrat"
       },
       "display": {
-        "$value": "Montserrat",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Montserrat"
       }
     }
   }

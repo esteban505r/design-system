@@ -2,16 +2,16 @@
   "component": {
     "radius": {
       "control": {
-        "$value": "{radius.none}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.none}"
       },
       "overlay": {
-        "$value": "{radius.none}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.none}"
       },
       "surface": {
-        "$value": "{radius.none}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.none}"
       }
     }
   }

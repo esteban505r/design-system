@@ -4,7 +4,7 @@
 > **`tokens.json` is the absolute single source of truth** (one Tokens Studio file for every
 > brand). The token tree and `dist/` are generated from it by `pnpm run sync`.
 
-**Version:** 6.0.0
+**Version:** 6.0.1
 
 > ## This document holds rules, not values
 >

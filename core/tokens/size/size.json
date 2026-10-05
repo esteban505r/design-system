@@ -1,48 +1,48 @@
 {
   "size": {
     "10": {
-      "$value": "10px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "10px"
     },
     "12": {
-      "$value": "12px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "12px"
     },
     "16": {
-      "$value": "16px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "16px"
     },
     "20": {
-      "$value": "20px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "20px"
     },
     "24": {
-      "$value": "24px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "24px"
     },
     "28": {
-      "$value": "28px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "28px"
     },
     "32": {
-      "$value": "32px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "32px"
     },
     "40": {
-      "$value": "40px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "40px"
     },
     "48": {
-      "$value": "48px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "48px"
     },
     "96": {
-      "$value": "96px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "96px"
     },
     "128": {
-      "$value": "128px",
-      "$type": "dimension"
+      "$type": "dimension",
+      "$value": "128px"
     }
   }
 }

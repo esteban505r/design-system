@@ -2,1090 +2,1090 @@
   "component": {
     "accordion": {
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       }
     },
     "alert": {
       "min-height": {
-        "$value": "{spacing.8}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.8}"
       },
       "padding-block": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "padding-inline": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "badge": {
       "height": {
-        "$value": "{size.16}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{size.16}"
       },
       "min-width": {
-        "$value": "{size.16}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{size.16}"
       },
       "padding-inline": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "radius": {
-        "$value": "{radius.full}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.full}"
       }
     },
     "bottom-sheet": {
       "actions-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "gap": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "header-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "min-height": {
-        "$value": "160px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "160px"
       },
       "padding": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{component.radius.overlay}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.overlay}"
       }
     },
     "breadcrumb-item": {
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "min-height": {
-        "$value": "{size.32}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{size.32}"
       },
       "padding-inline": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "radius": {
-        "$value": "{radius.sm}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.sm}"
       }
     },
     "breadcrumb": {
       "gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       }
     },
     "button": {
       "gap": {
         "lg": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         },
         "md": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         },
         "sm": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         }
       },
       "padding-inline": {
         "lg": {
-          "$value": "{spacing.5}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.5}"
         },
         "md": {
-          "$value": "{spacing.4}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.4}"
         },
         "sm": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.3}"
         }
       }
     },
     "card": {
       "gap": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "padding": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{component.radius.surface}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.surface}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "checkbox": {
       "control": {
         "radius": {
-          "$value": "{radius.sm}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.sm}"
         },
         "size": {
           "lg": {
-            "$value": "{component.radio.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.control.size.lg}"
           },
           "md": {
-            "$value": "{component.radio.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.control.size.md}"
           }
         },
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "group": {
         "gap": {
-          "$value": "{component.radio.group.gap}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radio.group.gap}"
         },
         "label-gap": {
-          "$value": "{component.radio.group.label-gap}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radio.group.label-gap}"
         }
       },
       "item": {
         "gap": {
-          "$value": "{component.radio.item.gap}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radio.item.gap}"
         },
         "min-height": {
           "lg": {
-            "$value": "{component.radio.item.min-height.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.item.min-height.lg}"
           },
           "md": {
-            "$value": "{component.radio.item.min-height.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.item.min-height.md}"
           }
         },
         "padding-block": {
           "lg": {
-            "$value": "{component.radio.item.padding-block.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.item.padding-block.lg}"
           },
           "md": {
-            "$value": "{component.radio.item.padding-block.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.radio.item.padding-block.md}"
           }
         },
         "padding-inline": {
-          "$value": "{component.radio.item.padding-inline}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radio.item.padding-inline}"
         }
       }
     },
     "control": {
       "size": {
         "lg": {
-          "$value": "{size.48}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.48}"
         },
         "md": {
-          "$value": "{size.40}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.40}"
         },
         "sm": {
-          "$value": "{size.32}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.32}"
         }
       }
     },
     "data-table": {
       "radius": {
-        "$value": "{component.radius.surface}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.surface}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "dialog": {
       "actions-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "gap": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "header-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "max-width": {
-        "$value": "600px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "600px"
       },
       "min-width": {
-        "$value": "320px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "320px"
       },
       "padding": {
-        "$value": "{spacing.5}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.5}"
       },
       "radius": {
-        "$value": "{component.radius.overlay}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.overlay}"
       }
     },
     "disclosure": {
       "content-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "min-height": {
-        "$value": "{component.control.size.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.lg}"
       },
       "padding-block": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "padding-inline": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       }
     },
     "drawer": {
       "actions-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "gap": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "header-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "padding": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{radius.none}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.none}"
       },
       "width": {
-        "$value": "380px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "380px"
       }
     },
     "field": {
       "content-gap": {
         "lg": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         },
         "md": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         }
       },
       "height": {
         "lg": {
-          "$value": "{component.control.size.lg}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.control.size.lg}"
         },
         "md": {
-          "$value": "{component.control.size.md}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.control.size.md}"
         }
       },
       "padding-inline": {
         "lg": {
-          "$value": "{spacing.4}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.4}"
         },
         "md": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.3}"
         }
       },
       "stack-gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       }
     },
     "filter-chip": {
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "height": {
         "md": {
-          "$value": "{component.control.size.md}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.control.size.md}"
         },
         "sm": {
-          "$value": "{size.32}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.32}"
         }
       },
       "padding-inline": {
         "md": {
-          "$value": "{spacing.4}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.4}"
         },
         "sm": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.3}"
         }
       },
       "radius": {
-        "$value": "{radius.full}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.full}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "icon": {
       "size": {
         "16": {
-          "$value": "{size.16}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.16}"
         },
         "20": {
-          "$value": "{size.20}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.20}"
         },
         "24": {
-          "$value": "{size.24}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.24}"
         },
         "32": {
-          "$value": "{size.32}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.32}"
         }
       }
     },
     "loader": {
       "size": {
         "lg": {
-          "$value": "{size.24}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.24}"
         },
         "md": {
-          "$value": "{size.20}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.20}"
         },
         "sm": {
-          "$value": "{size.16}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.16}"
         }
       },
       "stroke-width": {
         "lg": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         },
         "md": {
-          "$value": "1.75px",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "1.75px"
         },
         "sm": {
-          "$value": "1.5px",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "1.5px"
         }
       }
     },
     "menu-item": {
       "content-gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "divider-stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       },
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "gap": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "min-height": {
-        "$value": "{component.control.size.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.lg}"
       },
       "padding-block": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "padding-inline": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       }
     },
     "menu": {
       "max-width": {
-        "$value": "320px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "320px"
       },
       "min-width": {
-        "$value": "160px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "160px"
       },
       "padding": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "radius": {
-        "$value": "{radius.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.lg}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "navigation-group": {
       "gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "label-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       }
     },
     "navigation-item": {
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "min-height": {
-        "$value": "{component.control.size.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.lg}"
       },
       "padding-inline": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       }
     },
     "navigation": {
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       }
     },
     "pagination-control": {
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "min-height": {
-        "$value": "{component.control.size.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.md}"
       },
       "padding-inline": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       }
     },
     "pagination-page": {
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       },
       "size": {
-        "$value": "{component.control.size.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.md}"
       }
     },
     "pagination": {
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       }
     },
     "popover": {
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "max-width": {
-        "$value": "320px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "320px"
       },
       "padding": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{radius.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.lg}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "product-card": {
       "content-gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "focus-stroke": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "media-radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       },
       "padding": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "radius": {
-        "$value": "{component.radius.surface}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.surface}"
       }
     },
     "progress-bar": {
       "height": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "radius": {
-        "$value": "{radius.full}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.full}"
       }
     },
     "radio": {
       "control": {
         "dot": {
           "lg": {
-            "$value": "{size.12}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.12}"
           },
           "md": {
-            "$value": "{size.10}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.10}"
           }
         },
         "size": {
           "lg": {
-            "$value": "{component.icon.size.24}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.icon.size.24}"
           },
           "md": {
-            "$value": "{component.icon.size.20}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.icon.size.20}"
           }
         },
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "group": {
         "gap": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         },
         "label-gap": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         }
       },
       "item": {
         "gap": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         },
         "min-height": {
           "lg": {
-            "$value": "{component.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.lg}"
           },
           "md": {
-            "$value": "{component.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.md}"
           }
         },
         "padding-block": {
           "lg": {
-            "$value": "{size.12}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.12}"
           },
           "md": {
-            "$value": "{size.10}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.10}"
           }
         },
         "padding-inline": {
-          "$value": "{spacing.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.2}"
         }
       }
     },
     "radius": {
       "control": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       },
       "overlay": {
-        "$value": "{radius.xl}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.xl}"
       },
       "round": {
-        "$value": "{radius.full}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.full}"
       },
       "surface": {
-        "$value": "{radius.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.lg}"
       }
     },
     "segmented": {
       "container": {
         "gap": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         },
         "padding": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         },
         "radius": {
-          "$value": "{radius.lg}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.lg}"
         }
       },
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "item": {
         "height": {
           "lg": {
-            "$value": "{component.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.lg}"
           },
           "md": {
-            "$value": "{component.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.md}"
           }
         },
         "padding-inline": {
           "lg": {
-            "$value": "{spacing.4}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{spacing.4}"
           },
           "md": {
-            "$value": "{spacing.3}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{spacing.3}"
           }
         },
         "radius": {
-          "$value": "{radius.md}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.md}"
         }
       }
     },
     "select-menu": {
       "gap": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "padding": {
-        "$value": "{spacing.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.1}"
       },
       "radius": {
-        "$value": "{component.radius.overlay}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.radius.overlay}"
       }
     },
     "select-option": {
       "gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "height": {
         "lg": {
-          "$value": "{component.control.size.lg}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.control.size.lg}"
         },
         "md": {
-          "$value": "{component.control.size.md}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.control.size.md}"
         }
       },
       "padding-inline": {
         "lg": {
-          "$value": "{spacing.4}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.4}"
         },
         "md": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.3}"
         }
       }
     },
     "skeleton": {
       "radius": {
         "block": {
-          "$value": "{radius.md}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.md}"
         },
         "circle": {
-          "$value": "{radius.full}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.full}"
         }
       }
     },
     "state-message": {
       "actions-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "content-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "max-width": {
-        "$value": "480px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "480px"
       },
       "visual-gap": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       }
     },
     "status-tag": {
       "height": {
         "md": {
-          "$value": "{size.24}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.24}"
         },
         "sm": {
-          "$value": "{size.20}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.20}"
         }
       },
       "padding-inline": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "radius": {
-        "$value": "{radius.full}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.full}"
       }
     },
     "step-item": {
       "connector-thickness": {
-        "$value": "{stroke.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.2}"
       },
       "content-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "marker-gap": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "marker-stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       },
       "marker": {
         "radius": {
-          "$value": "{radius.full}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{radius.full}"
         },
         "size": {
-          "$value": "{size.24}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.24}"
         }
       }
     },
     "stepper": {
       "gap": {
-        "$value": "0px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "0px"
       }
     },
     "switch": {
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "item": {
         "gap": {
-          "$value": "{spacing.3}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.3}"
         },
         "min-height": {
           "lg": {
-            "$value": "{component.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.lg}"
           },
           "md": {
-            "$value": "{component.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.md}"
           }
         },
         "stack-gap": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         }
       },
       "thumb": {
         "radius": {
-          "$value": "{component.radius.round}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radius.round}"
         },
         "size": {
           "lg": {
-            "$value": "{size.20}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.20}"
           },
           "md": {
-            "$value": "{size.16}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.16}"
           }
         }
       },
       "track": {
         "height": {
           "lg": {
-            "$value": "{size.28}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.28}"
           },
           "md": {
-            "$value": "{size.24}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{size.24}"
           }
         },
         "inset": {
-          "$value": "{spacing.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.1}"
         },
         "radius": {
-          "$value": "{component.radius.round}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{component.radius.round}"
         },
         "width": {
           "lg": {
-            "$value": "{component.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.lg}"
           },
           "md": {
-            "$value": "{component.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.md}"
           }
         }
       }
     },
     "table-cell": {
       "padding-block": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "padding-inline": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       }
     },
     "table-row": {
       "divider-stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       },
       "min-height": {
-        "$value": "{component.control.size.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.md}"
       }
     },
     "tabs": {
       "container": {
         "divider-thickness": {
-          "$value": "{stroke.1}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.1}"
         }
       },
       "focus": {
         "stroke": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         }
       },
       "item": {
         "height": {
           "lg": {
-            "$value": "{component.control.size.lg}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.lg}"
           },
           "md": {
-            "$value": "{component.control.size.md}",
-            "$type": "dimension"
+            "$type": "dimension",
+            "$value": "{component.control.size.md}"
           }
         },
         "indicator-thickness": {
-          "$value": "{stroke.2}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{stroke.2}"
         },
         "padding-inline": {
-          "$value": "{spacing.4}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{spacing.4}"
         }
       }
     },
     "textarea": {
       "min-height": {
         "lg": {
-          "$value": "{size.128}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.128}"
         },
         "md": {
-          "$value": "{size.96}",
-          "$type": "dimension"
+          "$type": "dimension",
+          "$value": "{size.96}"
         }
       }
     },
     "toast": {
       "max-width": {
-        "$value": "320px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "320px"
       },
       "min-height": {
-        "$value": "{component.control.size.lg}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.control.size.lg}"
       },
       "padding-block": {
-        "$value": "{spacing.3}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.3}"
       },
       "padding-inline": {
-        "$value": "{spacing.4}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.4}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       },
       "stroke": {
-        "$value": "{stroke.1}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{stroke.1}"
       }
     },
     "tooltip": {
       "max-width": {
-        "$value": "240px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "240px"
       },
       "min-height": {
-        "$value": "{size.32}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{size.32}"
       },
       "padding-block": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "padding-inline": {
-        "$value": "{spacing.2}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{spacing.2}"
       },
       "radius": {
-        "$value": "{radius.md}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{radius.md}"
       }
     }
   }

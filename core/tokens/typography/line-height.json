@@ -2,52 +2,52 @@
   "font": {
     "line-height": {
       "100": {
-        "$value": "16px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "16px"
       },
       "200": {
-        "$value": "20px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "20px"
       },
       "300": {
-        "$value": "24px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "24px"
       },
       "400": {
-        "$value": "26px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "26px"
       },
       "500": {
-        "$value": "28px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "28px"
       },
       "600": {
-        "$value": "32px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "32px"
       },
       "700": {
-        "$value": "38px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "38px"
       },
       "800": {
-        "$value": "44px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "44px"
       },
       "900": {
-        "$value": "56px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "56px"
       },
       "1000": {
-        "$value": "68px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "68px"
       },
       "1100": {
-        "$value": "80px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "80px"
       },
       "050": {
-        "$value": "12px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "12px"
       }
     }
   }

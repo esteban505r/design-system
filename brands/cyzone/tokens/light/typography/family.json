@@ -2,20 +2,20 @@
   "font": {
     "family": {
       "accent": {
-        "$value": "Golden Youth Caps",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Golden Youth Caps"
       },
       "base": {
-        "$value": "Red Hat Text",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Red Hat Text"
       },
       "body": {
-        "$value": "Lasiver",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Lasiver"
       },
       "display": {
-        "$value": "Sorren",
-        "$type": "fontFamily"
+        "$type": "fontFamily",
+        "$value": "Sorren"
       }
     }
   }

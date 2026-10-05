@@ -21,7 +21,7 @@
 
 That last row is what keeps it honest: a stale `DESIGN.md` blocks the PR, so what you read here always matches the artifact the apps compile against.
 
-**Version:** 6.0.0  
+**Version:** 6.0.1  
 **Tokens:** 766  
 **By type:** color 439 · dimension 283 · number 14 · fontSize 12 · duration 7 · fontFamily 4 · fontWeight 4 · cubicBezier 3
 

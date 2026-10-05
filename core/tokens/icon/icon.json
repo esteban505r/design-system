@@ -2,38 +2,38 @@
   "icon": {
     "size": {
       "16": {
-        "$value": "{component.icon.size.16}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.icon.size.16}"
       },
       "20": {
-        "$value": "{component.icon.size.20}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.icon.size.20}"
       },
       "24": {
-        "$value": "{component.icon.size.24}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.icon.size.24}"
       },
       "32": {
-        "$value": "{component.icon.size.32}",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "{component.icon.size.32}"
       }
     },
     "stroke": {
       "16": {
-        "$value": "1.5px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "1.5px"
       },
       "20": {
-        "$value": "1.75px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "1.75px"
       },
       "24": {
-        "$value": "2px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "2px"
       },
       "32": {
-        "$value": "2px",
-        "$type": "dimension"
+        "$type": "dimension",
+        "$value": "2px"
       }
     }
   }

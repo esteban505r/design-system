@@ -2,28 +2,28 @@
   "color": {
     "border": {
       "brand": {
-        "$value": "{color.brand.cyzone.primary}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.brand.cyzone.primary}"
       },
       "default": {
-        "$value": "{color.neutral.200}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.neutral.200}"
       },
       "disabled": {
-        "$value": "{color.neutral.200}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.neutral.200}"
       },
       "inverse": {
-        "$value": "{color.neutral.0}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.neutral.0}"
       },
       "strong": {
-        "$value": "{color.neutral.300}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.neutral.300}"
       },
       "subtle": {
-        "$value": "{color.neutral.100}",
-        "$type": "color"
+        "$type": "color",
+        "$value": "{color.neutral.100}"
       }
     }
   }
