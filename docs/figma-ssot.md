@@ -13,7 +13,7 @@ tokens.json
 
 Set the token format to **W3C DTCG** (`$value` / `$type`). The document has one
 token set named `global` (spacing, radius, stroke, z-index, motion) and one set
-per brand (`belcorp`, `esika`, `lbel`, `cyzone`, `ffvv`). A theme enables
+per brand (`multibrand`, `esika`, `lbel`, `cyzone`). A theme enables
 `global` plus that brand. Groups inside a set are nested JSON, not extra files.
 
 `brands/<brand>/figma/tokens.json` is still produced, as a flat export of that

@@ -40,7 +40,7 @@ brandIds.forEach { id ->
     val moduleDir = file("platforms/android/$id")
     require(moduleDir.isDirectory) {
         "Brand \"$id\" has no Android module at platforms/android/$id — " +
-            "copy platforms/android/belcorp/ and change the brandId in its build.gradle.kts"
+            "copy platforms/android/multibrand/ and change the brandId in its build.gradle.kts"
     }
     val artifactId = (JsonSlurper().parse(File(file("brands/$id"), "brand.json")) as Map<*, *>)["artifactId"] as? String
         ?: "tokens-android-$id"

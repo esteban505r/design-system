@@ -8,16 +8,12 @@ and the two branches drifted apart. They are now directories.
 
 | Brand | Owns `core/` | Semantic colours | Typeface | Figma mode |
 |---|---|---|---|---|
-| `belcorp` | ✅ | 369 | Montserrat | Multibrand (Somos Belcorp) |
-| `ffvv` | — | 369 | Montserrat | Multibrand (same semantics as Somos Belcorp) |
+| `multibrand` | ✅ | 369 | Montserrat | Multibrand |
 | `esika` | — | 369 | Hellix, Work Sans | Ésika |
 | `lbel` | — | 369 | Ivar, DM Sans, Gotham, Sweet Sans Pro | L'Bel |
 | `cyzone` | — | 369 | Golden Youth Caps, Red Hat Text, Lasiver, Sorren | Cyzone |
 
-Colour semantics come from Fractal DS 5.0. **Multibrand is the shared layer for
-Somos Belcorp and FFVV** — same roles, same values. Ésika, L'Bel and Cyzone are
-modes of the same file: they keep that semantic set and override the brand
-colours, the typefaces, and three radii (`control`, `overlay`, `surface`).
+Colour semantics come from Fractal DS 5.0. The modes are **Multibrand, Ésika, L'Bel and Cyzone**. There is no Belcorp or FFVV mode — Somos Belcorp and FFVV both use Multibrand. Ésika, L'Bel and Cyzone keep that semantic set and override the brand colours, the typefaces, and three radii (`control`, `overlay`, `surface`).
 
 App-only colours (consultant levels, Camino Brillante, one-off component
 colours) stay in the apps. They are not tokens in this repository.
@@ -111,7 +107,7 @@ is what makes it safe to depend on.
 
 ```mermaid
 flowchart TD
-    BEL["Somos Belcorp and FFVV<br/><b>Multibrand</b>"] --> INT
+    MB["Multibrand"] --> INT
     SUB["Ésika / L'Bel / Cyzone<br/>same roles, brand overrides"] --> INT
     INT{{"intersection"}} --> REQ["<b>REQUIRED — 369</b><br/>an app may bind to these"]
     REQ --> APP(["consuming app"])
@@ -127,7 +123,7 @@ Today that floor is **369 colour roles**, and every brand supplies all of them.
 
 ## Adding a brand
 
-1. `brands/<id>/brand.json` — start from `brands/belcorp/brand.json`. Leave
+1. `brands/<id>/brand.json` — start from `brands/multibrand/brand.json`. Leave
    `ownsCore` unset unless this brand is replacing the one that owns core.
 2. `brands/<id>/figma/tokens.json` — the Tokens Studio export.
 3. Map any new Figma names in `pipeline/token-name-map.mjs`. Unmapped names are

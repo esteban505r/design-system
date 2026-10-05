@@ -200,17 +200,14 @@ t('string-valued tokens are quoted', () => {
 });
 }
 
-// ── Belcorp's published contract ────────────────────────────
-// The tests above hold for every brand. These are specific to Belcorp because
-// they pin identifiers a shipped consumer already compiles against: renaming
-// any of them breaks app-consultoras-replatform-android at its next bump.
-const belcorp = brands.find((b) => b.id === 'belcorp');
-if (belcorp) {
-  const D = distFilesFor(belcorp);
+// ── Multibrand's published contract ─────────────────────────
+// The tests above hold for every brand. These pin the Figma semantic names
+// the Multibrand mode emits. Renaming them breaks consumers at the next bump.
+const multibrand = brands.find((b) => b.id === 'multibrand');
+if (multibrand) {
+  const D = distFilesFor(multibrand);
 
-  test('[belcorp] Figma semantic identifiers are emitted', () => {
-    // 5.0.0 replaced the app-derived names (color_primary_500, bds_font_size_h1).
-    // Somos Belcorp and FFVV both bind to the Multibrand semantic layer.
+  test('[multibrand] Figma semantic identifiers are emitted', () => {
     assert.match(read(D.compose), /\bcolorTextDefault\b/, 'Compose: colorTextDefault');
     assert.ok(
       resourceNames(read(D.androidColors)).includes('color_text_default'),

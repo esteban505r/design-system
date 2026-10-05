@@ -2,10 +2,8 @@
 
 // Rebuild tokens.json from the Fractal DS 5.0 variable collections.
 //
-// Multibrand colour semantics are what Somos Belcorp and FFVV both use.
-// Ésika, L'Bel and Cyzone are the other modes of the same collections.
-// App-only names (color.app.*, x.ffvv.*) are not in the Figma file and are
-// not imported.
+// Figma modes are Multibrand, Ésika, L'Bel and Cyzone. There is no Belcorp
+// or FFVV mode — both apps use Multibrand. App-only names are not imported.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,8 +15,8 @@ import { buildStudioDocument, writeStudioDocument } from './studio-document.mjs'
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const DATA = path.join(HERE, 'fractal');
 
-const BRANDS = ['belcorp', 'esika', 'lbel', 'cyzone'];
-const MODES = ['belcorp', 'esika', 'lbel', 'cyzone'];
+const BRANDS = ['multibrand', 'esika', 'lbel', 'cyzone'];
+const MODES = ['multibrand', 'esika', 'lbel', 'cyzone'];
 
 function setAt(tree, parts, leaf) {
   let node = tree;
@@ -175,17 +173,13 @@ addComponent(global, dimRows, 0);
 /** @type {Record<string, Record<string, unknown>>} */
 const brands = {};
 for (const id of BRANDS) brands[id] = {};
-// FFVV consumes the Multibrand semantic layer. It does not get an app palette.
-brands.ffvv = {};
 
 for (let i = 0; i < MODES.length; i++) {
   addColorSemantics(brands[MODES[i]], colorRows, i);
 }
-addColorSemantics(brands.ffvv, colorRows, 0);
 
 const families = {
-  belcorp: { accent: 'Montserrat', base: 'Montserrat', body: 'Montserrat', display: 'Montserrat' },
-  ffvv: { accent: 'Montserrat', base: 'Montserrat', body: 'Montserrat', display: 'Montserrat' },
+  multibrand: { accent: 'Montserrat', base: 'Montserrat', body: 'Montserrat', display: 'Montserrat' },
   esika: { accent: 'Hellix', base: 'Work Sans', body: 'Hellix', display: 'Hellix' },
   lbel: { accent: 'Ivar', base: 'DM Sans', body: 'Gotham', display: 'Sweet Sans Pro' },
   cyzone: { accent: 'Golden Youth Caps', base: 'Red Hat Text', body: 'Lasiver', display: 'Sorren' },
@@ -196,7 +190,7 @@ for (const [id, faces] of Object.entries(families)) {
   }
 }
 
-// Sub-brands flatten the three semantic radii. Belcorp and FFVV keep Multibrand.
+// Sub-brands flatten the three semantic radii. Multibrand keeps the shared radii.
 for (const id of ['esika', 'lbel', 'cyzone']) {
   for (const row of dimRows) {
     if (row.length === 2) continue;

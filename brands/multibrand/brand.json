@@ -1,0 +1,16 @@
+{
+  "id": "multibrand",
+  "name": "Multibrand",
+  "artifactId": "tokens-android-multibrand",
+  "npmSubpath": "multibrand",
+  "ownsCore": true,
+  "modes": ["light"],
+
+  "// androidNamespace": "R-class namespace of the AAR. Must stay unique per brand — two AARs sharing one namespace produce duplicate R classes. Pinned to the value already published for the shared layer so existing consumers keep compiling.",
+  "androidNamespace": "com.estebanruano.tokens",
+
+  "// composePackage": "Kotlin package of the generated DesignTokens object. Also pinned: the Android app imports com.estebanruano.designtokens.DesignTokens today.",
+  "composePackage": "com.estebanruano.designtokens",
+
+  "extensions": []
+}

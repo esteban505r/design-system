@@ -114,8 +114,8 @@ export function applyStudioDocument(doc, dest = {}) {
   }
 
   const globalTree = asTree(doc[GLOBAL_SET], GLOBAL_SET);
-  // Primitives and the Multibrand semantic layer both live in global. Somos
-  // Belcorp and FFVV share that layer; a sub-brand set only carries overrides.
+  // Primitives live in global. Multibrand, Ésika, L'Bel and Cyzone are the
+  // Figma modes; a sub-brand set only carries what that mode overrides.
   const coreDir = dest.coreDir ?? CORE_TOKENS_DIR;
   const coreWrite = writeTokensFromTree(globalTree, coreDir);
   pruneUnwrittenTokenFiles(coreDir, coreWrite.writtenPaths);

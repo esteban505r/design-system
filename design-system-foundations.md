@@ -4,7 +4,7 @@
 > **`tokens.json` is the absolute single source of truth** (one Tokens Studio file for every
 > brand). The token tree and `dist/` are generated from it by `pnpm run sync`.
 
-**Version:** 5.0.0
+**Version:** 6.0.0
 
 > ## This document holds rules, not values
 >
@@ -13,7 +13,7 @@
 > purple primary (`#7D4DBE`) while the system shipped an orange one (`#BE5B06`) —
 > for months, with no test able to notice.
 >
-> **Token values now live in one place only: [`brands/belcorp/DESIGN.md`](brands/belcorp/DESIGN.md)**,
+> **Token values now live in one place only: [`brands/multibrand/DESIGN.md`](brands/multibrand/DESIGN.md)**,
 > regenerated on every build and drift-checked by CI. What remains here is the
 > part a generator cannot produce: the rules, the intent, and the release policy.
 
@@ -46,7 +46,7 @@ scale. The `app-*` debt tokens are untouched — they are frozen and still being
 ## What the token set covers
 
 Every token, with its current value and the exact identifier to type on each platform, is
-in **[`brands/belcorp/DESIGN.md`](brands/belcorp/DESIGN.md)**. The families:
+in **[`brands/multibrand/DESIGN.md`](brands/multibrand/DESIGN.md)**. The families:
 
 | Family | Shape | Owner |
 |---|---|---|
@@ -76,7 +76,7 @@ A semantic token whose name describes appearance has not actually moved up a tie
 
 ## Releasing
 
-Consumers resolve **`com.estebanruano:tokens-android-belcorp`** from GitHub Packages.
+Consumers resolve **`com.estebanruano:tokens-android-multibrand`** from GitHub Packages.
 Bump the **`VERSION`** file, commit, then run **Actions → Publish Android library** — no
 inputs; it syncs from the Figma export and publishes the version in `VERSION`.
 
@@ -84,7 +84,7 @@ inputs; it syncs from the Figma export and publishes the version in `VERSION`.
 pnpm install && pnpm run version:set -- --version x.y.z && pnpm run sync
 GITHUB_REPOSITORY=esteban505r/design-system \
 GITHUB_ACTOR=<user> GITHUB_TOKEN=<PAT write:packages> \
-./gradlew :tokens-android-belcorp:publish
+./gradlew :tokens-android-multibrand:publish
 ```
 
 Semver describes the **token contract**: **major** = token renamed/removed · **minor** = new

@@ -1,5 +1,5 @@
 // The brand is this directory's name; everything else comes from
-// brands/ffvv/brand.json. See buildSrc/src/main/kotlin/design-tokens-brand-module.gradle.kts.
+// brands/lbel/brand.json. See buildSrc/src/main/kotlin/design-tokens-brand-module.gradle.kts.
 plugins {
     id("design-tokens-brand-module")
 }

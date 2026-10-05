@@ -6,7 +6,7 @@
 // The brand's figma/tokens.json is the source of truth; edit that. This script
 // regenerates it from the token tree so the round trip can be diffed:
 //   node pipeline/tokens-to-figma.mjs --brand belcorp --out /tmp/generated.json
-//   diff brands/belcorp/figma/tokens.json /tmp/generated.json
+//   diff brands/multibrand/figma/tokens.json /tmp/generated.json
 // That diff is what test/lossless.test.mjs asserts is empty.
 // ============================================================
 

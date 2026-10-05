@@ -36,16 +36,15 @@ Geometry lives in `core/` because a rebrand changes colour and type, not the
 spacing scale. Colour and type live per brand because that is exactly what a
 brand *is*.
 
-Five brands ship, each as its own AAR on GitHub Packages — the four Belcorp
-multibrand identities (multibrand core + Ésika, L'Bel, Cyzone) plus FFVV:
+Four modes ship, each as its own AAR on GitHub Packages. Figma names them
+Multibrand, Ésika, L'Bel and Cyzone. Somos Belcorp and FFVV both use Multibrand.
 
-| Brand | Artifact | Consumer |
-|---|---|---|
-| Belcorp (multibrand core) | `com.estebanruano:tokens-android-belcorp` | `app-consultoras-replatform-android` |
-| Ésika | `com.estebanruano:tokens-android-esika` | — |
-| L'Bel | `com.estebanruano:tokens-android-lbel` | — |
-| Cyzone | `com.estebanruano:tokens-android-cyzone` | — |
-| FFVV | `com.estebanruano:tokens-android-ffvv` | `ffvv-android-replatform` |
+| Mode | Artifact |
+|---|---|
+| Multibrand | `com.estebanruano:tokens-android-multibrand` |
+| Ésika | `com.estebanruano:tokens-android-esika` |
+| L'Bel | `com.estebanruano:tokens-android-lbel` |
+| Cyzone | `com.estebanruano:tokens-android-cyzone` |
 
 They share one pipeline, one `VERSION` and one set of role *names* — but not
 values. That distinction is the whole design: see [Brands](docs/brands.md).
