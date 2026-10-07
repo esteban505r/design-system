@@ -99,12 +99,12 @@ class DesignTokens {
     static const colorBrandMultibrandPrimary100 = Color(0xFFD6C4F2);
     static const colorBrandMultibrandPrimary200 = Color(0xFFB896E7);
     static const colorBrandMultibrandPrimary300 = Color(0xFF9D6ED9);
-    static const colorBrandMultibrandPrimary400 = Color(0xFF8A5ACE);
+    static const colorBrandMultibrandPrimary400 = Color(0xFF2FE52C);
     static const colorBrandMultibrandPrimary50 = Color(0xFFEBE2F8);
-    static const colorBrandMultibrandPrimary500 = Color(0xFFBE4DA9);
-    static const colorBrandMultibrandPrimary600 = Color(0xFF6436AB);
-    static const colorBrandMultibrandPrimary700 = Color(0xFF471F86);
-    static const colorBrandMultibrandPrimary800 = Color(0xFF2D0F5E);
+    static const colorBrandMultibrandPrimary500 = Color(0xFF20B72D);
+    static const colorBrandMultibrandPrimary600 = Color(0xFF2E8F2E);
+    static const colorBrandMultibrandPrimary700 = Color(0xFF159B2F);
+    static const colorBrandMultibrandPrimary800 = Color(0xFF0E582F);
     static const colorBrandMultibrandSecondary00 = Color(0xFFFFFDF5);
     static const colorBrandMultibrandSecondary100 = Color(0xFFFFECB3);
     static const colorBrandMultibrandSecondary200 = Color(0xFFFFE082);

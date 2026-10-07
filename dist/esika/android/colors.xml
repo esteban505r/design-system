@@ -34,11 +34,11 @@
   <color name="color_brand_multibrand_primary_100">#ffd6c4f2</color>
   <color name="color_brand_multibrand_primary_200">#ffb896e7</color>
   <color name="color_brand_multibrand_primary_300">#ff9d6ed9</color>
-  <color name="color_brand_multibrand_primary_400">#ff8a5ace</color>
-  <color name="color_brand_multibrand_primary_500">#ffbe4da9</color>
-  <color name="color_brand_multibrand_primary_600">#ff6436ab</color>
-  <color name="color_brand_multibrand_primary_700">#ff471f86</color>
-  <color name="color_brand_multibrand_primary_800">#ff2d0f5e</color>
+  <color name="color_brand_multibrand_primary_400">#ff2fe52c</color>
+  <color name="color_brand_multibrand_primary_500">#ff20b72d</color>
+  <color name="color_brand_multibrand_primary_600">#ff2e8f2e</color>
+  <color name="color_brand_multibrand_primary_700">#ff159b2f</color>
+  <color name="color_brand_multibrand_primary_800">#ff0e582f</color>
   <color name="color_brand_multibrand_primary_00">#fff5f0fc</color>
   <color name="color_brand_multibrand_secondary_50">#fffff8e1</color>
   <color name="color_brand_multibrand_secondary_100">#ffffecb3</color>
